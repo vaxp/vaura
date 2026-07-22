@@ -114,3 +114,28 @@ executable('demo_drawer',
   sources: ['drawer/main.cpp'],
   dependencies: vaura_dep,
 )
+
+executable('demo_expansion_panel',
+  sources: ['expansion_panel/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_fab',
+  sources: ['fab/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_flexbox',
+  sources: ['flexbox/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_gesture_detector',
+  sources: ['gesture_detector/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_icon',
+  sources: ['icon/main.cpp'],
+  dependencies: vaura_dep,
+)

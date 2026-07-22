@@ -115,6 +115,31 @@ executable('demo_drawer',
   dependencies: vaura_dep,
 )
 
+executable('demo_image_widget',
+  sources: ['image_widget/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_linear_progress',
+  sources: ['linear_progress/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_navigation_rail',
+  sources: ['navigation_rail/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_opacity',
+  sources: ['opacity/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_popup_menu',
+  sources: ['popup_menu/main.cpp'],
+  dependencies: vaura_dep,
+)
+
 executable('demo_expansion_panel',
   sources: ['expansion_panel/main.cpp'],
   dependencies: vaura_dep,

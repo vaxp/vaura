@@ -1,0 +1,58 @@
+# Tests
+test_deps = [vaura_dep]
+
+# Core tests
+test('test_memory',
+  executable('test_memory',
+    'core/test_memory.cpp',
+    dependencies : test_deps,
+  ),
+)
+
+test('test_result',
+  executable('test_result',
+    'core/test_result.cpp',
+    dependencies : test_deps,
+  ),
+)
+
+test('test_signal',
+  executable('test_signal',
+    'core/test_signal.cpp',
+    dependencies : test_deps,
+  ),
+)
+
+# Tree tests
+test('test_key',
+  executable('test_key',
+    'tree/test_key.cpp',
+    dependencies : test_deps,
+  ),
+)
+
+test('test_widget_tree',
+  executable('test_widget_tree',
+    'tree/test_widget_tree.cpp',
+    dependencies : test_deps,
+  ),
+)
+
+test('test_element_lifecycle',
+  executable('test_element_lifecycle',
+    'tree/test_element_lifecycle.cpp',
+    dependencies : test_deps,
+  ),
+)
+
+
+
+# Rendering tests
+test('test_rendering',
+  executable('test_rendering',
+    'rendering/test_rendering.cpp',
+    dependencies : test_deps,
+  ),
+)
+
+

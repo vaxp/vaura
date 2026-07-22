@@ -1,0 +1,60 @@
+#pragma once
+/// @file canvas.hpp
+/// @brief 2D drawing canvas abstraction.
+
+#include "vaura/core/types.hpp"
+#include "vaura/rendering/paint.hpp"
+#include "vaura/rendering/path.hpp"
+#include <memory>
+#include <string_view>
+
+namespace vaura {
+
+/// Abstract canvas for drawing shapes, text, and images.
+class Canvas {
+public:
+    Canvas() = default;
+    virtual ~Canvas() = default;
+
+    // State management
+    virtual void save() = 0;
+    virtual void restore() = 0;
+    virtual void saveLayerAlpha(float alpha, const Rect* bounds = nullptr) = 0;
+    
+    // Transformations
+    virtual void translate(float dx, float dy) = 0;
+    virtual void scale(float sx, float sy) = 0;
+    virtual void rotate(float degrees) = 0;
+    virtual void clipRect(const Rect& rect) = 0;
+    virtual void clipRRect(const Rect& rect, const BorderRadius& radius) = 0;
+
+    // Drawing operations
+    virtual void clear(Color color) = 0;
+    virtual void drawLine(Point p1, Point p2, const Paint& paint) = 0;
+    virtual void drawRect(const Rect& rect, const Paint& paint) = 0;
+    virtual void drawRRect(const Rect& rect, const BorderRadius& radius, const Paint& paint) = 0;
+    virtual void drawCircle(Point center, float radius, const Paint& paint) = 0;
+    virtual void drawPath(const Path& path, const Paint& paint) = 0;
+    
+    /// Draw an arc within the given rectangle.
+    /// @param rect       The bounding rectangle of the oval that defines the arc.
+    /// @param startAngle Starting angle in degrees (0 = 3 o'clock, clockwise).
+    /// @param sweepAngle Sweep angle in degrees.
+    /// @param useCenter  If true, draw lines from arc endpoints to center (pie slice).
+    virtual void drawArc(const Rect& rect, float startAngle, float sweepAngle,
+                         bool useCenter, const Paint& paint) = 0;
+
+    /// Draw an oval inscribed in the given rectangle.
+    virtual void drawOval(const Rect& rect, const Paint& paint) = 0;
+
+    /// Draw a series of points.
+    virtual void drawPoints(const Point* points, size_t count, const Paint& paint) = 0;
+
+    /// Draw a simple text string (for basic needs without full typography).
+    virtual void drawText(std::string_view text, Point pos, const Paint& paint, float font_size) = 0;
+
+    /// Get native SkCanvas* (for advanced usage)
+    virtual void* getNativeHandle() = 0;
+};
+
+}  // namespace vaura

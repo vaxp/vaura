@@ -44,4 +44,9 @@ struct BottomSheetConfig {
 /// Create a BottomSheet widget.
 std::shared_ptr<Widget> bottom_sheet(BottomSheetConfig config);
 
+/// Declarative syntax alias for BottomSheet
+inline std::shared_ptr<Widget> BottomSheet(BottomSheetConfig config) {
+    return bottom_sheet(std::move(config));
+}
+
 } // namespace vaura

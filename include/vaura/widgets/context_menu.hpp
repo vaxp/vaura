@@ -66,4 +66,9 @@ struct ContextMenuConfig {
 /// Create a ContextMenu widget.
 std::shared_ptr<Widget> context_menu(ContextMenuConfig config);
 
+/// Declarative syntax alias for ContextMenu
+inline std::shared_ptr<Widget> ContextMenu(ContextMenuConfig config) {
+    return context_menu(std::move(config));
+}
+
 } // namespace vaura

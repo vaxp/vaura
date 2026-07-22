@@ -31,4 +31,14 @@ std::shared_ptr<Widget> icon(uint32_t codepoint, IconConfig config = {});
 /// @return A configured icon widget.
 std::shared_ptr<Widget> icon(IconData icon_data, IconConfig config = {});
 
+/// Declarative syntax alias for Icon (codepoint)
+inline std::shared_ptr<Widget> Icon(uint32_t codepoint, IconConfig config = {}) {
+    return icon(codepoint, std::move(config));
+}
+
+/// Declarative syntax alias for Icon (IconData)
+inline std::shared_ptr<Widget> Icon(IconData icon_data, IconConfig config = {}) {
+    return icon(icon_data, std::move(config));
+}
+
 } // namespace vaura

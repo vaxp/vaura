@@ -58,4 +58,9 @@ struct FABConfig {
 /// Create a FloatingActionButton widget.
 std::shared_ptr<Widget> fab(FABConfig config);
 
+/// Declarative syntax alias for FAB
+inline std::shared_ptr<Widget> FAB(FABConfig config) {
+    return fab(std::move(config));
+}
+
 } // namespace vaura

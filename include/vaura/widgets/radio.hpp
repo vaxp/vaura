@@ -26,4 +26,9 @@ struct RadioConfig {
 /// Create a RadioButton widget.
 std::shared_ptr<Widget> radio(RadioConfig config = {});
 
+/// Declarative syntax alias for Radio
+inline std::shared_ptr<Widget> Radio(RadioConfig config = {}) {
+    return radio(std::move(config));
+}
+
 } // namespace vaura

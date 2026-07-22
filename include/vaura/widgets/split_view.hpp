@@ -48,4 +48,9 @@ struct SplitViewConfig {
 /// Create a SplitView widget.
 std::shared_ptr<Widget> split_view(SplitViewConfig config);
 
+/// Declarative syntax alias for SplitView
+inline std::shared_ptr<Widget> SplitView(SplitViewConfig config) {
+    return split_view(std::move(config));
+}
+
 } // namespace vaura

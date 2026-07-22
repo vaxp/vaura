@@ -49,4 +49,9 @@ struct SnackbarConfig {
 /// Create a Snackbar widget.
 std::shared_ptr<Widget> snackbar(SnackbarConfig config);
 
+/// Declarative syntax alias for Snackbar
+inline std::shared_ptr<Widget> Snackbar(SnackbarConfig config) {
+    return snackbar(std::move(config));
+}
+
 } // namespace vaura

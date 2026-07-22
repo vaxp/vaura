@@ -34,4 +34,9 @@ inline WidgetPtr stack(StackConfig config) {
     return std::make_shared<StackWidget>(std::move(config));
 }
 
+/// Declarative syntax alias for Stack
+inline WidgetPtr Stack(StackConfig config) {
+    return stack(std::move(config));
+}
+
 } // namespace vaura

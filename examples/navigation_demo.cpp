@@ -38,12 +38,12 @@ public:
         root->widthPercent(100).heightPercent(100).backgroundColor(0xFF0F172A);
 
         // ── Navigation Rail (left sidebar) ────────────────────
-        auto rail = navigation_rail({
+        auto rail = NavigationRail({
             .items = {
-                {.icon = icon(Icons::House),      .label = "Dashboard"},
-                {.icon = icon(Icons::ChartBar),   .label = "Analytics"},
-                {.icon = icon(Icons::Folder),     .label = "Projects"},
-                {.icon = icon(Icons::GearAlt),    .label = "Settings"},
+                {.icon = Icon(Icons::House),      .label = "Dashboard"},
+                {.icon = Icon(Icons::ChartBar),   .label = "Analytics"},
+                {.icon = Icon(Icons::Folder),     .label = "Projects"},
+                {.icon = Icon(Icons::GearAlt),    .label = "Settings"},
             },
             .selected_index          = nav_index,
             .on_changed              = [this](int i) { setState([this,i]{ nav_index=i; }); },
@@ -65,7 +65,7 @@ public:
             {.label = "Home",     .on_tap = [this]{ setState([this]{ nav_index=0; }); }},
             {.label = pages[nav_index]},
         };
-        main_col->child(breadcrumb({
+        main_col->child(Breadcrumb({
             .items       = crumbs,
             .separator      = " / ",
             .active_color   = 0xFFF8FAFC,
@@ -75,25 +75,25 @@ public:
         // Page title
         auto title_box = std::make_shared<FlexBox>();
         title_box->margin(YGEdgeTop, 20).margin(YGEdgeBottom, 24);
-        title_box->child(text(pages[nav_index], {
+        title_box->child(Text(pages[nav_index], {
             .font_size = 28, .color = 0xFFF8FAFC, .weight = TextStyle::Bold
         }));
         main_col->child(title_box);
 
         // Stepper (shown on Projects tab)
         if (nav_index == 2) {
-            main_col->child(text("Project Setup Wizard", {.font_size = 16, .color = 0xFF94A3B8}));
+            main_col->child(Text("Project Setup Wizard", {.font_size = 16, .color = 0xFF94A3B8}));
             auto sw = std::make_shared<FlexBox>();
             sw->margin(YGEdgeTop, 16).width(680);
 
             auto step_content = [](const char* msg) {
                 auto f = std::make_shared<FlexBox>();
                 f->padding(YGEdgeAll, 12);
-                f->child(text(msg, {.font_size=14, .color=0xFFCBD5E1}));
+                f->child(Text(msg, {.font_size=14, .color=0xFFCBD5E1}));
                 return std::static_pointer_cast<Widget>(f);
             };
 
-            sw->child(stepper({
+            sw->child(Stepper({
                 .steps = {
                     {.title="Project Type",   .subtitle="Choose template", .content=step_content("Choose between Web App, API, or Mobile.")},
                     {.title="Configuration",  .subtitle="Set parameters",  .content=step_content("Set project name, language, and dependencies.")},
@@ -114,13 +114,13 @@ public:
             main_col->child(sw);
         } else {
             // Placeholder content
-            auto card = container({
+            auto card = Container({
                 .color         = 0xFF1E293B,
                 .width_percent = 100.0f,
                 .padding       = EdgeInsets::all(24),
                 .border_radius = BorderRadius::circular(12),
                 .border        = Border{0xFF334155, 1},
-                .child         = text("Content for \"" + std::string(pages[nav_index]) + "\" page.",
+                .child         = Text("Content for \"" + std::string(pages[nav_index]) + "\" page.",
                                       {.font_size=15, .color=0xFF94A3B8}),
             });
             main_col->child(card);
@@ -131,8 +131,8 @@ public:
         fab_wrap->positionType(YGPositionTypeAbsolute)
                  .position(YGEdgeBottom, 24)
                  .position(YGEdgeRight, 24);
-        fab_wrap->child(fab({
-            .icon      = icon(Icons::Plus, {.size=22,.color=0xFFFFFFFF}),
+        fab_wrap->child(FAB({
+            .icon      = Icon(Icons::Plus, {.size=22,.color=0xFFFFFFFF}),
             .label     = (nav_index == 0) ? "New" : "",
             .on_pressed= [this](){ setState([this]{ nav_index=2; step_index=0; }); },
             .background_color = 0xFF0EA5E9,
@@ -146,18 +146,18 @@ public:
         if (drawer_open) {
             auto drawer_col = std::make_shared<FlexBox>();
             drawer_col->flexDirection(YGFlexDirectionColumn).padding(YGEdgeAll, 20);
-            drawer_col->child(text("Menu", {.font_size=22,.color=0xFFF8FAFC,.weight=TextStyle::Bold}));
+            drawer_col->child(Text("Menu", {.font_size=22,.color=0xFFF8FAFC,.weight=TextStyle::Bold}));
             for (int i = 0; i < 4; ++i) {
                 auto row = std::make_shared<FlexBox>();
                 row->height(48).alignItems(YGAlignCenter);
-                row->child(text(pages[i], {.font_size=15,.color=0xFFCBD5E1}));
+                row->child(Text(pages[i], {.font_size=15,.color=0xFFCBD5E1}));
                 int ci=i;
-                drawer_col->child(gesture_detector({
+                drawer_col->child(GestureDetector({
                     .child  = row,
                     .on_tap = [this,ci](){ setState([this,ci]{ nav_index=ci; drawer_open=false; }); },
                 }));
             }
-            root->child(drawer({
+            root->child(Drawer({
                 .child     = drawer_col,
                 .is_open   = drawer_open,
                 .on_close  = [this](){ setState([this]{ drawer_open=false; }); },

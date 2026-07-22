@@ -17,7 +17,7 @@ public:
             .backgroundColor(0xFF0F172A) // Slate 900
             .widthPercent(100).heightPercent(100);
 
-        auto title = text("Container Showcase", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold});
+        auto title = Text("Container Showcase", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold});
         root->child(title);
 
         auto row = std::make_shared<FlexBox>();
@@ -30,9 +30,9 @@ public:
         inner_pill->width(200).height(80)
                   .justifyContent(YGJustifyCenter)
                   .alignItems(YGAlignCenter)
-                  .child(text("Pill Shape", {.font_size = 20.0f, .color = 0xFFFFFFFF}));
+                  .child(Text("Pill Shape", {.font_size = 20.0f, .color = 0xFFFFFFFF}));
                   
-        auto pill_container = container({
+        auto pill_container = Container({
             .color = 0xFF3B82F6, // Blue 500
             .border_radius = BorderRadius(40.0f), // Half of height
             .shadow = Shadow{0x603B82F6, 24.0f, {0, 12}},
@@ -45,9 +45,9 @@ public:
         inner_glass->width(180).height(180)
                    .justifyContent(YGJustifyCenter)
                    .alignItems(YGAlignCenter)
-                   .child(text("Deep Shadow", {.font_size = 20.0f, .color = 0xFFFFFFFF}));
+                   .child(Text("Deep Shadow", {.font_size = 20.0f, .color = 0xFFFFFFFF}));
                    
-        auto glass_container = container({
+        auto glass_container = Container({
             .color = 0xFF1E293B, // Slate 800
             .border_radius = BorderRadius(24.0f),
             .border = Border(0xFF334155, 2.0f),
@@ -62,9 +62,9 @@ public:
                   .justifyContent(YGJustifyCenter)
                   .alignItems(YGAlignCenter)
                   .backgroundColor(0xFF8B5CF6) // Violet 500
-                  .child(text("Asymmetric", {.font_size = 20.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+                  .child(Text("Asymmetric", {.font_size = 20.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
                   
-        auto clipped_container = container({
+        auto clipped_container = Container({
             .color = 0x00000000,
             .border_radius = BorderRadius{60.0f, 16.0f, 60.0f, 16.0f}, // Asymmetric
             .shadow = Shadow{0x508B5CF6, 20.0f, {0, 10}},

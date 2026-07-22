@@ -64,7 +64,7 @@ public:
         card_cfg.shadow_dy = 10.0f;
         card_cfg.padding = EdgeInsets(40, 60, 40, 60);
 
-        center->child(card(card_cfg, card_layout));
+        center->child(Card(card_cfg, card_layout));
         return center;
     }
 };

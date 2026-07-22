@@ -19,17 +19,17 @@ public:
             .backgroundColor(0xFF0F172A) // Slate 900
             .widthPercent(100).heightPercent(100);
 
-        root->child(text("Counter: " + std::to_string(counter), {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+        root->child(Text("Counter: " + std::to_string(counter), {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
 
         // Stack-like absolute positioning for the FAB
         FABConfig fab_cfg;
-        fab_cfg.icon = icon(Icons::Plus, {.color = 0xFFFFFFFF});
+        fab_cfg.icon = Icon(Icons::Plus, {.color = 0xFFFFFFFF});
         fab_cfg.background_color = 0xFF6366F1; // Indigo 500
         fab_cfg.on_pressed = [this]() {
             setState([this]() { counter++; });
         };
         
-        auto fab_widget = fab(fab_cfg);
+        auto fab_widget = FAB(fab_cfg);
         
         auto fab_wrap = std::make_shared<FlexBox>();
         fab_wrap->positionType(YGPositionTypeAbsolute)
@@ -39,7 +39,7 @@ public:
 
         // Extended FAB
         FABConfig ext_fab_cfg;
-        ext_fab_cfg.icon = icon(Icons::Pencil, {.color = 0xFFFFFFFF});
+        ext_fab_cfg.icon = Icon(Icons::Pencil, {.color = 0xFFFFFFFF});
         ext_fab_cfg.label = "Reset";
         ext_fab_cfg.background_color = 0xFFEF4444; // Red 500
         ext_fab_cfg.on_pressed = [this]() {
@@ -50,7 +50,7 @@ public:
         ext_fab_wrap->positionType(YGPositionTypeAbsolute)
                     .position(YGEdgeBottom, 40.0f)
                     .position(YGEdgeLeft, 40.0f)
-                    .child(fab(ext_fab_cfg));
+                    .child(FAB(ext_fab_cfg));
 
         root->child(fab_wrap);
         root->child(ext_fab_wrap);

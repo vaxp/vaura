@@ -25,3 +25,16 @@ public:
 };
 
 } // namespace vaura
+
+namespace vaura {
+
+inline std::shared_ptr<Widget> shader_background(ShaderBackgroundConfig config) {
+    return std::make_shared<ShaderBackgroundWidget>(std::move(config));
+}
+
+/// Declarative syntax alias for ShaderBackground
+inline std::shared_ptr<Widget> ShaderBackground(ShaderBackgroundConfig config) {
+    return shader_background(std::move(config));
+}
+
+} // namespace vaura

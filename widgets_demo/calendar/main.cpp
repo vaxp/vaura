@@ -74,7 +74,7 @@ public:
                    .borderRadius(16.0f)
                    .padding(YGEdgeAll, 8.0f);
                    
-        cal_wrapper->child(calendar(cal_cfg));
+        cal_wrapper->child(Calendar(cal_cfg));
 
         body->child(cal_wrapper);
 

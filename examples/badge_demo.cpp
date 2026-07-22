@@ -27,33 +27,33 @@ public:
            .width(400);
 
         // Icon 1: Notifications
-        auto icon1 = icon(0xf448, {
+        auto icon1 = Icon(0xf448, {
             .size = 36.0f,
             .color = 0xFFCBD5E1
         });
-        auto b1 = badge({
+        auto b1 = Badge({
             .text = "3",
             .background_color = 0xFFEF4444, // Red
             .child = icon1
         });
 
         // Icon 2: Messages
-        auto icon2 = icon(0xf443, { // heart_solid
+        auto icon2 = Icon(0xf443, { // heart_solid
             .size = 36.0f,
             .color = 0xFFCBD5E1
         });
-        auto b2 = badge({
+        auto b2 = Badge({
             .text = "99+",
             .background_color = 0xFF3B82F6, // Blue
             .child = icon2
         });
 
         // Icon 3: Shopping Cart
-        auto icon3 = icon(0xf47d, { // person
+        auto icon3 = Icon(0xf47d, { // person
             .size = 36.0f,
             .color = 0xFFCBD5E1
         });
-        auto b3 = badge({
+        auto b3 = Badge({
             .text = "12",
             .background_color = 0xFF10B981, // Emerald
             .offset = {-2.0f, 2.0f}, // slight adjustment
@@ -62,7 +62,7 @@ public:
 
         row->child(b1).child(b2).child(b3);
 
-        auto c = card({
+        auto c = Card({
             .color = 0xFF0F172A,
             .border_radius = 20.0f,
             .elevation = 15.0f,

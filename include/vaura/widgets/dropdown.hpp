@@ -63,4 +63,9 @@ struct DropdownConfig {
 /// Create a Dropdown widget.
 std::shared_ptr<Widget> dropdown(DropdownConfig config);
 
+/// Declarative syntax alias for Dropdown
+inline std::shared_ptr<Widget> Dropdown(DropdownConfig config) {
+    return dropdown(std::move(config));
+}
+
 } // namespace vaura

@@ -19,7 +19,7 @@ public:
             .backgroundColor(0xFF0F172A)
             .widthPercent(100).heightPercent(100);
 
-        root->child(text("Shader Button Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+        root->child(Text("Shader Button Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
 
         auto spacer = std::make_shared<FlexBox>();
         spacer->height(40);
@@ -55,9 +55,9 @@ public:
             std::cout << "Shader button tapped!" << std::endl;
         };
         
-        btn_cfg.child = text("Animated Button", {.font_size = 18.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold});
+        btn_cfg.child = Text("Animated Button", {.font_size = 18.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold});
 
-        root->child(shader_button(btn_cfg));
+        root->child(ShaderButton(btn_cfg));
 
         return root;
     }

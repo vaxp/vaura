@@ -64,4 +64,9 @@ inline WidgetPtr text_field(TextFieldConfig config) {
     return std::make_shared<TextFieldWidget>(std::move(config));
 }
 
+/// Declarative syntax alias for TextField
+inline WidgetPtr TextField(TextFieldConfig config) {
+    return text_field(std::move(config));
+}
+
 } // namespace vaura

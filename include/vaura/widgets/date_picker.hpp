@@ -30,4 +30,9 @@ struct DatePickerConfig {
 /// Create a DatePicker widget.
 std::shared_ptr<Widget> date_picker(DatePickerConfig config);
 
+/// Declarative syntax alias for DatePicker
+inline std::shared_ptr<Widget> DatePicker(DatePickerConfig config) {
+    return date_picker(std::move(config));
+}
+
 } // namespace vaura

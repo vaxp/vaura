@@ -29,4 +29,9 @@ struct CheckboxConfig {
 /// @return A configured Checkbox widget.
 std::shared_ptr<Widget> checkbox(CheckboxConfig config = {});
 
+/// Declarative syntax alias for Checkbox
+inline std::shared_ptr<Widget> Checkbox(CheckboxConfig config = {}) {
+    return checkbox(std::move(config));
+}
+
 } // namespace vaura

@@ -47,7 +47,7 @@ public:
              .padding(YGEdgeTop, 40);
 
         // ── Title ─────────────────────────────────────────────
-        root->child(text("Phase 1 — Overlay Widgets", {
+        root->child(Text("Phase 1 — Overlay Widgets", {
             .font_size = 28,
             .color     = 0xFFF8FAFC,
             .weight    = TextStyle::Bold,
@@ -55,16 +55,16 @@ public:
 
         auto sub = std::make_shared<FlexBox>();
         sub->margin(YGEdgeTop, 8).margin(YGEdgeBottom, 32);
-        sub->child(text(status_message, {.font_size = 14, .color = 0xFF94A3B8}));
+        sub->child(Text(status_message, {.font_size = 14, .color = 0xFF94A3B8}));
         root->child(sub);
 
         // ── Dropdown ──────────────────────────────────────────
         auto dw = std::make_shared<FlexBox>();
         dw->flexDirection(YGFlexDirectionColumn).alignItems(YGAlignCenter).margin(YGEdgeBottom, 24);
-        dw->child(text("Framework Selector", {.font_size = 13, .color = 0xFF64748B}));
+        dw->child(Text("Framework Selector", {.font_size = 13, .color = 0xFF64748B}));
 
         auto drop_wrap = std::make_shared<FlexBox>();
-        drop_wrap->margin(YGEdgeTop, 8).child(dropdown({
+        drop_wrap->margin(YGEdgeTop, 8).child(Dropdown({
             .items = {
                 {.label = "⚛️  React",     .value = "react"},
                 {.label = "🅥  Vue.js",    .value = "vue"},
@@ -93,20 +93,20 @@ public:
         root->child(dw);
 
         // ── Context Menu card ─────────────────────────────────
-        root->child(text("Right-click the card:", {.font_size = 13, .color = 0xFF64748B}));
-        auto ctx_card = container({
+        root->child(Text("Right-click the card:", {.font_size = 13, .color = 0xFF64748B}));
+        auto ctx_card = Container({
             .color         = 0xFF1E293B,
             .width         = 320,
             .height        = 90,
             .padding       = EdgeInsets::all(16),
             .border_radius = BorderRadius::circular(12),
             .border        = Border{0xFF334155, 1},
-            .child         = text("Right-click me!", {
+            .child         = Text("Right-click me!", {
                                 .font_size = 16, .color = 0xFFCBD5E1,
                                 .align = TextStyle::Center }),
         });
 
-        auto ctx_gd = context_menu({
+        auto ctx_gd = ContextMenu({
             .child = ctx_card,
             .items = {
                 {.label = "✂️  Cut",   .on_tap = [this]{ setState([this]{ status_message = "Cut"; }); }},
@@ -124,12 +124,12 @@ public:
         root->child(ctx_wrap);
 
         // ── Bottom Sheet ──────────────────────────────────────
-        auto sheet_btn = gesture_detector({
-            .child = container({
+        auto sheet_btn = GestureDetector({
+            .child = Container({
                 .color         = 0xFF0EA5E9,
                 .padding       = EdgeInsets{14, 32, 14, 32},
                 .border_radius = BorderRadius::circular(10),
-                .child         = text("Open Bottom Sheet", {.color = 0xFFFFFFFF, .weight = TextStyle::SemiBold}),
+                .child         = Text("Open Bottom Sheet", {.color = 0xFFFFFFFF, .weight = TextStyle::SemiBold}),
             }),
             .on_tap = [this]() { setState([this]{ sheet_open = true; }); },
         });
@@ -139,17 +139,17 @@ public:
         if (sheet_open) {
             auto sheet_content = std::make_shared<FlexBox>();
             sheet_content->flexDirection(YGFlexDirectionColumn).padding(YGEdgeAll, 20);
-            sheet_content->child(text("Share Options", {.font_size = 18, .color = 0xFFF8FAFC, .weight = TextStyle::Bold}));
+            sheet_content->child(Text("Share Options", {.font_size = 18, .color = 0xFFF8FAFC, .weight = TextStyle::Bold}));
 
             for (const char* opt : {"🔗 Copy Link", "🐦 Twitter / X", "📘 Facebook", "💬 WhatsApp"}) {
                 auto row = std::make_shared<FlexBox>();
                 row->height(52).alignItems(YGAlignCenter).padding(YGEdgeHorizontal, 4);
-                row->child(text(opt, {.font_size = 15, .color = 0xFFF8FAFC}));
+                row->child(Text(opt, {.font_size = 15, .color = 0xFFF8FAFC}));
                 sheet_content->child(row);
-                sheet_content->child(divider({.thickness = 1, .color = 0xFF1E293B}));
+                sheet_content->child(Divider({.thickness = 1, .color = 0xFF1E293B}));
             }
 
-            root->child(bottom_sheet({
+            root->child(BottomSheet({
                 .child             = sheet_content,
                 .is_open           = sheet_open,
                 .on_close          = [this]() { setState([this]{ sheet_open = false; }); },

@@ -59,4 +59,9 @@ struct ResizablePanelsConfig {
 /// Create a ResizablePanels widget.
 std::shared_ptr<Widget> resizable_panels(ResizablePanelsConfig config);
 
+/// Declarative syntax alias for ResizablePanels
+inline std::shared_ptr<Widget> ResizablePanels(ResizablePanelsConfig config) {
+    return resizable_panels(std::move(config));
+}
+
 } // namespace vaura

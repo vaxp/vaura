@@ -23,4 +23,9 @@ struct BadgeConfig {
 /// Create a Badge widget.
 std::shared_ptr<Widget> badge(BadgeConfig config);
 
+/// Declarative syntax alias for Badge
+inline std::shared_ptr<Widget> Badge(BadgeConfig config) {
+    return badge(std::move(config));
+}
+
 } // namespace vaura

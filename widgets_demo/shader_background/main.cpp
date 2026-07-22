@@ -19,7 +19,7 @@ public:
             .backgroundColor(0xFF0F172A)
             .widthPercent(100).heightPercent(100);
 
-        root->child(text("Shader Background Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+        root->child(Text("Shader Background Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
 
         auto spacer = std::make_shared<FlexBox>();
         spacer->height(40);
@@ -45,13 +45,13 @@ public:
         content->justifyContent(YGJustifyCenter)
                .alignItems(YGAlignCenter)
                .widthPercent(100).heightPercent(100);
-        content->child(text("Hello GLSL!", {.font_size = 48.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+        content->child(Text("Hello GLSL!", {.font_size = 48.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
 
         StackConfig stack_cfg;
         stack_cfg.alignment = Alignment::Center;
         stack_cfg.children = {bg_container, content};
 
-        auto stack_widget = stack(stack_cfg);
+        auto stack_widget = Stack(stack_cfg);
         
         auto stack_container = std::make_shared<FlexBox>();
         stack_container->widthPercent(100).heightPercent(100).child(stack_widget);

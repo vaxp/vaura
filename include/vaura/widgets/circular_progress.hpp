@@ -36,4 +36,9 @@ inline WidgetPtr circular_progress(CircularProgressConfig config = {}) {
     return std::make_shared<CircularProgressWidget>(std::move(config));
 }
 
+/// Declarative syntax alias for CircularProgress
+inline WidgetPtr CircularProgress(CircularProgressConfig config = {}) {
+    return circular_progress(std::move(config));
+}
+
 } // namespace vaura

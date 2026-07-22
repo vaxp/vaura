@@ -18,7 +18,7 @@ public:
             .justifyContent(YGJustifyCenter)
             .alignItems(YGAlignCenter);
 
-        auto title = text("Card Widget Demo", {
+        auto title = Text("Card Widget Demo", {
             .font_size = 28,
             .color = 0xFF0F172A,
             .weight = TextStyle::Bold
@@ -37,13 +37,13 @@ public:
             auto content_col = std::make_shared<FlexBox>();
             content_col->flexDirection(YGFlexDirectionColumn);
 
-            auto name = text("Aether Desktop", {
+            auto name = Text("Aether Desktop", {
                 .font_size = 22,
                 .color = 0xFF1E293B,
                 .weight = TextStyle::Bold
             });
             
-            auto desc = text("Next Generation Operating System Environment built with VAURA.", {
+            auto desc = Text("Next Generation Operating System Environment built with VAURA.", {
                 .font_size = 16,
                 .color = 0xFF64748B
             });
@@ -56,7 +56,7 @@ public:
 
             content_col->child(name_c).child(desc_c);
 
-            return card({
+            return Card({
                 .color = 0xFFFFFFFF,
                 .border_radius = 24.0f,
                 .elevation = 20.0f, // Big luxurious shadow

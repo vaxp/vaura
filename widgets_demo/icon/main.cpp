@@ -22,7 +22,7 @@ public:
 
         auto title = std::make_shared<FlexBox>();
         title->margin(YGEdgeBottom, 40)
-             .child(text("Icon Gallery", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+             .child(Text("Icon Gallery", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
         root->child(title);
 
         auto grid = std::make_shared<FlexBox>();
@@ -56,10 +56,10 @@ public:
             icfg.size = is_hovered ? 56.0f : 48.0f; // Scale up on hover
             icfg.color = is_hovered ? 0xFF0EA5E9 : 0xFF94A3B8; // Color change
             
-            item_box->child(icon(icons[i].first, icfg));
+            item_box->child(Icon(icons[i].first, icfg));
             
             auto t = std::make_shared<FlexBox>();
-            t->margin(YGEdgeTop, 12).child(text(icons[i].second, {.font_size = 14.0f, .color = is_hovered ? 0xFFF8FAFC : 0xFF94A3B8}));
+            t->margin(YGEdgeTop, 12).child(Text(icons[i].second, {.font_size = 14.0f, .color = is_hovered ? 0xFFF8FAFC : 0xFF94A3B8}));
             item_box->child(t);
             
             GestureDetectorConfig gd_cfg;
@@ -67,7 +67,7 @@ public:
             gd_cfg.on_hover_enter = [this, i]() { setState([this, i]() { hovered_idx = i; }); };
             gd_cfg.on_hover_exit = [this, i]() { setState([this, i]() { if (hovered_idx == static_cast<int>(i)) hovered_idx = -1; }); };
             
-            grid->child(gesture_detector(gd_cfg));
+            grid->child(GestureDetector(gd_cfg));
         }
 
         root->child(grid);

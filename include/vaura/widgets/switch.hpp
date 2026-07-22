@@ -36,4 +36,9 @@ inline WidgetPtr toggle_switch(SwitchConfig config) {
     return std::make_shared<SwitchWidget>(std::move(config));
 }
 
+/// Declarative syntax alias for Switch
+inline WidgetPtr Switch(SwitchConfig config) {
+    return toggle_switch(std::move(config));
+}
+
 } // namespace vaura

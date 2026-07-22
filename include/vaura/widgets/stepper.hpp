@@ -71,4 +71,9 @@ struct StepperConfig {
 /// Create a Stepper widget.
 std::shared_ptr<Widget> stepper(StepperConfig config);
 
+/// Declarative syntax alias for Stepper
+inline std::shared_ptr<Widget> Stepper(StepperConfig config) {
+    return stepper(std::move(config));
+}
+
 } // namespace vaura

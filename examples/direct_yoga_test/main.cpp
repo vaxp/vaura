@@ -91,7 +91,7 @@ public:
                        .margin(YGEdgeBottom, 16)
                        .positionType(YGPositionTypeRelative);
         
-        auto prod_image = image({
+        auto prod_image = ImageView({
             .path = "/home/vaxp/Downloads/VAURA/examples/direct_yoga_test/logo.png",
             .width_percent = 100.0f,
             .height_percent = 100.0f,
@@ -108,7 +108,7 @@ public:
              .padding(YGEdgeVertical, 4)
              .backgroundColor(0xFFEF4444); // Red
         
-        badge->child(text("SALE", {
+        badge->child(Text("SALE", {
             .font_size = 11,
             .color = 0xFFFFFFFF,
             .weight = TextStyle::Bold
@@ -117,13 +117,13 @@ public:
         image_container->child(prod_image);
         image_container->child(badge);
 
-        auto prod_title = text(widget_ptr->title, {
+        auto prod_title = Text(widget_ptr->title, {
             .font_size = 18,
             .color = 0xFF111827,
             .weight = TextStyle::SemiBold
         });
 
-        auto prod_subtitle = text("In stock", {
+        auto prod_subtitle = Text("In stock", {
             .font_size = 13,
             .color = 0xFF10B981,
             .weight = TextStyle::Medium
@@ -138,7 +138,7 @@ public:
                   .alignItems(YGAlignCenter)
                   .margin(YGEdgeTop, 12);
 
-        auto price_text = text(widget_ptr->price, {
+        auto price_text = Text(widget_ptr->price, {
             .font_size = 20,
             .color = 0xFF4F46E5,
             .weight = TextStyle::ExtraBold
@@ -151,7 +151,7 @@ public:
                .justifyContent(YGJustifyCenter)
                .alignItems(YGAlignCenter);
         
-        buy_btn->child(text("Add", {
+        buy_btn->child(Text("Add", {
             .font_size = 14,
             .color = 0xFFFFFFFF,
             .weight = TextStyle::Medium
@@ -166,7 +166,7 @@ public:
         card->child(spacer);
         card->child(action_row);
 
-        auto gesture = gesture_detector({
+        auto gesture = GestureDetector({
             .child = card,
             .on_hover_enter = [this]() { controller_.forward(); },
             .on_hover_exit = [this]() { controller_.reverse(); }
@@ -203,7 +203,7 @@ public:
               .padding(YGEdgeHorizontal, 32)
               .backgroundColor(0xFF1E1B4B);
 
-        auto store_title = text("VAURA Store", {
+        auto store_title = Text("VAURA Store", {
             .font_size = 26,
             .color = 0xFFFFFFFF,
             .weight = TextStyle::ExtraBold,
@@ -214,7 +214,7 @@ public:
         nav_actions->flexDirection(YGFlexDirectionRow)
                    .alignItems(YGAlignCenter);
 
-        auto cart_icon = text("CART (3)", {
+        auto cart_icon = Text("CART (3)", {
             .font_size = 14,
             .color = 0xFF818CF8,
             .weight = TextStyle::Bold
@@ -227,7 +227,7 @@ public:
                    .justifyContent(YGJustifyCenter)
                    .alignItems(YGAlignCenter);
         
-        profile_btn->child(text("U", {
+        profile_btn->child(Text("U", {
             .font_size = 18,
             .color = 0xFFFFFFFF,
             .weight = TextStyle::Bold
@@ -251,7 +251,7 @@ public:
                .backgroundColor(0xFFFFFFFF)
                .flexDirection(YGFlexDirectionColumn);
 
-        auto cat_title = text("Categories", {
+        auto cat_title = Text("Categories", {
             .font_size = 16,
             .color = 0xFF9CA3AF,
             .weight = TextStyle::SemiBold
@@ -266,7 +266,7 @@ public:
                     .padding(YGEdgeHorizontal, 12)
                     .backgroundColor(i == 0 ? 0xFFEEF2FF : 0x00000000);
 
-            cat_item->child(text(categories[i], {
+            cat_item->child(Text(categories[i], {
                 .font_size = 15,
                 .color = (Color)(i == 0 ? 0xFF4F46E5 : 0xFF4B5563),
                 .weight = i == 0 ? TextStyle::Bold : TextStyle::Medium

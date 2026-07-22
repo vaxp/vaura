@@ -23,4 +23,9 @@ struct LinearProgressConfig {
 /// Create a linear progress indicator widget.
 std::shared_ptr<Widget> linear_progress(LinearProgressConfig config = {});
 
+/// Declarative syntax alias for LinearProgress
+inline std::shared_ptr<Widget> LinearProgress(LinearProgressConfig config = {}) {
+    return linear_progress(std::move(config));
+}
+
 } // namespace vaura

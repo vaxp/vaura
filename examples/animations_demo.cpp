@@ -71,7 +71,7 @@ public:
            .alignItems(YGAlignCenter)
            .justifyContent(YGJustifyCenter);
            
-        auto text_widget = text("VAURA", {
+        auto text_widget = Text("VAURA", {
             .font_size = 24,
             .color = 0xFFFFFFFF,
             .weight = TextStyle::Bold
@@ -79,8 +79,8 @@ public:
         
         box->child(text_widget);
 
-        auto animated_box = opacity(current_opacity, 
-            transform({
+        auto animated_box = Opacity(current_opacity, 
+            Transform({
                 .scale_x = current_scale,
                 .scale_y = current_scale,
                 .rotation = current_rotation,

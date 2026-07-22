@@ -85,4 +85,9 @@ struct DataTableConfig {
 /// Create a DataTable widget.
 std::shared_ptr<Widget> data_table(DataTableConfig config);
 
+/// Declarative syntax alias for DataTable
+inline std::shared_ptr<Widget> DataTable(DataTableConfig config) {
+    return data_table(std::move(config));
+}
+
 } // namespace vaura

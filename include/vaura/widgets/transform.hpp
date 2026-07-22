@@ -53,4 +53,24 @@ inline WidgetPtr translate(float dx, float dy, WidgetPtr child) {
     return transform({.translate_x = dx, .translate_y = dy, .child = std::move(child)});
 }
 
+/// Declarative syntax alias for Transform
+inline WidgetPtr Transform(TransformConfig config) {
+    return transform(std::move(config));
+}
+
+/// Declarative syntax alias for Scale
+inline WidgetPtr Scale(float scale, WidgetPtr child) {
+    return vaura::scale(scale, std::move(child));
+}
+
+/// Declarative syntax alias for Rotate
+inline WidgetPtr Rotate(float degrees, WidgetPtr child) {
+    return vaura::rotate(degrees, std::move(child));
+}
+
+/// Declarative syntax alias for Translate
+inline WidgetPtr Translate(float dx, float dy, WidgetPtr child) {
+    return vaura::translate(dx, dy, std::move(child));
+}
+
 } // namespace vaura

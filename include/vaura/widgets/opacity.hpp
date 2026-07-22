@@ -34,4 +34,14 @@ inline WidgetPtr opacity(float value, WidgetPtr child) {
     });
 }
 
+/// Declarative syntax alias for Opacity
+inline WidgetPtr Opacity(OpacityConfig config) {
+    return std::make_shared<OpacityWidget>(std::move(config));
+}
+
+/// Declarative syntax alias for Opacity (value and child)
+inline WidgetPtr Opacity(float value, WidgetPtr child) {
+    return opacity(value, std::move(child));
+}
+
 } // namespace vaura

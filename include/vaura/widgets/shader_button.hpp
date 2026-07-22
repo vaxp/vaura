@@ -38,4 +38,9 @@ inline WidgetPtr shader_button(ShaderButtonConfig config) {
     return std::make_shared<ShaderButtonWidget>(std::move(config));
 }
 
+/// Declarative syntax alias for ShaderButton
+inline WidgetPtr ShaderButton(ShaderButtonConfig config) {
+    return shader_button(std::move(config));
+}
+
 } // namespace vaura

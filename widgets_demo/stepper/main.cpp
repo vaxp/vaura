@@ -20,7 +20,7 @@ public:
             .widthPercent(100).heightPercent(100)
             .padding(YGEdgeAll, 32);
 
-        root->child(text("Stepper Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+        root->child(Text("Stepper Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
 
         auto spacer = std::make_shared<FlexBox>();
         spacer->height(40);
@@ -29,17 +29,17 @@ public:
         // Step 1 Content
         auto step1 = std::make_shared<FlexBox>();
         step1->padding(YGEdgeAll, 16);
-        step1->child(text("Enter your personal details here.", {.color = 0xFF94A3B8}));
+        step1->child(Text("Enter your personal details here.", {.color = 0xFF94A3B8}));
 
         // Step 2 Content
         auto step2 = std::make_shared<FlexBox>();
         step2->padding(YGEdgeAll, 16);
-        step2->child(text("Select your subscription plan.", {.color = 0xFF94A3B8}));
+        step2->child(Text("Select your subscription plan.", {.color = 0xFF94A3B8}));
 
         // Step 3 Content
         auto step3 = std::make_shared<FlexBox>();
         step3->padding(YGEdgeAll, 16);
-        step3->child(text("Review and confirm your choices.", {.color = 0xFF94A3B8}));
+        step3->child(Text("Review and confirm your choices.", {.color = 0xFF94A3B8}));
 
         StepperConfig stepper_cfg;
         stepper_cfg.current_step = current_step;
@@ -68,7 +68,7 @@ public:
                        .backgroundColor(0xFF1E293B)
                        .borderRadius(16)
                        .padding(YGEdgeAll, 16)
-                       .child(stepper(stepper_cfg));
+                       .child(Stepper(stepper_cfg));
 
         root->child(stepper_wrapper);
         return root;

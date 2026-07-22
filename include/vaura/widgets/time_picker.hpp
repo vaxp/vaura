@@ -30,4 +30,9 @@ struct TimePickerConfig {
 /// Create a TimePicker widget.
 std::shared_ptr<Widget> time_picker(TimePickerConfig config);
 
+/// Declarative syntax alias for TimePicker
+inline std::shared_ptr<Widget> TimePicker(TimePickerConfig config) {
+    return time_picker(std::move(config));
+}
+
 } // namespace vaura

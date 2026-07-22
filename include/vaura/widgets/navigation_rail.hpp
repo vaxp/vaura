@@ -68,4 +68,9 @@ struct NavigationRailConfig {
 /// Create a NavigationRail widget.
 std::shared_ptr<Widget> navigation_rail(NavigationRailConfig config);
 
+/// Declarative syntax alias for NavigationRail
+inline std::shared_ptr<Widget> NavigationRail(NavigationRailConfig config) {
+    return navigation_rail(std::move(config));
+}
+
 } // namespace vaura

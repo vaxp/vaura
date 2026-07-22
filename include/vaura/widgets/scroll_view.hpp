@@ -53,4 +53,9 @@ inline WidgetPtr scroll_view(ScrollViewConfig config) {
     return std::make_shared<ScrollViewWidget>(std::move(config));
 }
 
+/// Declarative syntax alias for ScrollView
+inline WidgetPtr ScrollView(ScrollViewConfig config) {
+    return scroll_view(std::move(config));
+}
+
 } // namespace vaura

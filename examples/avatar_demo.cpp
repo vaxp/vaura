@@ -26,13 +26,13 @@ public:
            .width(500);
 
         // Avatar 1: With Image
-        auto av1 = avatar({
+        auto av1 = Avatar({
             .size = 80.0f,
             .image_path = "examples/direct_yoga_test/logo.png"
         });
 
         // Wrap av1 in a Badge to show online status!
-        auto status_badge = badge({
+        auto status_badge = Badge({
             .text = "", // empty text, just a dot
             .background_color = 0xFF10B981, // Green
             .padding = 6.0f,
@@ -42,7 +42,7 @@ public:
         });
 
         // Avatar 2: Initials
-        auto av2 = avatar({
+        auto av2 = Avatar({
             .size = 80.0f,
             .background_color = 0xFF8B5CF6, // Purple
             .initials = "MS",
@@ -50,7 +50,7 @@ public:
         });
 
         // Avatar 3: Initials
-        auto av3 = avatar({
+        auto av3 = Avatar({
             .size = 80.0f,
             .background_color = 0xFFF59E0B, // Amber
             .initials = "JD",
@@ -65,7 +65,7 @@ public:
             
             c->child(av);
             
-            auto t = text(name, {
+            auto t = Text(name, {
                 .font_size = 18.0f,
                 .color = 0xFFCBD5E1,
                 .weight = TextStyle::SemiBold
@@ -80,7 +80,7 @@ public:
            .child(create_profile(av2, "Michael Scott"))
            .child(create_profile(av3, "Jane Doe"));
 
-        auto card_container = container({
+        auto card_container = Container({
             .color = 0xFF0F172A,
             .padding = {40, 40, 40, 40},
             .border_radius = BorderRadius::circular(24.0f),

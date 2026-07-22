@@ -66,4 +66,9 @@ struct PopupMenuConfig {
 /// Create a PopupMenu widget.
 std::shared_ptr<Widget> popup_menu(PopupMenuConfig config);
 
+/// Declarative syntax alias for PopupMenu
+inline std::shared_ptr<Widget> PopupMenu(PopupMenuConfig config) {
+    return popup_menu(std::move(config));
+}
+
 } // namespace vaura

@@ -519,11 +519,11 @@ public:
            .position(YGEdgeLeft, 20)
            .flexDirection(YGFlexDirectionColumn);
            
-        hud->child(text("SCORE: " + std::to_string(game.score), {
+        hud->child(Text("SCORE: " + std::to_string(game.score), {
             .font_size = 32, .color = 0xFF10B981, .weight = TextStyle::Bold
         }));
         
-        hud->child(text("FPS: " + std::to_string(static_cast<int>(game.current_fps)), {
+        hud->child(Text("FPS: " + std::to_string(static_cast<int>(game.current_fps)), {
             .font_size = 18, .color = 0xFF94A3B8
         }));
 
@@ -539,11 +539,11 @@ public:
                    .alignItems(YGAlignCenter)
                    .backgroundColor(0x80000000); // Semi-transparent black
 
-            overlay->child(text("GAME OVER", {
+            overlay->child(Text("GAME OVER", {
                 .font_size = 64, .color = 0xFFEF4444, .weight = TextStyle::Bold
             }));
             
-            overlay->child(text("Click anywhere to restart", {
+            overlay->child(Text("Click anywhere to restart", {
                 .font_size = 24, .color = 0xFFFFFFFF
             }));
 
@@ -569,7 +569,7 @@ public:
             }
         };
         
-        return gesture_detector(gd_config);
+        return GestureDetector(gd_config);
     }
 };
 

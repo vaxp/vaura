@@ -18,7 +18,7 @@ public:
             .backgroundColor(0xFF0F172A)
             .widthPercent(100).heightPercent(100);
 
-        root->child(text("Split View Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+        root->child(Text("Split View Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
 
         auto spacer = std::make_shared<FlexBox>();
         spacer->height(20);
@@ -29,14 +29,14 @@ public:
                   .justifyContent(YGJustifyCenter)
                   .alignItems(YGAlignCenter)
                   .widthPercent(100).heightPercent(100);
-        first_pane->child(text("Left Pane", {.font_size = 24.0f, .color = 0xFF3B82F6}));
+        first_pane->child(Text("Left Pane", {.font_size = 24.0f, .color = 0xFF3B82F6}));
 
         auto second_pane = std::make_shared<FlexBox>();
         second_pane->backgroundColor(0xFF334155)
                    .justifyContent(YGJustifyCenter)
                    .alignItems(YGAlignCenter)
                    .widthPercent(100).heightPercent(100);
-        second_pane->child(text("Right Pane", {.font_size = 24.0f, .color = 0xFF10B981}));
+        second_pane->child(Text("Right Pane", {.font_size = 24.0f, .color = 0xFF10B981}));
 
         SplitViewConfig split_cfg;
         split_cfg.first = first_pane;
@@ -44,7 +44,7 @@ public:
         split_cfg.axis = SplitViewConfig::Axis::Horizontal;
         split_cfg.initial_ratio = 0.4f;
 
-        auto split = split_view(split_cfg);
+        auto split = SplitView(split_cfg);
 
         auto split_wrapper = std::make_shared<FlexBox>();
         split_wrapper->width(600).height(400)

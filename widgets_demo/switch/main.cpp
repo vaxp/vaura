@@ -91,7 +91,7 @@ private:
         sw_cfg.active_color = active_color;
         sw_cfg.inactive_color = 0xFF475569; // Slate 600
         sw_cfg.on_changed = on_change;
-        row->child(toggle_switch(sw_cfg));
+        row->child(Switch(sw_cfg));
 
         return row;
     }

@@ -58,7 +58,7 @@ public:
                 current_color = new_color;
             });
         };
-        picker_panel->child(color_picker(cp_cfg));
+        picker_panel->child(ColorPicker(cp_cfg));
         body->child(picker_panel);
 
         // Right Panel (Preview Area)

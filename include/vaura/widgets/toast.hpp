@@ -47,4 +47,9 @@ struct ToastConfig {
 /// Create a Toast widget.
 std::shared_ptr<Widget> toast(ToastConfig config);
 
+/// Declarative syntax alias for Toast
+inline std::shared_ptr<Widget> Toast(ToastConfig config) {
+    return toast(std::move(config));
+}
+
 } // namespace vaura

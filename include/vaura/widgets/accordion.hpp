@@ -21,4 +21,9 @@ struct AccordionConfig {
 /// Create an Accordion widget.
 std::shared_ptr<Widget> accordion(AccordionConfig config);
 
+/// Declarative syntax alias for Accordion
+inline std::shared_ptr<Widget> Accordion(AccordionConfig config) {
+    return accordion(std::move(config));
+}
+
 } // namespace vaura

@@ -59,4 +59,9 @@ struct CalendarConfig {
 /// Create a Calendar widget.
 std::shared_ptr<Widget> calendar(CalendarConfig config);
 
+/// Declarative syntax alias for Calendar
+inline std::shared_ptr<Widget> Calendar(CalendarConfig config) {
+    return calendar(std::move(config));
+}
+
 } // namespace vaura

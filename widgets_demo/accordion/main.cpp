@@ -23,7 +23,7 @@ public:
                .alignItems(YGAlignStretch)
                .width(400);
 
-        auto title = text("FAQ", {
+        auto title = Text("FAQ", {
             .font_size = 28,
             .color = 0xFFFFFFFF,
             .weight = TextStyle::Bold
@@ -33,17 +33,17 @@ public:
         title_container->margin(YGEdgeBottom, 20).child(title);
         content->child(title_container);
 
-        auto answer1 = text("VAURA is a next-generation retained-mode C++ GUI framework designed for building luxurious and highly animated user interfaces.", {
+        auto answer1 = Text("VAURA is a next-generation retained-mode C++ GUI framework designed for building luxurious and highly animated user interfaces.", {
             .font_size = 15,
             .color = 0xFF94A3B8
         });
 
-        auto answer2 = text("Yes! It utilizes Yoga for flexbox layouts, Skia for high-performance GPU-accelerated rendering, and an architecture inspired by modern declarative frameworks.", {
+        auto answer2 = Text("Yes! It utilizes Yoga for flexbox layouts, Skia for high-performance GPU-accelerated rendering, and an architecture inspired by modern declarative frameworks.", {
             .font_size = 15,
             .color = 0xFF94A3B8
         });
 
-        auto acc1 = accordion({
+        auto acc1 = Accordion({
             .title = "What is VAURA?",
             .content = answer1,
             .initially_expanded = true,
@@ -53,7 +53,7 @@ public:
         auto wrapper1 = std::make_shared<FlexBox>();
         wrapper1->margin(YGEdgeBottom, 10).child(acc1);
 
-        auto acc2 = accordion({
+        auto acc2 = Accordion({
             .title = "Is it hardware accelerated?",
             .content = answer2,
             .initially_expanded = false,

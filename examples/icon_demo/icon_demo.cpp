@@ -23,7 +23,7 @@ public:
         content->flexDirection(YGFlexDirectionColumn)
                .alignItems(YGAlignCenter);
 
-        auto title = text("Cupertino Icons Demo", {
+        auto title = Text("Cupertino Icons Demo", {
             .font_size = 28,
             .color = 0xFFFFFFFF,
             .weight = TextStyle::Bold
@@ -39,7 +39,7 @@ public:
 
         auto pad_icon = [](IconData icon_data, uint32_t color) {
             auto wrapper = std::make_shared<FlexBox>();
-            wrapper->margin(YGEdgeHorizontal, 15).child(icon(icon_data, {.size = 56, .color = color}));
+            wrapper->margin(YGEdgeHorizontal, 15).child(Icon(icon_data, {.size = 56, .color = color}));
             return wrapper;
         };
 

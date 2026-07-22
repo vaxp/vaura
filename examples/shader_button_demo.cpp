@@ -53,13 +53,13 @@ int main(int argc, char** argv) {
     center_wrap->widthPercent(100).heightPercent(100)
                .justifyContent(YGJustifyCenter)
                .alignItems(YGAlignCenter)
-               .child(text("GLOW BUTTON", {
+               .child(Text("GLOW BUTTON", {
                    .font_size = 20, 
                    .color = 0xFFFFFFFF,
                    .weight = TextStyle::Bold
                }));
                
-    auto btn = shader_button({
+    auto btn = ShaderButton({
         .sksl_code = GLOW_BUTTON_SKSL,
         .color1 = 0xFF4A90E2,
         .color2 = 0xFF50E3C2,

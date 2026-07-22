@@ -22,8 +22,8 @@ public:
             content->justifyContent(YGJustifyCenter)
                    .alignItems(YGAlignCenter)
                    .width(100).height(60)
-                   .child(text(text_val, {.font_size = 18.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
-            return container({
+                   .child(Text(text_val, {.font_size = 18.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+            return Container({
                 .color = color,
                 .border_radius = BorderRadius(8.0f),
                 .shadow = Shadow{0x40000000, 8.0f, {0, 4}},
@@ -42,7 +42,7 @@ public:
             .width(200);
             
         auto title1 = std::make_shared<FlexBox>();
-        title1->margin(YGEdgeBottom, 10).child(text("Flex Start", {.font_size = 20.0f, .color = 0xFF94A3B8}));
+        title1->margin(YGEdgeBottom, 10).child(Text("Flex Start", {.font_size = 20.0f, .color = 0xFF94A3B8}));
         col1->child(title1);
         col1->child(make_box("Box 1", 0xFF3B82F6)); // Blue
         col1->child(make_box("Box 2", 0xFF8B5CF6)); // Violet
@@ -59,7 +59,7 @@ public:
             .width(200);
             
         auto title2 = std::make_shared<FlexBox>();
-        title2->child(text("Space Between", {.font_size = 20.0f, .color = 0xFF94A3B8}));
+        title2->child(Text("Space Between", {.font_size = 20.0f, .color = 0xFF94A3B8}));
         col2->child(title2);
         col2->child(make_box("Box A", 0xFF10B981)); // Emerald
         col2->child(make_box("Box B", 0xFFF59E0B)); // Amber
@@ -76,7 +76,7 @@ public:
             .width(200);
             
         auto title3 = std::make_shared<FlexBox>();
-        title3->margin(YGEdgeBottom, 10).child(text("Flex End", {.font_size = 20.0f, .color = 0xFF94A3B8}));
+        title3->margin(YGEdgeBottom, 10).child(Text("Flex End", {.font_size = 20.0f, .color = 0xFF94A3B8}));
         col3->child(title3);
         col3->child(make_box("Alpha", 0xFF06B6D4)); // Cyan
         col3->child(make_box("Beta", 0xFF6366F1));  // Indigo

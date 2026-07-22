@@ -28,7 +28,7 @@ public:
         galaxy_container->alignItems(YGAlignCenter)
                         .margin(YGEdgeRight, 50);
                         
-        auto galaxy_title = text("Galaxy Spinner", {
+        auto galaxy_title = Text("Galaxy Spinner", {
             .font_size = 18,
             .color = 0xFFFFFFFF,
             .weight = TextStyle::Bold
@@ -38,14 +38,14 @@ public:
         galaxy_text_container->margin(YGEdgeBottom, 20).child(galaxy_title);
         
         galaxy_container->child(galaxy_text_container);
-        galaxy_container->child(galaxy_progress(150.0f));
+        galaxy_container->child(GalaxyProgress(150.0f));
 
         // --- Liquid Wave Widget ---
         auto liquid_container = std::make_shared<FlexBox>();
         liquid_container->alignItems(YGAlignCenter)
                         .margin(YGEdgeLeft, 50);
                         
-        auto liquid_title = text("Liquid Wave Spinner", {
+        auto liquid_title = Text("Liquid Wave Spinner", {
             .font_size = 18,
             .color = 0xFFFFFFFF,
             .weight = TextStyle::Bold
@@ -55,7 +55,7 @@ public:
         liquid_text_container->margin(YGEdgeBottom, 20).child(liquid_title);
         
         liquid_container->child(liquid_text_container);
-        liquid_container->child(liquid_progress(150.0f));
+        liquid_container->child(LiquidProgress(150.0f));
 
         content->child(galaxy_container);
         content->child(liquid_container);

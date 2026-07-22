@@ -31,7 +31,17 @@ struct ListTileConfig {
 /// Create a ListTile widget.
 std::shared_ptr<Widget> list_tile(ListTileConfig config);
 
+/// Declarative syntax alias for ListTile
+inline std::shared_ptr<Widget> ListTile(ListTileConfig config) {
+    return list_tile(std::move(config));
+}
+
 /// Convenience function to create a text-based ListTile quickly.
 std::shared_ptr<Widget> list_tile(std::string title_text, std::string subtitle_text = "", WidgetPtr leading = nullptr, WidgetPtr trailing = nullptr, std::function<void()> on_tap = nullptr);
+
+/// Declarative syntax alias for convenience ListTile
+inline std::shared_ptr<Widget> ListTile(std::string title_text, std::string subtitle_text = "", WidgetPtr leading = nullptr, WidgetPtr trailing = nullptr, std::function<void()> on_tap = nullptr) {
+    return list_tile(std::move(title_text), std::move(subtitle_text), std::move(leading), std::move(trailing), std::move(on_tap));
+}
 
 } // namespace vaura

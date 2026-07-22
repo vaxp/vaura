@@ -45,4 +45,9 @@ struct DrawerConfig {
 /// Create a Drawer widget.
 std::shared_ptr<Widget> drawer(DrawerConfig config);
 
+/// Declarative syntax alias for Drawer
+inline std::shared_ptr<Widget> Drawer(DrawerConfig config) {
+    return drawer(std::move(config));
+}
+
 } // namespace vaura

@@ -105,7 +105,7 @@ public:
         sheet_cfg.border_radius = 24.0f;
         sheet_cfg.max_height_percent = 50.0f;
 
-        return bottom_sheet(sheet_cfg);
+        return BottomSheet(sheet_cfg);
     }
 };
 

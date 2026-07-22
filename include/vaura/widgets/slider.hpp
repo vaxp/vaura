@@ -36,4 +36,9 @@ public:
 
 std::shared_ptr<Widget> slider(SliderConfig config);
 
+/// Declarative syntax alias for Slider
+inline std::shared_ptr<Widget> Slider(SliderConfig config) {
+    return slider(std::move(config));
+}
+
 } // namespace vaura

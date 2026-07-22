@@ -21,7 +21,7 @@ public:
             .backgroundColor(0xFF0F172A)
             .widthPercent(100).heightPercent(100);
 
-        root->child(text("Select a Date", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+        root->child(Text("Select a Date", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
 
         DatePickerConfig cfg;
         cfg.selected_year = y;
@@ -35,13 +35,13 @@ public:
             });
         };
         
-        root->child(date_picker(cfg));
+        root->child(DatePicker(cfg));
         
         std::string selected_str = "You selected: " + std::to_string(y) + "-" + 
                                    (m < 10 ? "0" : "") + std::to_string(m) + "-" + 
                                    (d < 10 ? "0" : "") + std::to_string(d);
                                    
-        root->child(text(selected_str, {.font_size = 16.0f, .color = 0xFF94A3B8}));
+        root->child(Text(selected_str, {.font_size = 16.0f, .color = 0xFF94A3B8}));
 
         return root;
     }

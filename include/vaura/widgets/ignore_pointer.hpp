@@ -36,4 +36,9 @@ inline WidgetPtr ignore_pointer(WidgetPtr child) {
     return std::make_shared<IgnorePointerWidget>(std::move(child));
 }
 
+/// Declarative syntax alias for IgnorePointer
+inline WidgetPtr IgnorePointer(WidgetPtr child) {
+    return ignore_pointer(std::move(child));
+}
+
 } // namespace vaura

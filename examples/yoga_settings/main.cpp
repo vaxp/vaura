@@ -52,7 +52,7 @@ public:
                .alignItems(YGAlignCenter)
                .justifyContent(YGJustifyCenter);
 
-        app_bar->child(text("Settings", {
+        app_bar->child(Text("Settings", {
             .font_size = 20,
             .color = 0xFFFFFFFF,
             .weight = TextStyle::Bold
@@ -75,9 +75,9 @@ public:
                  .margin(YGEdgeBottom, 30);
 
             // Group Title
-            group->child(container({
+            group->child(Container({
                 .padding = {16, 8, 16, 8},
-                .child = text(title, {.font_size = 14, .color = 0xFFAAAAAA, .weight = TextStyle::Bold})
+                .child = Text(title, {.font_size = 14, .color = 0xFFAAAAAA, .weight = TextStyle::Bold})
             }));
 
             // Group Card
@@ -102,15 +102,15 @@ public:
 
         // Helper to create a single setting tile
         auto create_setting = [this](IconData icon_data, uint32_t icon_bg, const std::string& title, bool current_val, std::function<void(bool)> on_toggle) {
-            auto leading_icon = container({
+            auto leading_icon = Container({
                 .color = icon_bg,
                 .width = 32.0f,
                 .height = 32.0f,
                 .border_radius = {8.0f, 8.0f, 8.0f, 8.0f},
-                .child = icon(icon_data, {.size = 18, .color = 0xFFFFFFFF})
+                .child = Icon(icon_data, {.size = 18, .color = 0xFFFFFFFF})
             });
 
-            auto trailing_switch = toggle_switch({
+            auto trailing_switch = Switch({
                 .value = current_val,
                 .on_changed = [this, on_toggle, title](bool val) {
                     std::cout << title << " switch clicked, changed to " << val << "\n";
@@ -119,9 +119,9 @@ public:
                 .active_color = 0xFF34C759 // iOS Green
             });
 
-            return list_tile(ListTileConfig{
+            return ListTile(ListTileConfig{
                 .leading = leading_icon,
-                .title = text(title, {.font_size = 16, .color = 0xFFFFFFFF}),
+                .title = Text(title, {.font_size = 16, .color = 0xFFFFFFFF}),
                 .subtitle = nullptr,
                 .trailing = trailing_switch,
                 .on_tap = nullptr, // Disable row tap to let the switch receive the events properly!
@@ -160,7 +160,7 @@ public:
         content->child(center_container);
         
         // Use scroll_view as the ROOT widget! This allows it to automatically take up the full window size.
-        return scroll_view({
+        return ScrollView({
             .child = content,
             .scroll_speed = 40.0f
         });

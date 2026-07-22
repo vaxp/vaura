@@ -68,4 +68,9 @@ inline WidgetPtr button(ButtonConfig config) {
     return std::make_shared<ButtonWidget>(std::move(config));
 }
 
+/// Declarative syntax alias for Button
+inline WidgetPtr Button(ButtonConfig config) {
+    return button(std::move(config));
+}
+
 }  // namespace vaura

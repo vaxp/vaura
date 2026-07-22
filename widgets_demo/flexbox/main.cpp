@@ -29,14 +29,14 @@ public:
                 .widthPercent(100);
 
         ButtonConfig toggle_dir_btn;
-        toggle_dir_btn.child = text("Toggle Direction", {.font_size = 14.0f, .color = 0xFFFFFFFF});
+        toggle_dir_btn.child = Text("Toggle Direction", {.font_size = 14.0f, .color = 0xFFFFFFFF});
         toggle_dir_btn.color = 0xFF3B82F6;
         toggle_dir_btn.on_pressed = [this]() {
             setState([this]() {
                 current_dir = (current_dir == YGFlexDirectionRow) ? YGFlexDirectionColumn : YGFlexDirectionRow;
             });
         };
-        controls->child(button(toggle_dir_btn));
+        controls->child(Button(toggle_dir_btn));
         
         root->child(controls);
 
@@ -54,7 +54,7 @@ public:
             auto box = std::make_shared<FlexBox>();
             box->width(80).height(80).margin(YGEdgeAll, 10).backgroundColor(colors[i]).borderRadius(12.0f);
             
-            auto t = text(std::to_string(i + 1), {.font_size = 24.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold});
+            auto t = Text(std::to_string(i + 1), {.font_size = 24.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold});
             auto inner = std::make_shared<FlexBox>();
             inner->widthPercent(100).heightPercent(100).justifyContent(YGJustifyCenter).alignItems(YGAlignCenter).child(t);
             

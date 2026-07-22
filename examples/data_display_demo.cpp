@@ -82,7 +82,7 @@ public:
             .padding(YGEdgeAll, 20)
             .backgroundColor(0xFF1E293B);
 
-        hdr->child(text("Phase 4  —  Complex Data Display", {
+        hdr->child(Text("Phase 4  —  Complex Data Display", {
             .font_size=20,.color=0xFFF8FAFC,.weight=TextStyle::Bold,
         }));
         root->child(hdr);
@@ -96,12 +96,12 @@ public:
 
         auto add_tab = [&](int idx, const char* label) {
             bool active = (active_tab == idx);
-            auto btn = gesture_detector({
-                .child = container({
+            auto btn = GestureDetector({
+                .child = Container({
                     .color         = active ? 0xFF0EA5E9 : 0xFF1E293B,
                     .padding       = EdgeInsets{10, 18, 10, 18},
                     .border_radius = BorderRadius::circular(8),
-                    .child         = text(label, {
+                    .child         = Text(label, {
                         .font_size = 13,
                         .color     = active ? 0xFFFFFFFF : 0xFF94A3B8,
                         .weight    = active ? TextStyle::SemiBold : TextStyle::Regular,
@@ -124,12 +124,12 @@ public:
         if (active_tab == 0) {
             // DataTable
             std::vector<DataRow> dr_rows = {
-                {{text("Alice", {.color=0xFFF8FAFC}), text("alice@example.com", {.color=0xFF94A3B8}), text("Admin", {.color=0xFF38BDF8})}, selected_rows.count(0) > 0, [](){}},
-                {{text("Bob", {.color=0xFFF8FAFC}),   text("bob@example.com", {.color=0xFF94A3B8}),   text("User", {.color=0xFF64748B})},  selected_rows.count(1) > 0, [](){}},
-                {{text("Charlie", {.color=0xFFF8FAFC}), text("charlie@example.com", {.color=0xFF94A3B8}), text("User", {.color=0xFF64748B})}, selected_rows.count(2) > 0, [](){}},
+                {{Text("Alice", {.color=0xFFF8FAFC}), Text("alice@example.com", {.color=0xFF94A3B8}), Text("Admin", {.color=0xFF38BDF8})}, selected_rows.count(0) > 0, [](){}},
+                {{Text("Bob", {.color=0xFFF8FAFC}),   Text("bob@example.com", {.color=0xFF94A3B8}),   Text("User", {.color=0xFF64748B})},  selected_rows.count(1) > 0, [](){}},
+                {{Text("Charlie", {.color=0xFFF8FAFC}), Text("charlie@example.com", {.color=0xFF94A3B8}), Text("User", {.color=0xFF64748B})}, selected_rows.count(2) > 0, [](){}},
             };
 
-            root->child(data_table({
+            root->child(DataTable({
                 .columns = {
                     {.label="Name",       .sortable=true,  .width=160, .align=DataColumn::Align::Left},
                     {.label="Email",      .sortable=true,  .width=240, .align=DataColumn::Align::Left},
@@ -164,13 +164,13 @@ public:
             }));
         } else if (active_tab == 1) {
             // TreeView
-            auto tv_wrap = container({
+            auto tv_wrap = Container({
                 .color         = 0xFF1E293B,
                 .width_percent = 100.0f,
                 .padding       = EdgeInsets::all(16),
                 .border_radius = BorderRadius::circular(12),
                 .border        = Border{0xFF334155, 1},
-                .child         = tree_view({
+                .child         = TreeView({
                     .nodes = tree_nodes,
                     .indent = 20.0f,
                     .item_height = 36.0f,
@@ -193,14 +193,14 @@ public:
             auto make_content = [](const char* t) {
                 auto w = std::make_shared<FlexBox>();
                 w->padding(YGEdgeAll, 16);
-                w->child(text(t, {.font_size=14, .color=0xFFCBD5E1}));
+                w->child(Text(t, {.font_size=14, .color=0xFFCBD5E1}));
                 return std::static_pointer_cast<Widget>(w);
             };
 
             static bool ep1_open = false;
             static bool ep2_open = false;
 
-            ep_wrap->child(expansion_panel({
+            ep_wrap->child(ExpansionPanel({
                 .items = {
                     {"Account Settings", "Profile & Security", make_content("Update your email, password, and 2FA settings."), ep1_open},
                     {"Notifications",    "Email & Push",       make_content("Configure which alerts you receive."), ep2_open},

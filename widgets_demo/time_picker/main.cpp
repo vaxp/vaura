@@ -20,7 +20,7 @@ public:
             .backgroundColor(0xFF0F172A)
             .widthPercent(100).heightPercent(100);
 
-        root->child(text("Time Picker Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+        root->child(Text("Time Picker Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
 
         auto spacer = std::make_shared<FlexBox>();
         spacer->height(40);
@@ -38,7 +38,7 @@ public:
             });
         };
 
-        root->child(time_picker(tp_cfg));
+        root->child(TimePicker(tp_cfg));
 
         auto spacer2 = std::make_shared<FlexBox>();
         spacer2->height(20);
@@ -46,7 +46,7 @@ public:
 
         char buf[64];
         snprintf(buf, sizeof(buf), "Selected Time: %02d:%02d", current_hour, current_minute);
-        root->child(text(buf, {.font_size = 24.0f, .color = 0xFF10B981, .weight = TextStyle::SemiBold}));
+        root->child(Text(buf, {.font_size = 24.0f, .color = 0xFF10B981, .weight = TextStyle::SemiBold}));
 
         return root;
     }

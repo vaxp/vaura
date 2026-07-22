@@ -24,7 +24,7 @@ public:
 
         auto title = std::make_shared<FlexBox>();
         title->margin(YGEdgeBottom, 40)
-             .child(text("Gesture Detector", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+             .child(Text("Gesture Detector", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
         root->child(title);
 
         auto inner_box = std::make_shared<FlexBox>();
@@ -34,7 +34,7 @@ public:
                  .backgroundColor(is_hovered ? 0xFF475569 : box_color)
                  .borderRadius(24.0f);
                  
-        inner_box->child(text(status, {.font_size = 18.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+        inner_box->child(Text(status, {.font_size = 18.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
 
         GestureDetectorConfig gd_cfg;
         gd_cfg.child = inner_box;
@@ -59,7 +59,7 @@ public:
         };
         
         auto wrapper = std::make_shared<FlexBox>();
-        wrapper->child(gesture_detector(gd_cfg));
+        wrapper->child(GestureDetector(gd_cfg));
         
         root->child(wrapper);
         return root;

@@ -23,4 +23,9 @@ struct TooltipConfig {
 /// @brief Creates a Tooltip widget that wraps the given child.
 std::shared_ptr<Widget> tooltip(TooltipConfig config);
 
+/// Declarative syntax alias for Tooltip
+inline std::shared_ptr<Widget> Tooltip(TooltipConfig config) {
+    return tooltip(std::move(config));
+}
+
 } // namespace vaura

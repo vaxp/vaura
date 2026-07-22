@@ -30,7 +30,7 @@ public:
         content_col->flexDirection(YGFlexDirectionColumn)
                    .alignItems(YGAlignCenter);
 
-        auto title = text("Brightness: " + std::to_string(static_cast<int>(current_value)) + "%", {
+        auto title = Text("Brightness: " + std::to_string(static_cast<int>(current_value)) + "%", {
             .font_size = 22,
             .color = 0xFFFFFFFF,
             .weight = TextStyle::Bold
@@ -39,7 +39,7 @@ public:
         auto title_c = std::make_shared<FlexBox>();
         title_c->margin(YGEdgeBottom, 20).child(title);
 
-        auto s = slider({
+        auto s = Slider({
             .value = current_value,
             .min_value = 0.0f,
             .max_value = 100.0f,
@@ -59,7 +59,7 @@ public:
         content_col->child(title_c);
         content_col->child(s);
 
-        auto c = card({
+        auto c = Card({
             .color = 0xFF0F172A,
             .border_radius = 20.0f,
             .elevation = 15.0f,

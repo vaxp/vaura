@@ -23,7 +23,7 @@ public:
 
         auto title = std::make_shared<FlexBox>();
         title->margin(YGEdgeBottom, 40)
-             .child(text("Opacity Control", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+             .child(Text("Opacity Control", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
         root->child(title);
 
         // Control Panel
@@ -38,7 +38,7 @@ public:
         };
         
         auto slider_box = std::make_shared<FlexBox>();
-        slider_box->margin(YGEdgeBottom, 40).child(slider(s_cfg));
+        slider_box->margin(YGEdgeBottom, 40).child(Slider(s_cfg));
         root->child(slider_box);
 
         // Target content inside opacity widget
@@ -53,10 +53,10 @@ public:
            .justifyContent(YGJustifyCenter)
            .alignItems(YGAlignCenter);
            
-        box->child(text("Fading Box", {.font_size = 20.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+        box->child(Text("Fading Box", {.font_size = 20.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
         content_col->child(box);
 
-        auto c = card({
+        auto c = Card({
             .color = 0xFF1E293B,
             .border_radius = 20.0f,
             .elevation = 10.0f,
@@ -64,7 +64,7 @@ public:
         }, content_col);
 
         // Apply Opacity
-        auto opacity_widget = opacity(current_opacity, c);
+        auto opacity_widget = Opacity(current_opacity, c);
         
         root->child(opacity_widget);
         return root;

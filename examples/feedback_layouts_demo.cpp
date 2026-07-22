@@ -24,7 +24,7 @@ static WidgetPtr makePanel(const char* title, Color bg, Color fg) {
      .backgroundColor(bg)
      .justifyContent(YGJustifyCenter)
      .alignItems(YGAlignCenter);
-    f->child(text(title, {.font_size=16,.color=fg,.weight=TextStyle::SemiBold}));
+    f->child(Text(title, {.font_size=16,.color=fg,.weight=TextStyle::SemiBold}));
     return f;
 }
 
@@ -69,7 +69,7 @@ public:
             .padding(YGEdgeAll, 20)
             .backgroundColor(0xFF1E293B);
 
-        hdr->child(text("Phase 5 & 6  —  Feedback + Layouts", {
+        hdr->child(Text("Phase 5 & 6  —  Feedback + Layouts", {
             .font_size=20,.color=0xFFF8FAFC,.weight=TextStyle::Bold,
         }));
         root->child(hdr);
@@ -88,12 +88,12 @@ public:
         }) {
             bool active = (active_tab == idx);
             int ci = idx;
-            auto btn = gesture_detector({
-                .child = container({
+            auto btn = GestureDetector({
+                .child = Container({
                     .color         = active ? 0xFF0EA5E9 : 0xFF1E293B,
                     .padding       = EdgeInsets{10, 18, 10, 18},
                     .border_radius = BorderRadius::circular(8),
-                    .child         = text(lbl, {
+                    .child         = Text(lbl, {
                         .font_size = 13,
                         .color     = active ? 0xFFFFFFFF : 0xFF94A3B8,
                         .weight    = active ? TextStyle::SemiBold : TextStyle::Regular,
@@ -118,13 +118,13 @@ public:
                    .alignItems(YGAlignCenter)
                    .flexDirection(YGFlexDirectionColumn);
 
-            center->child(text("Notification Widgets", {
+            center->child(Text("Notification Widgets", {
                 .font_size=22,.color=0xFFF8FAFC,.weight=TextStyle::Bold
             }));
             auto sp = std::make_shared<FlexBox>(); sp->height(20); center->child(sp);
 
             // Snackbar buttons
-            center->child(text("Snackbars:", {.font_size=13,.color=0xFF64748B}));
+            center->child(Text("Snackbars:", {.font_size=13,.color=0xFF64748B}));
             auto snack_row = std::make_shared<FlexBox>();
             snack_row->flexDirection(YGFlexDirectionRow).margin(YGEdgeTop,8).margin(YGEdgeBottom,20);
 
@@ -137,12 +137,12 @@ public:
             }) {
                 std::string msg = std::string(lbl) + " notification shown!";
                 DemoSnackbarType t  = type;
-                auto btn = gesture_detector({
-                    .child = container({
+                auto btn = GestureDetector({
+                    .child = Container({
                         .color         = col,
                         .padding       = EdgeInsets{10, 16, 10, 16},
                         .border_radius = BorderRadius::circular(8),
-                        .child         = text(lbl, {.font_size=13,.color=0xFFFFFFFF,.weight=TextStyle::SemiBold}),
+                        .child         = Text(lbl, {.font_size=13,.color=0xFFFFFFFF,.weight=TextStyle::SemiBold}),
                     }),
                     .on_tap = [this,msg,t](){ showSnackbar(msg, t); },
                 });
@@ -152,7 +152,7 @@ public:
             center->child(snack_row);
 
             // Toast button
-            center->child(text("Toasts:", {.font_size=13,.color=0xFF64748B}));
+            center->child(Text("Toasts:", {.font_size=13,.color=0xFF64748B}));
             auto toast_row = std::make_shared<FlexBox>();
             toast_row->flexDirection(YGFlexDirectionRow).margin(YGEdgeTop,8);
 
@@ -163,12 +163,12 @@ public:
             }) {
                 std::string msg = std::string("Toast at ") + lbl;
                 ToastConfig::Position p = pos;
-                auto btn = gesture_detector({
-                    .child = container({
+                auto btn = GestureDetector({
+                    .child = Container({
                         .color         = 0xFF334155,
                         .padding       = EdgeInsets{10, 16, 10, 16},
                         .border_radius = BorderRadius::circular(8),
-                        .child         = text(std::string("Toast ") + lbl,
+                        .child         = Text(std::string("Toast ") + lbl,
                                              {.font_size=13,.color=0xFFFFFFFF}),
                     }),
                     .on_tap = [this, msg, p](){
@@ -189,7 +189,7 @@ public:
                 if (snackbar_type == DemoSnackbarType::Warning) bg_col = 0xFFF59E0B;
                 if (snackbar_type == DemoSnackbarType::Error)   bg_col = 0xFFEF4444;
 
-                content->child(snackbar({
+                content->child(Snackbar({
                     .message       = snackbar_msg,
                     .action_label  = "Dismiss",
                     .on_action     = [this](){ setState([this]{ snackbar_visible=false; }); },
@@ -201,7 +201,7 @@ public:
 
             // Toast overlay
             if (toast_visible) {
-                content->child(toast({
+                content->child(Toast({
                     .message      = toast_msg,
                     .on_dismissed = [this](){ setState([this]{ toast_visible=false; }); },
                     .duration_ms  = 2000,
@@ -211,7 +211,7 @@ public:
 
         } else if (active_tab == 1) {
             // SplitView
-            content->child(split_view({
+            content->child(SplitView({
                 .first  = makePanel("📁 File Browser", 0xFF1E293B, 0xFFCBD5E1),
                 .second = makePanel("📝 Editor",       0xFF0F172A, 0xFFF8FAFC),
                 .axis   = SplitViewConfig::Axis::Horizontal,
@@ -226,7 +226,7 @@ public:
 
         } else {
             // Resizable Panels (3 panes: sidebar | main | inspector)
-            content->child(resizable_panels({
+            content->child(ResizablePanels({
                 .panels = {
                     {.child=makePanel("📂 Files",     0xFF1E293B, 0xFFCBD5E1), .initial_size=180, .min_size=100},
                     {.child=makePanel("📝 Editor",    0xFF0F172A, 0xFFF8FAFC), .initial_size=0,   .min_size=300},

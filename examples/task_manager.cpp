@@ -51,7 +51,7 @@ public:
               .justifyContent(YGJustifyCenter)
               .alignItems(YGAlignCenter);
 
-        auto title = text("Task Manager", {
+        auto title = Text("Task Manager", {
             .font_size = 28,
             .color = 0xFFF8FAFC,
             .weight = TextStyle::Bold
@@ -65,7 +65,7 @@ public:
                       .flexDirection(YGFlexDirectionColumn);
 
         if (tasks_.empty()) {
-            auto empty_text = text("No tasks yet. Add one below!", {
+            auto empty_text = Text("No tasks yet. Add one below!", {
                 .font_size = 18,
                 .color = 0xFF64748B,
                 .weight = TextStyle::Regular
@@ -91,7 +91,7 @@ public:
                     .flexDirection(YGFlexDirectionRow)
                     .alignItems(YGAlignCenter);
 
-            auto chk = checkbox({
+            auto chk = Checkbox({
                 .value = task.is_done,
                 .on_changed = [this, i](bool val) {
                     setState([this, i, val] {
@@ -106,15 +106,15 @@ public:
             auto task_text_container = std::make_shared<FlexBox>();
             task_text_container->flexGrow(1.0f).margin(YGEdgeHorizontal, 5);
             
-            auto task_text = text(task.title, {
+            auto task_text = Text(task.title, {
                 .font_size = 18,
                 .color = task.is_done ? 0xFF64748B : 0xFFF8FAFC,
                 .weight = task.is_done ? TextStyle::Regular : TextStyle::Medium
             });
             task_text_container->child(task_text);
 
-            auto delete_btn = button({
-                .child = text("Delete", {
+            auto delete_btn = Button({
+                .child = Text("Delete", {
                     .font_size = 14,
                     .color = 0xFFFFFFFF,
                     .weight = TextStyle::Bold
@@ -138,7 +138,7 @@ public:
             list_container->child(task_row);
         }
 
-        auto scroll = scroll_view({
+        auto scroll = ScrollView({
             .child = list_container,
             .show_scrollbar = true
         });
@@ -151,7 +151,7 @@ public:
               .flexDirection(YGFlexDirectionRow)
               .alignItems(YGAlignCenter);
 
-        auto input_field = text_field({
+        auto input_field = TextField({
             .placeholder = "Add a new task...",
             .initial_text = new_task_title_,
             .on_changed = [this](std::string_view text) { new_task_title_ = text; },
@@ -179,8 +179,8 @@ public:
                        .margin(YGEdgeRight, 16)
                        .child(input_field);
 
-        auto add_btn = button({
-            .child = text("Add Task", {
+        auto add_btn = Button({
+            .child = Text("Add Task", {
                 .font_size = 16,
                 .color = 0xFFFFFFFF,
                 .weight = TextStyle::Bold

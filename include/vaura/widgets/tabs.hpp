@@ -23,4 +23,9 @@ struct TabsConfig {
 /// Create a Tabs widget.
 std::shared_ptr<Widget> tabs(TabsConfig config);
 
+/// Declarative syntax alias for Tabs
+inline std::shared_ptr<Widget> Tabs(TabsConfig config) {
+    return tabs(std::move(config));
+}
+
 } // namespace vaura

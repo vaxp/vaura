@@ -48,4 +48,19 @@ inline WidgetPtr liquid_progress(float size = 80.0f, Color c1 = 0xFF06B6D4, Colo
     return std::make_shared<ShaderProgressWidget>(std::move(cfg));
 }
 
+/// Declarative syntax alias for ShaderProgress
+inline WidgetPtr ShaderProgress(ShaderProgressConfig config) {
+    return std::make_shared<ShaderProgressWidget>(std::move(config));
+}
+
+/// Declarative syntax alias for GalaxyProgress
+inline WidgetPtr GalaxyProgress(float size = 80.0f, Color c1 = 0xFF3B82F6, Color c2 = 0xFF8B5CF6) {
+    return galaxy_progress(size, c1, c2);
+}
+
+/// Declarative syntax alias for LiquidProgress
+inline WidgetPtr LiquidProgress(float size = 80.0f, Color c1 = 0xFF06B6D4, Color c2 = 0xFF3B82F6) {
+    return liquid_progress(size, c1, c2);
+}
+
 } // namespace vaura

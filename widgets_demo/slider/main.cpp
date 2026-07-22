@@ -54,7 +54,7 @@ public:
                 brightness = val;
             });
         };
-        col->child(slider(slider_cfg));
+        col->child(Slider(slider_cfg));
 
         // Value text
         TextConfig val_cfg;

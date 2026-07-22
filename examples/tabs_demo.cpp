@@ -24,7 +24,7 @@ public:
                .width(500)
                .height(400); // Fixed height to test tab content flexibility
 
-        auto title = text("Dashboard", {
+        auto title = Text("Dashboard", {
             .font_size = 28,
             .color = 0xFFFFFFFF,
             .weight = TextStyle::Bold
@@ -40,7 +40,7 @@ public:
              .flexGrow(1.0f)
              .backgroundColor(0xFF0F172A)
              .borderRadius(12.0f);
-        view1->child(text("Overview Dashboard Content", {.font_size = 18, .color = 0xFFF8FAFC}));
+        view1->child(Text("Overview Dashboard Content", {.font_size = 18, .color = 0xFFF8FAFC}));
 
         auto view2 = std::make_shared<FlexBox>();
         view2->justifyContent(YGJustifyCenter)
@@ -48,7 +48,7 @@ public:
              .flexGrow(1.0f)
              .backgroundColor(0xFF0F172A)
              .borderRadius(12.0f);
-        view2->child(text("Analytics Charts Here", {.font_size = 18, .color = 0xFFF8FAFC}));
+        view2->child(Text("Analytics Charts Here", {.font_size = 18, .color = 0xFFF8FAFC}));
 
         auto view3 = std::make_shared<FlexBox>();
         view3->justifyContent(YGJustifyCenter)
@@ -56,9 +56,9 @@ public:
              .flexGrow(1.0f)
              .backgroundColor(0xFF0F172A)
              .borderRadius(12.0f);
-        view3->child(text("System Settings", {.font_size = 18, .color = 0xFFF8FAFC}));
+        view3->child(Text("System Settings", {.font_size = 18, .color = 0xFFF8FAFC}));
 
-        auto t = tabs({
+        auto t = Tabs({
             .tabs = {
                 {"Overview", view1},
                 {"Analytics", view2},

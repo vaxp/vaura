@@ -18,13 +18,13 @@ public:
             .alignItems(YGAlignCenter)
             .backgroundColor(0xFF0F172A); // Dark slate background
 
-        auto title = text("Hello, VAURA!", {
+        auto title = Text("Hello, VAURA!", {
             .font_size = 64,
             .color = 0xFF5EEAD4, // Turquoise/Cyan
             .weight = TextStyle::Bold
         });
 
-        auto subtitle = text("Built with C++ + Skia", {
+        auto subtitle = Text("Built with C++ + Skia", {
             .font_size = 24,
             .color = 0xFF94A3B8, // Slate gray
             .weight = TextStyle::Regular

@@ -38,7 +38,7 @@ public:
 
         auto title = std::make_shared<FlexBox>();
         title->margin(YGEdgeBottom, 20)
-             .child(text("Users Table", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+             .child(Text("Users Table", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
         root->child(title);
 
         DataTableConfig cfg;
@@ -68,16 +68,16 @@ public:
 
         for (const auto& user : data) {
             DataRow row;
-            row.cells.push_back(text(user.name, {.font_size = 14.0f, .color = 0xFFF8FAFC}));
-            row.cells.push_back(text(user.email, {.font_size = 14.0f, .color = 0xFF94A3B8}));
-            row.cells.push_back(text(user.role, {.font_size = 14.0f, .color = 0xFFCBD5E1}));
+            row.cells.push_back(Text(user.name, {.font_size = 14.0f, .color = 0xFFF8FAFC}));
+            row.cells.push_back(Text(user.email, {.font_size = 14.0f, .color = 0xFF94A3B8}));
+            row.cells.push_back(Text(user.role, {.font_size = 14.0f, .color = 0xFFCBD5E1}));
             
             auto status_box = std::make_shared<FlexBox>();
             status_box->width(80).height(24)
                       .justifyContent(YGJustifyCenter).alignItems(YGAlignCenter)
                       .backgroundColor(user.active ? 0x3010B981 : 0x30EF4444)
                       .borderRadius(12.0f);
-            status_box->child(text(user.active ? "Active" : "Inactive", {
+            status_box->child(Text(user.active ? "Active" : "Inactive", {
                 .font_size = 12.0f,
                 .color = user.active ? 0xFF10B981 : 0xFFEF4444,
                 .weight = TextStyle::Bold
@@ -91,7 +91,7 @@ public:
 
         auto table_wrapper = std::make_shared<FlexBox>();
         table_wrapper->width(660).height(400);
-        table_wrapper->child(data_table(cfg));
+        table_wrapper->child(DataTable(cfg));
         
         root->child(table_wrapper);
         return root;

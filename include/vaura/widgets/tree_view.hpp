@@ -65,4 +65,9 @@ struct TreeViewConfig {
 /// Create a TreeView widget.
 std::shared_ptr<Widget> tree_view(TreeViewConfig config);
 
+/// Declarative syntax alias for TreeView
+inline std::shared_ptr<Widget> TreeView(TreeViewConfig config) {
+    return tree_view(std::move(config));
+}
+
 } // namespace vaura

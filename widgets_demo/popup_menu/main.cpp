@@ -20,17 +20,17 @@ public:
             .backgroundColor(0xFF0F172A)
             .widthPercent(100).heightPercent(100);
 
-        root->child(text("Last Action: " + action_text, {.font_size = 24.0f, .color = 0xFF94A3B8}));
+        root->child(Text("Last Action: " + action_text, {.font_size = 24.0f, .color = 0xFF94A3B8}));
 
         auto spacer = std::make_shared<FlexBox>();
         spacer->height(40);
         root->child(spacer);
 
         ButtonConfig btn_cfg;
-        btn_cfg.child = text("Show Options", {.font_size = 14.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold});
+        btn_cfg.child = Text("Show Options", {.font_size = 14.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold});
         btn_cfg.color = 0xFF3B82F6; // Blue 500
         
-        auto anchor_btn = button(btn_cfg);
+        auto anchor_btn = Button(btn_cfg);
 
         PopupMenuConfig pm_cfg;
         pm_cfg.anchor = anchor_btn;
@@ -42,7 +42,7 @@ public:
         // Label, Callback, Submenu, Disabled, Danger
         pm_cfg.items.push_back({"Delete Account", [this]() { setState([this]() { action_text = "Delete"; }); }, nullptr, false, true});
 
-        root->child(popup_menu(pm_cfg));
+        root->child(PopupMenu(pm_cfg));
         return root;
     }
 };

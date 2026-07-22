@@ -21,21 +21,21 @@ public:
                .backgroundColor(0xFF0F172A)
                .widthPercent(100).heightPercent(100);
 
-        content->child(text("Snackbar Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+        content->child(Text("Snackbar Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
 
         auto spacer = std::make_shared<FlexBox>();
         spacer->height(40);
         content->child(spacer);
 
         ButtonConfig btn_cfg;
-        btn_cfg.child = text("Show Snackbar", {.font_size = 16.0f, .color = 0xFFFFFFFF, .weight = TextStyle::SemiBold});
+        btn_cfg.child = Text("Show Snackbar", {.font_size = 16.0f, .color = 0xFFFFFFFF, .weight = TextStyle::SemiBold});
         btn_cfg.color = 0xFF3B82F6;
         btn_cfg.border_radius = 8.0f;
         btn_cfg.on_pressed = [this]() {
             setState([this]() { show_snackbar = true; });
         };
 
-        content->child(button(btn_cfg));
+        content->child(Button(btn_cfg));
 
         StackConfig stack_cfg;
         stack_cfg.alignment = Alignment::Center;
@@ -58,12 +58,12 @@ public:
                             .justifyContent(YGJustifyFlexEnd)
                             .alignItems(YGAlignCenter)
                             .padding(YGEdgeBottom, 32);
-            snackbar_wrapper->child(snackbar(snack_cfg));
+            snackbar_wrapper->child(Snackbar(snack_cfg));
             
             stack_cfg.children.push_back(snackbar_wrapper);
         }
 
-        return stack(stack_cfg);
+        return Stack(stack_cfg);
     }
 };
 

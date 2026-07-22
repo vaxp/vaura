@@ -19,7 +19,7 @@ public:
             .backgroundColor(0xFF0F172A)
             .widthPercent(100).heightPercent(100);
 
-        root->child(text("Search Bar Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+        root->child(Text("Search Bar Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
 
         auto spacer = std::make_shared<FlexBox>();
         spacer->height(40);
@@ -40,13 +40,13 @@ public:
             std::cout << "Search submitted: " << query << std::endl;
         };
 
-        root->child(search_bar(search_cfg));
+        root->child(SearchBar(search_cfg));
         
         auto spacer2 = std::make_shared<FlexBox>();
         spacer2->height(40);
         root->child(spacer2);
 
-        root->child(text("Results for: " + (current_query.empty() ? "None" : current_query), 
+        root->child(Text("Results for: " + (current_query.empty() ? "None" : current_query), 
             {.font_size = 18.0f, .color = 0xFF94A3B8}));
 
         return root;

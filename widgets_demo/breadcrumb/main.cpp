@@ -74,7 +74,7 @@ public:
         crumb_wrapper->backgroundColor(0xFF1E293B) // Slate 800
                      .padding(YGEdgeAll, 16.0f)
                      .borderRadius(12.0f);
-        crumb_wrapper->child(breadcrumb(crumb_cfg));
+        crumb_wrapper->child(Breadcrumb(crumb_cfg));
 
         body->child(crumb_wrapper);
 

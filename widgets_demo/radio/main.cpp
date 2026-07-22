@@ -32,7 +32,7 @@ public:
                .padding(YGEdgeAll, 40)
                .borderRadius(16);
 
-        auto title = text("Radio Button Demo", {
+        auto title = Text("Radio Button Demo", {
             .font_size = 28,
             .color = 0xFFFFFFFF,
             .weight = TextStyle::Bold
@@ -48,7 +48,7 @@ public:
                .alignItems(YGAlignCenter)
                .margin(YGEdgeBottom, 20);
 
-            auto rb = radio({
+            auto rb = Radio({
                 .value = (selected_option_ == value),
                 .on_changed = nullptr, // Handled by row
                 .size = 24.0f,
@@ -58,7 +58,7 @@ public:
                 .inner_padding = 4.0f
             });
 
-            auto txt = text(label, {
+            auto txt = Text(label, {
                 .font_size = 18,
                 .color = 0xFFE2E8F0
             });
@@ -71,7 +71,7 @@ public:
 
             row->child(rb_container).child(txt_container);
             
-            auto clickable_row = gesture_detector({
+            auto clickable_row = GestureDetector({
                 .child = row,
                 .on_tap = [this, value]() {
                     setState([this, value] {

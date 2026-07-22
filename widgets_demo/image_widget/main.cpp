@@ -20,7 +20,7 @@ public:
 
         auto title = std::make_shared<FlexBox>();
         title->margin(YGEdgeBottom, 40)
-             .child(text("Image Widget Gallery", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+             .child(Text("Image Widget Gallery", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
         root->child(title);
 
         auto grid = std::make_shared<FlexBox>();
@@ -49,11 +49,11 @@ public:
             img_cfg.fit = fit;
             img_cfg.border_radius = 20.0f;
             
-            img_wrapper->child(image(img_cfg));
+            img_wrapper->child(ImageView(img_cfg));
 
             auto txt_wrap = std::make_shared<FlexBox>();
             txt_wrap->margin(YGEdgeTop, 16)
-                    .child(text(label, {.font_size = 16.0f, .color = 0xFF94A3B8}));
+                    .child(Text(label, {.font_size = 16.0f, .color = 0xFF94A3B8}));
 
             card_col->child(img_wrapper);
             card_col->child(txt_wrap);

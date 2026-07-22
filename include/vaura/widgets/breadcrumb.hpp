@@ -55,4 +55,9 @@ struct BreadcrumbConfig {
 /// Create a Breadcrumb widget.
 std::shared_ptr<Widget> breadcrumb(BreadcrumbConfig config);
 
+/// Declarative syntax alias for Breadcrumb
+inline std::shared_ptr<Widget> Breadcrumb(BreadcrumbConfig config) {
+    return breadcrumb(std::move(config));
+}
+
 } // namespace vaura

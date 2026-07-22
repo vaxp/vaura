@@ -168,4 +168,9 @@ inline WidgetPtr container(ContainerConfig config) {
     return std::make_shared<ContainerWidget>(std::move(config));
 }
 
+/// Declarative syntax alias for Container
+inline WidgetPtr Container(ContainerConfig config) {
+    return container(std::move(config));
+}
+
 }  // namespace vaura

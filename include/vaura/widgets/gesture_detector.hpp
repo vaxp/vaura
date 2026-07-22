@@ -168,4 +168,9 @@ inline WidgetPtr gesture_detector(GestureDetectorConfig config) {
     return std::make_shared<GestureDetectorWidget>(std::move(config));
 }
 
+/// Declarative syntax alias for GestureDetector
+inline WidgetPtr GestureDetector(GestureDetectorConfig config) {
+    return gesture_detector(std::move(config));
+}
+
 } // namespace vaura

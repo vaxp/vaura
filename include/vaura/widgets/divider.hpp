@@ -19,4 +19,9 @@ struct DividerConfig {
 /// Create a Divider widget.
 std::shared_ptr<Widget> divider(DividerConfig config = {});
 
+/// Declarative syntax alias for Divider
+inline std::shared_ptr<Widget> Divider(DividerConfig config = {}) {
+    return divider(std::move(config));
+}
+
 } // namespace vaura

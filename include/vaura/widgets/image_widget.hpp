@@ -49,4 +49,9 @@ inline WidgetPtr image(ImageConfig config) {
     return std::make_shared<ImageWidget>(std::move(config));
 }
 
+/// Declarative syntax alias for Image
+inline WidgetPtr ImageView(ImageConfig config) {
+    return image(std::move(config));
+}
+
 } // namespace vaura

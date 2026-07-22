@@ -54,4 +54,9 @@ struct SearchBarConfig {
 /// Create a SearchBar widget.
 std::shared_ptr<Widget> search_bar(SearchBarConfig config);
 
+/// Declarative syntax alias for SearchBar
+inline std::shared_ptr<Widget> SearchBar(SearchBarConfig config) {
+    return search_bar(std::move(config));
+}
+
 } // namespace vaura

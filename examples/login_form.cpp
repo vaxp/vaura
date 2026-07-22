@@ -38,13 +38,13 @@ public:
             .borderRadius(16)
             .flexDirection(YGFlexDirectionColumn);
 
-        auto title = text("Welcome Back", {
+        auto title = Text("Welcome Back", {
             .font_size = 28,
             .color = 0xFFFFFFFF,
             .weight = TextStyle::Bold
         });
 
-        auto subtitle = text("Sign in to your account", {
+        auto subtitle = Text("Sign in to your account", {
             .font_size = 14,
             .color = 0xFF94A3B8,
             .weight = TextStyle::Regular
@@ -54,7 +54,7 @@ public:
         auto gap_medium = std::make_shared<FlexBox>(); gap_medium->height(16).width(1);
         auto gap_large = std::make_shared<FlexBox>(); gap_large->height(32).width(1);
 
-        auto username_field = text_field({
+        auto username_field = TextField({
             .placeholder = "Username or Email",
             .on_changed = [this](std::string_view text) { username_ = text; },
             .bg_color = 0x00000000, // Transparent, wrapper handles background
@@ -72,7 +72,7 @@ public:
                       .borderRadius(8)
                       .child(username_field);
 
-        auto password_field = text_field({
+        auto password_field = TextField({
             .placeholder = "Password",
             .on_changed = [this](std::string_view text) { password_ = text; },
             .bg_color = 0x00000000, // Transparent
@@ -95,7 +95,7 @@ public:
                     .flexDirection(YGFlexDirectionRow)
                     .alignItems(YGAlignCenter);
 
-        auto remember_switch = toggle_switch({
+        auto remember_switch = Switch({
             .value = remember_me_,
             .on_changed = [this](bool val) {
                 setState([this, val] {
@@ -104,7 +104,7 @@ public:
             }
         });
 
-        auto remember_text = text("Remember me", {
+        auto remember_text = Text("Remember me", {
             .font_size = 14,
             .color = 0xFF94A3B8
         });
@@ -116,8 +116,8 @@ public:
         remember_row->child(remember_text_container)
                     .child(remember_switch);
 
-        auto login_btn = button({
-            .child = text("Sign In", {
+        auto login_btn = Button({
+            .child = Text("Sign In", {
                 .font_size = 16,
                 .color = 0xFF0F172A,
                 .weight = TextStyle::Bold

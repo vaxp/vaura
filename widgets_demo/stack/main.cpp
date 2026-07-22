@@ -18,7 +18,7 @@ public:
             .backgroundColor(0xFF0F172A)
             .widthPercent(100).heightPercent(100);
 
-        root->child(text("Stack Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+        root->child(Text("Stack Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
 
         auto spacer = std::make_shared<FlexBox>();
         spacer->height(40);
@@ -31,7 +31,7 @@ public:
                   .justifyContent(YGJustifyFlexEnd)
                   .alignItems(YGAlignFlexEnd)
                   .padding(YGEdgeAll, 16);
-        bottom_box->child(text("Base", {.font_size = 18.0f, .color = 0xFF94A3B8}));
+        bottom_box->child(Text("Base", {.font_size = 18.0f, .color = 0xFF94A3B8}));
 
         auto middle_box = std::make_shared<FlexBox>();
         middle_box->width(200).height(200)
@@ -40,7 +40,7 @@ public:
                   .justifyContent(YGJustifyFlexEnd)
                   .alignItems(YGAlignFlexEnd)
                   .padding(YGEdgeAll, 16);
-        middle_box->child(text("Middle", {.font_size = 18.0f, .color = 0xFFFFFFFF}));
+        middle_box->child(Text("Middle", {.font_size = 18.0f, .color = 0xFFFFFFFF}));
 
         auto top_box = std::make_shared<FlexBox>();
         top_box->width(100).height(100)
@@ -49,13 +49,13 @@ public:
                  .justifyContent(YGJustifyFlexEnd)
                  .alignItems(YGAlignFlexEnd)
                  .padding(YGEdgeAll, 8);
-        top_box->child(text("Top", {.font_size = 16.0f, .color = 0xFFFFFFFF}));
+        top_box->child(Text("Top", {.font_size = 16.0f, .color = 0xFFFFFFFF}));
 
         StackConfig stack_cfg;
         stack_cfg.alignment = Alignment::Center;
         stack_cfg.children = {bottom_box, middle_box, top_box};
 
-        auto stack_widget = stack(stack_cfg);
+        auto stack_widget = Stack(stack_cfg);
         root->child(stack_widget);
 
         return root;

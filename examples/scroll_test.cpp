@@ -25,7 +25,7 @@ public:
                 .justifyContent(YGJustifyCenter)
                 .padding(YGEdgeLeft, 20);
 
-            item->child(text("List Item " + std::to_string(i), {
+            item->child(Text("List Item " + std::to_string(i), {
                 .font_size = 18,
                 .color = 0xFFF8FAFC
             }));
@@ -34,7 +34,7 @@ public:
         }
 
         // Wrap the long content in a scroll_view
-        return scroll_view({
+        return ScrollView({
             .child = content,
             .scroll_speed = 40.0f
         });

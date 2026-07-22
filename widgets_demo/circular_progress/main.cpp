@@ -44,7 +44,7 @@ public:
         ind_cfg.size = 80.0f;
         ind_cfg.stroke_width = 8.0f;
         ind_cfg.color = 0xFF8B5CF6; // Violet 500
-        ind_col->child(circular_progress(ind_cfg));
+        ind_col->child(CircularProgress(ind_cfg));
         
         TextConfig ind_txt;
         ind_txt.font_size = 18.0f;
@@ -65,7 +65,7 @@ public:
         det_cfg.stroke_width = 8.0f;
         det_cfg.color = 0xFF10B981; // Emerald 500
         det_cfg.background_color = 0xFF1E293B; // Slate 800
-        det_col->child(circular_progress(det_cfg));
+        det_col->child(CircularProgress(det_cfg));
         
         TextConfig det_txt;
         det_txt.font_size = 18.0f;

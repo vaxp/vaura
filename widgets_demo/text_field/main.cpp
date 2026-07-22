@@ -42,7 +42,7 @@ public:
         user_cfg.on_changed = [this](std::string_view v) { username = std::string(v); };
 
         auto user_wrapper = std::make_shared<FlexBox>();
-        user_wrapper->widthPercent(100).margin(YGEdgeBottom, 20).child(text_field(user_cfg));
+        user_wrapper->widthPercent(100).margin(YGEdgeBottom, 20).child(TextField(user_cfg));
         card->child(user_wrapper);
 
         // Password Field
@@ -61,12 +61,12 @@ public:
         };
 
         auto pass_wrapper = std::make_shared<FlexBox>();
-        pass_wrapper->widthPercent(100).margin(YGEdgeBottom, 40).child(text_field(pass_cfg));
+        pass_wrapper->widthPercent(100).margin(YGEdgeBottom, 40).child(TextField(pass_cfg));
         card->child(pass_wrapper);
 
         // Login Button
         ButtonConfig btn_cfg;
-        btn_cfg.child = text("Login", {.font_size = 16.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold});
+        btn_cfg.child = Text("Login", {.font_size = 16.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold});
         btn_cfg.color = 0xFF007ACC;
         btn_cfg.hover_color = 0xFF005A9E; // Slightly darker on hover
         btn_cfg.border_radius = 10.0f;
@@ -75,7 +75,7 @@ public:
         };
 
         auto btn_wrapper = std::make_shared<FlexBox>();
-        btn_wrapper->widthPercent(100).height(50).child(button(btn_cfg));
+        btn_wrapper->widthPercent(100).height(50).child(Button(btn_cfg));
         card->child(btn_wrapper);
 
         root->child(card);

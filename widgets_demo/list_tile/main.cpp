@@ -28,7 +28,7 @@ public:
                .alignItems(YGAlignStretch)
                .width(450);
 
-        auto title = text("Settings", {
+        auto title = Text("Settings", {
             .font_size = 28,
             .color = 0xFFFFFFFF,
             .weight = TextStyle::Bold
@@ -39,38 +39,38 @@ public:
         content->child(title_container);
 
         // Tile 1
-        auto tile1 = list_tile({
-            .leading = icon(0xf47d, {.size = 28, .color = 0xFF38BDF8}), // Person
-            .title = text("Account", {.font_size = 18, .color = 0xFFF8FAFC}),
-            .subtitle = text("Manage your profile", {.font_size = 14, .color = 0xFF94A3B8}),
-            .trailing = icon(0xf448, {.size = 24, .color = 0xFF64748B}), // Chevron
+        auto tile1 = ListTile({
+            .leading = Icon(0xf47d, {.size = 28, .color = 0xFF38BDF8}), // Person
+            .title = Text("Account", {.font_size = 18, .color = 0xFFF8FAFC}),
+            .subtitle = Text("Manage your profile", {.font_size = 14, .color = 0xFF94A3B8}),
+            .trailing = Icon(0xf448, {.size = 24, .color = 0xFF64748B}), // Chevron
             .on_tap = []() { std::cout << "Account tapped!" << std::endl; }
         });
 
         // Tile 2
-        auto tile2 = list_tile({
-            .leading = avatar({.size = 40.0f, .image_path = "", .background_color = 0xFF10B981, .initials = "JD"}),
-            .title = text("VAURA Cloud", {.font_size = 18, .color = 0xFFF8FAFC}),
-            .subtitle = text("Sync & Backup", {.font_size = 14, .color = 0xFF94A3B8}),
+        auto tile2 = ListTile({
+            .leading = Avatar({.size = 40.0f, .image_path = "", .background_color = 0xFF10B981, .initials = "JD"}),
+            .title = Text("VAURA Cloud", {.font_size = 18, .color = 0xFFF8FAFC}),
+            .subtitle = Text("Sync & Backup", {.font_size = 14, .color = 0xFF94A3B8}),
             .on_tap = []() { std::cout << "Cloud tapped!" << std::endl; }
         });
 
         // Tile 3
-        auto tile3 = list_tile({
-            .leading = icon(0xf443, {.size = 28, .color = 0xFFEF4444}), // Heart
-            .title = text("Favorites", {.font_size = 18, .color = 0xFFF8FAFC}),
-            .trailing = text("12", {.font_size = 16, .color = 0xFF94A3B8}),
+        auto tile3 = ListTile({
+            .leading = Icon(0xf443, {.size = 28, .color = 0xFFEF4444}), // Heart
+            .title = Text("Favorites", {.font_size = 18, .color = 0xFFF8FAFC}),
+            .trailing = Text("12", {.font_size = 16, .color = 0xFF94A3B8}),
             .on_tap = []() { std::cout << "Favorites tapped!" << std::endl; }
         });
 
-        auto div1 = divider({.thickness = 1, .color = 0xFF334155, .indent = 60, .end_indent = 16});
-        auto div2 = divider({.thickness = 1, .color = 0xFF334155, .indent = 60, .end_indent = 16});
+        auto div1 = Divider({.thickness = 1, .color = 0xFF334155, .indent = 60, .end_indent = 16});
+        auto div2 = Divider({.thickness = 1, .color = 0xFF334155, .indent = 60, .end_indent = 16});
 
         content->child(tile1).child(div1)
                .child(tile2).child(div2)
                .child(tile3);
 
-        auto c = card({
+        auto c = Card({
             .color = 0xFF0F172A,
             .border_radius = 20.0f,
             .elevation = 15.0f,

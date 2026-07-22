@@ -38,7 +38,7 @@ public:
                .borderRadius(16)
                .padding(YGEdgeAll, 30);
 
-        auto title = text("Settings Demo", {
+        auto title = Text("Settings Demo", {
             .font_size = 28,
             .color = dark_mode_ ? 0xFFFFFFFF : 0xFF0F172A,
             .weight = TextStyle::Bold
@@ -55,12 +55,12 @@ public:
                .justifyContent(YGJustifySpaceBetween)
                .margin(YGEdgeBottom, 20);
 
-            auto text_widget = text(label, {
+            auto text_widget = Text(label, {
                 .font_size = 16,
                 .color = dark_mode_ ? 0xFFE2E8F0 : 0xFF334155
             });
 
-            auto toggle = toggle_switch({
+            auto toggle = Switch({
                 .value = value,
                 .on_changed = [this, &value](bool val) {
                     setState([this, &value, val] { value = val; });
@@ -77,7 +77,7 @@ public:
                .flexDirection(YGFlexDirectionColumn)
                .margin(YGEdgeBottom, 20);
 
-            auto text_widget = text(label, {
+            auto text_widget = Text(label, {
                 .font_size = 16,
                 .color = dark_mode_ ? 0xFFE2E8F0 : 0xFF334155
             });
@@ -85,7 +85,7 @@ public:
             auto text_container = std::make_shared<FlexBox>();
             text_container->margin(YGEdgeBottom, 10).child(text_widget);
 
-            auto slider_widget = slider({
+            auto slider_widget = Slider({
                 .value = value,
                 .on_changed = [this, &value](float val) {
                     setState([this, &value, val] { value = val; });
@@ -110,12 +110,12 @@ public:
                     .justifyContent(YGJustifySpaceBetween)
                     .margin(YGEdgeTop, 20);
         
-        auto progress_text = text("Loading State", {
+        auto progress_text = Text("Loading State", {
             .font_size = 16,
             .color = dark_mode_ ? 0xFFE2E8F0 : 0xFF334155
         });
         
-        auto progress_indicator = circular_progress({
+        auto progress_indicator = CircularProgress({
             .color = 0xFF38BDF8,
             .stroke_width = 4.0f,
             .size = 24.0f

@@ -33,7 +33,7 @@ public:
                .padding(YGEdgeAll, 40)
                .borderRadius(16);
 
-        auto title = text("Checkbox Demo", {
+        auto title = Text("Checkbox Demo", {
             .font_size = 28,
             .color = 0xFFFFFFFF,
             .weight = TextStyle::Bold
@@ -50,7 +50,7 @@ public:
                .alignItems(YGAlignCenter)
                .margin(YGEdgeBottom, 20);
 
-            auto cb = checkbox({
+            auto cb = Checkbox({
                 .value = value,
                 .on_changed = [this, &value](bool new_val) {
                     setState([&value, new_val] {
@@ -65,7 +65,7 @@ public:
                 .stroke_width = 2.5f
             });
 
-            auto txt = text(label, {
+            auto txt = Text(label, {
                 .font_size = 18,
                 .color = 0xFFE2E8F0
             });
@@ -80,7 +80,7 @@ public:
             row->child(cb_container).child(txt_container);
             
             // Make the whole row tappable
-            auto clickable_row = gesture_detector({
+            auto clickable_row = GestureDetector({
                 .child = row,
                 .on_tap = [this, &value]() {
                     setState([&value] { value = !value; });

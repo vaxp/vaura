@@ -21,4 +21,9 @@ struct CardConfig {
 /// Create a luxurious Card widget with a drop shadow.
 std::shared_ptr<Widget> card(CardConfig config, std::shared_ptr<Widget> child);
 
+/// Declarative syntax alias for Card
+inline std::shared_ptr<Widget> Card(CardConfig config, std::shared_ptr<Widget> child) {
+    return card(std::move(config), std::move(child));
+}
+
 } // namespace vaura

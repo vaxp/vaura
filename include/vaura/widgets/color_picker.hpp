@@ -24,4 +24,9 @@ struct ColorPickerConfig {
 /// Create a ColorPicker widget.
 std::shared_ptr<Widget> color_picker(ColorPickerConfig config);
 
+/// Declarative syntax alias for ColorPicker
+inline std::shared_ptr<Widget> ColorPicker(ColorPickerConfig config) {
+    return color_picker(std::move(config));
+}
+
 } // namespace vaura

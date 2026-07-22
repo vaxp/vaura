@@ -65,4 +65,9 @@ struct ExpansionPanelConfig {
 /// Create an ExpansionPanel widget.
 std::shared_ptr<Widget> expansion_panel(ExpansionPanelConfig config);
 
+/// Declarative syntax alias for ExpansionPanel
+inline std::shared_ptr<Widget> ExpansionPanel(ExpansionPanelConfig config) {
+    return expansion_panel(std::move(config));
+}
+
 } // namespace vaura

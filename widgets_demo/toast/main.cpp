@@ -21,7 +21,7 @@ public:
                .backgroundColor(0xFF0F172A)
                .widthPercent(100).heightPercent(100);
 
-        content->child(text("Toast Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+        content->child(Text("Toast Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
 
         auto spacer = std::make_shared<FlexBox>();
         spacer->height(40);
@@ -31,21 +31,21 @@ public:
         btn_row->flexDirection(YGFlexDirectionRow).justifyContent(YGJustifyCenter);
 
         ButtonConfig top_btn;
-        top_btn.child = text("Top Toast", {.color = 0xFFFFFFFF});
+        top_btn.child = Text("Top Toast", {.color = 0xFFFFFFFF});
         top_btn.color = 0xFF3B82F6;
         top_btn.on_pressed = [this]() {
             setState([this]() { show_toast = true; toast_pos = ToastConfig::Position::Top; });
         };
-        auto w_top = std::make_shared<FlexBox>(); w_top->margin(YGEdgeRight, 10).child(button(top_btn));
+        auto w_top = std::make_shared<FlexBox>(); w_top->margin(YGEdgeRight, 10).child(Button(top_btn));
         btn_row->child(w_top);
 
         ButtonConfig bottom_btn;
-        bottom_btn.child = text("Bottom Toast", {.color = 0xFFFFFFFF});
+        bottom_btn.child = Text("Bottom Toast", {.color = 0xFFFFFFFF});
         bottom_btn.color = 0xFF10B981;
         bottom_btn.on_pressed = [this]() {
             setState([this]() { show_toast = true; toast_pos = ToastConfig::Position::Bottom; });
         };
-        auto w_bot = std::make_shared<FlexBox>(); w_bot->child(button(bottom_btn));
+        auto w_bot = std::make_shared<FlexBox>(); w_bot->child(Button(bottom_btn));
         btn_row->child(w_bot);
 
         content->child(btn_row);
@@ -64,12 +64,12 @@ public:
             
             auto toast_wrapper = std::make_shared<FlexBox>();
             toast_wrapper->widthPercent(100).heightPercent(100);
-            toast_wrapper->child(toast(toast_cfg));
+            toast_wrapper->child(Toast(toast_cfg));
             
             stack_cfg.children.push_back(toast_wrapper);
         }
 
-        return stack(stack_cfg);
+        return Stack(stack_cfg);
     }
 };
 

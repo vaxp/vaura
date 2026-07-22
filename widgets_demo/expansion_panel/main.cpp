@@ -22,11 +22,11 @@ public:
 
         auto title = std::make_shared<FlexBox>();
         title->margin(YGEdgeBottom, 40)
-             .child(text("Settings FAQ", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+             .child(Text("Settings FAQ", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
         root->child(title);
 
         auto make_content = [](const std::string& text_val) {
-            auto txt = text(text_val, {.font_size = 14.0f, .color = 0xFF94A3B8});
+            auto txt = Text(text_val, {.font_size = 14.0f, .color = 0xFF94A3B8});
             auto content_box = std::make_shared<FlexBox>();
             content_box->padding(YGEdgeAll, 16.0f).child(txt);
             return content_box;
@@ -64,7 +64,7 @@ public:
         };
         
         auto panel_wrap = std::make_shared<FlexBox>();
-        panel_wrap->width(600).child(expansion_panel(cfg));
+        panel_wrap->width(600).child(ExpansionPanel(cfg));
 
         root->child(panel_wrap);
         return root;

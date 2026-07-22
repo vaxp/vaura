@@ -29,24 +29,24 @@ public:
            .width(600);
 
         // Tooltip 1: Button
-        auto btn = button({
-            .child = text("Hover Me!", {.font_size = 18, .color = 0xFFFFFFFF}),
+        auto btn = Button({
+            .child = Text("Hover Me!", {.font_size = 18, .color = 0xFFFFFFFF}),
             .on_pressed = [](){}
         });
         
-        auto tt1 = tooltip({
+        auto tt1 = Tooltip({
             .message = "This is a button tooltip!",
             .vertical_offset = 50.0f, // Button is about 40px high
             .child = btn
         });
 
         // Tooltip 2: Icon
-        auto icn = icon(0xf47d, { // Person
+        auto icn = Icon(0xf47d, { // Person
             .size = 48.0f,
             .color = 0xFF94A3B8
         });
         
-        auto tt2 = tooltip({
+        auto tt2 = Tooltip({
             .message = "Profile Settings",
             .vertical_offset = 60.0f,
             .background_color = 0xFF3B82F6, // Blue bg
@@ -54,14 +54,14 @@ public:
         });
 
         // Tooltip 3: Avatar
-        auto av = avatar({
+        auto av = Avatar({
             .size = 64.0f,
             .background_color = 0xFF10B981,
             .initials = "JD",
             .font_size = 24.0f
         });
         
-        auto tt3 = tooltip({
+        auto tt3 = Tooltip({
             .message = "Jane Doe (Online)",
             .vertical_offset = 75.0f,
             .child = av
@@ -71,7 +71,7 @@ public:
            .child(tt2)
            .child(tt3);
 
-        auto card_container = container({
+        auto card_container = Container({
             .color = 0xFF1E293B,
             .padding = {60, 40, 60, 40},
             .border_radius = BorderRadius::circular(24.0f),

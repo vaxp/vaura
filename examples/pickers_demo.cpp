@@ -59,17 +59,17 @@ public:
                .backgroundColor(0xFF1E293B)
                .padding(YGEdgeAll, 16);
 
-        sidebar->child(text("Phase 3", {.font_size=20, .color=0xFFF8FAFC, .weight=TextStyle::Bold}));
-        sidebar->child(text("Data Pickers", {.font_size=14, .color=0xFF94A3B8}));
+        sidebar->child(Text("Phase 3", {.font_size=20, .color=0xFFF8FAFC, .weight=TextStyle::Bold}));
+        sidebar->child(Text("Data Pickers", {.font_size=14, .color=0xFF94A3B8}));
         auto sp1 = std::make_shared<FlexBox>(); sp1->height(30); sidebar->child(sp1);
 
         auto add_tab = [&](int idx, const char* label) {
             bool active = (active_tab == idx);
-            auto btn = gesture_detector({
-                .child = container({
+            auto btn = GestureDetector({
+                .child = Container({
                     .color         = active ? Color(0x220EA5E9) : Color(0x00000000),
                     .border_radius = BorderRadius::circular(8),
-                    .child         = text(label, {
+                    .child         = Text(label, {
                         .font_size = 14,
                         .color     = active ? 0xFF0EA5E9 : 0xFFCBD5E1,
                         .weight    = active ? TextStyle::SemiBold : TextStyle::Regular,
@@ -96,10 +96,10 @@ public:
             // SearchBar
             auto sbw = std::make_shared<FlexBox>();
             sbw->flexDirection(YGFlexDirectionColumn).alignItems(YGAlignCenter);
-            sbw->child(text("Integrated Search", {.font_size=24,.color=0xFFF8FAFC,.weight=TextStyle::Bold}));
+            sbw->child(Text("Integrated Search", {.font_size=24,.color=0xFFF8FAFC,.weight=TextStyle::Bold}));
             auto ssp = std::make_shared<FlexBox>(); ssp->height(24); sbw->child(ssp);
             
-            sbw->child(search_bar({
+            sbw->child(SearchBar({
                 .value             = search_value,
                 .on_changed        = [this](const std::string& v){ setState([this,v]{ search_value = v; }); },
                 .on_submitted      = [this](const std::string& v){ setState([this,v]{ search_value = v; }); },
@@ -125,10 +125,10 @@ public:
             // Calendar
             auto cw = std::make_shared<FlexBox>();
             cw->flexDirection(YGFlexDirectionColumn).alignItems(YGAlignCenter);
-            cw->child(text("Select a Date", {.font_size=24,.color=0xFFF8FAFC,.weight=TextStyle::Bold}));
+            cw->child(Text("Select a Date", {.font_size=24,.color=0xFFF8FAFC,.weight=TextStyle::Bold}));
             auto csp = std::make_shared<FlexBox>(); csp->height(24); cw->child(csp);
             
-            cw->child(calendar({
+            cw->child(Calendar({
                 .year              = cal_year,
                 .month             = cal_month,
                 .selected_day      = cal_day,
@@ -151,10 +151,10 @@ public:
             // TimePicker
             auto tw = std::make_shared<FlexBox>();
             tw->flexDirection(YGFlexDirectionColumn).alignItems(YGAlignCenter);
-            tw->child(text("Select Time", {.font_size=24,.color=0xFFF8FAFC,.weight=TextStyle::Bold}));
+            tw->child(Text("Select Time", {.font_size=24,.color=0xFFF8FAFC,.weight=TextStyle::Bold}));
             auto tsp = std::make_shared<FlexBox>(); tsp->height(24); tw->child(tsp);
             
-            tw->child(time_picker({
+            tw->child(TimePicker({
                 .hour              = time_hour,
                 .minute            = time_min,
                 .use_24h           = !time_is_am,
@@ -177,10 +177,10 @@ public:
             // ColorPicker
             auto cpw = std::make_shared<FlexBox>();
             cpw->flexDirection(YGFlexDirectionColumn).alignItems(YGAlignCenter);
-            cpw->child(text("Theme Color", {.font_size=24,.color=0xFFF8FAFC,.weight=TextStyle::Bold}));
+            cpw->child(Text("Theme Color", {.font_size=24,.color=0xFFF8FAFC,.weight=TextStyle::Bold}));
             auto cpsp = std::make_shared<FlexBox>(); cpsp->height(24); cpw->child(cpsp);
             
-            cpw->child(color_picker({
+            cpw->child(ColorPicker({
                 .selected_color   = picked_color,
                 .on_changed       = [this](Color c){ setState([this,c]{ picked_color = c; }); },
                 .show_alpha       = true,

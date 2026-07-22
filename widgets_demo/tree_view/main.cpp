@@ -19,14 +19,14 @@ public:
             .backgroundColor(0xFF0F172A)
             .widthPercent(100).heightPercent(100);
 
-        root->child(text("Tree View Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
+        root->child(Text("Tree View Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
 
         auto spacer = std::make_shared<FlexBox>();
         spacer->height(40);
         root->child(spacer);
 
-        auto doc_icon = icon(Icons::Doc, {.size = 18.0f, .color = 0xFFAAAAAA});
-        auto folder_icon = icon(Icons::Folder, {.size = 18.0f, .color = 0xFF3B82F6});
+        auto doc_icon = Icon(Icons::Doc, {.size = 18.0f, .color = 0xFFAAAAAA});
+        auto folder_icon = Icon(Icons::Folder, {.size = 18.0f, .color = 0xFF3B82F6});
 
         TreeViewConfig tree_cfg;
         tree_cfg.nodes.push_back({"src", folder_icon, {
@@ -47,7 +47,7 @@ public:
         tree_cfg.nodes.push_back({"README.md", doc_icon, {}, false, nullptr, nullptr});
         tree_cfg.nodes.push_back({"CMakeLists.txt", doc_icon, {}, false, nullptr, nullptr});
 
-        auto tree_widget = tree_view(tree_cfg);
+        auto tree_widget = TreeView(tree_cfg);
         
         auto wrapper = std::make_shared<FlexBox>();
         wrapper->width(400).height(400)

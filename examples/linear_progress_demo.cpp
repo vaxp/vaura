@@ -29,9 +29,9 @@ public:
                    .width(300);
 
         // Indeterminate Progress
-        auto title1 = text("Indeterminate Progress", { .font_size = 18, .color = 0xFFFFFFFF, .weight = TextStyle::Bold });
+        auto title1 = Text("Indeterminate Progress", { .font_size = 18, .color = 0xFFFFFFFF, .weight = TextStyle::Bold });
         auto wrap_title1 = std::make_shared<FlexBox>(); wrap_title1->margin(YGEdgeBottom, 10).child(title1);
-        auto ind_prog = linear_progress({
+        auto ind_prog = LinearProgress({
             .value = std::nullopt,
             .thickness = 6.0f,
             .border_radius = 3.0f,
@@ -41,9 +41,9 @@ public:
         auto wrap_ind = std::make_shared<FlexBox>(); wrap_ind->margin(YGEdgeBottom, 30).child(ind_prog);
 
         // Determinate Progress
-        auto title2 = text("Determinate Progress (75%)", { .font_size = 18, .color = 0xFFFFFFFF, .weight = TextStyle::Bold });
+        auto title2 = Text("Determinate Progress (75%)", { .font_size = 18, .color = 0xFFFFFFFF, .weight = TextStyle::Bold });
         auto wrap_title2 = std::make_shared<FlexBox>(); wrap_title2->margin(YGEdgeBottom, 10).child(title2);
-        auto det_prog = linear_progress({
+        auto det_prog = LinearProgress({
             .value = 0.75f,
             .thickness = 6.0f,
             .border_radius = 3.0f,
@@ -56,7 +56,7 @@ public:
         content_col->child(wrap_title2);
         content_col->child(det_prog);
 
-        auto c = card({
+        auto c = Card({
             .color = 0xFF0F172A,
             .border_radius = 20.0f,
             .elevation = 15.0f,

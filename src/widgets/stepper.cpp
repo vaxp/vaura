@@ -140,9 +140,11 @@ public:
             btn_row->child(gesture_detector({
                 .child = container({
                     .color         = 0xFF334155,
-                    .padding       = EdgeInsets{10, 20, 10, 20},
+                    .width         = cfg.button_width,
+                    .height        = cfg.button_height,
+                    .padding       = cfg.button_padding,
                     .border_radius = BorderRadius::circular(8),
-                    .child         = text("Back", {.color = 0xFFFFFFFF}),
+                    .child         = text("Back", {.font_size = cfg.button_font_size, .color = 0xFFFFFFFF, .weight = TextStyle::SemiBold}),
                 }),
                 .on_tap = [fn, prev]() { fn(prev); },
             }));
@@ -157,9 +159,11 @@ public:
             btn_row->child(gesture_detector({
                 .child = container({
                     .color         = cfg.completed_color,
-                    .padding       = EdgeInsets{10, 20, 10, 20},
+                    .width         = cfg.button_width,
+                    .height        = cfg.button_height,
+                    .padding       = cfg.button_padding,
                     .border_radius = BorderRadius::circular(8),
-                    .child         = text("Finish", {.color = 0xFFFFFFFF, .weight = TextStyle::SemiBold}),
+                    .child         = text("Finish", {.font_size = cfg.button_font_size, .color = 0xFFFFFFFF, .weight = TextStyle::SemiBold}),
                 }),
                 .on_tap = cfg.on_complete,
             }));
@@ -169,9 +173,11 @@ public:
             btn_row->child(gesture_detector({
                 .child = container({
                     .color         = cfg.active_color,
-                    .padding       = EdgeInsets{10, 20, 10, 20},
+                    .width         = cfg.button_width,
+                    .height        = cfg.button_height,
+                    .padding       = cfg.button_padding,
                     .border_radius = BorderRadius::circular(8),
-                    .child         = text("Next", {.color = 0xFFFFFFFF, .weight = TextStyle::SemiBold}),
+                    .child         = text("Next", {.font_size = cfg.button_font_size, .color = 0xFFFFFFFF, .weight = TextStyle::SemiBold}),
                 }),
                 .on_tap = [fn, next]() { fn(next); },
             }));

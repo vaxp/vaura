@@ -58,6 +58,10 @@ struct StepperConfig {
     float  circle_size       = 32.0f;
     float  connector_height  = 40.0f;        ///< Height of the line between circles.
     float  font_size         = 14.0f;
+    EdgeInsets button_padding = EdgeInsets(12, 32, 12, 32); ///< Padding for navigation buttons.
+    float  button_font_size  = 16.0f;      ///< Font size for navigation buttons.
+    float  button_width      = 0.0f;       ///< Explicit width for navigation buttons (0 = auto).
+    float  button_height     = 0.0f;       ///< Explicit height for navigation buttons (0 = auto).
 };
 
 // ════════════════════════════════════════════════════════════════

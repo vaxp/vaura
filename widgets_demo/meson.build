@@ -177,6 +177,31 @@ executable('demo_row',
   dependencies: vaura_dep,
 )
 
+executable('demo_split_view',
+  sources: ['split_view/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_stack',
+  sources: ['stack/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_snackbar',
+  sources: ['snackbar/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_toast',
+  sources: ['toast/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_stepper',
+  sources: ['stepper/main.cpp'],
+  dependencies: vaura_dep,
+)
+
 executable('demo_text_field',
   sources: ['text_field/main.cpp'],
   dependencies: vaura_dep,

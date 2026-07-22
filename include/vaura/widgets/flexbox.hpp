@@ -189,8 +189,12 @@ private:
 };
 
 struct FlexBoxConfig {
+    YGFlexDirection flexDirection = YGFlexDirectionColumn;
     YGJustify justifyContent = YGJustifyFlexStart;
     YGAlign alignItems = YGAlignStretch;
+    YGAlign alignContent = YGAlignFlexStart;
+    YGAlign alignSelf = YGAlignAuto;
+    YGWrap flexWrap = YGWrapNoWrap;
     float gap = YGUndefined;
     
     float width = YGUndefined;
@@ -198,60 +202,71 @@ struct FlexBoxConfig {
     float height = YGUndefined;
     float heightPercent = YGUndefined;
     
+    float flex = YGUndefined;
+    float flexGrow = 0.0f;
+    float flexShrink = 0.0f;
+    float flexBasis = YGUndefined;
+    float flexBasisPercent = YGUndefined;
+
+    std::optional<std::pair<YGEdge, float>> padding = std::nullopt;
+    std::optional<std::pair<YGEdge, float>> margin = std::nullopt;
+    std::optional<std::pair<YGEdge, float>> position = std::nullopt;
+    YGPositionType positionType = YGPositionTypeRelative;
+
     Color backgroundColor = 0x00000000;
     float borderRadius = 0.0f;
+    YGOverflow overflow = YGOverflowVisible;
     
     std::vector<std::shared_ptr<Widget>> children;
 };
 
-inline std::shared_ptr<FlexBox> Column(const FlexBoxConfig& cfg = {}) {
+inline std::shared_ptr<FlexBox> createFlexBox(const FlexBoxConfig& cfg) {
     auto fb = std::make_shared<FlexBox>();
-    fb->flexDirection(YGFlexDirectionColumn);
+    fb->flexDirection(cfg.flexDirection);
     fb->justifyContent(cfg.justifyContent);
     fb->alignItems(cfg.alignItems);
+    fb->alignContent(cfg.alignContent);
+    fb->alignSelf(cfg.alignSelf);
+    fb->flexWrap(cfg.flexWrap);
     
-    if (cfg.gap != YGUndefined) {
-        fb->gap(YGGutterAll, cfg.gap);
-    }
+    if (cfg.gap != YGUndefined) fb->gap(YGGutterAll, cfg.gap);
     
     if (cfg.width != YGUndefined) fb->width(cfg.width);
     if (cfg.widthPercent != YGUndefined) fb->widthPercent(cfg.widthPercent);
     if (cfg.height != YGUndefined) fb->height(cfg.height);
     if (cfg.heightPercent != YGUndefined) fb->heightPercent(cfg.heightPercent);
     
+    if (cfg.flex != YGUndefined) fb->flex(cfg.flex);
+    if (cfg.flexGrow != 0.0f) fb->flexGrow(cfg.flexGrow);
+    if (cfg.flexShrink != 0.0f) fb->flexShrink(cfg.flexShrink);
+    if (cfg.flexBasis != YGUndefined) fb->flexBasis(cfg.flexBasis);
+    if (cfg.flexBasisPercent != YGUndefined) fb->flexBasisPercent(cfg.flexBasisPercent);
+
+    if (cfg.padding) fb->padding(cfg.padding->first, cfg.padding->second);
+    if (cfg.margin) fb->margin(cfg.margin->first, cfg.margin->second);
+    
+    fb->positionType(cfg.positionType);
+    if (cfg.position) fb->position(cfg.position->first, cfg.position->second);
+    
     fb->backgroundColor(cfg.backgroundColor);
     if (cfg.borderRadius > 0.0f) fb->borderRadius(cfg.borderRadius);
+    fb->overflow(cfg.overflow);
     
     for (auto& child : cfg.children) {
-        fb->child(child);
+        if (child) fb->child(child);
     }
     
     return fb;
 }
 
-inline std::shared_ptr<FlexBox> Row(const FlexBoxConfig& cfg = {}) {
-    auto fb = std::make_shared<FlexBox>();
-    fb->flexDirection(YGFlexDirectionRow);
-    fb->justifyContent(cfg.justifyContent);
-    fb->alignItems(cfg.alignItems);
-    
-    if (cfg.gap != YGUndefined) {
-        fb->gap(YGGutterAll, cfg.gap);
-    }
-    
-    if (cfg.width != YGUndefined) fb->width(cfg.width);
-    if (cfg.widthPercent != YGUndefined) fb->widthPercent(cfg.widthPercent);
-    if (cfg.height != YGUndefined) fb->height(cfg.height);
-    if (cfg.heightPercent != YGUndefined) fb->heightPercent(cfg.heightPercent);
-    
-    fb->backgroundColor(cfg.backgroundColor);
-    if (cfg.borderRadius > 0.0f) fb->borderRadius(cfg.borderRadius);
-    
-    for (auto& child : cfg.children) {
-        fb->child(child);
-    }
-    
-    return fb;
+inline std::shared_ptr<FlexBox> Column(FlexBoxConfig cfg = {}) {
+    cfg.flexDirection = YGFlexDirectionColumn;
+    return createFlexBox(cfg);
+}
+
+inline std::shared_ptr<FlexBox> Row(FlexBoxConfig cfg = {}) {
+    cfg.flexDirection = YGFlexDirectionRow;
+    return createFlexBox(cfg);
 }
 
 } // namespace vaura

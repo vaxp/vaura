@@ -13,37 +13,31 @@ class PopupMenuDemoState : public State {
 
 public:
     WidgetPtr build(BuildContext& ctx) override {
-        auto root = std::make_shared<FlexBox>();
-        root->flexDirection(YGFlexDirectionColumn)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter)
-            .backgroundColor(0xFF0F172A)
-            .widthPercent(100).heightPercent(100);
-
-        root->child(Text("Last Action: " + action_text, {.font_size = 24.0f, .color = 0xFF94A3B8}));
-
-        auto spacer = std::make_shared<FlexBox>();
-        spacer->height(40);
-        root->child(spacer);
-
-        ButtonConfig btn_cfg;
-        btn_cfg.child = Text("Show Options", {.font_size = 14.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold});
-        btn_cfg.color = 0xFF3B82F6; // Blue 500
-        
-        auto anchor_btn = Button(btn_cfg);
-
-        PopupMenuConfig pm_cfg;
-        pm_cfg.anchor = anchor_btn;
-        pm_cfg.placement = PopupMenuConfig::Placement::BelowLeft;
-        
-        pm_cfg.items.push_back({"Edit Profile", [this]() { setState([this]() { action_text = "Edit"; }); }});
-        pm_cfg.items.push_back({"Share", [this]() { setState([this]() { action_text = "Share"; }); }});
-        pm_cfg.items.push_back({.is_separator = true});
-        // Label, Callback, Submenu, Disabled, Danger
-        pm_cfg.items.push_back({"Delete Account", [this]() { setState([this]() { action_text = "Delete"; }); }, nullptr, false, true});
-
-        root->child(PopupMenu(pm_cfg));
-        return root;
+        return Column({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF0F172A,
+            .children = {
+                Text("Last Action: " + action_text, {.font_size = 24.0f, .color = 0xFF94A3B8}),
+                Column({.height = 40.0f}),
+                PopupMenu({
+                    .anchor = Button({
+                        .child = Text("Show Options", {.font_size = 14.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}),
+                        .color = 0xFF3B82F6 // Blue 500
+                    }),
+                    .items = {
+                        {"Edit Profile", [this]() { setState([this]() { action_text = "Edit"; }); }},
+                        {"Share", [this]() { setState([this]() { action_text = "Share"; }); }},
+                        {.is_separator = true},
+                        // Label, Callback, Submenu, Disabled, Danger
+                        {"Delete Account", [this]() { setState([this]() { action_text = "Delete"; }); }, nullptr, false, true}
+                    },
+                    .placement = PopupMenuConfig::Placement::BelowLeft
+                })
+            }
+        });
     }
 };
 

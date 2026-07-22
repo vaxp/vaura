@@ -14,60 +14,61 @@ class OpacityDemoState : public State {
 
 public:
     WidgetPtr build(BuildContext& ctx) override {
-        auto root = std::make_shared<FlexBox>();
-        root->flexDirection(YGFlexDirectionColumn)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter)
-            .backgroundColor(0xFF0F172A)
-            .widthPercent(100).heightPercent(100);
+        return Column({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF0F172A,
+            .children = {
+                Column({
+                    .margin = std::pair{YGEdgeBottom, 40.0f},
+                    .children = {
+                        Text("Opacity Control", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold})
+                    }
+                }),
+                
+                // Control Panel
+                Column({
+                    .margin = std::pair{YGEdgeBottom, 40.0f},
+                    .children = {
+                        Slider({
+                            .value = current_opacity,
+                            .min_value = 0.0f,
+                            .max_value = 1.0f,
+                            .on_changed = [this](float v) {
+                                setState([this, v]() { current_opacity = v; });
+                            },
+                            .width = 300.0f,
+                            .active_color = 0xFF10B981
+                        })
+                    }
+                }),
 
-        auto title = std::make_shared<FlexBox>();
-        title->margin(YGEdgeBottom, 40)
-             .child(Text("Opacity Control", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
-        root->child(title);
-
-        // Control Panel
-        SliderConfig s_cfg;
-        s_cfg.min_value = 0.0f;
-        s_cfg.max_value = 1.0f;
-        s_cfg.value = current_opacity;
-        s_cfg.active_color = 0xFF10B981;
-        s_cfg.width = 300.0f;
-        s_cfg.on_changed = [this](float v) {
-            setState([this, v]() { current_opacity = v; });
-        };
-        
-        auto slider_box = std::make_shared<FlexBox>();
-        slider_box->margin(YGEdgeBottom, 40).child(Slider(s_cfg));
-        root->child(slider_box);
-
-        // Target content inside opacity widget
-        auto content_col = std::make_shared<FlexBox>();
-        content_col->flexDirection(YGFlexDirectionColumn)
-                   .alignItems(YGAlignCenter);
-                   
-        auto box = std::make_shared<FlexBox>();
-        box->width(200).height(200)
-           .backgroundColor(0xFF3B82F6) // Blue
-           .borderRadius(20.0f)
-           .justifyContent(YGJustifyCenter)
-           .alignItems(YGAlignCenter);
-           
-        box->child(Text("Fading Box", {.font_size = 20.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
-        content_col->child(box);
-
-        auto c = Card({
-            .color = 0xFF1E293B,
-            .border_radius = 20.0f,
-            .elevation = 10.0f,
-            .padding = {20, 20, 20, 20}
-        }, content_col);
-
-        // Apply Opacity
-        auto opacity_widget = Opacity(current_opacity, c);
-        
-        root->child(opacity_widget);
-        return root;
+                // Target content inside opacity widget
+                Opacity(current_opacity, Card({
+                    .color = 0xFF1E293B,
+                    .border_radius = 20.0f,
+                    .elevation = 10.0f,
+                    .padding = {20, 20, 20, 20}
+                }, Column({
+                    .alignItems = YGAlignCenter,
+                    .children = {
+                        Column({
+                            .justifyContent = YGJustifyCenter,
+                            .alignItems = YGAlignCenter,
+                            .width = 200.0f,
+                            .height = 200.0f,
+                            .backgroundColor = 0xFF3B82F6, // Blue
+                            .borderRadius = 20.0f,
+                            .children = {
+                                Text("Fading Box", {.font_size = 20.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold})
+                            }
+                        })
+                    }
+                })))
+            }
+        });
     }
 };
 

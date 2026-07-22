@@ -13,42 +13,34 @@ class TimePickerDemoState : public State {
 
 public:
     WidgetPtr build(BuildContext& ctx) override {
-        auto root = std::make_shared<FlexBox>();
-        root->flexDirection(YGFlexDirectionColumn)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter)
-            .backgroundColor(0xFF0F172A)
-            .widthPercent(100).heightPercent(100);
-
-        root->child(Text("Time Picker Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
-
-        auto spacer = std::make_shared<FlexBox>();
-        spacer->height(40);
-        root->child(spacer);
-
-        TimePickerConfig tp_cfg;
-        tp_cfg.hour = current_hour;
-        tp_cfg.minute = current_minute;
-        tp_cfg.use_24h = true;
-        tp_cfg.clock_size = 360.0f;
-        tp_cfg.on_changed = [this](int h, int m) {
-            setState([this, h, m]() {
-                current_hour = h;
-                current_minute = m;
-            });
-        };
-
-        root->child(TimePicker(tp_cfg));
-
-        auto spacer2 = std::make_shared<FlexBox>();
-        spacer2->height(20);
-        root->child(spacer2);
-
         char buf[64];
         snprintf(buf, sizeof(buf), "Selected Time: %02d:%02d", current_hour, current_minute);
-        root->child(Text(buf, {.font_size = 24.0f, .color = 0xFF10B981, .weight = TextStyle::SemiBold}));
 
-        return root;
+        return Column({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF0F172A,
+            .children = {
+                Text("Time Picker Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}),
+                Column({.height = 40.0f}),
+                TimePicker({
+                    .hour = current_hour,
+                    .minute = current_minute,
+                    .use_24h = true,
+                    .on_changed = [this](int h, int m) {
+                        setState([this, h, m]() {
+                            current_hour = h;
+                            current_minute = m;
+                        });
+                    },
+                    .clock_size = 360.0f
+                }),
+                Column({.height = 20.0f}),
+                Text(buf, {.font_size = 24.0f, .color = 0xFF10B981, .weight = TextStyle::SemiBold})
+            }
+        });
     }
 };
 

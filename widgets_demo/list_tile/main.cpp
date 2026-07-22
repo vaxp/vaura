@@ -16,69 +16,57 @@ public:
     [[nodiscard]] std::string_view typeName() const override { return "ListTileDemoApp"; }
 
     WidgetPtr build(BuildContext& ctx) override {
-        auto root = std::make_shared<FlexBox>();
-        root->widthPercent(100)
-            .heightPercent(100)
-            .backgroundColor(0xFF1E293B)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter);
-
-        auto content = std::make_shared<FlexBox>();
-        content->flexDirection(YGFlexDirectionColumn)
-               .alignItems(YGAlignStretch)
-               .width(450);
-
-        auto title = Text("Settings", {
-            .font_size = 28,
-            .color = 0xFFFFFFFF,
-            .weight = TextStyle::Bold
+        return Column({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF1E293B,
+            .children = {
+                Card({
+                    .color = 0xFF0F172A,
+                    .border_radius = 20.0f,
+                    .elevation = 15.0f,
+                    .padding = {0, 10, 0, 10} // Vertial padding, 0 horizontal to allow tiles to stretch
+                }, Column({
+                    .alignItems = YGAlignStretch,
+                    .width = 450.0f,
+                    .children = {
+                        Column({
+                            .margin = std::pair{YGEdgeBottom, 20.0f},
+                            .children = {
+                                Text("Settings", {
+                                    .font_size = 28,
+                                    .color = 0xFFFFFFFF,
+                                    .weight = TextStyle::Bold
+                                })
+                            }
+                        }),
+                        ListTile({
+                            .leading = Icon(0xf47d, {.size = 28, .color = 0xFF38BDF8}), // Person
+                            .title = Text("Account", {.font_size = 18, .color = 0xFFF8FAFC}),
+                            .subtitle = Text("Manage your profile", {.font_size = 14, .color = 0xFF94A3B8}),
+                            .trailing = Icon(0xf448, {.size = 24, .color = 0xFF64748B}), // Chevron
+                            .on_tap = []() { std::cout << "Account tapped!" << std::endl; }
+                        }),
+                        Divider({.thickness = 1, .color = 0xFF334155, .indent = 60, .end_indent = 16}),
+                        ListTile({
+                            .leading = Avatar({.size = 40.0f, .image_path = "", .background_color = 0xFF10B981, .initials = "JD"}),
+                            .title = Text("VAURA Cloud", {.font_size = 18, .color = 0xFFF8FAFC}),
+                            .subtitle = Text("Sync & Backup", {.font_size = 14, .color = 0xFF94A3B8}),
+                            .on_tap = []() { std::cout << "Cloud tapped!" << std::endl; }
+                        }),
+                        Divider({.thickness = 1, .color = 0xFF334155, .indent = 60, .end_indent = 16}),
+                        ListTile({
+                            .leading = Icon(0xf443, {.size = 28, .color = 0xFFEF4444}), // Heart
+                            .title = Text("Favorites", {.font_size = 18, .color = 0xFFF8FAFC}),
+                            .trailing = Text("12", {.font_size = 16, .color = 0xFF94A3B8}),
+                            .on_tap = []() { std::cout << "Favorites tapped!" << std::endl; }
+                        })
+                    }
+                }))
+            }
         });
-        
-        auto title_container = std::make_shared<FlexBox>();
-        title_container->margin(YGEdgeBottom, 20).child(title);
-        content->child(title_container);
-
-        // Tile 1
-        auto tile1 = ListTile({
-            .leading = Icon(0xf47d, {.size = 28, .color = 0xFF38BDF8}), // Person
-            .title = Text("Account", {.font_size = 18, .color = 0xFFF8FAFC}),
-            .subtitle = Text("Manage your profile", {.font_size = 14, .color = 0xFF94A3B8}),
-            .trailing = Icon(0xf448, {.size = 24, .color = 0xFF64748B}), // Chevron
-            .on_tap = []() { std::cout << "Account tapped!" << std::endl; }
-        });
-
-        // Tile 2
-        auto tile2 = ListTile({
-            .leading = Avatar({.size = 40.0f, .image_path = "", .background_color = 0xFF10B981, .initials = "JD"}),
-            .title = Text("VAURA Cloud", {.font_size = 18, .color = 0xFFF8FAFC}),
-            .subtitle = Text("Sync & Backup", {.font_size = 14, .color = 0xFF94A3B8}),
-            .on_tap = []() { std::cout << "Cloud tapped!" << std::endl; }
-        });
-
-        // Tile 3
-        auto tile3 = ListTile({
-            .leading = Icon(0xf443, {.size = 28, .color = 0xFFEF4444}), // Heart
-            .title = Text("Favorites", {.font_size = 18, .color = 0xFFF8FAFC}),
-            .trailing = Text("12", {.font_size = 16, .color = 0xFF94A3B8}),
-            .on_tap = []() { std::cout << "Favorites tapped!" << std::endl; }
-        });
-
-        auto div1 = Divider({.thickness = 1, .color = 0xFF334155, .indent = 60, .end_indent = 16});
-        auto div2 = Divider({.thickness = 1, .color = 0xFF334155, .indent = 60, .end_indent = 16});
-
-        content->child(tile1).child(div1)
-               .child(tile2).child(div2)
-               .child(tile3);
-
-        auto c = Card({
-            .color = 0xFF0F172A,
-            .border_radius = 20.0f,
-            .elevation = 15.0f,
-            .padding = {0, 10, 0, 10} // Vertial padding, 0 horizontal to allow tiles to stretch
-        }, content);
-
-        root->child(c);
-        return root;
     }
 };
 

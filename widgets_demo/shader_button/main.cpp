@@ -12,20 +12,6 @@ public:
     std::string_view typeName() const override { return "ShaderButtonDemo"; }
 
     WidgetPtr build(BuildContext& ctx) override {
-        auto root = std::make_shared<FlexBox>();
-        root->flexDirection(YGFlexDirectionColumn)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter)
-            .backgroundColor(0xFF0F172A)
-            .widthPercent(100).heightPercent(100);
-
-        root->child(Text("Shader Button Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
-
-        auto spacer = std::make_shared<FlexBox>();
-        spacer->height(40);
-        root->child(spacer);
-
-        // A basic SKSL shader for the button background
         std::string btn_shader = R"(
             uniform float u_time;
             uniform vec2  u_resolution;
@@ -44,22 +30,29 @@ public:
             }
         )";
 
-        ShaderButtonConfig btn_cfg;
-        btn_cfg.sksl_code = btn_shader;
-        btn_cfg.color1 = 0xFF3B82F6; // Blue
-        btn_cfg.color2 = 0xFF8B5CF6; // Purple
-        btn_cfg.width = 200.0f;
-        btn_cfg.height = 60.0f;
-        btn_cfg.border_radius = 30.0f;
-        btn_cfg.on_tap = []() {
-            std::cout << "Shader button tapped!" << std::endl;
-        };
-        
-        btn_cfg.child = Text("Animated Button", {.font_size = 18.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold});
-
-        root->child(ShaderButton(btn_cfg));
-
-        return root;
+        return Column({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF0F172A,
+            .children = {
+                Text("Shader Button Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}),
+                Column({.height = 40.0f}),
+                ShaderButton({
+                    .sksl_code = btn_shader,
+                    .color1 = 0xFF3B82F6, // Blue
+                    .color2 = 0xFF8B5CF6, // Purple
+                    .border_radius = 30.0f,
+                    .width = 200.0f,
+                    .height = 60.0f,
+                    .on_tap = []() {
+                        std::cout << "Shader button tapped!" << std::endl;
+                    },
+                    .child = Text("Animated Button", {.font_size = 18.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold})
+                })
+            }
+        });
     }
 };
 

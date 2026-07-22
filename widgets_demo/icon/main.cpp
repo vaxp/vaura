@@ -13,65 +13,69 @@ class IconDemoState : public State {
 
 public:
     WidgetPtr build(BuildContext& ctx) override {
-        auto root = std::make_shared<FlexBox>();
-        root->flexDirection(YGFlexDirectionColumn)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter)
-            .backgroundColor(0xFF0F172A)
-            .widthPercent(100).heightPercent(100);
+        return Column({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF0F172A,
+            .children = {
+                Column({
+                    .margin = std::pair{YGEdgeBottom, 40.0f},
+                    .children = {
+                        Text("Icon Gallery", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold})
+                    }
+                }),
+                Row({
+                    .justifyContent = YGJustifyCenter,
+                    .alignItems = YGAlignCenter,
+                    .flexWrap = YGWrapWrap,
+                    .width = 500.0f,
+                    .children = [this]() {
+                        std::vector<WidgetPtr> items;
+                        std::vector<std::pair<IconData, std::string>> icons = {
+                            {Icons::House, "Home"},
+                            {Icons::Gear, "Settings"},
+                            {Icons::Person, "User"},
+                            {Icons::Heart, "Favorite"},
+                            {Icons::Star, "Rate"}
+                        };
 
-        auto title = std::make_shared<FlexBox>();
-        title->margin(YGEdgeBottom, 40)
-             .child(Text("Icon Gallery", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
-        root->child(title);
-
-        auto grid = std::make_shared<FlexBox>();
-        grid->flexDirection(YGFlexDirectionRow)
-            .flexWrap(YGWrapWrap)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter)
-            .width(500);
-
-        std::vector<std::pair<IconData, std::string>> icons = {
-            {Icons::House, "Home"},
-            {Icons::Gear, "Settings"},
-            {Icons::Person, "User"},
-            {Icons::Heart, "Favorite"},
-            {Icons::Star, "Rate"}
-        };
-
-        for (size_t i = 0; i < icons.size(); ++i) {
-            bool is_hovered = (static_cast<int>(i) == hovered_idx);
-            
-            auto item_box = std::make_shared<FlexBox>();
-            item_box->flexDirection(YGFlexDirectionColumn)
-                    .justifyContent(YGJustifyCenter)
-                    .alignItems(YGAlignCenter)
-                    .width(120).height(120)
-                    .margin(YGEdgeAll, 10)
-                    .backgroundColor(is_hovered ? 0xFF334155 : 0xFF1E293B)
-                    .borderRadius(16.0f);
-            
-            IconConfig icfg;
-            icfg.size = is_hovered ? 56.0f : 48.0f; // Scale up on hover
-            icfg.color = is_hovered ? 0xFF0EA5E9 : 0xFF94A3B8; // Color change
-            
-            item_box->child(Icon(icons[i].first, icfg));
-            
-            auto t = std::make_shared<FlexBox>();
-            t->margin(YGEdgeTop, 12).child(Text(icons[i].second, {.font_size = 14.0f, .color = is_hovered ? 0xFFF8FAFC : 0xFF94A3B8}));
-            item_box->child(t);
-            
-            GestureDetectorConfig gd_cfg;
-            gd_cfg.child = item_box;
-            gd_cfg.on_hover_enter = [this, i]() { setState([this, i]() { hovered_idx = i; }); };
-            gd_cfg.on_hover_exit = [this, i]() { setState([this, i]() { if (hovered_idx == static_cast<int>(i)) hovered_idx = -1; }); };
-            
-            grid->child(GestureDetector(gd_cfg));
-        }
-
-        root->child(grid);
-        return root;
+                        for (size_t i = 0; i < icons.size(); ++i) {
+                            bool is_hovered = (static_cast<int>(i) == hovered_idx);
+                            items.push_back(
+                                GestureDetector({
+                                    .child = Column({
+                                        .justifyContent = YGJustifyCenter,
+                                        .alignItems = YGAlignCenter,
+                                        .width = 120.0f,
+                                        .height = 120.0f,
+                                        .margin = std::pair{YGEdgeAll, 10.0f},
+                                        .backgroundColor = is_hovered ? 0xFF334155 : 0xFF1E293B,
+                                        .borderRadius = 16.0f,
+                                        .children = {
+                                            Icon(icons[i].first, {
+                                                .size = is_hovered ? 56.0f : 48.0f,
+                                                .color = is_hovered ? 0xFF0EA5E9 : 0xFF94A3B8
+                                            }),
+                                            Column({
+                                                .margin = std::pair{YGEdgeTop, 12.0f},
+                                                .children = {
+                                                    Text(icons[i].second, {.font_size = 14.0f, .color = is_hovered ? 0xFFF8FAFC : 0xFF94A3B8})
+                                                }
+                                            })
+                                        }
+                                    }),
+                                    .on_hover_enter = [this, i]() { setState([this, i]() { hovered_idx = i; }); },
+                                    .on_hover_exit = [this, i]() { setState([this, i]() { if (hovered_idx == static_cast<int>(i)) hovered_idx = -1; }); }
+                                })
+                            );
+                        }
+                        return items;
+                    }()
+                })
+            }
+        });
     }
 };
 

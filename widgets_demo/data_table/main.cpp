@@ -28,19 +28,6 @@ class DataTableDemoState : public State {
     
 public:
     WidgetPtr build(BuildContext& ctx) override {
-        auto root = std::make_shared<FlexBox>();
-        root->flexDirection(YGFlexDirectionColumn)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter)
-            .padding(YGEdgeAll, 40.0f)
-            .backgroundColor(0xFF0F172A)
-            .widthPercent(100).heightPercent(100);
-
-        auto title = std::make_shared<FlexBox>();
-        title->margin(YGEdgeBottom, 20)
-             .child(Text("Users Table", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
-        root->child(title);
-
         DataTableConfig cfg;
         cfg.columns = {
             {"Name", true, 180.0f},
@@ -72,29 +59,50 @@ public:
             row.cells.push_back(Text(user.email, {.font_size = 14.0f, .color = 0xFF94A3B8}));
             row.cells.push_back(Text(user.role, {.font_size = 14.0f, .color = 0xFFCBD5E1}));
             
-            auto status_box = std::make_shared<FlexBox>();
-            status_box->width(80).height(24)
-                      .justifyContent(YGJustifyCenter).alignItems(YGAlignCenter)
-                      .backgroundColor(user.active ? 0x3010B981 : 0x30EF4444)
-                      .borderRadius(12.0f);
-            status_box->child(Text(user.active ? "Active" : "Inactive", {
-                .font_size = 12.0f,
-                .color = user.active ? 0xFF10B981 : 0xFFEF4444,
-                .weight = TextStyle::Bold
+            row.cells.push_back(Column({
+                .justifyContent = YGJustifyCenter,
+                .alignItems = YGAlignCenter,
+                .width = 80.0f,
+                .height = 24.0f,
+                .backgroundColor = static_cast<uint32_t>(user.active ? 0x3010B981 : 0x30EF4444),
+                .borderRadius = 12.0f,
+                .children = {
+                    Text(user.active ? "Active" : "Inactive", {
+                        .font_size = 12.0f,
+                        .color = user.active ? 0xFF10B981 : 0xFFEF4444,
+                        .weight = TextStyle::Bold
+                    })
+                }
             }));
             
-            row.cells.push_back(status_box);
             row.on_tap = [](){}; // Just make it clickable for hover effects
             
             cfg.rows.push_back(row);
         }
 
-        auto table_wrapper = std::make_shared<FlexBox>();
-        table_wrapper->width(660).height(400);
-        table_wrapper->child(DataTable(cfg));
-        
-        root->child(table_wrapper);
-        return root;
+        return Column({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .padding = std::pair{YGEdgeAll, 40.0f},
+            .backgroundColor = 0xFF0F172A,
+            .children = {
+                Column({
+                    .margin = std::pair{YGEdgeBottom, 20.0f},
+                    .children = {
+                        Text("Users Table", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold})
+                    }
+                }),
+                Column({
+                    .width = 660.0f,
+                    .height = 400.0f,
+                    .children = {
+                        DataTable(cfg)
+                    }
+                })
+            }
+        });
     }
 };
 

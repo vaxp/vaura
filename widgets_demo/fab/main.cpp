@@ -4,6 +4,7 @@
 #include "vaura/widgets/text.hpp"
 #include "vaura/widgets/fab.hpp"
 #include "vaura/widgets/icon.hpp"
+#include "vaura/widgets/stack.hpp"
 #include "vaura/state/state.hpp"
 
 using namespace vaura;
@@ -12,50 +13,53 @@ class FABDemoState : public State {
     int counter = 0;
 public:
     WidgetPtr build(BuildContext& ctx) override {
-        auto root = std::make_shared<FlexBox>();
-        root->flexDirection(YGFlexDirectionColumn)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter)
-            .backgroundColor(0xFF0F172A) // Slate 900
-            .widthPercent(100).heightPercent(100);
+        return Column({
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF0F172A,
+            .children = {
+                // Spacer top
+                Column({ .flexGrow = 1.0f }),
+                
+                // Centered Counter
+                Row({
+                    .justifyContent = YGJustifyCenter,
+                    .widthPercent = 100.0f,
+                    .children = {
+                        Text("Counter: " + std::to_string(counter), {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold})
+                    }
+                }),
 
-        root->child(Text("Counter: " + std::to_string(counter), {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
-
-        // Stack-like absolute positioning for the FAB
-        FABConfig fab_cfg;
-        fab_cfg.icon = Icon(Icons::Plus, {.color = 0xFFFFFFFF});
-        fab_cfg.background_color = 0xFF6366F1; // Indigo 500
-        fab_cfg.on_pressed = [this]() {
-            setState([this]() { counter++; });
-        };
-        
-        auto fab_widget = FAB(fab_cfg);
-        
-        auto fab_wrap = std::make_shared<FlexBox>();
-        fab_wrap->positionType(YGPositionTypeAbsolute)
-                .position(YGEdgeBottom, 40.0f)
-                .position(YGEdgeRight, 40.0f)
-                .child(fab_widget);
-
-        // Extended FAB
-        FABConfig ext_fab_cfg;
-        ext_fab_cfg.icon = Icon(Icons::Pencil, {.color = 0xFFFFFFFF});
-        ext_fab_cfg.label = "Reset";
-        ext_fab_cfg.background_color = 0xFFEF4444; // Red 500
-        ext_fab_cfg.on_pressed = [this]() {
-            setState([this]() { counter = 0; });
-        };
-        
-        auto ext_fab_wrap = std::make_shared<FlexBox>();
-        ext_fab_wrap->positionType(YGPositionTypeAbsolute)
-                    .position(YGEdgeBottom, 40.0f)
-                    .position(YGEdgeLeft, 40.0f)
-                    .child(FAB(ext_fab_cfg));
-
-        root->child(fab_wrap);
-        root->child(ext_fab_wrap);
-
-        return root;
+                // Bottom section (takes equal flex to stay centered, pushes FABs to bottom)
+                Column({
+                    .justifyContent = YGJustifyFlexEnd,
+                    .widthPercent = 100.0f,
+                    .flexGrow = 1.0f,
+                    .children = {
+                        Row({
+                            .justifyContent = YGJustifySpaceBetween,
+                            .widthPercent = 100.0f,
+                            .padding = std::pair{YGEdgeAll, 40.0f},
+                            .children = {
+                                // Extended FAB
+                                FAB({
+                                    .icon = Icon(Icons::Pencil, {.color = 0xFFFFFFFF}),
+                                    .label = "Reset",
+                                    .on_pressed = [this]() { setState([this]() { counter = 0; }); },
+                                    .background_color = 0xFFEF4444 // Red 500
+                                }),
+                                // Regular FAB
+                                FAB({
+                                    .icon = Icon(Icons::Plus, {.color = 0xFFFFFFFF}),
+                                    .on_pressed = [this]() { setState([this]() { counter++; }); },
+                                    .background_color = 0xFF6366F1 // Indigo 500
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        });
     }
 };
 

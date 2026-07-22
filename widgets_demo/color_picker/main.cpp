@@ -26,62 +26,53 @@ class ColorPickerDemoState : public State {
 
 public:
     WidgetPtr build(BuildContext& context) override {
-        // Main Background Body
-        auto body = std::make_shared<FlexBox>();
-        body->flexDirection(YGFlexDirectionRow)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter)
-            .gap(YGGutterAll, 80.0f)
-            .widthPercent(100.0f)
-            .heightPercent(100.0f)
-            .backgroundColor(0xFF0F172A); // Slate 900
+        return Row({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .gap = 80.0f,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF0F172A, // Slate 900
+            .children = {
+                // Left Panel (Color Picker)
+                Column({
+                    .justifyContent = YGJustifyCenter,
+                    .alignItems = YGAlignCenter,
+                    .gap = 24.0f,
+                    .children = {
+                        Text("Pick a Color", {.font_size = 28.0f, .color = 0xFFFFFFFF}),
+                        ColorPicker({
+                            .selected_color = current_color,
+                            .on_changed = [this](Color new_color) {
+                                setState([this, new_color]() {
+                                    current_color = new_color;
+                                });
+                            },
+                            .show_alpha = true,
+                            .show_hex_input = true,
+                            .width = 300.0f,
+                            .background_color = 0xFF1E293B // Slate 800
+                        })
+                    }
+                }),
 
-        // Left Panel (Color Picker)
-        auto picker_panel = std::make_shared<FlexBox>();
-        picker_panel->flexDirection(YGFlexDirectionColumn)
-                    .justifyContent(YGJustifyCenter)
-                    .alignItems(YGAlignCenter)
-                    .gap(YGGutterAll, 24.0f);
-        
-        TextConfig title_cfg;
-        title_cfg.font_size = 28.0f;
-        title_cfg.color = 0xFFFFFFFF;
-        picker_panel->child(std::make_shared<TextWidget>("Pick a Color", title_cfg));
-
-        ColorPickerConfig cp_cfg;
-        cp_cfg.selected_color = current_color;
-        cp_cfg.show_alpha = true;
-        cp_cfg.show_hex_input = true;
-        cp_cfg.background_color = 0xFF1E293B; // Slate 800
-        cp_cfg.on_changed = [this](Color new_color) {
-            setState([this, new_color]() {
-                current_color = new_color;
-            });
-        };
-        picker_panel->child(ColorPicker(cp_cfg));
-        body->child(picker_panel);
-
-        // Right Panel (Preview Area)
-        auto preview_panel = std::make_shared<FlexBox>();
-        preview_panel->flexDirection(YGFlexDirectionColumn)
-                     .justifyContent(YGJustifyCenter)
-                     .alignItems(YGAlignCenter)
-                     .gap(YGGutterAll, 24.0f);
-
-        auto preview_box = std::make_shared<FlexBox>();
-        preview_box->width(200.0f)
-                   .height(200.0f)
-                   .borderRadius(24.0f)
-                   .backgroundColor(current_color);
-        preview_panel->child(preview_box);
-
-        TextConfig hex_cfg;
-        hex_cfg.font_size = 24.0f;
-        hex_cfg.color = current_color;
-        preview_panel->child(std::make_shared<TextWidget>(colorToHex(current_color), hex_cfg));
-        body->child(preview_panel);
-
-        return body;
+                // Right Panel (Preview Area)
+                Column({
+                    .justifyContent = YGJustifyCenter,
+                    .alignItems = YGAlignCenter,
+                    .gap = 24.0f,
+                    .children = {
+                        Column({
+                            .width = 200.0f,
+                            .height = 200.0f,
+                            .backgroundColor = current_color,
+                            .borderRadius = 24.0f
+                        }),
+                        Text(colorToHex(current_color), {.font_size = 24.0f, .color = current_color})
+                    }
+                })
+            }
+        });
     }
 };
 

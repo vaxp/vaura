@@ -19,76 +19,62 @@ private:
 
 public:
     WidgetPtr build(BuildContext& ctx) override {
-        auto root = std::make_shared<FlexBox>();
-        root->widthPercent(100)
-            .heightPercent(100)
-            .backgroundColor(0xFF1E293B)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter);
-
-        auto content = std::make_shared<FlexBox>();
-        content->flexDirection(YGFlexDirectionColumn)
-               .backgroundColor(0xFF0F172A)
-               .padding(YGEdgeAll, 40)
-               .borderRadius(16);
-
-        auto title = Text("Radio Button Demo", {
-            .font_size = 28,
-            .color = 0xFFFFFFFF,
-            .weight = TextStyle::Bold
-        });
-        
-        auto title_container = std::make_shared<FlexBox>();
-        title_container->margin(YGEdgeBottom, 30).child(title);
-        content->child(title_container);
-
         auto build_radio_option = [this](const std::string& label, int value) {
-            auto row = std::make_shared<FlexBox>();
-            row->flexDirection(YGFlexDirectionRow)
-               .alignItems(YGAlignCenter)
-               .margin(YGEdgeBottom, 20);
-
-            auto rb = Radio({
-                .value = (selected_option_ == value),
-                .on_changed = nullptr, // Handled by row
-                .size = 24.0f,
-                .active_color = 0xFF38BDF8,
-                .inactive_color = 0xFF64748B,
-                .stroke_width = 2.5f,
-                .inner_padding = 4.0f
-            });
-
-            auto txt = Text(label, {
-                .font_size = 18,
-                .color = 0xFFE2E8F0
-            });
-            
-            auto txt_container = std::make_shared<FlexBox>();
-            txt_container->child(txt);
-            
-            auto rb_container = std::make_shared<FlexBox>();
-            rb_container->margin(YGEdgeRight, 15).child(rb);
-
-            row->child(rb_container).child(txt_container);
-            
-            auto clickable_row = GestureDetector({
-                .child = row,
+            return GestureDetector({
+                .child = Row({
+                    .alignItems = YGAlignCenter,
+                    .margin = std::pair{YGEdgeBottom, 20.0f},
+                    .children = {
+                        Column({
+                            .margin = std::pair{YGEdgeRight, 15.0f},
+                            .children = {
+                                Radio({
+                                    .value = (selected_option_ == value),
+                                    .on_changed = nullptr,
+                                    .size = 24.0f,
+                                    .active_color = 0xFF38BDF8,
+                                    .inactive_color = 0xFF64748B,
+                                    .stroke_width = 2.5f,
+                                    .inner_padding = 4.0f
+                                })
+                            }
+                        }),
+                        Text(label, {.font_size = 18.0f, .color = 0xFFE2E8F0})
+                    }
+                }),
                 .on_tap = [this, value]() {
                     setState([this, value] {
                         selected_option_ = value;
                     });
                 }
             });
-
-            return clickable_row;
         };
 
-        content->child(build_radio_option("Option 1", 1));
-        content->child(build_radio_option("Option 2", 2));
-        content->child(build_radio_option("Option 3", 3));
-
-        root->child(content);
-        return root;
+        return Column({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF1E293B,
+            .children = {
+                Column({
+                    .padding = std::pair{YGEdgeAll, 40.0f},
+                    .backgroundColor = 0xFF0F172A,
+                    .borderRadius = 16.0f,
+                    .children = {
+                        Column({
+                            .margin = std::pair{YGEdgeBottom, 30.0f},
+                            .children = {
+                                Text("Radio Button Demo", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold})
+                            }
+                        }),
+                        build_radio_option("Option 1", 1),
+                        build_radio_option("Option 2", 2),
+                        build_radio_option("Option 3", 3)
+                    }
+                })
+            }
+        });
     }
 };
 

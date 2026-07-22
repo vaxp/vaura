@@ -11,19 +11,6 @@ public:
     std::string_view typeName() const override { return "ShaderProgressDemo"; }
 
     WidgetPtr build(BuildContext& ctx) override {
-        auto root = std::make_shared<FlexBox>();
-        root->flexDirection(YGFlexDirectionColumn)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter)
-            .backgroundColor(0xFF0F172A)
-            .widthPercent(100).heightPercent(100);
-
-        root->child(Text("Shader Progress Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
-
-        auto spacer = std::make_shared<FlexBox>();
-        spacer->height(60);
-        root->child(spacer);
-
         std::string prog_shader = R"(
             uniform float u_time;
             uniform vec2  u_resolution;
@@ -49,15 +36,23 @@ public:
             }
         )";
 
-        ShaderProgressConfig prog_cfg;
-        prog_cfg.sksl_code = prog_shader;
-        prog_cfg.size = 150.0f;
-        prog_cfg.color1 = 0xFF10B981; // Emerald
-        prog_cfg.color2 = 0xFF3B82F6; // Blue
-        
-        root->child(std::make_shared<ShaderProgressWidget>(prog_cfg));
-
-        return root;
+        return Column({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF0F172A,
+            .children = {
+                Text("Shader Progress Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}),
+                Column({.height = 60.0f}),
+                std::make_shared<ShaderProgressWidget>(ShaderProgressConfig{
+                    .size = 150.0f,
+                    .color1 = 0xFF10B981, // Emerald
+                    .color2 = 0xFF3B82F6, // Blue
+                    .sksl_code = prog_shader
+                })
+            }
+        });
     }
 };
 

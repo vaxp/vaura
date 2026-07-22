@@ -16,89 +16,85 @@ class TransformDemoState : public State {
 
 public:
     WidgetPtr build(BuildContext& ctx) override {
-        auto root = std::make_shared<FlexBox>();
-        root->flexDirection(YGFlexDirectionColumn)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter)
-            .backgroundColor(0xFF0F172A)
-            .widthPercent(100).heightPercent(100);
-
-        root->child(Text("Transform Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
-
-        auto spacer = std::make_shared<FlexBox>();
-        spacer->height(40);
-        root->child(spacer);
-
-        // Control Panel
-        auto controls = std::make_shared<FlexBox>();
-        controls->flexDirection(YGFlexDirectionColumn)
-                .width(400)
-                .padding(YGEdgeAll, 20)
-                .backgroundColor(0xFF1E293B)
-                .borderRadius(12);
-
         auto spacer_y = [](float h) {
-            auto s = std::make_shared<FlexBox>();
-            s->height(h);
-            return s;
+            return Column({.height = h});
         };
 
-        controls->child(Text("Rotation", {.color = 0xFFAAAAAA}));
-        controls->child(spacer_y(10));
-        
-        SliderConfig rot_cfg;
-        rot_cfg.width = 360.0f;
-        rot_cfg.min_value = 0.0f; rot_cfg.max_value = 360.0f; rot_cfg.value = rot_val;
-        rot_cfg.on_changed = [this](float v) { setState([this, v]{ rot_val = v; }); };
-        controls->child(Slider(rot_cfg));
-        controls->child(spacer_y(20));
+        return Column({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF0F172A,
+            .children = {
+                Text("Transform Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}),
+                Column({.height = 40.0f}),
+                
+                // Control Panel
+                Column({
+                    .width = 400.0f,
+                    .padding = std::pair{YGEdgeAll, 20.0f},
+                    .backgroundColor = 0xFF1E293B,
+                    .borderRadius = 12.0f,
+                    .children = {
+                        Text("Rotation", {.color = 0xFFAAAAAA}),
+                        spacer_y(10.0f),
+                        Slider({
+                            .value = rot_val,
+                            .min_value = 0.0f,
+                            .max_value = 360.0f,
+                            .on_changed = [this](float v) { setState([this, v]{ rot_val = v; }); },
+                            .width = 360.0f
+                        }),
+                        spacer_y(20.0f),
 
-        controls->child(Text("Scale", {.color = 0xFFAAAAAA}));
-        controls->child(spacer_y(10));
-        
-        SliderConfig sc_cfg;
-        sc_cfg.width = 360.0f;
-        sc_cfg.min_value = 0.5f; sc_cfg.max_value = 2.0f; sc_cfg.value = scale_val;
-        sc_cfg.on_changed = [this](float v) { setState([this, v]{ scale_val = v; }); };
-        controls->child(Slider(sc_cfg));
-        controls->child(spacer_y(20));
+                        Text("Scale", {.color = 0xFFAAAAAA}),
+                        spacer_y(10.0f),
+                        Slider({
+                            .value = scale_val,
+                            .min_value = 0.5f,
+                            .max_value = 2.0f,
+                            .on_changed = [this](float v) { setState([this, v]{ scale_val = v; }); },
+                            .width = 360.0f
+                        }),
+                        spacer_y(20.0f),
 
-        controls->child(Text("Translate X", {.color = 0xFFAAAAAA}));
-        controls->child(spacer_y(10));
-        
-        SliderConfig tx_cfg;
-        tx_cfg.width = 360.0f;
-        tx_cfg.min_value = -100.0f; tx_cfg.max_value = 100.0f; tx_cfg.value = trans_x;
-        tx_cfg.on_changed = [this](float v) { setState([this, v]{ trans_x = v; }); };
-        controls->child(Slider(tx_cfg));
-        controls->child(spacer_y(20));
+                        Text("Translate X", {.color = 0xFFAAAAAA}),
+                        spacer_y(10.0f),
+                        Slider({
+                            .value = trans_x,
+                            .min_value = -100.0f,
+                            .max_value = 100.0f,
+                            .on_changed = [this](float v) { setState([this, v]{ trans_x = v; }); },
+                            .width = 360.0f
+                        }),
+                        spacer_y(20.0f)
+                    }
+                }),
 
-        root->child(controls);
+                Column({.height = 60.0f}),
 
-        auto spacer2 = std::make_shared<FlexBox>();
-        spacer2->height(60);
-        root->child(spacer2);
-
-        // The target to transform
-        auto box = std::make_shared<FlexBox>();
-        box->width(100).height(100)
-           .backgroundColor(0xFF3B82F6) // Blue
-           .justifyContent(YGJustifyCenter)
-           .alignItems(YGAlignCenter)
-           .borderRadius(16);
-        box->child(Text("Box", {.font_size = 24.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
-
-        TransformConfig tr_cfg;
-        tr_cfg.rotation = rot_val;
-        tr_cfg.scale_x = scale_val;
-        tr_cfg.scale_y = scale_val;
-        tr_cfg.translate_x = trans_x;
-        tr_cfg.translate_y = 0.0f;
-        tr_cfg.child = box;
-
-        root->child(Transform(tr_cfg));
-
-        return root;
+                // The target to transform
+                Transform({
+                    .scale_x = scale_val,
+                    .scale_y = scale_val,
+                    .translate_x = trans_x,
+                    .translate_y = 0.0f,
+                    .rotation = rot_val,
+                    .child = Column({
+                        .justifyContent = YGJustifyCenter,
+                        .alignItems = YGAlignCenter,
+                        .width = 100.0f,
+                        .height = 100.0f,
+                        .backgroundColor = 0xFF3B82F6, // Blue
+                        .borderRadius = 16.0f,
+                        .children = {
+                            Text("Box", {.font_size = 24.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold})
+                        }
+                    })
+                })
+            }
+        });
     }
 };
 

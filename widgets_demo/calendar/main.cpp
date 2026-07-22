@@ -21,64 +21,56 @@ class CalendarDemoState : public State {
 
 public:
     WidgetPtr build(BuildContext& context) override {
-        // Main Background Body
-        auto body = std::make_shared<FlexBox>();
-        body->flexDirection(YGFlexDirectionColumn)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter)
-            .gap(YGGutterAll, 40.0f)
-            .widthPercent(100.0f)
-            .heightPercent(100.0f)
-            .backgroundColor(0xFF0F172A); // Slate 900
-
-        // Selection Display
-        TextConfig title_cfg;
-        title_cfg.font_size = 28.0f;
-        title_cfg.color = 0xFFF8FAFC;
         std::string date_str = "Selected: " + std::to_string(current_year) + "-" + 
                                std::to_string(current_month) + "-" + 
                                std::to_string(selected_day);
-        body->child(std::make_shared<TextWidget>(date_str, title_cfg));
 
-        // Calendar Configuration
-        CalendarConfig cal_cfg;
-        cal_cfg.year = current_year;
-        cal_cfg.month = current_month;
-        cal_cfg.selected_day = selected_day;
-        cal_cfg.background_color = 0xFF1E293B; // Slate 800
-        cal_cfg.header_color = 0xFF0F172A;     // Slate 900
-        cal_cfg.header_text_color = 0xFFF8FAFC;
-        cal_cfg.selected_color = 0xFF0EA5E9;   // Sky Blue 500
-        cal_cfg.today_color = 0xFF10B981;      // Emerald 500
-        cal_cfg.cell_size = 48.0f;             // Slightly larger for better touch targets
-        cal_cfg.font_size = 16.0f;
-        
-        cal_cfg.on_day_selected = [this](int y, int m, int d) {
-            setState([this, y, m, d]() {
-                current_year = y;
-                current_month = m;
-                selected_day = d;
-            });
-        };
+        return Column({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .gap = 40.0f,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF0F172A, // Slate 900
+            .children = {
+                // Selection Display
+                Text(date_str, {.font_size = 28.0f, .color = 0xFFF8FAFC}),
 
-        cal_cfg.on_month_changed = [this](int y, int m) {
-            setState([this, y, m]() {
-                current_year = y;
-                current_month = m;
-            });
-        };
-
-        // Wrap calendar to give it a nice border/shadow
-        auto cal_wrapper = std::make_shared<FlexBox>();
-        cal_wrapper->backgroundColor(0xFF1E293B)
-                   .borderRadius(16.0f)
-                   .padding(YGEdgeAll, 8.0f);
-                   
-        cal_wrapper->child(Calendar(cal_cfg));
-
-        body->child(cal_wrapper);
-
-        return body;
+                // Wrap calendar to give it a nice border/shadow
+                Column({
+                    .padding = std::pair{YGEdgeAll, 8.0f},
+                    .backgroundColor = 0xFF1E293B,
+                    .borderRadius = 16.0f,
+                    .children = {
+                        Calendar({
+                            .year = current_year,
+                            .month = current_month,
+                            .selected_day = selected_day,
+                            .on_day_selected = [this](int y, int m, int d) {
+                                setState([this, y, m, d]() {
+                                    current_year = y;
+                                    current_month = m;
+                                    selected_day = d;
+                                });
+                            },
+                            .on_month_changed = [this](int y, int m) {
+                                setState([this, y, m]() {
+                                    current_year = y;
+                                    current_month = m;
+                                });
+                            },
+                            .background_color = 0xFF1E293B, // Slate 800
+                            .header_color = 0xFF0F172A,     // Slate 900
+                            .header_text_color = 0xFFF8FAFC,
+                            .selected_color = 0xFF0EA5E9,   // Sky Blue 500
+                            .today_color = 0xFF10B981,      // Emerald 500
+                            .cell_size = 48.0f,             // Slightly larger for better touch targets
+                            .font_size = 16.0f
+                        })
+                    }
+                })
+            }
+        });
     }
 };
 

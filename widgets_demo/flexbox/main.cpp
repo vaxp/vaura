@@ -14,56 +14,62 @@ class FlexBoxDemoState : public State {
     
 public:
     WidgetPtr build(BuildContext& ctx) override {
-        auto root = std::make_shared<FlexBox>();
-        root->flexDirection(YGFlexDirectionColumn)
-            .backgroundColor(0xFF1E293B) // Slate 800
-            .widthPercent(100).heightPercent(100);
-
-        // Control Panel
-        auto controls = std::make_shared<FlexBox>();
-        controls->flexDirection(YGFlexDirectionRow)
-                .justifyContent(YGJustifyCenter)
-                .alignItems(YGAlignCenter)
-                .padding(YGEdgeAll, 20.0f)
-                .backgroundColor(0xFF0F172A)
-                .widthPercent(100);
-
-        ButtonConfig toggle_dir_btn;
-        toggle_dir_btn.child = Text("Toggle Direction", {.font_size = 14.0f, .color = 0xFFFFFFFF});
-        toggle_dir_btn.color = 0xFF3B82F6;
-        toggle_dir_btn.on_pressed = [this]() {
-            setState([this]() {
-                current_dir = (current_dir == YGFlexDirectionRow) ? YGFlexDirectionColumn : YGFlexDirectionRow;
-            });
-        };
-        controls->child(Button(toggle_dir_btn));
-        
-        root->child(controls);
-
-        // Demo Area
-        auto demo_area = std::make_shared<FlexBox>();
-        demo_area->flexGrow(1.0f)
-                 .flexDirection(current_dir)
-                 .justifyContent(current_justify)
-                 .alignItems(current_align)
-                 .widthPercent(100);
-
-        // Add 5 colored boxes
-        std::vector<Color> colors = {0xFFEF4444, 0xFFF59E0B, 0xFF10B981, 0xFF3B82F6, 0xFF8B5CF6};
-        for (int i = 0; i < 5; ++i) {
-            auto box = std::make_shared<FlexBox>();
-            box->width(80).height(80).margin(YGEdgeAll, 10).backgroundColor(colors[i]).borderRadius(12.0f);
-            
-            auto t = Text(std::to_string(i + 1), {.font_size = 24.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold});
-            auto inner = std::make_shared<FlexBox>();
-            inner->widthPercent(100).heightPercent(100).justifyContent(YGJustifyCenter).alignItems(YGAlignCenter).child(t);
-            
-            box->child(inner);
-            demo_area->child(box);
-        }
-
-        root->child(demo_area);
-        return root;
+        return Column({
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF1E293B, // Slate 800
+            .children = {
+                // Control Panel
+                Row({
+                    .justifyContent = YGJustifyCenter,
+                    .alignItems = YGAlignCenter,
+                    .widthPercent = 100.0f,
+                    .padding = std::pair{YGEdgeAll, 20.0f},
+                    .backgroundColor = 0xFF0F172A,
+                    .children = {
+                        Button({
+                            .child = Text("Toggle Direction", {.font_size = 14.0f, .color = 0xFFFFFFFF}),
+                            .on_pressed = [this]() {
+                                setState([this]() {
+                                    current_dir = (current_dir == YGFlexDirectionRow) ? YGFlexDirectionColumn : YGFlexDirectionRow;
+                                });
+                            },
+                            .color = 0xFF3B82F6
+                        })
+                    }
+                }),
+                
+                // Demo Area
+                createFlexBox({
+                    .flexDirection = current_dir,
+                    .justifyContent = current_justify,
+                    .alignItems = current_align,
+                    .widthPercent = 100.0f,
+                    .flexGrow = 1.0f,
+                    .children = []() {
+                        std::vector<WidgetPtr> boxes;
+                        std::vector<Color> colors = {0xFFEF4444, 0xFFF59E0B, 0xFF10B981, 0xFF3B82F6, 0xFF8B5CF6};
+                        for (int i = 0; i < 5; ++i) {
+                            boxes.push_back(
+                                Column({
+                                    .justifyContent = YGJustifyCenter,
+                                    .alignItems = YGAlignCenter,
+                                    .width = 80.0f,
+                                    .height = 80.0f,
+                                    .margin = std::pair{YGEdgeAll, 10.0f},
+                                    .backgroundColor = colors[i],
+                                    .borderRadius = 12.0f,
+                                    .children = {
+                                        Text(std::to_string(i + 1), {.font_size = 24.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold})
+                                    }
+                                })
+                            );
+                        }
+                        return boxes;
+                    }()
+                })
+            }
+        });
     }
 };
 

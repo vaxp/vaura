@@ -19,21 +19,14 @@ class BreadcrumbDemoState : public State {
 
 public:
     WidgetPtr build(BuildContext& context) override {
-        // Main Background Body
-        auto body = std::make_shared<FlexBox>();
-        body->flexDirection(YGFlexDirectionColumn)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter)
-            .gap(YGGutterAll, 40.0f)
-            .widthPercent(100.0f)
-            .heightPercent(100.0f)
-            .backgroundColor(0xFF0F172A); // Slate 900
-
-        // Title showing current path
-        TextConfig title_cfg;
-        title_cfg.font_size = 32.0f;
-        title_cfg.color = 0xFFF8FAFC;
-        body->child(std::make_shared<TextWidget>("Current: " + current_path, title_cfg));
+        // Items setup
+        auto make_nav = [this](const std::string& path) {
+            return [this, path]() {
+                setState([this, path]() {
+                    current_path = path;
+                });
+            };
+        };
 
         // Breadcrumb Configuration
         BreadcrumbConfig crumb_cfg;
@@ -44,41 +37,36 @@ public:
         crumb_cfg.separator_color = 0xFF475569;
         crumb_cfg.font_size = 20.0f;
 
-        // Items setup
-        auto make_nav = [this](const std::string& path) {
-            return [this, path]() {
-                setState([this, path]() {
-                    current_path = path;
-                });
-            };
-        };
-
         // Generate the breadcrumb trail dynamically
         std::vector<std::string> full_path = {"Home", "Documents", "Projects", "VAURA"};
         
         for (const auto& path_segment : full_path) {
-            if (path_segment == current_path) {
-                // This is the current page. We make it clickable (no-op or redundant state update)
-                // to maintain the same widget tree structure and avoid segfaults caused by
-                // replacing a GestureDetector with a Text widget while processing its click event.
-                crumb_cfg.items.push_back({path_segment, make_nav(path_segment)});
-                break; // Stop adding items after the current page
-            } else {
-                // This is a parent page, so it's clickable
-                crumb_cfg.items.push_back({path_segment, make_nav(path_segment)});
-            }
+            crumb_cfg.items.push_back({path_segment, make_nav(path_segment)});
+            if (path_segment == current_path) break;
         }
 
-        // Breadcrumb Wrapper for styling
-        auto crumb_wrapper = std::make_shared<FlexBox>();
-        crumb_wrapper->backgroundColor(0xFF1E293B) // Slate 800
-                     .padding(YGEdgeAll, 16.0f)
-                     .borderRadius(12.0f);
-        crumb_wrapper->child(Breadcrumb(crumb_cfg));
+        return Column({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .gap = 40.0f,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF0F172A, // Slate 900
+            .children = {
+                // Title showing current path
+                Text("Current: " + current_path, {.font_size = 32.0f, .color = 0xFFF8FAFC}),
 
-        body->child(crumb_wrapper);
-
-        return body;
+                // Breadcrumb Wrapper for styling
+                Column({
+                    .padding = std::pair{YGEdgeAll, 16.0f},
+                    .backgroundColor = 0xFF1E293B, // Slate 800
+                    .borderRadius = 12.0f,
+                    .children = {
+                        Breadcrumb(crumb_cfg)
+                    }
+                })
+            }
+        });
     }
 };
 

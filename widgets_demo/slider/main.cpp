@@ -24,45 +24,43 @@ public:
         uint8_t luma = static_cast<uint8_t>(brightness * 255);
         Color bg_color = (0xFF << 24) | (luma << 16) | (luma << 8) | luma;
 
-        auto col = std::make_shared<FlexBox>();
-        col->flexDirection(YGFlexDirectionColumn)
-           .justifyContent(YGJustifyCenter)
-           .alignItems(YGAlignCenter)
-           .gap(YGGutterAll, 40.0f)
-           .widthPercent(100.0f)
-           .heightPercent(100.0f)
-           .backgroundColor(bg_color);
+        return Column({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .gap = 40.0f,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = bg_color,
+            .children = {
+                // Title
+                Text("Brightness Control", {
+                    .font_size = 32.0f,
+                    .color = (luma > 128) ? 0xFF000000 : 0xFFFFFFFF
+                }),
 
-        // Title
-        TextConfig title_cfg;
-        title_cfg.font_size = 32.0f;
-        // Inverse color for text
-        title_cfg.color = luma > 128 ? 0xFF000000 : 0xFFFFFFFF; 
-        col->child(std::make_shared<TextWidget>("Brightness Control", title_cfg));
+                // Slider
+                Slider({
+                    .value = brightness,
+                    .min_value = 0.0f,
+                    .max_value = 1.0f,
+                    .on_changed = [this](float val) {
+                        setState([this, val]() {
+                            brightness = val;
+                        });
+                    },
+                    .width = 300.0f,
+                    .active_color = 0xFFF59E0B, // Amber 500
+                    .inactive_color = 0xFF94A3B8, // Slate 400
+                    .thumb_color = 0xFFFFFFFF
+                }),
 
-        // Slider
-        SliderConfig slider_cfg;
-        slider_cfg.value = brightness;
-        slider_cfg.min_value = 0.0f;
-        slider_cfg.max_value = 1.0f;
-        slider_cfg.width = 300.0f;
-        slider_cfg.active_color = 0xFFF59E0B; // Amber 500
-        slider_cfg.inactive_color = 0xFF94A3B8; // Slate 400
-        slider_cfg.thumb_color = 0xFFFFFFFF;
-        slider_cfg.on_changed = [this](float val) {
-            setState([this, val]() {
-                brightness = val;
-            });
-        };
-        col->child(Slider(slider_cfg));
-
-        // Value text
-        TextConfig val_cfg;
-        val_cfg.font_size = 24.0f;
-        val_cfg.color = luma > 128 ? 0xFF334155 : 0xFFCBD5E1; 
-        col->child(std::make_shared<TextWidget>(std::to_string(static_cast<int>(brightness * 100)) + "%", val_cfg));
-
-        return col;
+                // Value text
+                Text(std::to_string(static_cast<int>(brightness * 100)) + "%", {
+                    .font_size = 24.0f,
+                    .color = (luma > 128) ? 0xFF334155 : 0xFFCBD5E1
+                })
+            }
+        });
     }
 };
 

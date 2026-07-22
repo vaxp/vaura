@@ -11,62 +11,58 @@ public:
     [[nodiscard]] std::string_view typeName() const override { return "AccordionDemoApp"; }
 
     WidgetPtr build(BuildContext& ctx) override {
-        auto root = std::make_shared<FlexBox>();
-        root->widthPercent(100)
-            .heightPercent(100)
-            .backgroundColor(0xFF0F172A)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter);
-
-        auto content = std::make_shared<FlexBox>();
-        content->flexDirection(YGFlexDirectionColumn)
-               .alignItems(YGAlignStretch)
-               .width(400);
-
-        auto title = Text("FAQ", {
-            .font_size = 28,
-            .color = 0xFFFFFFFF,
-            .weight = TextStyle::Bold
+        return Column({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF0F172A,
+            .children = {
+                Column({
+                    .alignItems = YGAlignStretch,
+                    .width = 400.0f,
+                    .children = {
+                        Column({
+                            .margin = std::pair{YGEdgeBottom, 20.0f},
+                            .children = {
+                                Text("FAQ", {
+                                    .font_size = 28,
+                                    .color = 0xFFFFFFFF,
+                                    .weight = TextStyle::Bold
+                                })
+                            }
+                        }),
+                        Column({
+                            .margin = std::pair{YGEdgeBottom, 10.0f},
+                            .children = {
+                                Accordion({
+                                    .title = "What is VAURA?",
+                                    .content = Text("VAURA is a next-generation retained-mode C++ GUI framework designed for building luxurious and highly animated user interfaces.", {
+                                        .font_size = 15,
+                                        .color = 0xFF94A3B8
+                                    }),
+                                    .initially_expanded = true,
+                                    .background_color = 0xFF1E293B
+                                })
+                            }
+                        }),
+                        Column({
+                            .children = {
+                                Accordion({
+                                    .title = "Is it hardware accelerated?",
+                                    .content = Text("Yes! It utilizes Yoga for flexbox layouts, Skia for high-performance GPU-accelerated rendering, and an architecture inspired by modern declarative frameworks.", {
+                                        .font_size = 15,
+                                        .color = 0xFF94A3B8
+                                    }),
+                                    .initially_expanded = false,
+                                    .background_color = 0xFF1E293B
+                                })
+                            }
+                        })
+                    }
+                })
+            }
         });
-        
-        auto title_container = std::make_shared<FlexBox>();
-        title_container->margin(YGEdgeBottom, 20).child(title);
-        content->child(title_container);
-
-        auto answer1 = Text("VAURA is a next-generation retained-mode C++ GUI framework designed for building luxurious and highly animated user interfaces.", {
-            .font_size = 15,
-            .color = 0xFF94A3B8
-        });
-
-        auto answer2 = Text("Yes! It utilizes Yoga for flexbox layouts, Skia for high-performance GPU-accelerated rendering, and an architecture inspired by modern declarative frameworks.", {
-            .font_size = 15,
-            .color = 0xFF94A3B8
-        });
-
-        auto acc1 = Accordion({
-            .title = "What is VAURA?",
-            .content = answer1,
-            .initially_expanded = true,
-            .background_color = 0xFF1E293B
-        });
-
-        auto wrapper1 = std::make_shared<FlexBox>();
-        wrapper1->margin(YGEdgeBottom, 10).child(acc1);
-
-        auto acc2 = Accordion({
-            .title = "Is it hardware accelerated?",
-            .content = answer2,
-            .initially_expanded = false,
-            .background_color = 0xFF1E293B
-        });
-
-        auto wrapper2 = std::make_shared<FlexBox>();
-        wrapper2->child(acc2);
-
-        content->child(wrapper1).child(wrapper2);
-
-        root->child(content);
-        return root;
     }
 };
 

@@ -12,30 +12,36 @@ public:
     [[nodiscard]] std::string_view typeName() const override { return "ScrollTestApp"; }
 
     WidgetPtr build(BuildContext& ctx) override {
-        auto content = std::make_shared<FlexBox>();
-        content->widthPercent(100).backgroundColor(0xFF1E293B).padding(YGEdgeAll, 20);
-
-        for (int i = 1; i <= 50; ++i) {
-            auto item = std::make_shared<FlexBox>();
-            item->widthPercent(100)
-                .height(60)
-                .margin(YGEdgeBottom, 10)
-                .backgroundColor(0xFF334155)
-                .borderRadius(8)
-                .justifyContent(YGJustifyCenter)
-                .padding(YGEdgeLeft, 20);
-
-            item->child(Text("List Item " + std::to_string(i), {
-                .font_size = 18,
-                .color = 0xFFF8FAFC
-            }));
-
-            content->child(item);
-        }
-
-        // Wrap the long content in a scroll_view
         return ScrollView({
-            .child = content,
+            .child = Column({
+                .widthPercent = 100.0f,
+                .padding = std::pair{YGEdgeAll, 20.0f},
+                .backgroundColor = 0xFF1E293B,
+                .children = []() {
+                    std::vector<WidgetPtr> items;
+                    for (int i = 1; i <= 50; ++i) {
+                        items.push_back(
+                            Row({
+                                .justifyContent = YGJustifyFlexStart,
+                                .alignItems = YGAlignCenter,
+                                .widthPercent = 100.0f,
+                                .height = 60.0f,
+                                .padding = std::pair{YGEdgeLeft, 20.0f},
+                                .margin = std::pair{YGEdgeBottom, 10.0f},
+                                .backgroundColor = 0xFF334155,
+                                .borderRadius = 8.0f,
+                                .children = {
+                                    Text("List Item " + std::to_string(i), {
+                                        .font_size = 18,
+                                        .color = 0xFFF8FAFC
+                                    })
+                                }
+                            })
+                        );
+                    }
+                    return items;
+                }()
+            }),
             .scroll_speed = 40.0f
         });
     }

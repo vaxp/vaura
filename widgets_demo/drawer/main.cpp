@@ -13,84 +13,90 @@ class DrawerDemoState : public State {
     bool is_open = false;
 public:
     WidgetPtr build(BuildContext& ctx) override {
-        // --- Drawer Content ---
-        auto drawer_content = std::make_shared<FlexBox>();
-        drawer_content->flexDirection(YGFlexDirectionColumn)
-                      .padding(YGEdgeAll, 24.0f)
-                      .widthPercent(100).heightPercent(100);
-                      
-        // Profile Section
-        auto profile_row = std::make_shared<FlexBox>();
-        profile_row->flexDirection(YGFlexDirectionRow).alignItems(YGAlignCenter).margin(YGEdgeBottom, 24.0f);
-        
-        AvatarConfig av_cfg;
-        av_cfg.size = 64.0f;
-        av_cfg.initials = "JD";
-        av_cfg.background_color = 0xFF6366F1;
-        
-        auto user_info = std::make_shared<FlexBox>();
-        user_info->flexDirection(YGFlexDirectionColumn).justifyContent(YGJustifyCenter).margin(YGEdgeLeft, 16.0f);
-        user_info->child(Text("John Doe", {.font_size = 18.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
-        user_info->child(Text("john@vaura.dev", {.font_size = 14.0f, .color = 0xFF94A3B8}));
-        
-        profile_row->child(Avatar(av_cfg)).child(user_info);
-        drawer_content->child(profile_row);
-        
-        DividerConfig div_cfg;
-        div_cfg.color = 0xFF334155;
-        drawer_content->child(Divider(div_cfg));
-        
         // Navigation Links (Simulated)
         auto make_nav_link = [](const std::string& label, Color txt_color) {
-            auto btn_cfg = ButtonConfig{};
-            btn_cfg.child = Text(label, {.font_size = 16.0f, .color = txt_color});
-            btn_cfg.color = 0x00000000;
-            btn_cfg.width_percent = 100.0f;
-            btn_cfg.on_pressed = [](){};
-            
-            auto wrap = std::make_shared<FlexBox>();
-            wrap->margin(YGEdgeTop, 12.0f).child(Button(btn_cfg));
-            return wrap;
+            return Column({
+                .margin = std::pair{YGEdgeTop, 12.0f},
+                .children = {
+                    Button({
+                        .child = Text(label, {.font_size = 16.0f, .color = txt_color}),
+                        .on_pressed = [](){},
+                        .color = 0x00000000,
+                        .width_percent = 100.0f
+                    })
+                }
+            });
         };
-        
-        drawer_content->child(make_nav_link("Dashboard", 0xFFF8FAFC));
-        drawer_content->child(make_nav_link("Projects", 0xFF94A3B8));
-        drawer_content->child(make_nav_link("Team", 0xFF94A3B8));
-        drawer_content->child(make_nav_link("Settings", 0xFF94A3B8));
+
+        // --- Drawer Content ---
+        auto drawer_content = Column({
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .padding = std::pair{YGEdgeAll, 24.0f},
+            .children = {
+                // Profile Section
+                Row({
+                    .alignItems = YGAlignCenter,
+                    .margin = std::pair{YGEdgeBottom, 24.0f},
+                    .children = {
+                        Avatar({
+                            .size = 64.0f,
+                            .background_color = 0xFF6366F1,
+                            .initials = "JD"
+                        }),
+                        Column({
+                            .justifyContent = YGJustifyCenter,
+                            .margin = std::pair{YGEdgeLeft, 16.0f},
+                            .children = {
+                                Text("John Doe", {.font_size = 18.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}),
+                                Text("john@vaura.dev", {.font_size = 14.0f, .color = 0xFF94A3B8})
+                            }
+                        })
+                    }
+                }),
+                Divider({.color = 0xFF334155}),
+                make_nav_link("Dashboard", 0xFFF8FAFC),
+                make_nav_link("Projects", 0xFF94A3B8),
+                make_nav_link("Team", 0xFF94A3B8),
+                make_nav_link("Settings", 0xFF94A3B8)
+            }
+        });
 
         // --- Main Body ---
-        auto body = std::make_shared<FlexBox>();
-        body->flexDirection(YGFlexDirectionColumn)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter)
-            .backgroundColor(0xFF0F172A)
-            .widthPercent(100).heightPercent(100);
-            
-        body->child(Text("Main Screen", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
-        body->child(Text("Click the button below to open the drawer.", {.font_size = 16.0f, .color = 0xFF94A3B8}));
-             
-        ButtonConfig open_cfg;
-        open_cfg.child = Text("Open Drawer", {.font_size = 16.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold});
-        open_cfg.color = 0xFF3B82F6;
-        open_cfg.on_pressed = [this]() {
-            setState([this]() { is_open = true; });
-        };
-        
-        auto btn_wrap = std::make_shared<FlexBox>();
-        btn_wrap->margin(YGEdgeTop, 32.0f).child(Button(open_cfg));
-        body->child(btn_wrap);
+        auto body = Column({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF0F172A,
+            .children = {
+                Text("Main Screen", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}),
+                Text("Click the button below to open the drawer.", {.font_size = 16.0f, .color = 0xFF94A3B8}),
+                Column({
+                    .margin = std::pair{YGEdgeTop, 32.0f},
+                    .children = {
+                        Button({
+                            .child = Text("Open Drawer", {.font_size = 16.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}),
+                            .on_pressed = [this]() {
+                                setState([this]() { is_open = true; });
+                            },
+                            .color = 0xFF3B82F6
+                        })
+                    }
+                })
+            }
+        });
 
         // --- Drawer Wrapper ---
-        DrawerConfig drawer_cfg;
-        drawer_cfg.body = body;
-        drawer_cfg.child = drawer_content;
-        drawer_cfg.is_open = is_open;
-        drawer_cfg.side = DrawerConfig::Side::Left;
-        drawer_cfg.on_close = [this]() {
-            setState([this]() { is_open = false; });
-        };
-        
-        return Drawer(drawer_cfg);
+        return Drawer({
+            .body = body,
+            .child = drawer_content,
+            .is_open = is_open,
+            .on_close = [this]() {
+                setState([this]() { is_open = false; });
+            },
+            .side = DrawerConfig::Side::Left
+        });
     }
 };
 

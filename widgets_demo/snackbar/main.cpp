@@ -14,56 +14,57 @@ class SnackbarDemoState : public State {
     bool show_snackbar = false;
 public:
     WidgetPtr build(BuildContext& ctx) override {
-        auto content = std::make_shared<FlexBox>();
-        content->flexDirection(YGFlexDirectionColumn)
-               .justifyContent(YGJustifyCenter)
-               .alignItems(YGAlignCenter)
-               .backgroundColor(0xFF0F172A)
-               .widthPercent(100).heightPercent(100);
-
-        content->child(Text("Snackbar Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
-
-        auto spacer = std::make_shared<FlexBox>();
-        spacer->height(40);
-        content->child(spacer);
-
-        ButtonConfig btn_cfg;
-        btn_cfg.child = Text("Show Snackbar", {.font_size = 16.0f, .color = 0xFFFFFFFF, .weight = TextStyle::SemiBold});
-        btn_cfg.color = 0xFF3B82F6;
-        btn_cfg.border_radius = 8.0f;
-        btn_cfg.on_pressed = [this]() {
-            setState([this]() { show_snackbar = true; });
+        std::vector<WidgetPtr> children = {
+            Column({
+                .justifyContent = YGJustifyCenter,
+                .alignItems = YGAlignCenter,
+                .widthPercent = 100.0f,
+                .heightPercent = 100.0f,
+                .backgroundColor = 0xFF0F172A,
+                .children = {
+                    Text("Snackbar Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}),
+                    Column({.height = 40.0f}),
+                    Button({
+                        .child = Text("Show Snackbar", {.font_size = 16.0f, .color = 0xFFFFFFFF, .weight = TextStyle::SemiBold}),
+                        .on_pressed = [this]() {
+                            setState([this]() { show_snackbar = true; });
+                        },
+                        .color = 0xFF3B82F6,
+                        .border_radius = 8.0f
+                    })
+                }
+            })
         };
 
-        content->child(Button(btn_cfg));
-
-        StackConfig stack_cfg;
-        stack_cfg.alignment = Alignment::Center;
-        stack_cfg.children.push_back(content);
-
         if (show_snackbar) {
-            SnackbarConfig snack_cfg;
-            snack_cfg.message = "Item successfully deleted.";
-            snack_cfg.action_label = "UNDO";
-            snack_cfg.on_action = [this]() {
-                std::cout << "Undo clicked!" << std::endl;
-                setState([this]() { show_snackbar = false; });
-            };
-            snack_cfg.on_dismissed = [this]() {
-                setState([this]() { show_snackbar = false; });
-            };
-            
-            auto snackbar_wrapper = std::make_shared<FlexBox>();
-            snackbar_wrapper->widthPercent(100).heightPercent(100)
-                            .justifyContent(YGJustifyFlexEnd)
-                            .alignItems(YGAlignCenter)
-                            .padding(YGEdgeBottom, 32);
-            snackbar_wrapper->child(Snackbar(snack_cfg));
-            
-            stack_cfg.children.push_back(snackbar_wrapper);
+            children.push_back(
+                Column({
+                    .justifyContent = YGJustifyFlexEnd,
+                    .alignItems = YGAlignCenter,
+                    .widthPercent = 100.0f,
+                    .heightPercent = 100.0f,
+                    .padding = std::pair{YGEdgeBottom, 32.0f},
+                    .children = {
+                        Snackbar({
+                            .message = "Item successfully deleted.",
+                            .action_label = "UNDO",
+                            .on_action = [this]() {
+                                std::cout << "Undo clicked!" << std::endl;
+                                setState([this]() { show_snackbar = false; });
+                            },
+                            .on_dismissed = [this]() {
+                                setState([this]() { show_snackbar = false; });
+                            }
+                        })
+                    }
+                })
+            );
         }
 
-        return Stack(stack_cfg);
+        return Stack({
+            .alignment = Alignment::Center,
+            .children = children
+        });
     }
 };
 

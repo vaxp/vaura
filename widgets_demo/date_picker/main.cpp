@@ -11,39 +11,37 @@ class DatePickerDemoState : public State {
     int y = 2025;
     int m = 8;
     int d = 15;
-public:
     WidgetPtr build(BuildContext& ctx) override {
-        auto root = std::make_shared<FlexBox>();
-        root->flexDirection(YGFlexDirectionColumn)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter)
-            .gap(YGGutterAll, 30.0f)
-            .backgroundColor(0xFF0F172A)
-            .widthPercent(100).heightPercent(100);
-
-        root->child(Text("Select a Date", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
-
-        DatePickerConfig cfg;
-        cfg.selected_year = y;
-        cfg.selected_month = m;
-        cfg.selected_day = d;
-        cfg.on_changed = [this](int yy, int mm, int dd) {
-            setState([this, yy, mm, dd]() {
-                y = yy;
-                m = mm;
-                d = dd;
-            });
-        };
-        
-        root->child(DatePicker(cfg));
-        
         std::string selected_str = "You selected: " + std::to_string(y) + "-" + 
                                    (m < 10 ? "0" : "") + std::to_string(m) + "-" + 
                                    (d < 10 ? "0" : "") + std::to_string(d);
-                                   
-        root->child(Text(selected_str, {.font_size = 16.0f, .color = 0xFF94A3B8}));
 
-        return root;
+        return Column({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .gap = 30.0f,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF0F172A,
+            .children = {
+                Text("Select a Date", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}),
+                
+                DatePicker({
+                    .selected_year = y,
+                    .selected_month = m,
+                    .selected_day = d,
+                    .on_changed = [this](int yy, int mm, int dd) {
+                        setState([this, yy, mm, dd]() {
+                            y = yy;
+                            m = mm;
+                            d = dd;
+                        });
+                    }
+                }),
+                
+                Text(selected_str, {.font_size = 16.0f, .color = 0xFF94A3B8})
+            }
+        });
     }
 };
 

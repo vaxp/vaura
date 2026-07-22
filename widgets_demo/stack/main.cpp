@@ -11,54 +11,55 @@ public:
     std::string_view typeName() const override { return "StackDemo"; }
 
     WidgetPtr build(BuildContext& ctx) override {
-        auto root = std::make_shared<FlexBox>();
-        root->flexDirection(YGFlexDirectionColumn)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter)
-            .backgroundColor(0xFF0F172A)
-            .widthPercent(100).heightPercent(100);
-
-        root->child(Text("Stack Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
-
-        auto spacer = std::make_shared<FlexBox>();
-        spacer->height(40);
-        root->child(spacer);
-
-        auto bottom_box = std::make_shared<FlexBox>();
-        bottom_box->width(300).height(300)
-                  .backgroundColor(0xFF1E293B)
-                  .borderRadius(16)
-                  .justifyContent(YGJustifyFlexEnd)
-                  .alignItems(YGAlignFlexEnd)
-                  .padding(YGEdgeAll, 16);
-        bottom_box->child(Text("Base", {.font_size = 18.0f, .color = 0xFF94A3B8}));
-
-        auto middle_box = std::make_shared<FlexBox>();
-        middle_box->width(200).height(200)
-                  .backgroundColor(0xFF3B82F6)
-                  .borderRadius(12)
-                  .justifyContent(YGJustifyFlexEnd)
-                  .alignItems(YGAlignFlexEnd)
-                  .padding(YGEdgeAll, 16);
-        middle_box->child(Text("Middle", {.font_size = 18.0f, .color = 0xFFFFFFFF}));
-
-        auto top_box = std::make_shared<FlexBox>();
-        top_box->width(100).height(100)
-                 .backgroundColor(0xFFEF4444)
-                 .borderRadius(8)
-                 .justifyContent(YGJustifyFlexEnd)
-                 .alignItems(YGAlignFlexEnd)
-                 .padding(YGEdgeAll, 8);
-        top_box->child(Text("Top", {.font_size = 16.0f, .color = 0xFFFFFFFF}));
-
-        StackConfig stack_cfg;
-        stack_cfg.alignment = Alignment::Center;
-        stack_cfg.children = {bottom_box, middle_box, top_box};
-
-        auto stack_widget = Stack(stack_cfg);
-        root->child(stack_widget);
-
-        return root;
+        return Column({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF0F172A,
+            .children = {
+                Text("Stack Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}),
+                Column({.height = 40.0f}),
+                Stack({
+                    .alignment = Alignment::Center,
+                    .children = {
+                        // Base
+                        Column({
+                            .justifyContent = YGJustifyFlexEnd,
+                            .alignItems = YGAlignFlexEnd,
+                            .width = 300.0f,
+                            .height = 300.0f,
+                            .padding = std::pair{YGEdgeAll, 16.0f},
+                            .backgroundColor = 0xFF1E293B,
+                            .borderRadius = 16.0f,
+                            .children = { Text("Base", {.font_size = 18.0f, .color = 0xFF94A3B8}) }
+                        }),
+                        // Middle
+                        Column({
+                            .justifyContent = YGJustifyFlexEnd,
+                            .alignItems = YGAlignFlexEnd,
+                            .width = 200.0f,
+                            .height = 200.0f,
+                            .padding = std::pair{YGEdgeAll, 16.0f},
+                            .backgroundColor = 0xFF3B82F6,
+                            .borderRadius = 12.0f,
+                            .children = { Text("Middle", {.font_size = 18.0f, .color = 0xFFFFFFFF}) }
+                        }),
+                        // Top
+                        Column({
+                            .justifyContent = YGJustifyFlexEnd,
+                            .alignItems = YGAlignFlexEnd,
+                            .width = 100.0f,
+                            .height = 100.0f,
+                            .padding = std::pair{YGEdgeAll, 8.0f},
+                            .backgroundColor = 0xFFEF4444,
+                            .borderRadius = 8.0f,
+                            .children = { Text("Top", {.font_size = 16.0f, .color = 0xFFFFFFFF}) }
+                        })
+                    }
+                })
+            }
+        });
     }
 };
 

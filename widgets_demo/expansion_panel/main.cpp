@@ -13,23 +13,11 @@ class ExpansionPanelDemoState : public State {
     
 public:
     WidgetPtr build(BuildContext& ctx) override {
-        auto root = std::make_shared<FlexBox>();
-        root->flexDirection(YGFlexDirectionColumn)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter)
-            .backgroundColor(0xFF0F172A)
-            .widthPercent(100).heightPercent(100);
-
-        auto title = std::make_shared<FlexBox>();
-        title->margin(YGEdgeBottom, 40)
-             .child(Text("Settings FAQ", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
-        root->child(title);
-
         auto make_content = [](const std::string& text_val) {
-            auto txt = Text(text_val, {.font_size = 14.0f, .color = 0xFF94A3B8});
-            auto content_box = std::make_shared<FlexBox>();
-            content_box->padding(YGEdgeAll, 16.0f).child(txt);
-            return content_box;
+            return Column({
+                .padding = std::pair{YGEdgeAll, 16.0f},
+                .children = { Text(text_val, {.font_size = 14.0f, .color = 0xFF94A3B8}) }
+            });
         };
 
         ExpansionPanelConfig cfg;
@@ -62,12 +50,28 @@ public:
                 expanded[idx] = is_exp;
             });
         };
-        
-        auto panel_wrap = std::make_shared<FlexBox>();
-        panel_wrap->width(600).child(ExpansionPanel(cfg));
 
-        root->child(panel_wrap);
-        return root;
+        return Column({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF0F172A,
+            .children = {
+                Column({
+                    .margin = std::pair{YGEdgeBottom, 40.0f},
+                    .children = {
+                        Text("Settings FAQ", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold})
+                    }
+                }),
+                Column({
+                    .width = 600.0f,
+                    .children = {
+                        ExpansionPanel(cfg)
+                    }
+                })
+            }
+        });
     }
 };
 

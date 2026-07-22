@@ -12,44 +12,35 @@ class SearchBarDemoState : public State {
     std::string current_query = "";
 public:
     WidgetPtr build(BuildContext& ctx) override {
-        auto root = std::make_shared<FlexBox>();
-        root->flexDirection(YGFlexDirectionColumn)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter)
-            .backgroundColor(0xFF0F172A)
-            .widthPercent(100).heightPercent(100);
-
-        root->child(Text("Search Bar Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}));
-
-        auto spacer = std::make_shared<FlexBox>();
-        spacer->height(40);
-        root->child(spacer);
-
-        SearchBarConfig search_cfg;
-        search_cfg.placeholder = "Search anything...";
-        search_cfg.background_color = 0xFF1E293B;
-        search_cfg.text_color = 0xFFFFFFFF;
-        search_cfg.icon_color = 0xFF94A3B8;
-        search_cfg.border_radius = 24.0f; // Rounded search bar
-        search_cfg.width = 400.0f;
-        search_cfg.height = 48.0f;
-        search_cfg.on_changed = [this](const std::string& query) {
-            setState([this, query]() { current_query = query; });
-        };
-        search_cfg.on_submitted = [](const std::string& query) {
-            std::cout << "Search submitted: " << query << std::endl;
-        };
-
-        root->child(SearchBar(search_cfg));
-        
-        auto spacer2 = std::make_shared<FlexBox>();
-        spacer2->height(40);
-        root->child(spacer2);
-
-        root->child(Text("Results for: " + (current_query.empty() ? "None" : current_query), 
-            {.font_size = 18.0f, .color = 0xFF94A3B8}));
-
-        return root;
+        return Column({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF0F172A,
+            .children = {
+                Text("Search Bar Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}),
+                Column({.height = 40.0f}),
+                SearchBar({
+                    .on_changed = [this](const std::string& query) {
+                        setState([this, query]() { current_query = query; });
+                    },
+                    .on_submitted = [](const std::string& query) {
+                        std::cout << "Search submitted: " << query << std::endl;
+                    },
+                    .placeholder = "Search anything...",
+                    .background_color = 0xFF1E293B,
+                    .text_color = 0xFFFFFFFF,
+                    .icon_color = 0xFF94A3B8,
+                    .border_radius = 24.0f, // Rounded search bar
+                    .width = 400.0f,
+                    .height = 48.0f
+                }),
+                Column({.height = 40.0f}),
+                Text("Results for: " + (current_query.empty() ? "None" : current_query), 
+                    {.font_size = 18.0f, .color = 0xFF94A3B8})
+            }
+        });
     }
 };
 

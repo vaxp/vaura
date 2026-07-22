@@ -20,81 +20,64 @@ private:
 
 public:
     WidgetPtr build(BuildContext& ctx) override {
-        auto root = std::make_shared<FlexBox>();
-        root->widthPercent(100)
-            .heightPercent(100)
-            .backgroundColor(0xFF1E293B)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter);
-
-        auto content = std::make_shared<FlexBox>();
-        content->flexDirection(YGFlexDirectionColumn)
-               .backgroundColor(0xFF0F172A)
-               .padding(YGEdgeAll, 40)
-               .borderRadius(16);
-
-        auto title = Text("Checkbox Demo", {
-            .font_size = 28,
-            .color = 0xFFFFFFFF,
-            .weight = TextStyle::Bold
-        });
-        
-        auto title_container = std::make_shared<FlexBox>();
-        title_container->margin(YGEdgeBottom, 30).child(title);
-        content->child(title_container);
-
-        // Helper to build a labeled checkbox row
         auto build_labeled_checkbox = [this](const std::string& label, bool& value) {
-            auto row = std::make_shared<FlexBox>();
-            row->flexDirection(YGFlexDirectionRow)
-               .alignItems(YGAlignCenter)
-               .margin(YGEdgeBottom, 20);
-
-            auto cb = Checkbox({
-                .value = value,
-                .on_changed = [this, &value](bool new_val) {
-                    setState([&value, new_val] {
-                        value = new_val;
-                    });
-                },
-                .size = 24.0f,
-                .active_color = 0xFF38BDF8,
-                .inactive_color = 0xFF64748B,
-                .checkmark_color = 0xFFFFFFFF,
-                .border_radius = 6.0f,
-                .stroke_width = 2.5f
-            });
-
-            auto txt = Text(label, {
-                .font_size = 18,
-                .color = 0xFFE2E8F0
-            });
-            
-            auto txt_container = std::make_shared<FlexBox>();
-            txt_container->child(txt);
-            
-            // Checkbox on the left, then margin, then text
-            auto cb_container = std::make_shared<FlexBox>();
-            cb_container->margin(YGEdgeRight, 15).child(cb);
-
-            row->child(cb_container).child(txt_container);
-            
-            // Make the whole row tappable
-            auto clickable_row = GestureDetector({
-                .child = row,
+            return GestureDetector({
+                .child = Row({
+                    .alignItems = YGAlignCenter,
+                    .margin = std::pair{YGEdgeBottom, 20.0f},
+                    .children = {
+                        Column({
+                            .margin = std::pair{YGEdgeRight, 15.0f},
+                            .children = {
+                                Checkbox({
+                                    .value = value,
+                                    .on_changed = [this, &value](bool new_val) {
+                                        setState([&value, new_val] {
+                                            value = new_val;
+                                        });
+                                    },
+                                    .size = 24.0f,
+                                    .active_color = 0xFF38BDF8,
+                                    .inactive_color = 0xFF64748B,
+                                    .checkmark_color = 0xFFFFFFFF,
+                                    .border_radius = 6.0f,
+                                    .stroke_width = 2.5f
+                                })
+                            }
+                        }),
+                        Text(label, {.font_size = 18.0f, .color = 0xFFE2E8F0})
+                    }
+                }),
                 .on_tap = [this, &value]() {
                     setState([&value] { value = !value; });
                 }
             });
-
-            return clickable_row;
         };
 
-        content->child(build_labeled_checkbox("I agree to the Terms of Service", is_agreed_));
-        content->child(build_labeled_checkbox("Subscribe to newsletter", is_subscribed_));
-
-        root->child(content);
-        return root;
+        return Column({
+            .justifyContent = YGJustifyCenter,
+            .alignItems = YGAlignCenter,
+            .widthPercent = 100.0f,
+            .heightPercent = 100.0f,
+            .backgroundColor = 0xFF1E293B,
+            .children = {
+                Column({
+                    .padding = std::pair{YGEdgeAll, 40.0f},
+                    .backgroundColor = 0xFF0F172A,
+                    .borderRadius = 16.0f,
+                    .children = {
+                        Column({
+                            .margin = std::pair{YGEdgeBottom, 30.0f},
+                            .children = {
+                                Text("Checkbox Demo", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold})
+                            }
+                        }),
+                        build_labeled_checkbox("I agree to the Terms of Service", is_agreed_),
+                        build_labeled_checkbox("Subscribe to newsletter", is_subscribed_)
+                    }
+                })
+            }
+        });
     }
 };
 

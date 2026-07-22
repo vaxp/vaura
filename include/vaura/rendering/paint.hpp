@@ -24,6 +24,31 @@ enum class StrokeJoin {
     Bevel
 };
 
+enum class BlendMode {
+    Clear, Src, Dst, SrcOver, DstOver, SrcIn, DstIn, SrcOut, DstOut,
+    SrcATop, DstATop, Xor, Plus, Modulate, Screen, Overlay, Darken, Lighten,
+    ColorDodge, ColorBurn, HardLight, SoftLight, Difference, Exclusion,
+    Multiply, Hue, Saturation, Color, Luminosity
+};
+
+class Shader {
+public:
+    virtual ~Shader() = default;
+    virtual void* getNativeHandle() const = 0;
+};
+
+class ImageFilter {
+public:
+    virtual ~ImageFilter() = default;
+    virtual void* getNativeHandle() const = 0;
+};
+
+class ColorFilter {
+public:
+    virtual ~ColorFilter() = default;
+    virtual void* getNativeHandle() const = 0;
+};
+
 /// Paint encapsulates styling information for drawing operations.
 class Paint {
 public:
@@ -48,6 +73,18 @@ public:
     void setAntiAlias(bool aa) { anti_alias_ = aa; }
     [[nodiscard]] bool isAntiAlias() const { return anti_alias_; }
 
+    void setBlendMode(BlendMode mode) { blend_mode_ = mode; }
+    [[nodiscard]] BlendMode getBlendMode() const { return blend_mode_; }
+
+    void setShader(std::shared_ptr<Shader> shader) { shader_ = std::move(shader); }
+    [[nodiscard]] std::shared_ptr<Shader> getShader() const { return shader_; }
+
+    void setImageFilter(std::shared_ptr<ImageFilter> filter) { image_filter_ = std::move(filter); }
+    [[nodiscard]] std::shared_ptr<ImageFilter> getImageFilter() const { return image_filter_; }
+
+    void setColorFilter(std::shared_ptr<ColorFilter> filter) { color_filter_ = std::move(filter); }
+    [[nodiscard]] std::shared_ptr<ColorFilter> getColorFilter() const { return color_filter_; }
+
     void setShadow(Color color, float blur, float dx, float dy) {
         shadow_color_ = color;
         shadow_blur_ = blur;
@@ -68,6 +105,11 @@ private:
     StrokeCap  stroke_cap_   = StrokeCap::Butt;
     StrokeJoin stroke_join_  = StrokeJoin::Miter;
     bool       anti_alias_   = true;
+    BlendMode  blend_mode_   = BlendMode::SrcOver;
+
+    std::shared_ptr<Shader> shader_;
+    std::shared_ptr<ImageFilter> image_filter_;
+    std::shared_ptr<ColorFilter> color_filter_;
 
     bool       has_shadow_       = false;
     Color      shadow_color_     = 0x00000000;

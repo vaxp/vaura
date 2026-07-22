@@ -10,6 +10,8 @@
 
 namespace vaura {
 
+class Image;
+
 /// Abstract canvas for drawing shapes, text, and images.
 class Canvas {
 public:
@@ -20,6 +22,7 @@ public:
     virtual void save() = 0;
     virtual void restore() = 0;
     virtual void saveLayerAlpha(float alpha, const Rect* bounds = nullptr) = 0;
+    virtual void saveLayer(const Rect* bounds, const Paint* paint) = 0;
     
     // Transformations
     virtual void translate(float dx, float dy) = 0;
@@ -27,6 +30,8 @@ public:
     virtual void rotate(float degrees) = 0;
     virtual void clipRect(const Rect& rect) = 0;
     virtual void clipRRect(const Rect& rect, const BorderRadius& radius) = 0;
+    virtual void concat(const float matrix[9]) = 0;
+    virtual void skew(float sx, float sy) = 0;
 
     // Drawing operations
     virtual void clear(Color color) = 0;
@@ -52,6 +57,11 @@ public:
 
     /// Draw a simple text string (for basic needs without full typography).
     virtual void drawText(std::string_view text, Point pos, const Paint& paint, float font_size) = 0;
+
+    virtual void drawImageRect(std::shared_ptr<Image> image, const Rect& src, const Rect& dst, const Paint* paint = nullptr) = 0;
+    virtual void drawDRRect(const Rect& outer, const BorderRadius& outerRadius, 
+                            const Rect& inner, const BorderRadius& innerRadius, const Paint& paint) = 0;
+    virtual void drawParagraph(void* paragraph, float x, float y) = 0;
 
     /// Get native SkCanvas* (for advanced usage)
     virtual void* getNativeHandle() = 0;

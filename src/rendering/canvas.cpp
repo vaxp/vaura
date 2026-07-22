@@ -10,6 +10,14 @@
 #include <include/core/SkTypeface.h>
 #include <include/core/SkTextBlob.h>
 #include <include/effects/SkImageFilters.h>
+#include <include/core/SkBlendMode.h>
+#include <include/core/SkShader.h>
+#include <include/core/SkColorFilter.h>
+#include <include/core/SkMatrix.h>
+#include <include/core/SkImage.h>
+#include <include/core/SkSamplingOptions.h>
+#include <modules/skparagraph/include/Paragraph.h>
+#include "vaura/rendering/image.hpp"
 
 namespace vaura {
 
@@ -38,6 +46,18 @@ SkPaint toSkPaint(const Paint& paint) {
         case StrokeJoin::Miter: sk_paint.setStrokeJoin(SkPaint::kMiter_Join); break;
         case StrokeJoin::Round: sk_paint.setStrokeJoin(SkPaint::kRound_Join); break;
         case StrokeJoin::Bevel: sk_paint.setStrokeJoin(SkPaint::kBevel_Join); break;
+    }
+
+    sk_paint.setBlendMode(static_cast<SkBlendMode>(paint.getBlendMode()));
+
+    if (auto shader = paint.getShader()) {
+        sk_paint.setShader(sk_ref_sp(static_cast<SkShader*>(shader->getNativeHandle())));
+    }
+    if (auto filter = paint.getImageFilter()) {
+        sk_paint.setImageFilter(sk_ref_sp(static_cast<SkImageFilter*>(filter->getNativeHandle())));
+    }
+    if (auto filter = paint.getColorFilter()) {
+        sk_paint.setColorFilter(sk_ref_sp(static_cast<SkColorFilter*>(filter->getNativeHandle())));
     }
 
     if (paint.hasShadow()) {
@@ -71,9 +91,32 @@ public:
         canvas_->saveLayer(bounds ? &sk_rect : nullptr, &paint);
     }
     
+    void saveLayer(const Rect* bounds, const Paint* paint) override {
+        SkRect sk_rect;
+        if (bounds) {
+            sk_rect = SkRect::MakeXYWH(bounds->x, bounds->y, bounds->width, bounds->height);
+        }
+        
+        SkPaint sk_paint;
+        if (paint) {
+            sk_paint = toSkPaint(*paint);
+        }
+        canvas_->saveLayer(bounds ? &sk_rect : nullptr, paint ? &sk_paint : nullptr);
+    }
+    
     void translate(float dx, float dy) override { canvas_->translate(dx, dy); }
     void scale(float sx, float sy) override { canvas_->scale(sx, sy); }
     void rotate(float degrees) override { canvas_->rotate(degrees); }
+    
+    void concat(const float matrix[9]) override {
+        SkMatrix m;
+        m.set9(matrix);
+        canvas_->concat(m);
+    }
+    
+    void skew(float sx, float sy) override {
+        canvas_->skew(sx, sy);
+    }
 
     void clipRect(const Rect& rect) override {
         canvas_->clipRect(SkRect::MakeXYWH(rect.x, rect.y, rect.width, rect.height), true);
@@ -152,6 +195,43 @@ public:
         }
         canvas_->drawPoints(SkCanvas::kPoints_PointMode,
                             sk_points.size(), sk_points.data(), toSkPaint(paint));
+    }
+
+    void drawImageRect(std::shared_ptr<Image> image, const Rect& src, const Rect& dst, const Paint* paint) override {
+        if (!image) return;
+        SkImage* sk_image = static_cast<SkImage*>(image->getNativeHandle());
+        if (!sk_image) return;
+        
+        SkRect sk_src = SkRect::MakeXYWH(src.x, src.y, src.width, src.height);
+        SkRect sk_dst = SkRect::MakeXYWH(dst.x, dst.y, dst.width, dst.height);
+        
+        SkPaint sk_paint;
+        if (paint) sk_paint = toSkPaint(*paint);
+        
+        canvas_->drawImageRect(sk_image, sk_src, sk_dst, SkSamplingOptions(SkFilterMode::kLinear), 
+                               paint ? &sk_paint : nullptr, SkCanvas::kFast_SrcRectConstraint);
+    }
+
+    void drawDRRect(const Rect& outer, const BorderRadius& outerRadius, 
+                    const Rect& inner, const BorderRadius& innerRadius, const Paint& paint) override {
+        auto make_rrect = [](const Rect& r, const BorderRadius& br) {
+            SkRect sk_r = SkRect::MakeXYWH(r.x, r.y, r.width, r.height);
+            SkVector radii[4] = {
+                {br.top_left, br.top_left}, {br.top_right, br.top_right},
+                {br.bottom_right, br.bottom_right}, {br.bottom_left, br.bottom_left}
+            };
+            SkRRect rrect;
+            rrect.setRectRadii(sk_r, radii);
+            return rrect;
+        };
+        canvas_->drawDRRect(make_rrect(outer, outerRadius), make_rrect(inner, innerRadius), toSkPaint(paint));
+    }
+
+    void drawParagraph(void* paragraph, float x, float y) override {
+        if (paragraph) {
+            auto* para = static_cast<skia::textlayout::Paragraph*>(paragraph);
+            para->paint(canvas_, x, y);
+        }
     }
 
     void* getNativeHandle() override { return canvas_; }

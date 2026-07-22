@@ -62,8 +62,7 @@ public:
         paragraph_->layout(size().width);
         
         // Render
-        SkCanvas* canvas = static_cast<SkCanvas*>(context.canvas.getNativeHandle());
-        paragraph_->paint(canvas, context.offset.x, context.offset.y);
+        context.canvas.drawParagraph(paragraph_.get(), context.offset.x, context.offset.y);
     }
 
 private:

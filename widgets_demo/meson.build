@@ -64,3 +64,28 @@ executable('demo_scroll_view',
   sources: ['scroll_view/main.cpp'],
   dependencies: vaura_dep,
 )
+
+executable('demo_bottom_sheet',
+  sources: ['bottom_sheet/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_breadcrumb',
+  sources: ['breadcrumb/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_calendar',
+  sources: ['calendar/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_circular_progress',
+  sources: ['circular_progress/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_color_picker',
+  sources: ['color_picker/main.cpp'],
+  dependencies: vaura_dep,
+)

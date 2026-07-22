@@ -208,10 +208,11 @@ public:
             }
         }
 
-        // The widget itself renders nothing — it only manages the overlay.
-        // Return an empty transparent box (zero size is fine here).
-        auto empty = std::make_shared<FlexBox>();
-        return empty;
+        // The widget itself renders the body, and manages the overlay separately.
+        if (cfg.body) {
+            return cfg.body;
+        }
+        return std::make_shared<FlexBox>();
     }
 };
 

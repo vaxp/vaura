@@ -188,4 +188,70 @@ private:
     float border_radius_ = 0.0f;
 };
 
+struct FlexBoxConfig {
+    YGJustify justifyContent = YGJustifyFlexStart;
+    YGAlign alignItems = YGAlignStretch;
+    float gap = YGUndefined;
+    
+    float width = YGUndefined;
+    float widthPercent = YGUndefined;
+    float height = YGUndefined;
+    float heightPercent = YGUndefined;
+    
+    Color backgroundColor = 0x00000000;
+    float borderRadius = 0.0f;
+    
+    std::vector<std::shared_ptr<Widget>> children;
+};
+
+inline std::shared_ptr<FlexBox> Column(const FlexBoxConfig& cfg = {}) {
+    auto fb = std::make_shared<FlexBox>();
+    fb->flexDirection(YGFlexDirectionColumn);
+    fb->justifyContent(cfg.justifyContent);
+    fb->alignItems(cfg.alignItems);
+    
+    if (cfg.gap != YGUndefined) {
+        fb->gap(YGGutterAll, cfg.gap);
+    }
+    
+    if (cfg.width != YGUndefined) fb->width(cfg.width);
+    if (cfg.widthPercent != YGUndefined) fb->widthPercent(cfg.widthPercent);
+    if (cfg.height != YGUndefined) fb->height(cfg.height);
+    if (cfg.heightPercent != YGUndefined) fb->heightPercent(cfg.heightPercent);
+    
+    fb->backgroundColor(cfg.backgroundColor);
+    if (cfg.borderRadius > 0.0f) fb->borderRadius(cfg.borderRadius);
+    
+    for (auto& child : cfg.children) {
+        fb->child(child);
+    }
+    
+    return fb;
+}
+
+inline std::shared_ptr<FlexBox> Row(const FlexBoxConfig& cfg = {}) {
+    auto fb = std::make_shared<FlexBox>();
+    fb->flexDirection(YGFlexDirectionRow);
+    fb->justifyContent(cfg.justifyContent);
+    fb->alignItems(cfg.alignItems);
+    
+    if (cfg.gap != YGUndefined) {
+        fb->gap(YGGutterAll, cfg.gap);
+    }
+    
+    if (cfg.width != YGUndefined) fb->width(cfg.width);
+    if (cfg.widthPercent != YGUndefined) fb->widthPercent(cfg.widthPercent);
+    if (cfg.height != YGUndefined) fb->height(cfg.height);
+    if (cfg.heightPercent != YGUndefined) fb->heightPercent(cfg.heightPercent);
+    
+    fb->backgroundColor(cfg.backgroundColor);
+    if (cfg.borderRadius > 0.0f) fb->borderRadius(cfg.borderRadius);
+    
+    for (auto& child : cfg.children) {
+        fb->child(child);
+    }
+    
+    return fb;
+}
+
 } // namespace vaura

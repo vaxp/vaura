@@ -108,4 +108,9 @@ inline WidgetPtr text(std::string_view content, TextConfig config = {}) {
     return std::make_shared<TextWidget>(std::string(content), std::move(config));
 }
 
+/// Declarative syntax alias for text
+inline WidgetPtr Text(std::string_view content, TextConfig config = {}) {
+    return text(content, std::move(config));
+}
+
 }  // namespace vaura

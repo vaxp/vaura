@@ -8,3 +8,7 @@ Currently, overlays like `ContextMenu` and `Dropdown` are trapped inside the mai
 - Enhance the `Platform` and `App` layers to support multi-window management.
 - Allow the framework to request native, borderless, transparent `SDL_Window`s (e.g., `SDL_WINDOW_POPUP_MENU` or `SDL_WINDOW_TOOLTIP`) dynamically.
 - Update `OverlayController` (or introduce a `NativeOverlayController`) so that popups draw onto these new floating windows, allowing them to escape the bounds of the main application window just like native Qt/GTK applications.
+
+
+tooltip
+popup_menu

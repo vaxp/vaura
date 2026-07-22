@@ -49,7 +49,7 @@ public:
 
         // Tile 2
         auto tile2 = list_tile({
-            .leading = avatar({.size = 40.0f, .background_color = 0xFF8B5CF6, .image_path = "", .initials = "VA"}),
+            .leading = avatar({.size = 40.0f, .image_path = "", .background_color = 0xFF10B981, .initials = "JD"}),
             .title = text("VAURA Cloud", {.font_size = 18, .color = 0xFFF8FAFC}),
             .subtitle = text("Sync & Backup", {.font_size = 14, .color = 0xFF94A3B8}),
             .on_tap = []() { std::cout << "Cloud tapped!" << std::endl; }

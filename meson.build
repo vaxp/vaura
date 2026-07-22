@@ -74,12 +74,12 @@ yoga_sources = files(
   'core/layout_engine/config/Config.cpp'
 )
 
-# Skia (prebuilt in third_party/skia)
-skia_inc = include_directories('third_party/skia')
-skia_dep = cpp.find_library('skia', dirs : [meson.current_source_dir() + '/third_party/skia/out/Release-x64'], required : false)
-skparagraph_dep = cpp.find_library('skparagraph', dirs : [meson.current_source_dir() + '/third_party/skia/out/Release-x64'], required : false)
-skshaper_dep = cpp.find_library('skshaper', dirs : [meson.current_source_dir() + '/third_party/skia/out/Release-x64'], required : false)
-skunicode_dep = cpp.find_library('skunicode', dirs : [meson.current_source_dir() + '/third_party/skia/out/Release-x64'], required : false)
+# Skia (prebuilt in core/skia)
+skia_inc = include_directories('core/skia')
+skia_dep = cpp.find_library('skia', dirs : [meson.current_source_dir() + '/core/skia/out/Release-x64'], required : false)
+skparagraph_dep = cpp.find_library('skparagraph', dirs : [meson.current_source_dir() + '/core/skia/out/Release-x64'], required : false)
+skshaper_dep = cpp.find_library('skshaper', dirs : [meson.current_source_dir() + '/core/skia/out/Release-x64'], required : false)
+skunicode_dep = cpp.find_library('skunicode', dirs : [meson.current_source_dir() + '/core/skia/out/Release-x64'], required : false)
 
 # Optional system Skia
 if not skia_dep.found()
@@ -159,7 +159,7 @@ add_project_arguments(vaura_defines, language : 'cpp')
 # ============================================================
 # Include directories
 # ============================================================
-vaura_inc = include_directories('include', 'third_party/skia', 'core')
+vaura_inc = include_directories('include', 'core/skia', 'core')
 
 # ============================================================
 # Source files

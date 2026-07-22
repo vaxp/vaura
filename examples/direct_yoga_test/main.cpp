@@ -312,8 +312,8 @@ public:
 int main(int argc, char** argv) {
     AppConfig config;
     config.title = "VAURA Direct Yoga Storefront - Animated Edition";
-    config.width = 1280;
-    config.height = 800;
+    config.width = 1120;
+    config.height = 860;
     config.vsync = true;
 
     return vaura::runApp(std::make_shared<TestApp>(), config);

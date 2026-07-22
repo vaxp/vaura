@@ -164,3 +164,30 @@ executable('demo_icon',
   sources: ['icon/main.cpp'],
   dependencies: vaura_dep,
 )
+
+# Batch 6
+
+executable('demo_list_view',
+  sources: ['list_view/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_row',
+  sources: ['row/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_text_field',
+  sources: ['text_field/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_search_bar',
+  sources: ['search_bar/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_text',
+  sources: ['text/main.cpp'],
+  dependencies: vaura_dep,
+)

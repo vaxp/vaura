@@ -251,3 +251,8 @@ executable('demo_tree_view',
   sources: ['tree_view/main.cpp'],
   dependencies: vaura_dep,
 )
+
+executable('demo_grid_view',
+  sources: ['grid_view/main.cpp'],
+  dependencies: vaura_dep,
+)

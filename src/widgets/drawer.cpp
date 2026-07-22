@@ -66,61 +66,61 @@ public:
             body = empty;
         }
 
-        if (!visible) return body;
-
-        // ── Backdrop ─────────────────────────────────────────
-        uint8_t bd_alpha = static_cast<uint8_t>(((cfg.backdrop_color >> 24) & 0xFF) * t);
-        Color   faded_bd = (cfg.backdrop_color & 0x00FFFFFF) | (bd_alpha << 24);
-
-        auto bd_box = std::make_shared<FlexBox>();
-        bd_box->positionType(YGPositionTypeAbsolute)
-               .position(YGEdgeAll, 0.0f)
-               .widthPercent(100).heightPercent(100)
-               .backgroundColor(faded_bd);
-
-        WidgetPtr bd_widget = bd_box;
-        if (cfg.dismiss_on_backdrop && cfg.on_close) {
-            bd_widget = gesture_detector({ .child = bd_box, .on_tap = cfg.on_close });
-        }
-
-        // ── Drawer Panel ─────────────────────────────────────
-        // Translate from off-screen to on-screen
-        bool is_left = (cfg.side == DrawerConfig::Side::Left);
-        float translate_x = is_left
-            ? -(1.0f - t) * cfg.width
-            :  (1.0f - t) * cfg.width;
-
-        auto panel = container({
-            .color         = cfg.background_color,
-            .width         = cfg.width,
-            .height_percent = 100.0f,
-            .shadow        = Shadow{0x60000000, 20.0f, is_left ? Point{4, 0} : Point{-4, 0}},
-            .child         = cfg.child,
-        });
-
-        auto translated = transform({
-            .translate_x = translate_x,
-            .child       = panel,
-        });
-
-        auto drawer_wrapper = std::make_shared<FlexBox>();
-        drawer_wrapper->positionType(YGPositionTypeAbsolute)
-                       .position(YGEdgeTop, 0.0f)
-                       .heightPercent(100);
-
-        if (is_left) {
-            drawer_wrapper->position(YGEdgeLeft, 0.0f);
-        } else {
-            drawer_wrapper->position(YGEdgeRight, 0.0f);
-        }
-        drawer_wrapper->child(translated);
-
-        // Root stack
+        // Always return a consistent root stack to avoid reconciliation issues
         auto root = std::make_shared<FlexBox>();
         root->widthPercent(100).heightPercent(100);
         root->child(body);
-        root->child(bd_widget);
-        root->child(drawer_wrapper);
+        
+        if (visible) {
+            // ── Backdrop ─────────────────────────────────────────
+            uint8_t bd_alpha = static_cast<uint8_t>(((cfg.backdrop_color >> 24) & 0xFF) * t);
+            Color   faded_bd = (cfg.backdrop_color & 0x00FFFFFF) | (bd_alpha << 24);
+
+            auto bd_box = std::make_shared<FlexBox>();
+            bd_box->positionType(YGPositionTypeAbsolute)
+                   .position(YGEdgeAll, 0.0f)
+                   .widthPercent(100).heightPercent(100)
+                   .backgroundColor(faded_bd);
+
+            WidgetPtr bd_widget = bd_box;
+            if (cfg.dismiss_on_backdrop && cfg.on_close) {
+                bd_widget = gesture_detector({ .child = bd_box, .on_tap = cfg.on_close });
+            }
+
+            // ── Drawer Panel ─────────────────────────────────────
+            bool is_left = (cfg.side == DrawerConfig::Side::Left);
+            float translate_x = is_left
+                ? -(1.0f - t) * cfg.width
+                :  (1.0f - t) * cfg.width;
+
+            auto panel = container({
+                .color         = cfg.background_color,
+                .width         = cfg.width,
+                .height_percent = 100.0f,
+                .shadow        = Shadow{0x60000000, 20.0f, is_left ? Point{4, 0} : Point{-4, 0}},
+                .child         = cfg.child,
+            });
+
+            auto translated = transform({
+                .translate_x = translate_x,
+                .child       = panel,
+            });
+
+            auto drawer_wrapper = std::make_shared<FlexBox>();
+            drawer_wrapper->positionType(YGPositionTypeAbsolute)
+                           .position(YGEdgeTop, 0.0f)
+                           .heightPercent(100);
+
+            if (is_left) {
+                drawer_wrapper->position(YGEdgeLeft, 0.0f);
+            } else {
+                drawer_wrapper->position(YGEdgeRight, 0.0f);
+            }
+            drawer_wrapper->child(translated);
+
+            root->child(bd_widget);
+            root->child(drawer_wrapper);
+        }
 
         return root;
     }

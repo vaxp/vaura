@@ -30,6 +30,7 @@ public:
         tp_cfg.hour = current_hour;
         tp_cfg.minute = current_minute;
         tp_cfg.use_24h = true;
+        tp_cfg.clock_size = 360.0f;
         tp_cfg.on_changed = [this](int h, int m) {
             setState([this, h, m]() {
                 current_hour = h;
@@ -60,7 +61,7 @@ public:
 int main(int argc, char** argv) {
     AppConfig config;
     config.title = "VAURA Time Picker Demo";
-    config.width = 800;
-    config.height = 600;
+    config.width = 390;
+    config.height = 780;
     return runApp(std::make_shared<TimePickerDemo>(), config);
 }

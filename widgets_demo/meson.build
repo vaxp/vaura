@@ -89,3 +89,28 @@ executable('demo_color_picker',
   sources: ['color_picker/main.cpp'],
   dependencies: vaura_dep,
 )
+
+executable('demo_column',
+  sources: ['column/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_container',
+  sources: ['container/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_data_table',
+  sources: ['data_table/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_date_picker',
+  sources: ['date_picker/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_drawer',
+  sources: ['drawer/main.cpp'],
+  dependencies: vaura_dep,
+)

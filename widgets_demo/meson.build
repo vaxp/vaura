@@ -216,3 +216,38 @@ executable('demo_text',
   sources: ['text/main.cpp'],
   dependencies: vaura_dep,
 )
+
+executable('demo_resizable_panels',
+  sources: ['resizable_panels/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_shader_background',
+  sources: ['shader_background/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_shader_button',
+  sources: ['shader_button/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_shader_progress',
+  sources: ['shader_progress/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_time_picker',
+  sources: ['time_picker/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_transform',
+  sources: ['transform/main.cpp'],
+  dependencies: vaura_dep,
+)
+
+executable('demo_tree_view',
+  sources: ['tree_view/main.cpp'],
+  dependencies: vaura_dep,
+)

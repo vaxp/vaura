@@ -149,6 +149,9 @@ public:
             YGNodeStyleSetHeightAuto(rs.yogaNode());
         }
         
+        YGNodeStyleSetJustifyContent(rs.yogaNode(), YGJustifyCenter);
+        YGNodeStyleSetAlignItems(rs.yogaNode(), YGAlignCenter);
+        
         rs.markNeedsLayout();
         rs.markNeedsPaint();
     }

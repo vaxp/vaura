@@ -246,3 +246,8 @@ executable('demo_grid_view',
   sources: ['grid_view/main.cpp'],
   dependencies: vaura_dep,
 )
+
+executable('demo_tooltip',
+  sources: ['tooltip/main.cpp'],
+  dependencies: vaura_dep,
+)

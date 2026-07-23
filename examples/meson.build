@@ -107,10 +107,7 @@ executable('avatar_demo',
   dependencies: vaura_dep,
 )
 
-executable('tooltip_demo',
-  sources: ['tooltip_demo.cpp'],
-  dependencies: vaura_dep,
-)
+
 
 executable('list_tile_demo',
   sources: ['list_tile_demo.cpp'],

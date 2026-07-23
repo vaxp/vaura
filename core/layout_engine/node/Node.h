@@ -11,7 +11,7 @@
 #include <cstdio>
 #include <vector>
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <layout_engine/node/LayoutableChildren.h>
 
 #include <layout_engine/config/Config.h>
@@ -25,14 +25,14 @@
 #include <layout_engine/node/LayoutResults.h>
 #include <layout_engine/style/Style.h>
 
-// Tag struct used to form the opaque YGNodeRef for the public C API
-struct YGNode {};
+// Tag struct used to form the opaque ANUNodeRef for the public C API
+struct ANUNode {};
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
-class YG_EXPORT Node : public ::YGNode {
+class ANU_EXPORT Node : public ::ANUNode {
  public:
-  using LayoutableChildren = yoga::LayoutableChildren<Node>;
+  using LayoutableChildren = anu::LayoutableChildren<Node>;
   Node();
   explicit Node(const Config* config);
 
@@ -67,7 +67,7 @@ class YG_EXPORT Node : public ::YGNode {
     return measureFunc_ != nullptr;
   }
 
-  YGSize measure(
+  ANUSize measure(
       float availableWidth,
       MeasureMode widthMode,
       float availableHeight,
@@ -96,7 +96,7 @@ class YG_EXPORT Node : public ::YGNode {
     return config_->hasErrata(errata);
   }
 
-  YGDirtiedFunc getDirtiedFunc() const {
+  ANUDirtiedFunc getDirtiedFunc() const {
     return dirtiedFunc_;
   }
 
@@ -127,9 +127,9 @@ class YG_EXPORT Node : public ::YGNode {
   }
 
   // returns the Node that owns this Node. An owner is used to identify
-  // the YogaTree that a Node belongs to. This method will return the parent
-  // of the Node when a Node only belongs to one YogaTree or nullptr when
-  // the Node is shared between two or more YogaTrees.
+  // the AnuTree that a Node belongs to. This method will return the parent
+  // of the Node when a Node only belongs to one AnuTree or nullptr when
+  // the Node is shared between two or more AnuTrees.
   Node* getOwner() const {
     return owner_;
   }
@@ -214,13 +214,13 @@ class YG_EXPORT Node : public ::YGNode {
     nodeType_ = nodeType;
   }
 
-  void setMeasureFunc(YGMeasureFunc measureFunc);
+  void setMeasureFunc(ANUMeasureFunc measureFunc);
 
-  void setBaselineFunc(YGBaselineFunc baseLineFunc) {
+  void setBaselineFunc(ANUBaselineFunc baseLineFunc) {
     baselineFunc_ = baseLineFunc;
   }
 
-  void setDirtiedFunc(YGDirtiedFunc dirtiedFunc) {
+  void setDirtiedFunc(ANUDirtiedFunc dirtiedFunc) {
     dirtiedFunc_ = dirtiedFunc;
   }
 
@@ -312,9 +312,9 @@ class YG_EXPORT Node : public ::YGNode {
   bool alwaysFormsContainingBlock_ : 1 = false;
   NodeType nodeType_ : bitCount<NodeType>() = NodeType::Default;
   void* context_ = nullptr;
-  YGMeasureFunc measureFunc_ = nullptr;
-  YGBaselineFunc baselineFunc_ = nullptr;
-  YGDirtiedFunc dirtiedFunc_ = nullptr;
+  ANUMeasureFunc measureFunc_ = nullptr;
+  ANUBaselineFunc baselineFunc_ = nullptr;
+  ANUDirtiedFunc dirtiedFunc_ = nullptr;
   Style style_;
   LayoutResults layout_;
   size_t lineIndex_ = 0;
@@ -326,12 +326,12 @@ class YG_EXPORT Node : public ::YGNode {
       {StyleLength::undefined(), StyleLength::undefined()}};
 };
 
-inline Node* resolveRef(const YGNodeRef ref) {
+inline Node* resolveRef(const ANUNodeRef ref) {
   return static_cast<Node*>(ref);
 }
 
-inline const Node* resolveRef(const YGNodeConstRef ref) {
+inline const Node* resolveRef(const ANUNodeConstRef ref) {
   return static_cast<const Node*>(ref);
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

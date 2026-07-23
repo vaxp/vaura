@@ -17,8 +17,8 @@ class LinearProgressDemoState : public State {
 public:
     WidgetPtr build(BuildContext& ctx) override {
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF1E293B,
@@ -30,18 +30,18 @@ public:
                     .shadow_color = 0x80000000,
                     .padding = {30, 30, 30, 30}
                 }, Column({
-                        .alignItems = YGAlignStretch,
+                        .align = Align::Stretch,
                         .width = 300.0f,
                         .children = {
                             // Indeterminate Progress
                             Column({
-                                .margin = std::pair{YGEdgeBottom, 10.0f},
+                                .margin = std::pair{Edge::Bottom, 10.0f},
                                 .children = {
                                     Text("Indeterminate Progress", { .font_size = 18, .color = 0xFFFFFFFF, .weight = TextStyle::Bold })
                                 }
                             }),
                             Column({
-                                .margin = std::pair{YGEdgeBottom, 30.0f},
+                                .margin = std::pair{Edge::Bottom, 30.0f},
                                 .children = {
                                     LinearProgress({
                                         .value = std::nullopt,
@@ -55,7 +55,7 @@ public:
 
                             // Determinate Progress
                             Column({
-                                .margin = std::pair{YGEdgeBottom, 10.0f},
+                                .margin = std::pair{Edge::Bottom, 10.0f},
                                 .children = {
                                     Text("Determinate Progress (75%)", { .font_size = 18, .color = 0xFFFFFFFF, .weight = TextStyle::Bold })
                                 }

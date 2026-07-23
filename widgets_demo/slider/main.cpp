@@ -25,8 +25,8 @@ public:
         Color bg_color = (0xFF << 24) | (luma << 16) | (luma << 8) | luma;
 
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .gap = 40.0f,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,

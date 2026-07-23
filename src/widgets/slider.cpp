@@ -7,7 +7,7 @@
 #include "vaura/tree/element.hpp"
 #include "vaura/state/state.hpp"
 #include "vaura/rendering/canvas.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <algorithm>
 
 namespace vaura {
@@ -22,7 +22,7 @@ public:
 
     RenderSlider() {
         // Set default minimum height based on thumb size + padding
-        YGNodeStyleSetMinHeight(yogaNode(), 30.0f);
+        ANUNodeStyleSetMinHeight(anuNode(), 30.0f);
     }
 
     void paint(PaintContext& context) override {
@@ -108,7 +108,7 @@ public:
         auto& rs = static_cast<RenderSlider&>(renderObject);
         rs.config = config;
         
-        YGNodeStyleSetWidth(rs.yogaNode(), config.width);
+        ANUNodeStyleSetWidth(rs.anuNode(), config.width);
         // Height is determined by the minimum height and parent constraints.
         
         rs.markNeedsLayout();

@@ -26,17 +26,17 @@ public:
         auto root = std::make_shared<FlexBox>();
         root->widthPercent(100)
             .heightPercent(100)
-            .flexDirection(YGFlexDirectionColumn)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter)
+            .direction(FlexDirection::Column)
+            .justify(Justify::Center)
+            .align(Align::Center)
             .backgroundColor(0xFF0F172A); // Dark slate background
 
         auto card = std::make_shared<FlexBox>();
         card->width(350)
-            .padding(YGEdgeAll, 32)
+            .padding(Edge::All, 32)
             .backgroundColor(0xFF1E293B) // Lighter slate
             .borderRadius(16)
-            .flexDirection(YGFlexDirectionColumn);
+            .direction(FlexDirection::Column);
 
         auto title = Text("Welcome Back", {
             .font_size = 28,
@@ -92,8 +92,8 @@ public:
 
         auto remember_row = std::make_shared<FlexBox>();
         remember_row->widthPercent(100)
-                    .flexDirection(YGFlexDirectionRow)
-                    .alignItems(YGAlignCenter);
+                    .direction(FlexDirection::Row)
+                    .align(Align::Center);
 
         auto remember_switch = Switch({
             .value = remember_me_,
@@ -110,7 +110,7 @@ public:
         });
 
         auto remember_text_container = std::make_shared<FlexBox>();
-        remember_text_container->margin(YGEdgeRight, 16)
+        remember_text_container->margin(Edge::Right, 16)
                                .child(remember_text);
 
         remember_row->child(remember_text_container)

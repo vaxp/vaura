@@ -5,17 +5,17 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <layout_engine/debug/AssertFatal.h>
 #include <layout_engine/node/Node.h>
 
 using namespace facebook;
-using namespace facebook::yoga;
+using namespace facebook::anu;
 
 namespace {
 
 template <auto GetterT, auto SetterT, typename ValueT>
-void updateStyle(YGNodeRef node, ValueT value) {
+void updateStyle(ANUNodeRef node, ValueT value) {
   auto& style = resolveRef(node)->style();
   if ((style.*GetterT)() != value) {
     (style.*SetterT)(value);
@@ -24,7 +24,7 @@ void updateStyle(YGNodeRef node, ValueT value) {
 }
 
 template <auto GetterT, auto SetterT, typename IdxT, typename ValueT>
-void updateStyle(YGNodeRef node, IdxT idx, ValueT value) {
+void updateStyle(ANUNodeRef node, IdxT idx, ValueT value) {
   auto& style = resolveRef(node)->style();
   if ((style.*GetterT)(idx) != value) {
     (style.*SetterT)(idx, value);
@@ -34,7 +34,7 @@ void updateStyle(YGNodeRef node, IdxT idx, ValueT value) {
 
 } // namespace
 
-void YGNodeCopyStyle(YGNodeRef dstNode, YGNodeConstRef srcNode) {
+void ANUNodeCopyStyle(ANUNodeRef dstNode, ANUNodeConstRef srcNode) {
   auto dst = resolveRef(dstNode);
   auto src = resolveRef(srcNode);
 
@@ -44,130 +44,130 @@ void YGNodeCopyStyle(YGNodeRef dstNode, YGNodeConstRef srcNode) {
   }
 }
 
-void YGNodeStyleSetDirection(const YGNodeRef node, const YGDirection value) {
+void ANUNodeStyleSetDirection(const ANUNodeRef node, const ANUDirection value) {
   updateStyle<&Style::direction, &Style::setDirection>(node, scopedEnum(value));
 }
 
-YGDirection YGNodeStyleGetDirection(const YGNodeConstRef node) {
+ANUDirection ANUNodeStyleGetDirection(const ANUNodeConstRef node) {
   return unscopedEnum(resolveRef(node)->style().direction());
 }
 
-void YGNodeStyleSetFlexDirection(
-    const YGNodeRef node,
-    const YGFlexDirection flexDirection) {
+void ANUNodeStyleSetFlexDirection(
+    const ANUNodeRef node,
+    const ANUFlexDirection flexDirection) {
   updateStyle<&Style::flexDirection, &Style::setFlexDirection>(
       node, scopedEnum(flexDirection));
 }
 
-YGFlexDirection YGNodeStyleGetFlexDirection(const YGNodeConstRef node) {
+ANUFlexDirection ANUNodeStyleGetFlexDirection(const ANUNodeConstRef node) {
   return unscopedEnum(resolveRef(node)->style().flexDirection());
 }
 
-void YGNodeStyleSetJustifyContent(
-    const YGNodeRef node,
-    const YGJustify justifyContent) {
+void ANUNodeStyleSetJustifyContent(
+    const ANUNodeRef node,
+    const ANUJustify justifyContent) {
   updateStyle<&Style::justifyContent, &Style::setJustifyContent>(
       node, scopedEnum(justifyContent));
 }
 
-YGJustify YGNodeStyleGetJustifyContent(const YGNodeConstRef node) {
+ANUJustify ANUNodeStyleGetJustifyContent(const ANUNodeConstRef node) {
   return unscopedEnum(resolveRef(node)->style().justifyContent());
 }
 
-void YGNodeStyleSetAlignContent(
-    const YGNodeRef node,
-    const YGAlign alignContent) {
+void ANUNodeStyleSetAlignContent(
+    const ANUNodeRef node,
+    const ANUAlign alignContent) {
   updateStyle<&Style::alignContent, &Style::setAlignContent>(
       node, scopedEnum(alignContent));
 }
 
-YGAlign YGNodeStyleGetAlignContent(const YGNodeConstRef node) {
+ANUAlign ANUNodeStyleGetAlignContent(const ANUNodeConstRef node) {
   return unscopedEnum(resolveRef(node)->style().alignContent());
 }
 
-void YGNodeStyleSetAlignItems(const YGNodeRef node, const YGAlign alignItems) {
+void ANUNodeStyleSetAlignItems(const ANUNodeRef node, const ANUAlign alignItems) {
   updateStyle<&Style::alignItems, &Style::setAlignItems>(
       node, scopedEnum(alignItems));
 }
 
-YGAlign YGNodeStyleGetAlignItems(const YGNodeConstRef node) {
+ANUAlign ANUNodeStyleGetAlignItems(const ANUNodeConstRef node) {
   return unscopedEnum(resolveRef(node)->style().alignItems());
 }
 
-void YGNodeStyleSetAlignSelf(const YGNodeRef node, const YGAlign alignSelf) {
+void ANUNodeStyleSetAlignSelf(const ANUNodeRef node, const ANUAlign alignSelf) {
   updateStyle<&Style::alignSelf, &Style::setAlignSelf>(
       node, scopedEnum(alignSelf));
 }
 
-YGAlign YGNodeStyleGetAlignSelf(const YGNodeConstRef node) {
+ANUAlign ANUNodeStyleGetAlignSelf(const ANUNodeConstRef node) {
   return unscopedEnum(resolveRef(node)->style().alignSelf());
 }
 
-void YGNodeStyleSetPositionType(
-    const YGNodeRef node,
-    const YGPositionType positionType) {
+void ANUNodeStyleSetPositionType(
+    const ANUNodeRef node,
+    const ANUPositionType positionType) {
   updateStyle<&Style::positionType, &Style::setPositionType>(
       node, scopedEnum(positionType));
 }
 
-YGPositionType YGNodeStyleGetPositionType(const YGNodeConstRef node) {
+ANUPositionType ANUNodeStyleGetPositionType(const ANUNodeConstRef node) {
   return unscopedEnum(resolveRef(node)->style().positionType());
 }
 
-void YGNodeStyleSetFlexWrap(const YGNodeRef node, const YGWrap flexWrap) {
+void ANUNodeStyleSetFlexWrap(const ANUNodeRef node, const ANUWrap flexWrap) {
   updateStyle<&Style::flexWrap, &Style::setFlexWrap>(
       node, scopedEnum(flexWrap));
 }
 
-YGWrap YGNodeStyleGetFlexWrap(const YGNodeConstRef node) {
+ANUWrap ANUNodeStyleGetFlexWrap(const ANUNodeConstRef node) {
   return unscopedEnum(resolveRef(node)->style().flexWrap());
 }
 
-void YGNodeStyleSetOverflow(const YGNodeRef node, const YGOverflow overflow) {
+void ANUNodeStyleSetOverflow(const ANUNodeRef node, const ANUOverflow overflow) {
   updateStyle<&Style::overflow, &Style::setOverflow>(
       node, scopedEnum(overflow));
 }
 
-YGOverflow YGNodeStyleGetOverflow(const YGNodeConstRef node) {
+ANUOverflow ANUNodeStyleGetOverflow(const ANUNodeConstRef node) {
   return unscopedEnum(resolveRef(node)->style().overflow());
 }
 
-void YGNodeStyleSetDisplay(const YGNodeRef node, const YGDisplay display) {
+void ANUNodeStyleSetDisplay(const ANUNodeRef node, const ANUDisplay display) {
   updateStyle<&Style::display, &Style::setDisplay>(node, scopedEnum(display));
 }
 
-YGDisplay YGNodeStyleGetDisplay(const YGNodeConstRef node) {
+ANUDisplay ANUNodeStyleGetDisplay(const ANUNodeConstRef node) {
   return unscopedEnum(resolveRef(node)->style().display());
 }
 
-void YGNodeStyleSetFlex(const YGNodeRef node, const float flex) {
+void ANUNodeStyleSetFlex(const ANUNodeRef node, const float flex) {
   updateStyle<&Style::flex, &Style::setFlex>(node, FloatOptional{flex});
 }
 
-float YGNodeStyleGetFlex(const YGNodeConstRef nodeRef) {
+float ANUNodeStyleGetFlex(const ANUNodeConstRef nodeRef) {
   const auto node = resolveRef(nodeRef);
-  return node->style().flex().isUndefined() ? YGUndefined
+  return node->style().flex().isUndefined() ? ANUUndefined
                                             : node->style().flex().unwrap();
 }
 
-void YGNodeStyleSetFlexGrow(const YGNodeRef node, const float flexGrow) {
+void ANUNodeStyleSetFlexGrow(const ANUNodeRef node, const float flexGrow) {
   updateStyle<&Style::flexGrow, &Style::setFlexGrow>(
       node, FloatOptional{flexGrow});
 }
 
-float YGNodeStyleGetFlexGrow(const YGNodeConstRef nodeRef) {
+float ANUNodeStyleGetFlexGrow(const ANUNodeConstRef nodeRef) {
   const auto node = resolveRef(nodeRef);
   return node->style().flexGrow().isUndefined()
       ? Style::DefaultFlexGrow
       : node->style().flexGrow().unwrap();
 }
 
-void YGNodeStyleSetFlexShrink(const YGNodeRef node, const float flexShrink) {
+void ANUNodeStyleSetFlexShrink(const ANUNodeRef node, const float flexShrink) {
   updateStyle<&Style::flexShrink, &Style::setFlexShrink>(
       node, FloatOptional{flexShrink});
 }
 
-float YGNodeStyleGetFlexShrink(const YGNodeConstRef nodeRef) {
+float ANUNodeStyleGetFlexShrink(const ANUNodeConstRef nodeRef) {
   const auto node = resolveRef(nodeRef);
   return node->style().flexShrink().isUndefined()
       ? (node->getConfig()->useWebDefaults() ? Style::WebDefaultFlexShrink
@@ -175,231 +175,231 @@ float YGNodeStyleGetFlexShrink(const YGNodeConstRef nodeRef) {
       : node->style().flexShrink().unwrap();
 }
 
-void YGNodeStyleSetFlexBasis(const YGNodeRef node, const float flexBasis) {
+void ANUNodeStyleSetFlexBasis(const ANUNodeRef node, const float flexBasis) {
   updateStyle<&Style::flexBasis, &Style::setFlexBasis>(
       node, StyleLength::points(flexBasis));
 }
 
-void YGNodeStyleSetFlexBasisPercent(
-    const YGNodeRef node,
+void ANUNodeStyleSetFlexBasisPercent(
+    const ANUNodeRef node,
     const float flexBasisPercent) {
   updateStyle<&Style::flexBasis, &Style::setFlexBasis>(
       node, StyleLength::percent(flexBasisPercent));
 }
 
-void YGNodeStyleSetFlexBasisAuto(const YGNodeRef node) {
+void ANUNodeStyleSetFlexBasisAuto(const ANUNodeRef node) {
   updateStyle<&Style::flexBasis, &Style::setFlexBasis>(
       node, StyleLength::ofAuto());
 }
 
-YGValue YGNodeStyleGetFlexBasis(const YGNodeConstRef node) {
-  return (YGValue)resolveRef(node)->style().flexBasis();
+ANUValue ANUNodeStyleGetFlexBasis(const ANUNodeConstRef node) {
+  return (ANUValue)resolveRef(node)->style().flexBasis();
 }
 
-void YGNodeStyleSetPosition(YGNodeRef node, YGEdge edge, float points) {
+void ANUNodeStyleSetPosition(ANUNodeRef node, ANUEdge edge, float points) {
   updateStyle<&Style::position, &Style::setPosition>(
       node, scopedEnum(edge), StyleLength::points(points));
 }
 
-void YGNodeStyleSetPositionPercent(YGNodeRef node, YGEdge edge, float percent) {
+void ANUNodeStyleSetPositionPercent(ANUNodeRef node, ANUEdge edge, float percent) {
   updateStyle<&Style::position, &Style::setPosition>(
       node, scopedEnum(edge), StyleLength::percent(percent));
 }
 
-void YGNodeStyleSetPositionAuto(YGNodeRef node, YGEdge edge) {
+void ANUNodeStyleSetPositionAuto(ANUNodeRef node, ANUEdge edge) {
   updateStyle<&Style::position, &Style::setPosition>(
       node, scopedEnum(edge), StyleLength::ofAuto());
 }
 
-YGValue YGNodeStyleGetPosition(YGNodeConstRef node, YGEdge edge) {
-  return (YGValue)resolveRef(node)->style().position(scopedEnum(edge));
+ANUValue ANUNodeStyleGetPosition(ANUNodeConstRef node, ANUEdge edge) {
+  return (ANUValue)resolveRef(node)->style().position(scopedEnum(edge));
 }
 
-void YGNodeStyleSetMargin(YGNodeRef node, YGEdge edge, float points) {
+void ANUNodeStyleSetMargin(ANUNodeRef node, ANUEdge edge, float points) {
   updateStyle<&Style::margin, &Style::setMargin>(
       node, scopedEnum(edge), StyleLength::points(points));
 }
 
-void YGNodeStyleSetMarginPercent(YGNodeRef node, YGEdge edge, float percent) {
+void ANUNodeStyleSetMarginPercent(ANUNodeRef node, ANUEdge edge, float percent) {
   updateStyle<&Style::margin, &Style::setMargin>(
       node, scopedEnum(edge), StyleLength::percent(percent));
 }
 
-void YGNodeStyleSetMarginAuto(YGNodeRef node, YGEdge edge) {
+void ANUNodeStyleSetMarginAuto(ANUNodeRef node, ANUEdge edge) {
   updateStyle<&Style::margin, &Style::setMargin>(
       node, scopedEnum(edge), StyleLength::ofAuto());
 }
 
-YGValue YGNodeStyleGetMargin(YGNodeConstRef node, YGEdge edge) {
-  return (YGValue)resolveRef(node)->style().margin(scopedEnum(edge));
+ANUValue ANUNodeStyleGetMargin(ANUNodeConstRef node, ANUEdge edge) {
+  return (ANUValue)resolveRef(node)->style().margin(scopedEnum(edge));
 }
 
-void YGNodeStyleSetPadding(YGNodeRef node, YGEdge edge, float points) {
+void ANUNodeStyleSetPadding(ANUNodeRef node, ANUEdge edge, float points) {
   updateStyle<&Style::padding, &Style::setPadding>(
       node, scopedEnum(edge), StyleLength::points(points));
 }
 
-void YGNodeStyleSetPaddingPercent(YGNodeRef node, YGEdge edge, float percent) {
+void ANUNodeStyleSetPaddingPercent(ANUNodeRef node, ANUEdge edge, float percent) {
   updateStyle<&Style::padding, &Style::setPadding>(
       node, scopedEnum(edge), StyleLength::percent(percent));
 }
 
-YGValue YGNodeStyleGetPadding(YGNodeConstRef node, YGEdge edge) {
-  return (YGValue)resolveRef(node)->style().padding(scopedEnum(edge));
+ANUValue ANUNodeStyleGetPadding(ANUNodeConstRef node, ANUEdge edge) {
+  return (ANUValue)resolveRef(node)->style().padding(scopedEnum(edge));
 }
 
-void YGNodeStyleSetBorder(
-    const YGNodeRef node,
-    const YGEdge edge,
+void ANUNodeStyleSetBorder(
+    const ANUNodeRef node,
+    const ANUEdge edge,
     const float border) {
   updateStyle<&Style::border, &Style::setBorder>(
       node, scopedEnum(edge), StyleLength::points(border));
 }
 
-float YGNodeStyleGetBorder(const YGNodeConstRef node, const YGEdge edge) {
+float ANUNodeStyleGetBorder(const ANUNodeConstRef node, const ANUEdge edge) {
   auto border = resolveRef(node)->style().border(scopedEnum(edge));
   if (border.isUndefined() || border.isAuto()) {
-    return YGUndefined;
+    return ANUUndefined;
   }
 
-  return static_cast<YGValue>(border).value;
+  return static_cast<ANUValue>(border).value;
 }
 
-void YGNodeStyleSetGap(
-    const YGNodeRef node,
-    const YGGutter gutter,
+void ANUNodeStyleSetGap(
+    const ANUNodeRef node,
+    const ANUGutter gutter,
     const float gapLength) {
   updateStyle<&Style::gap, &Style::setGap>(
       node, scopedEnum(gutter), StyleLength::points(gapLength));
 }
 
-void YGNodeStyleSetGapPercent(YGNodeRef node, YGGutter gutter, float percent) {
+void ANUNodeStyleSetGapPercent(ANUNodeRef node, ANUGutter gutter, float percent) {
   updateStyle<&Style::gap, &Style::setGap>(
       node, scopedEnum(gutter), StyleLength::percent(percent));
 }
 
-float YGNodeStyleGetGap(const YGNodeConstRef node, const YGGutter gutter) {
+float ANUNodeStyleGetGap(const ANUNodeConstRef node, const ANUGutter gutter) {
   auto gapLength = resolveRef(node)->style().gap(scopedEnum(gutter));
   if (gapLength.isUndefined() || gapLength.isAuto()) {
-    return YGUndefined;
+    return ANUUndefined;
   }
 
-  return static_cast<YGValue>(gapLength).value;
+  return static_cast<ANUValue>(gapLength).value;
 }
 
-void YGNodeStyleSetAspectRatio(const YGNodeRef node, const float aspectRatio) {
+void ANUNodeStyleSetAspectRatio(const ANUNodeRef node, const float aspectRatio) {
   updateStyle<&Style::aspectRatio, &Style::setAspectRatio>(
       node, FloatOptional{aspectRatio});
 }
 
-float YGNodeStyleGetAspectRatio(const YGNodeConstRef node) {
+float ANUNodeStyleGetAspectRatio(const ANUNodeConstRef node) {
   const FloatOptional op = resolveRef(node)->style().aspectRatio();
-  return op.isUndefined() ? YGUndefined : op.unwrap();
+  return op.isUndefined() ? ANUUndefined : op.unwrap();
 }
 
-void YGNodeStyleSetBoxSizing(YGNodeRef node, YGBoxSizing boxSizing) {
+void ANUNodeStyleSetBoxSizing(ANUNodeRef node, ANUBoxSizing boxSizing) {
   updateStyle<&Style::boxSizing, &Style::setBoxSizing>(
       node, scopedEnum(boxSizing));
 }
 
-YGBoxSizing YGNodeStyleGetBoxSizing(const YGNodeConstRef node) {
+ANUBoxSizing ANUNodeStyleGetBoxSizing(const ANUNodeConstRef node) {
   return unscopedEnum(resolveRef(node)->style().boxSizing());
 }
 
-void YGNodeStyleSetWidth(YGNodeRef node, float points) {
+void ANUNodeStyleSetWidth(ANUNodeRef node, float points) {
   updateStyle<&Style::dimension, &Style::setDimension>(
       node, Dimension::Width, StyleLength::points(points));
 }
 
-void YGNodeStyleSetWidthPercent(YGNodeRef node, float percent) {
+void ANUNodeStyleSetWidthPercent(ANUNodeRef node, float percent) {
   updateStyle<&Style::dimension, &Style::setDimension>(
       node, Dimension::Width, StyleLength::percent(percent));
 }
 
-void YGNodeStyleSetWidthAuto(YGNodeRef node) {
+void ANUNodeStyleSetWidthAuto(ANUNodeRef node) {
   updateStyle<&Style::dimension, &Style::setDimension>(
       node, Dimension::Width, StyleLength::ofAuto());
 }
 
-YGValue YGNodeStyleGetWidth(YGNodeConstRef node) {
-  return (YGValue)resolveRef(node)->style().dimension(Dimension::Width);
+ANUValue ANUNodeStyleGetWidth(ANUNodeConstRef node) {
+  return (ANUValue)resolveRef(node)->style().dimension(Dimension::Width);
 }
 
-void YGNodeStyleSetHeight(YGNodeRef node, float points) {
+void ANUNodeStyleSetHeight(ANUNodeRef node, float points) {
   updateStyle<&Style::dimension, &Style::setDimension>(
       node, Dimension::Height, StyleLength::points(points));
 }
 
-void YGNodeStyleSetHeightPercent(YGNodeRef node, float percent) {
+void ANUNodeStyleSetHeightPercent(ANUNodeRef node, float percent) {
   updateStyle<&Style::dimension, &Style::setDimension>(
       node, Dimension::Height, StyleLength::percent(percent));
 }
 
-void YGNodeStyleSetHeightAuto(YGNodeRef node) {
+void ANUNodeStyleSetHeightAuto(ANUNodeRef node) {
   updateStyle<&Style::dimension, &Style::setDimension>(
       node, Dimension::Height, StyleLength::ofAuto());
 }
 
-YGValue YGNodeStyleGetHeight(YGNodeConstRef node) {
-  return (YGValue)resolveRef(node)->style().dimension(Dimension::Height);
+ANUValue ANUNodeStyleGetHeight(ANUNodeConstRef node) {
+  return (ANUValue)resolveRef(node)->style().dimension(Dimension::Height);
 }
 
-void YGNodeStyleSetMinWidth(const YGNodeRef node, const float minWidth) {
+void ANUNodeStyleSetMinWidth(const ANUNodeRef node, const float minWidth) {
   updateStyle<&Style::minDimension, &Style::setMinDimension>(
       node, Dimension::Width, StyleLength::points(minWidth));
 }
 
-void YGNodeStyleSetMinWidthPercent(const YGNodeRef node, const float minWidth) {
+void ANUNodeStyleSetMinWidthPercent(const ANUNodeRef node, const float minWidth) {
   updateStyle<&Style::minDimension, &Style::setMinDimension>(
       node, Dimension::Width, StyleLength::percent(minWidth));
 }
 
-YGValue YGNodeStyleGetMinWidth(const YGNodeConstRef node) {
-  return (YGValue)resolveRef(node)->style().minDimension(Dimension::Width);
+ANUValue ANUNodeStyleGetMinWidth(const ANUNodeConstRef node) {
+  return (ANUValue)resolveRef(node)->style().minDimension(Dimension::Width);
 }
 
-void YGNodeStyleSetMinHeight(const YGNodeRef node, const float minHeight) {
+void ANUNodeStyleSetMinHeight(const ANUNodeRef node, const float minHeight) {
   updateStyle<&Style::minDimension, &Style::setMinDimension>(
       node, Dimension::Height, StyleLength::points(minHeight));
 }
 
-void YGNodeStyleSetMinHeightPercent(
-    const YGNodeRef node,
+void ANUNodeStyleSetMinHeightPercent(
+    const ANUNodeRef node,
     const float minHeight) {
   updateStyle<&Style::minDimension, &Style::setMinDimension>(
       node, Dimension::Height, StyleLength::percent(minHeight));
 }
 
-YGValue YGNodeStyleGetMinHeight(const YGNodeConstRef node) {
-  return (YGValue)resolveRef(node)->style().minDimension(Dimension::Height);
+ANUValue ANUNodeStyleGetMinHeight(const ANUNodeConstRef node) {
+  return (ANUValue)resolveRef(node)->style().minDimension(Dimension::Height);
 }
 
-void YGNodeStyleSetMaxWidth(const YGNodeRef node, const float maxWidth) {
+void ANUNodeStyleSetMaxWidth(const ANUNodeRef node, const float maxWidth) {
   updateStyle<&Style::maxDimension, &Style::setMaxDimension>(
       node, Dimension::Width, StyleLength::points(maxWidth));
 }
 
-void YGNodeStyleSetMaxWidthPercent(const YGNodeRef node, const float maxWidth) {
+void ANUNodeStyleSetMaxWidthPercent(const ANUNodeRef node, const float maxWidth) {
   updateStyle<&Style::maxDimension, &Style::setMaxDimension>(
       node, Dimension::Width, StyleLength::percent(maxWidth));
 }
 
-YGValue YGNodeStyleGetMaxWidth(const YGNodeConstRef node) {
-  return (YGValue)resolveRef(node)->style().maxDimension(Dimension::Width);
+ANUValue ANUNodeStyleGetMaxWidth(const ANUNodeConstRef node) {
+  return (ANUValue)resolveRef(node)->style().maxDimension(Dimension::Width);
 }
 
-void YGNodeStyleSetMaxHeight(const YGNodeRef node, const float maxHeight) {
+void ANUNodeStyleSetMaxHeight(const ANUNodeRef node, const float maxHeight) {
   updateStyle<&Style::maxDimension, &Style::setMaxDimension>(
       node, Dimension::Height, StyleLength::points(maxHeight));
 }
 
-void YGNodeStyleSetMaxHeightPercent(
-    const YGNodeRef node,
+void ANUNodeStyleSetMaxHeightPercent(
+    const ANUNodeRef node,
     const float maxHeight) {
   updateStyle<&Style::maxDimension, &Style::setMaxDimension>(
       node, Dimension::Height, StyleLength::percent(maxHeight));
 }
 
-YGValue YGNodeStyleGetMaxHeight(const YGNodeConstRef node) {
-  return (YGValue)resolveRef(node)->style().maxDimension(Dimension::Height);
+ANUValue ANUNodeStyleGetMaxHeight(const ANUNodeConstRef node) {
+  return (ANUValue)resolveRef(node)->style().maxDimension(Dimension::Height);
 }

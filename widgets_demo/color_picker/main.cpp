@@ -27,8 +27,8 @@ class ColorPickerDemoState : public State {
 public:
     WidgetPtr build(BuildContext& context) override {
         return Row({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .gap = 80.0f,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
@@ -36,8 +36,8 @@ public:
             .children = {
                 // Left Panel (Color Picker)
                 Column({
-                    .justifyContent = YGJustifyCenter,
-                    .alignItems = YGAlignCenter,
+                    .justify = Justify::Center,
+                    .align = Align::Center,
                     .gap = 24.0f,
                     .children = {
                         Text("Pick a Color", {.font_size = 28.0f, .color = 0xFFFFFFFF}),
@@ -58,8 +58,8 @@ public:
 
                 // Right Panel (Preview Area)
                 Column({
-                    .justifyContent = YGJustifyCenter,
-                    .alignItems = YGAlignCenter,
+                    .justify = Justify::Center,
+                    .align = Align::Center,
                     .gap = 24.0f,
                     .children = {
                         Column({

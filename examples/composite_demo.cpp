@@ -42,9 +42,9 @@ public:
         auto root = std::make_shared<FlexBox>();
         root->widthPercent(100).heightPercent(100)
              .backgroundColor(0xFF0F172A)
-             .flexDirection(YGFlexDirectionColumn)
-             .alignItems(YGAlignCenter)
-             .padding(YGEdgeTop, 40);
+             .direction(FlexDirection::Column)
+             .align(Align::Center)
+             .padding(Edge::Top, 40);
 
         // ── Title ─────────────────────────────────────────────
         root->child(Text("Phase 1 — Overlay Widgets", {
@@ -54,17 +54,17 @@ public:
         }));
 
         auto sub = std::make_shared<FlexBox>();
-        sub->margin(YGEdgeTop, 8).margin(YGEdgeBottom, 32);
+        sub->margin(Edge::Top, 8).margin(Edge::Bottom, 32);
         sub->child(Text(status_message, {.font_size = 14, .color = 0xFF94A3B8}));
         root->child(sub);
 
         // ── Dropdown ──────────────────────────────────────────
         auto dw = std::make_shared<FlexBox>();
-        dw->flexDirection(YGFlexDirectionColumn).alignItems(YGAlignCenter).margin(YGEdgeBottom, 24);
+        dw->direction(FlexDirection::Column).align(Align::Center).margin(Edge::Bottom, 24);
         dw->child(Text("Framework Selector", {.font_size = 13, .color = 0xFF64748B}));
 
         auto drop_wrap = std::make_shared<FlexBox>();
-        drop_wrap->margin(YGEdgeTop, 8).child(Dropdown({
+        drop_wrap->margin(Edge::Top, 8).child(Dropdown({
             .items = {
                 {.label = "⚛️  React",     .value = "react"},
                 {.label = "🅥  Vue.js",    .value = "vue"},
@@ -120,7 +120,7 @@ public:
         });
 
         auto ctx_wrap = std::make_shared<FlexBox>();
-        ctx_wrap->margin(YGEdgeTop, 8).margin(YGEdgeBottom, 24).child(ctx_gd);
+        ctx_wrap->margin(Edge::Top, 8).margin(Edge::Bottom, 24).child(ctx_gd);
         root->child(ctx_wrap);
 
         // ── Bottom Sheet ──────────────────────────────────────
@@ -138,12 +138,12 @@ public:
         // ── Bottom Sheet overlay ──────────────────────────────
         if (sheet_open) {
             auto sheet_content = std::make_shared<FlexBox>();
-            sheet_content->flexDirection(YGFlexDirectionColumn).padding(YGEdgeAll, 20);
+            sheet_content->direction(FlexDirection::Column).padding(Edge::All, 20);
             sheet_content->child(Text("Share Options", {.font_size = 18, .color = 0xFFF8FAFC, .weight = TextStyle::Bold}));
 
             for (const char* opt : {"🔗 Copy Link", "🐦 Twitter / X", "📘 Facebook", "💬 WhatsApp"}) {
                 auto row = std::make_shared<FlexBox>();
-                row->height(52).alignItems(YGAlignCenter).padding(YGEdgeHorizontal, 4);
+                row->height(52).align(Align::Center).padding(Edge::Horizontal, 4);
                 row->child(Text(opt, {.font_size = 15, .color = 0xFFF8FAFC}));
                 sheet_content->child(row);
                 sheet_content->child(Divider({.thickness = 1, .color = 0xFF1E293B}));

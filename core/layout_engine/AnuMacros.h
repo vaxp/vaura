@@ -12,27 +12,27 @@
 #endif
 
 #ifdef __cplusplus
-#define YG_EXTERN_C_BEGIN extern "C" {
-#define YG_EXTERN_C_END }
+#define ANU_EXTERN_C_BEGIN extern "C" {
+#define ANU_EXTERN_C_END }
 #else
-#define YG_EXTERN_C_BEGIN
-#define YG_EXTERN_C_END
+#define ANU_EXTERN_C_BEGIN
+#define ANU_EXTERN_C_END
 #endif
 
 #if defined(__cplusplus)
-#define YG_DEPRECATED(message) [[deprecated(message)]]
+#define ANU_DEPRECATED(message) [[deprecated(message)]]
 #elif defined(_MSC_VER)
-#define YG_DEPRECATED(message) __declspec(deprecated(message))
+#define ANU_DEPRECATED(message) __declspec(deprecated(message))
 #else
-#define YG_DEPRECATED(message) __attribute__((deprecated(message)))
+#define ANU_DEPRECATED(message) __attribute__((deprecated(message)))
 #endif
 
 #ifdef _WINDLL
-#define YG_EXPORT __declspec(dllexport)
+#define ANU_EXPORT __declspec(dllexport)
 #elif !defined(_MSC_VER)
-#define YG_EXPORT __attribute__((visibility("default")))
+#define ANU_EXPORT __attribute__((visibility("default")))
 #else
-#define YG_EXPORT
+#define ANU_EXPORT
 #endif
 
 #ifdef __OBJC__
@@ -43,17 +43,17 @@
 
 #ifdef NS_ENUM
 // Cannot use NSInteger as NSInteger has a different size than int (which is the
-// default type of a enum). Therefor when linking the Yoga C library into obj-c
-// the header is a mismatch for the Yoga ABI.
-#define YG_ENUM_BEGIN(name) NS_ENUM(int, name)
-#define YG_ENUM_END(name)
+// default type of a enum). Therefor when linking the Anu C library into obj-c
+// the header is a mismatch for the Anu ABI.
+#define ANU_ENUM_BEGIN(name) NS_ENUM(int, name)
+#define ANU_ENUM_END(name)
 #else
-#define YG_ENUM_BEGIN(name) enum name
-#define YG_ENUM_END(name) name
+#define ANU_ENUM_BEGIN(name) enum name
+#define ANU_ENUM_END(name) name
 #endif
 
 #ifdef __cplusplus
-#define YG_DEFINE_ENUM_FLAG_OPERATORS(name)                       \
+#define ANU_DEFINE_ENUM_FLAG_OPERATORS(name)                       \
   extern "C++" {                                                  \
   constexpr name operator~(name a) {                              \
     return static_cast<name>(                                     \
@@ -91,9 +91,9 @@
   }                                                               \
   }
 #else
-#define YG_DEFINE_ENUM_FLAG_OPERATORS(name)
+#define ANU_DEFINE_ENUM_FLAG_OPERATORS(name)
 #endif
 
-#define YG_ENUM_DECL(NAME, ...)                               \
-  typedef YG_ENUM_BEGIN(NAME){__VA_ARGS__} YG_ENUM_END(NAME); \
-  YG_EXPORT const char* NAME##ToString(NAME);
+#define ANU_ENUM_DECL(NAME, ...)                               \
+  typedef ANU_ENUM_BEGIN(NAME){__VA_ARGS__} ANU_ENUM_END(NAME); \
+  ANU_EXPORT const char* NAME##ToString(NAME);

@@ -10,7 +10,7 @@
 #include "vaura/tree/build_context.hpp"
 #include "vaura/animation/animation_controller.hpp"
 #include "vaura/animation/ticker.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 namespace vaura {
 
@@ -77,8 +77,8 @@ public:
             Color   faded_bd = (cfg.backdrop_color & 0x00FFFFFF) | (bd_alpha << 24);
 
             auto bd_box = std::make_shared<FlexBox>();
-            bd_box->positionType(YGPositionTypeAbsolute)
-                   .position(YGEdgeAll, 0.0f)
+            bd_box->positionType(PositionType::Absolute)
+                   .position(Edge::All, 0.0f)
                    .widthPercent(100).heightPercent(100)
                    .backgroundColor(faded_bd);
 
@@ -107,14 +107,14 @@ public:
             });
 
             auto drawer_wrapper = std::make_shared<FlexBox>();
-            drawer_wrapper->positionType(YGPositionTypeAbsolute)
-                           .position(YGEdgeTop, 0.0f)
+            drawer_wrapper->positionType(PositionType::Absolute)
+                           .position(Edge::Top, 0.0f)
                            .heightPercent(100);
 
             if (is_left) {
-                drawer_wrapper->position(YGEdgeLeft, 0.0f);
+                drawer_wrapper->position(Edge::Left, 0.0f);
             } else {
-                drawer_wrapper->position(YGEdgeRight, 0.0f);
+                drawer_wrapper->position(Edge::Right, 0.0f);
             }
             drawer_wrapper->child(translated);
 

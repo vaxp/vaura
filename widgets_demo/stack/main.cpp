@@ -12,8 +12,8 @@ public:
 
     WidgetPtr build(BuildContext& ctx) override {
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF0F172A,
@@ -25,33 +25,33 @@ public:
                     .children = {
                         // Base
                         Column({
-                            .justifyContent = YGJustifyFlexEnd,
-                            .alignItems = YGAlignFlexEnd,
+                            .justify = Justify::End,
+                            .align = Align::End,
                             .width = 300.0f,
                             .height = 300.0f,
-                            .padding = std::pair{YGEdgeAll, 16.0f},
+                            .padding = std::pair{Edge::All, 16.0f},
                             .backgroundColor = 0xFF1E293B,
                             .borderRadius = 16.0f,
                             .children = { Text("Base", {.font_size = 18.0f, .color = 0xFF94A3B8}) }
                         }),
                         // Middle
                         Column({
-                            .justifyContent = YGJustifyFlexEnd,
-                            .alignItems = YGAlignFlexEnd,
+                            .justify = Justify::End,
+                            .align = Align::End,
                             .width = 200.0f,
                             .height = 200.0f,
-                            .padding = std::pair{YGEdgeAll, 16.0f},
+                            .padding = std::pair{Edge::All, 16.0f},
                             .backgroundColor = 0xFF3B82F6,
                             .borderRadius = 12.0f,
                             .children = { Text("Middle", {.font_size = 18.0f, .color = 0xFFFFFFFF}) }
                         }),
                         // Top
                         Column({
-                            .justifyContent = YGJustifyFlexEnd,
-                            .alignItems = YGAlignFlexEnd,
+                            .justify = Justify::End,
+                            .align = Align::End,
                             .width = 100.0f,
                             .height = 100.0f,
-                            .padding = std::pair{YGEdgeAll, 8.0f},
+                            .padding = std::pair{Edge::All, 8.0f},
                             .backgroundColor = 0xFFEF4444,
                             .borderRadius = 8.0f,
                             .children = { Text("Top", {.font_size = 16.0f, .color = 0xFFFFFFFF}) }

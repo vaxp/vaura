@@ -45,14 +45,14 @@ const char* GLOW_BUTTON_SKSL = R"(
 int main(int argc, char** argv) {
     auto root = std::make_shared<FlexBox>();
     root->widthPercent(100).heightPercent(100)
-        .justifyContent(YGJustifyCenter)
-        .alignItems(YGAlignCenter)
+        .justify(Justify::Center)
+        .align(Align::Center)
         .backgroundColor(0xFF1E293B);
 
     auto center_wrap = std::make_shared<FlexBox>();
     center_wrap->widthPercent(100).heightPercent(100)
-               .justifyContent(YGJustifyCenter)
-               .alignItems(YGAlignCenter)
+               .justify(Justify::Center)
+               .align(Align::Center)
                .child(Text("GLOW BUTTON", {
                    .font_size = 20, 
                    .color = 0xFFFFFFFF,

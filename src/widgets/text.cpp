@@ -2,7 +2,7 @@
 /// @brief Widget: text implementation (Phase 7).
 #include "vaura/widgets/text.hpp"
 #include "vaura/rendering/canvas.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <modules/skparagraph/include/Paragraph.h>
 #include <modules/skparagraph/include/ParagraphBuilder.h>
 #include <modules/skparagraph/include/FontCollection.h>
@@ -17,25 +17,25 @@ public:
     RenderText(std::string text, TextConfig config) 
         : text_(std::move(text)), config_(std::move(config)) {
         
-        // Setup Yoga measure function
-        YGNodeSetContext(yogaNode(), this);
-        YGNodeSetMeasureFunc(yogaNode(), [](YGNodeConstRef node, float width, YGMeasureMode widthMode, float height, YGMeasureMode heightMode) -> YGSize {
-            auto* self = static_cast<RenderText*>(YGNodeGetContext(node));
+        // Setup Anu measure function
+        ANUNodeSetContext(anuNode(), this);
+        ANUNodeSetMeasureFunc(anuNode(), [](ANUNodeConstRef node, float width, ANUMeasureMode widthMode, float height, ANUMeasureMode heightMode) -> ANUSize {
+            auto* self = static_cast<RenderText*>(ANUNodeGetContext(node));
             float layout_width = 10000.0f;
-            if (widthMode == YGMeasureModeExactly || widthMode == YGMeasureModeAtMost) {
+            if (widthMode == ANUMeasureModeExactly || widthMode == ANUMeasureModeAtMost) {
                 layout_width = width;
             }
             
             self->buildParagraph(layout_width);
             
             float final_width = static_cast<float>(self->paragraph_->getMaxIntrinsicWidth());
-            if (widthMode == YGMeasureModeExactly) {
+            if (widthMode == ANUMeasureModeExactly) {
                 final_width = width;
-            } else if (widthMode == YGMeasureModeAtMost) {
+            } else if (widthMode == ANUMeasureModeAtMost) {
                 final_width = std::min(width, final_width);
             }
 
-            return YGSize{
+            return ANUSize{
                 final_width,
                 static_cast<float>(self->paragraph_->getHeight())
             };

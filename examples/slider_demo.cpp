@@ -23,12 +23,12 @@ public:
         root->widthPercent(100)
             .heightPercent(100)
             .backgroundColor(0xFF1E293B)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter);
+            .justify(Justify::Center)
+            .align(Align::Center);
 
         auto content_col = std::make_shared<FlexBox>();
-        content_col->flexDirection(YGFlexDirectionColumn)
-                   .alignItems(YGAlignCenter);
+        content_col->direction(FlexDirection::Column)
+                   .align(Align::Center);
 
         auto title = Text("Brightness: " + std::to_string(static_cast<int>(current_value)) + "%", {
             .font_size = 22,
@@ -37,7 +37,7 @@ public:
         });
         
         auto title_c = std::make_shared<FlexBox>();
-        title_c->margin(YGEdgeBottom, 20).child(title);
+        title_c->margin(Edge::Bottom, 20).child(title);
 
         auto s = Slider({
             .value = current_value,

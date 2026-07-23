@@ -7,21 +7,21 @@
 
 #pragma once
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <layout_engine/algorithm/FlexDirection.h>
 #include <layout_engine/event/event.h>
 #include <layout_engine/node/Node.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 void calculateLayout(
-    yoga::Node* node,
+    anu::Node* node,
     float ownerWidth,
     float ownerHeight,
     Direction ownerDirection);
 
 bool calculateLayoutInternal(
-    yoga::Node* node,
+    anu::Node* node,
     float availableWidth,
     float availableHeight,
     Direction ownerDirection,
@@ -35,4 +35,4 @@ bool calculateLayoutInternal(
     uint32_t depth,
     uint32_t generationCount);
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

@@ -5,16 +5,16 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 #include <layout_engine/algorithm/Align.h>
 #include <layout_engine/algorithm/Baseline.h>
 #include <layout_engine/debug/AssertFatal.h>
 #include <layout_engine/event/event.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
-float calculateBaseline(const yoga::Node* node) {
+float calculateBaseline(const anu::Node* node) {
   if (node->hasBaselineFunc()) {
     Event::publish<Event::NodeBaselineStart>(node);
 
@@ -24,14 +24,14 @@ float calculateBaseline(const yoga::Node* node) {
 
     Event::publish<Event::NodeBaselineEnd>(node);
 
-    yoga::assertFatalWithNode(
+    anu::assertFatalWithNode(
         node,
         !std::isnan(baseline),
         "Expect custom baseline function to not return NaN");
     return baseline;
   }
 
-  yoga::Node* baselineChild = nullptr;
+  anu::Node* baselineChild = nullptr;
   for (auto child : node->getLayoutChildren()) {
     if (child->getLineIndex() > 0) {
       break;
@@ -58,7 +58,7 @@ float calculateBaseline(const yoga::Node* node) {
   return baseline + baselineChild->getLayout().position(PhysicalEdge::Top);
 }
 
-bool isBaselineLayout(const yoga::Node* node) {
+bool isBaselineLayout(const anu::Node* node) {
   if (isColumn(node->style().flexDirection())) {
     return false;
   }
@@ -75,4 +75,4 @@ bool isBaselineLayout(const yoga::Node* node) {
   return false;
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

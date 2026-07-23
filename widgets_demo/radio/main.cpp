@@ -22,11 +22,11 @@ public:
         auto build_radio_option = [this](const std::string& label, int value) {
             return GestureDetector({
                 .child = Row({
-                    .alignItems = YGAlignCenter,
-                    .margin = std::pair{YGEdgeBottom, 20.0f},
+                    .align = Align::Center,
+                    .margin = std::pair{Edge::Bottom, 20.0f},
                     .children = {
                         Column({
-                            .margin = std::pair{YGEdgeRight, 15.0f},
+                            .margin = std::pair{Edge::Right, 15.0f},
                             .children = {
                                 Radio({
                                     .value = (selected_option_ == value),
@@ -51,19 +51,19 @@ public:
         };
 
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF1E293B,
             .children = {
                 Column({
-                    .padding = std::pair{YGEdgeAll, 40.0f},
+                    .padding = std::pair{Edge::All, 40.0f},
                     .backgroundColor = 0xFF0F172A,
                     .borderRadius = 16.0f,
                     .children = {
                         Column({
-                            .margin = std::pair{YGEdgeBottom, 30.0f},
+                            .margin = std::pair{Edge::Bottom, 30.0f},
                             .children = {
                                 Text("Radio Button Demo", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold})
                             }

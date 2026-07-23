@@ -29,7 +29,7 @@ std::unique_ptr<RenderDecoratedBox> createBox(Color color, float radius = 0) {
 
 int main() {
     auto platform = std::move(Platform::create().value());
-    WindowConfig config{"VAURA - Yoga Chat Demo", 400, 700};
+    WindowConfig config{"VAURA - Anu Chat Demo", 400, 700};
     auto window = std::move(Window::create(*platform, config).value());
     window->makeCurrent();
 
@@ -98,7 +98,7 @@ int main() {
         // Align Self to Left or Right depending on sender
         bubble->layoutNode().setAlignSelf(isMe[i] ? CrossAxisAlign::End : CrossAxisAlign::Start);
         
-        // Special border radius logic (Yoga doesn't handle border radius, we do it in VAURA)
+        // Special border radius logic (Anu doesn't handle border radius, we do it in VAURA)
         RenderDecoratedBox::Decoration dec = bubble->decoration();
         if (isMe[i]) {
             dec.border_radius.bottom_right = 0;

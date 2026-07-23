@@ -10,15 +10,15 @@
 #pragma once
 
 #include <cstdint>
-#include <layout_engine/YGEnums.h>
-#include <layout_engine/enums/YogaEnums.h>
+#include <layout_engine/AnuEnums.h>
+#include <layout_engine/enums/AnuEnums.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 enum class Display : uint8_t {
-  Flex = YGDisplayFlex,
-  None = YGDisplayNone,
-  Contents = YGDisplayContents,
+  Flex = ANUDisplayFlex,
+  None = ANUDisplayNone,
+  Contents = ANUDisplayContents,
 };
 
 template <>
@@ -26,16 +26,16 @@ constexpr int32_t ordinalCount<Display>() {
   return 3;
 }
 
-constexpr Display scopedEnum(YGDisplay unscoped) {
+constexpr Display scopedEnum(ANUDisplay unscoped) {
   return static_cast<Display>(unscoped);
 }
 
-constexpr YGDisplay unscopedEnum(Display scoped) {
-  return static_cast<YGDisplay>(scoped);
+constexpr ANUDisplay unscopedEnum(Display scoped) {
+  return static_cast<ANUDisplay>(scoped);
 }
 
 inline const char* toString(Display e) {
-  return YGDisplayToString(unscopedEnum(e));
+  return ANUDisplayToString(unscopedEnum(e));
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

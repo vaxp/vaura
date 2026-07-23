@@ -10,21 +10,21 @@
 #pragma once
 
 #include <cstdint>
-#include <layout_engine/YGEnums.h>
-#include <layout_engine/enums/YogaEnums.h>
+#include <layout_engine/AnuEnums.h>
+#include <layout_engine/enums/AnuEnums.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 enum class Edge : uint8_t {
-  Left = YGEdgeLeft,
-  Top = YGEdgeTop,
-  Right = YGEdgeRight,
-  Bottom = YGEdgeBottom,
-  Start = YGEdgeStart,
-  End = YGEdgeEnd,
-  Horizontal = YGEdgeHorizontal,
-  Vertical = YGEdgeVertical,
-  All = YGEdgeAll,
+  Left = ANUEdgeLeft,
+  Top = ANUEdgeTop,
+  Right = ANUEdgeRight,
+  Bottom = ANUEdgeBottom,
+  Start = ANUEdgeStart,
+  End = ANUEdgeEnd,
+  Horizontal = ANUEdgeHorizontal,
+  Vertical = ANUEdgeVertical,
+  All = ANUEdgeAll,
 };
 
 template <>
@@ -32,16 +32,16 @@ constexpr int32_t ordinalCount<Edge>() {
   return 9;
 }
 
-constexpr Edge scopedEnum(YGEdge unscoped) {
+constexpr Edge scopedEnum(ANUEdge unscoped) {
   return static_cast<Edge>(unscoped);
 }
 
-constexpr YGEdge unscopedEnum(Edge scoped) {
-  return static_cast<YGEdge>(scoped);
+constexpr ANUEdge unscopedEnum(Edge scoped) {
+  return static_cast<ANUEdge>(scoped);
 }
 
 inline const char* toString(Edge e) {
-  return YGEdgeToString(unscopedEnum(e));
+  return ANUEdgeToString(unscopedEnum(e));
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

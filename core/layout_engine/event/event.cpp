@@ -9,7 +9,7 @@
 #include <atomic>
 #include <memory>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 const char* LayoutPassReasonToString(const LayoutPassReason value) {
   switch (value) {
@@ -74,7 +74,7 @@ void Event::subscribe(std::function<Subscriber>&& subscriber) {
 }
 
 void Event::publish(
-    YGNodeConstRef node,
+    ANUNodeConstRef node,
     Type eventType,
     const Data& eventData) {
   for (auto subscriber = subscribers.load(std::memory_order_relaxed);
@@ -84,4 +84,4 @@ void Event::publish(
   }
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

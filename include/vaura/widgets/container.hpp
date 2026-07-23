@@ -87,7 +87,7 @@ struct ContainerConfig {
     std::optional<EdgeInsets> padding_percent;
     EdgeInsets margin;                         ///< Outer margin.
     std::optional<EdgeInsets> margin_percent;
-    bool margin_auto = false;                  ///< Auto margin for all edges (if true) or specific edge via YGNodeStyleSetMarginAuto.
+    bool margin_auto = false;                  ///< Auto margin for all edges (if true) or specific edge via ANUNodeStyleSetMarginAuto.
     BorderRadius border_radius;               ///< Corner radii.
     Border border;                            ///< Border style.
     std::optional<Shadow> shadow;             ///< Box shadow.
@@ -95,27 +95,27 @@ struct ContainerConfig {
     float opacity = 1.0f;                     ///< Opacity [0..1].
     float flex_shrink = 0.0f;                 ///< Flex shrink factor (0 = do not shrink).
     float flex_grow = 0.0f;                   ///< Flex grow factor.
-    float flex_basis = YGUndefined;           ///< Flex basis.
+    float flex_basis = ANUUndefined;           ///< Flex basis.
     std::optional<float> flex_basis_percent;
     bool flex_basis_auto = false;
-    float aspect_ratio = YGUndefined;         ///< Aspect ratio.
-    float gap = YGUndefined;                  ///< Gap between all items.
-    float row_gap = YGUndefined;              ///< Gap between rows.
-    float column_gap = YGUndefined;           ///< Gap between columns.
+    float aspect_ratio = ANUUndefined;         ///< Aspect ratio.
+    float gap = ANUUndefined;                  ///< Gap between all items.
+    float row_gap = ANUUndefined;              ///< Gap between rows.
+    float column_gap = ANUUndefined;           ///< Gap between columns.
     std::optional<float> gap_percent;
     std::optional<float> row_gap_percent;
     std::optional<float> column_gap_percent;
-    YGDirection direction = YGDirectionInherit; ///< Layout direction (LTR/RTL).
-    YGDisplay display = YGDisplayFlex;        ///< Display property.
-    YGOverflow overflow = YGOverflowVisible;  ///< Overflow property.
-    YGBoxSizing box_sizing = YGBoxSizingBorderBox; ///< Box sizing.
-    YGPositionType position_type = YGPositionTypeRelative; ///< Position type.
-    float position_top = YGUndefined;         ///< Top position.
-    float position_bottom = YGUndefined;      ///< Bottom position.
-    float position_left = YGUndefined;        ///< Left position.
-    float position_right = YGUndefined;       ///< Right position.
-    float position_start = YGUndefined;       ///< Start position (RTL-aware).
-    float position_end = YGUndefined;         ///< End position (RTL-aware).
+    ANUDirection direction = ANUDirectionInherit; ///< Layout direction (LTR/RTL).
+    ANUDisplay display = ANUDisplayFlex;        ///< Display property.
+    ANUOverflow overflow = ANUOverflowVisible;  ///< Overflow property.
+    ANUBoxSizing box_sizing = ANUBoxSizingBorderBox; ///< Box sizing.
+    ANUPositionType position_type = ANUPositionTypeRelative; ///< Position type.
+    float position_top = ANUUndefined;         ///< Top position.
+    float position_bottom = ANUUndefined;      ///< Bottom position.
+    float position_left = ANUUndefined;        ///< Left position.
+    float position_right = ANUUndefined;       ///< Right position.
+    float position_start = ANUUndefined;       ///< Start position (RTL-aware).
+    float position_end = ANUUndefined;         ///< End position (RTL-aware).
     bool position_auto = false;               ///< Position auto.
     std::optional<float> position_top_percent;
     std::optional<float> position_bottom_percent;
@@ -123,12 +123,12 @@ struct ContainerConfig {
     std::optional<float> position_right_percent;
     std::optional<float> position_start_percent;
     std::optional<float> position_end_percent;
-    YGAlign align_content = YGAlignFlexStart; ///< Cross-axis alignment of multiple lines.
-    YGAlign align_self = YGAlignAuto;         ///< Self alignment override.
-    std::optional<YGFlexDirection> flex_direction; ///< Flex direction override.
-    std::optional<YGJustify> justify_content; ///< Justify content override.
-    std::optional<YGAlign> align_items;       ///< Align items override.
-    std::optional<YGWrap> flex_wrap;          ///< Flex wrap override.
+    ANUAlign align_content = ANUAlignFlexStart; ///< Cross-axis alignment of multiple lines.
+    ANUAlign align_self = ANUAlignAuto;         ///< Self alignment override.
+    std::optional<ANUFlexDirection> flex_direction; ///< Flex direction override.
+    std::optional<ANUJustify> justify_content; ///< Justify content override.
+    std::optional<ANUAlign> align_items;       ///< Align items override.
+    std::optional<ANUWrap> flex_wrap;          ///< Flex wrap override.
     bool clip_content = false;                ///< Clip children to bounds.
     Alignment alignment = Alignment::Center;  ///< Child alignment.
     WidgetPtr child;                          ///< Optional child widget.

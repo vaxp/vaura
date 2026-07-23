@@ -15,12 +15,12 @@
 #include <layout_engine/node/Node.h>
 #include <layout_engine/numeric/Comparison.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 Node::Node() : Node{&Config::getDefault()} {}
 
-Node::Node(const yoga::Config* config) : config_{config} {
-  yoga::assertFatal(
+Node::Node(const anu::Config* config) : config_{config} {
+  anu::assertFatal(
       config != nullptr, "Attempting to construct Node with null config");
 
   if (config->useWebDefaults()) {
@@ -51,7 +51,7 @@ Node::Node(Node&& node) noexcept
   }
 }
 
-YGSize Node::measure(
+ANUSize Node::measure(
     float availableWidth,
     MeasureMode widthMode,
     float availableHeight,
@@ -63,12 +63,12 @@ YGSize Node::measure(
       availableHeight,
       unscopedEnum(heightMode));
 
-  if (yoga::isUndefined(size.height) || size.height < 0 ||
-      yoga::isUndefined(size.width) || size.width < 0) {
-    yoga::log(
+  if (anu::isUndefined(size.height) || size.height < 0 ||
+      anu::isUndefined(size.width) || size.width < 0) {
+    anu::log(
         this,
         LogLevel::Warn,
-        "Measure function returned an invalid dimension to Yoga: [width=%f, height=%f]",
+        "Measure function returned an invalid dimension to Anu: [width=%f, height=%f]",
         size.width,
         size.height);
     return {
@@ -92,18 +92,18 @@ float Node::dimensionWithMargin(
 
 bool Node::isLayoutDimensionDefined(const FlexDirection axis) {
   const float value = getLayout().measuredDimension(dimension(axis));
-  return yoga::isDefined(value) && value >= 0.0f;
+  return anu::isDefined(value) && value >= 0.0f;
 }
 
 // Setters
 
-void Node::setMeasureFunc(YGMeasureFunc measureFunc) {
+void Node::setMeasureFunc(ANUMeasureFunc measureFunc) {
   if (measureFunc == nullptr) {
     // TODO: t18095186 Move nodeType to opt-in function and mark appropriate
     // places in Litho
     setNodeType(NodeType::Default);
   } else {
-    yoga::assertFatalWithNode(
+    anu::assertFatalWithNode(
         this,
         children_.empty(),
         "Cannot set measure function: Nodes with measure functions cannot have "
@@ -151,15 +151,15 @@ void Node::insertChild(Node* child, size_t index) {
   children_.insert(children_.begin() + static_cast<ptrdiff_t>(index), child);
 }
 
-void Node::setConfig(yoga::Config* config) {
-  yoga::assertFatal(
+void Node::setConfig(anu::Config* config) {
+  anu::assertFatal(
       config != nullptr, "Attempting to set a null config on a Node");
-  yoga::assertFatalWithConfig(
+  anu::assertFatalWithConfig(
       config,
       config->useWebDefaults() == config_->useWebDefaults(),
       "UseWebDefaults may not be changed after constructing a Node");
 
-  if (yoga::configUpdateInvalidatesLayout(*config_, *config)) {
+  if (anu::configUpdateInvalidatesLayout(*config_, *config)) {
     markDirtyAndPropagate();
     layout_.configVersion = 0;
   } else {
@@ -276,9 +276,9 @@ void Node::setPosition(
   const Direction directionRespectingRoot =
       owner_ != nullptr ? direction : Direction::LTR;
   const FlexDirection mainAxis =
-      yoga::resolveDirection(style_.flexDirection(), directionRespectingRoot);
+      anu::resolveDirection(style_.flexDirection(), directionRespectingRoot);
   const FlexDirection crossAxis =
-      yoga::resolveCrossDirection(mainAxis, directionRespectingRoot);
+      anu::resolveCrossDirection(mainAxis, directionRespectingRoot);
 
   // In the case of position static these are just 0. See:
   // https://www.w3.org/TR/css-position-3/#valdef-position-static
@@ -348,11 +348,11 @@ FloatOptional Node::resolveFlexBasis(
 void Node::processDimensions() {
   for (auto dim : {Dimension::Width, Dimension::Height}) {
     if (style_.maxDimension(dim).isDefined() &&
-        yoga::inexactEquals(
+        anu::inexactEquals(
             style_.maxDimension(dim), style_.minDimension(dim))) {
-      processedDimensions_[yoga::to_underlying(dim)] = style_.maxDimension(dim);
+      processedDimensions_[anu::to_underlying(dim)] = style_.maxDimension(dim);
     } else {
-      processedDimensions_[yoga::to_underlying(dim)] = style_.dimension(dim);
+      processedDimensions_[anu::to_underlying(dim)] = style_.dimension(dim);
     }
   }
 }
@@ -430,14 +430,14 @@ bool Node::isNodeFlexible() {
 }
 
 void Node::reset() {
-  yoga::assertFatalWithNode(
+  anu::assertFatalWithNode(
       this,
       children_.empty(),
       "Cannot reset a node which still has children attached");
-  yoga::assertFatalWithNode(
+  anu::assertFatalWithNode(
       this, owner_ == nullptr, "Cannot reset a node still attached to a owner");
 
   *this = Node{getConfig()};
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

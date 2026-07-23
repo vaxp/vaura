@@ -12,8 +12,8 @@ public:
 
     WidgetPtr build(BuildContext& ctx) override {
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF0F172A,
@@ -24,20 +24,20 @@ public:
                     .width = 600.0f,
                     .height = 400.0f,
                     .borderRadius = 16.0f,
-                    .overflow = YGOverflowHidden,
+                    .overflow = Overflow::Hidden,
                     .children = {
                         SplitView({
                             .first = Column({
-                                .justifyContent = YGJustifyCenter,
-                                .alignItems = YGAlignCenter,
+                                .justify = Justify::Center,
+                                .align = Align::Center,
                                 .widthPercent = 100.0f,
                                 .heightPercent = 100.0f,
                                 .backgroundColor = 0xFF1E293B,
                                 .children = { Text("Left Pane", {.font_size = 24.0f, .color = 0xFF3B82F6}) }
                             }),
                             .second = Column({
-                                .justifyContent = YGJustifyCenter,
-                                .alignItems = YGAlignCenter,
+                                .justify = Justify::Center,
+                                .align = Align::Center,
                                 .widthPercent = 100.0f,
                                 .heightPercent = 100.0f,
                                 .backgroundColor = 0xFF334155,

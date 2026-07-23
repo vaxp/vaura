@@ -33,8 +33,8 @@ public:
         };
 
         auto body = Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF0F172A, // Slate 900
@@ -60,12 +60,12 @@ public:
         });
 
         auto sheet_content = Column({
-            .justifyContent = YGJustifyFlexStart,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Start,
+            .align = Align::Center,
             .gap = 16.0f,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
-            .padding = std::pair{YGEdgeAll, 24.0f},
+            .padding = std::pair{Edge::All, 24.0f},
             .children = {
                 Text("Share this Document", {.font_size = 24.0f, .color = 0xFFFFFFFF}),
                 add_action("Copy Link", 0xFF3B82F6), // Blue

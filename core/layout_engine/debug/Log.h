@@ -7,28 +7,28 @@
 
 #pragma once
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 #include <layout_engine/config/Config.h>
 #include <layout_engine/enums/LogLevel.h>
 #include <layout_engine/node/Node.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 void log(LogLevel level, const char* format, ...) noexcept;
 
 void log(
-    const yoga::Node* node,
+    const anu::Node* node,
     LogLevel level,
     const char* format,
     ...) noexcept;
 
 void log(
-    const yoga::Config* config,
+    const anu::Config* config,
     LogLevel level,
     const char* format,
     ...) noexcept;
 
-YGLogger getDefaultLogger();
+ANULogger getDefaultLogger();
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

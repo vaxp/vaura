@@ -14,7 +14,7 @@
 #include <memory>
 #include <vector>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 // Container which allows storing 32 or 64 bit integer values, whose index may
 // never change. Values are first stored in a fixed buffer of `BufferSize`
@@ -130,4 +130,4 @@ class SmallValueBuffer {
   std::unique_ptr<Overflow> overflow_;
 };
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

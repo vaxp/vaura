@@ -37,14 +37,14 @@ public:
         }
 
         auto root = std::make_shared<FlexBox>();
-        root->flexDirection(YGFlexDirectionColumn)
+        root->direction(FlexDirection::Column)
             .widthPercent(100)
             .heightPercent(100);
 
         // --- Tab Bar ---
         auto tab_bar_row = std::make_shared<FlexBox>();
-        tab_bar_row->flexDirection(YGFlexDirectionRow)
-                   .alignItems(YGAlignCenter)
+        tab_bar_row->direction(FlexDirection::Row)
+                   .align(Align::Center)
                    .widthPercent(100);
 
         for (int i = 0; i < (int)config.tabs.size(); ++i) {
@@ -73,7 +73,7 @@ public:
             auto clickable_tab = gesture_detector(std::move(gd_config));
             
             auto tab_wrapper = std::make_shared<FlexBox>();
-            tab_wrapper->margin(YGEdgeRight, 8)
+            tab_wrapper->margin(Edge::Right, 8)
                        .flexShrink(0.0f)
                        .child(clickable_tab);
 
@@ -88,7 +88,7 @@ public:
         });
 
         auto header_wrapper = std::make_shared<FlexBox>();
-        header_wrapper->margin(YGEdgeBottom, 20).child(tab_bar_bg);
+        header_wrapper->margin(Edge::Bottom, 20).child(tab_bar_bg);
         
         root->child(header_wrapper);
 

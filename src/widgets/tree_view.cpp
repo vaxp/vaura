@@ -11,7 +11,7 @@
 #include "vaura/widgets/gesture_detector.hpp"
 #include "vaura/state/state.hpp"
 #include "vaura/tree/build_context.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 namespace vaura {
 
@@ -30,19 +30,19 @@ static WidgetPtr buildNode(const TreeNode& node, const TreeViewConfig& cfg,
     float indent_px = depth * cfg.indent;
 
     auto row = std::make_shared<FlexBox>();
-    row->flexDirection(YGFlexDirectionRow)
-        .alignItems(YGAlignCenter)
+    row->direction(FlexDirection::Row)
+        .align(Align::Center)
         .height(cfg.item_height)
         .backgroundColor(row_bg)
-        .padding(YGEdgeLeft, indent_px + 4.0f)
-        .padding(YGEdgeRight, 8);
+        .padding(Edge::Left, indent_px + 4.0f)
+        .padding(Edge::Right, 8);
 
     // Expand/collapse chevron
     auto chevron_wrap = std::make_shared<FlexBox>();
     chevron_wrap->width(20).height(20)
-                 .justifyContent(YGJustifyCenter)
-                 .alignItems(YGAlignCenter)
-                 .margin(YGEdgeRight, 4);
+                 .justify(Justify::Center)
+                 .align(Align::Center)
+                 .margin(Edge::Right, 4);
 
     if (!is_leaf) {
         float rotation = node.is_expanded ? 90.0f : 0.0f;
@@ -59,9 +59,9 @@ static WidgetPtr buildNode(const TreeNode& node, const TreeViewConfig& cfg,
     if (node.icon) {
         auto iw = std::make_shared<FlexBox>();
         iw->width(18).height(18)
-           .margin(YGEdgeRight, 6)
-           .justifyContent(YGJustifyCenter)
-           .alignItems(YGAlignCenter)
+           .margin(Edge::Right, 6)
+           .justify(Justify::Center)
+           .align(Align::Center)
            .child(node.icon);
         row->child(iw);
     }
@@ -88,7 +88,7 @@ static WidgetPtr buildNode(const TreeNode& node, const TreeViewConfig& cfg,
     });
 
     auto node_col = std::make_shared<FlexBox>();
-    node_col->flexDirection(YGFlexDirectionColumn);
+    node_col->direction(FlexDirection::Column);
     node_col->child(row_gd);
 
     // Children
@@ -122,7 +122,7 @@ public:
         const auto& cfg = tw->config;
 
         auto root_col = std::make_shared<FlexBox>();
-        root_col->flexDirection(YGFlexDirectionColumn)
+        root_col->direction(FlexDirection::Column)
                  .backgroundColor(cfg.background_color);
 
         for (int i = 0; i < (int)cfg.nodes.size(); ++i) {

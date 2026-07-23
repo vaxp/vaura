@@ -5,37 +5,37 @@
 
 
 cmake_minimum_required(VERSION 3.13...3.26)
-project(yogacore)
+project(anucore)
 set(CMAKE_VERBOSE_MAKEFILE on)
 
-if(TARGET yogacore)
+if(TARGET anucore)
     return()
 endif()
 
 include(CheckIPOSupported)
 
-set(YOGA_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/..)
-include(${YOGA_ROOT}/cmake/project-defaults.cmake)
+set(ANU_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/..)
+include(${ANU_ROOT}/cmake/project-defaults.cmake)
 
 
 file(GLOB SOURCES CONFIGURE_DEPENDS
     ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/**/*.cpp)
 
-add_library(yogacore STATIC ${SOURCES})
+add_library(anucore STATIC ${SOURCES})
 
-# Yoga conditionally uses <android/log> when building for Android
+# Anu conditionally uses <android/log> when building for Android
 if (ANDROID)
-    target_link_libraries(yogacore log)
+    target_link_libraries(anucore log)
 endif()
 
 check_ipo_supported(RESULT result)
 if(result)
-  set_target_properties(yogacore PROPERTIES
+  set_target_properties(anucore PROPERTIES
     CMAKE_INTERPROCEDURAL_OPTIMIZATION true)
 endif()
 
-target_include_directories(yogacore
+target_include_directories(anucore
     PUBLIC
-    $<BUILD_INTERFACE:${YOGA_ROOT}>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include/yoga>)
+    $<BUILD_INTERFACE:${ANU_ROOT}>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include/anu>)

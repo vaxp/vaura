@@ -7,12 +7,12 @@
 
 #pragma once
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <layout_engine/algorithm/FlexDirection.h>
 #include <layout_engine/event/event.h>
 #include <layout_engine/node/Node.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 // Given an offset to an edge, returns the offset to the opposite edge on the
 // same axis. This assumes that the width/height of both nodes is determined at
@@ -20,15 +20,15 @@ namespace facebook::yoga {
 inline float getPositionOfOppositeEdge(
     float position,
     FlexDirection axis,
-    const yoga::Node* const containingNode,
-    const yoga::Node* const node) {
+    const anu::Node* const containingNode,
+    const anu::Node* const node) {
   return containingNode->getLayout().measuredDimension(dimension(axis)) -
       node->getLayout().measuredDimension(dimension(axis)) - position;
 }
 
 inline void setChildTrailingPosition(
-    const yoga::Node* const node,
-    yoga::Node* const child,
+    const anu::Node* const node,
+    anu::Node* const child,
     const FlexDirection axis) {
   child->setLayoutPosition(
       getPositionOfOppositeEdge(
@@ -41,4 +41,4 @@ inline bool needsTrailingPosition(const FlexDirection axis) {
       axis == FlexDirection::ColumnReverse;
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

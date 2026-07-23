@@ -14,14 +14,14 @@ struct GridViewConfig {
     float crossAxisSpacing = 0.0f;
     float childAspectRatio = 1.0f; // 0.0f means auto height
 
-    float width = YGUndefined;
-    float height = YGUndefined;
-    float widthPercent = YGUndefined;
-    float heightPercent = YGUndefined;
+    float width = ANUUndefined;
+    float height = ANUUndefined;
+    float widthPercent = ANUUndefined;
+    float heightPercent = ANUUndefined;
     float flexGrow = 0.0f;
     float flexShrink = 0.0f;
-    std::optional<std::pair<YGEdge, float>> padding = std::nullopt;
-    std::optional<std::pair<YGEdge, float>> margin = std::nullopt;
+    std::optional<std::pair<Edge, float>> padding = std::nullopt;
+    std::optional<std::pair<Edge, float>> margin = std::nullopt;
     Color backgroundColor = 0x00000000;
     
     std::vector<WidgetPtr> children;
@@ -43,13 +43,13 @@ public:
         for (const auto& child : config.children) {
             auto cell = Column({
                 .widthPercent = cellWidthPercent,
-                .padding = std::pair{YGEdgeAll, 0.0f}, // Replaced below manually to support multiple margins
+                .padding = std::pair{Edge::All, 0.0f}, // Replaced below manually to support multiple margins
                 .children = { child }
             });
             
             // Set padding based on spacing
-            cell->padding(YGEdgeHorizontal, config.crossAxisSpacing / 2.0f);
-            cell->padding(YGEdgeVertical, config.mainAxisSpacing / 2.0f);
+            cell->padding(Edge::Horizontal, config.crossAxisSpacing / 2.0f);
+            cell->padding(Edge::Vertical, config.mainAxisSpacing / 2.0f);
             
             if (config.childAspectRatio > 0.0f) {
                 cell->aspectRatio(config.childAspectRatio);
@@ -59,7 +59,7 @@ public:
         }
         
         auto row = Row({
-            .flexWrap = YGWrapWrap,
+            .wrap = FlexWrap::Wrap,
             .width = config.width,
             .widthPercent = config.widthPercent,
             .height = config.height,

@@ -16,8 +16,8 @@ public:
     WidgetPtr build(BuildContext& ctx) override {
         std::vector<WidgetPtr> children = {
             Column({
-                .justifyContent = YGJustifyCenter,
-                .alignItems = YGAlignCenter,
+                .justify = Justify::Center,
+                .align = Align::Center,
                 .widthPercent = 100.0f,
                 .heightPercent = 100.0f,
                 .backgroundColor = 0xFF0F172A,
@@ -39,11 +39,11 @@ public:
         if (show_snackbar) {
             children.push_back(
                 Column({
-                    .justifyContent = YGJustifyFlexEnd,
-                    .alignItems = YGAlignCenter,
+                    .justify = Justify::End,
+                    .align = Align::Center,
                     .widthPercent = 100.0f,
                     .heightPercent = 100.0f,
-                    .padding = std::pair{YGEdgeBottom, 32.0f},
+                    .padding = std::pair{Edge::Bottom, 32.0f},
                     .children = {
                         Snackbar({
                             .message = "Item successfully deleted.",

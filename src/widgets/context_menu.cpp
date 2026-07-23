@@ -23,7 +23,7 @@
 #include "vaura/overlay/popup_window_controller.hpp"
 #include "vaura/animation/animation_controller.hpp"
 #include "vaura/animation/ticker.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 namespace vaura {
 
@@ -96,15 +96,15 @@ public:
     // Build the menu widget — just the panel itself, no backdrop or absolute positioning
     WidgetPtr buildMenuWidget(const ContextMenuConfig& cfg) {
         auto panel_col = std::make_shared<FlexBox>();
-        panel_col->flexDirection(YGFlexDirectionColumn)
-                  .padding(YGEdgeVertical, 4);
+        panel_col->direction(FlexDirection::Column)
+                  .padding(Edge::Vertical, 4);
 
         int idx = 0;
         for (auto& item : cfg.items) {
             if (item.is_separator) {
                 auto sep = std::make_shared<FlexBox>();
                 sep->height(1)
-                    .margin(YGEdgeVertical, 4)
+                    .margin(Edge::Vertical, 4)
                     .backgroundColor(cfg.separator_color);
                 panel_col->child(sep);
                 ++idx;
@@ -118,19 +118,19 @@ public:
                            :                   cfg.text_color;
 
             auto item_row = std::make_shared<FlexBox>();
-            item_row->flexDirection(YGFlexDirectionRow)
-                     .alignItems(YGAlignCenter)
+            item_row->direction(FlexDirection::Row)
+                     .align(Align::Center)
                      .height(cfg.item_height)
-                     .padding(YGEdgeLeft, 12)
-                     .padding(YGEdgeRight, 16)
+                     .padding(Edge::Left, 12)
+                     .padding(Edge::Right, 16)
                      .backgroundColor(item_bg);
 
             if (item.icon) {
                 auto icon_wrap = std::make_shared<FlexBox>();
-                icon_wrap->margin(YGEdgeRight, 10)
+                icon_wrap->margin(Edge::Right, 10)
                           .width(18).height(18)
-                          .justifyContent(YGJustifyCenter)
-                          .alignItems(YGAlignCenter)
+                          .justify(Justify::Center)
+                          .align(Align::Center)
                           .child(item.icon);
                 item_row->child(icon_wrap);
             }

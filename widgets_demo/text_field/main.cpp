@@ -15,23 +15,23 @@ class TextFieldDemoState : public State {
 public:
     WidgetPtr build(BuildContext& ctx) override {
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF1E1E1E,
             .children = {
                 Column({
-                    .alignItems = YGAlignCenter,
+                    .align = Align::Center,
                     .width = 400.0f,
-                    .padding = std::pair{YGEdgeAll, 40.0f},
+                    .padding = std::pair{Edge::All, 40.0f},
                     .backgroundColor = 0xFF2D2D30,
                     .borderRadius = 20.0f,
                     .children = {
                         // Username Field
                         Column({
                             .widthPercent = 100.0f,
-                            .margin = std::pair{YGEdgeBottom, 20.0f},
+                            .margin = std::pair{Edge::Bottom, 20.0f},
                             .children = {
                                 TextField({
                                     .placeholder = "Enter your username",
@@ -50,7 +50,7 @@ public:
                         // Password Field
                         Column({
                             .widthPercent = 100.0f,
-                            .margin = std::pair{YGEdgeBottom, 40.0f},
+                            .margin = std::pair{Edge::Bottom, 40.0f},
                             .children = {
                                 TextField({
                                     .placeholder = "Enter your password",

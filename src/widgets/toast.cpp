@@ -10,7 +10,7 @@
 #include "vaura/tree/build_context.hpp"
 #include "vaura/animation/animation_controller.hpp"
 #include "vaura/animation/ticker.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <chrono>
 
 namespace vaura {
@@ -80,22 +80,22 @@ public:
         // Positioning
         float edge_offset = 32.0f;
         auto wrapper = std::make_shared<FlexBox>();
-        wrapper->positionType(YGPositionTypeAbsolute)
-                .position(YGEdgeLeft, 0.0f)
+        wrapper->positionType(PositionType::Absolute)
+                .position(Edge::Left, 0.0f)
                 .widthPercent(100)
-                .alignItems(YGAlignCenter);
+                .align(Align::Center);
 
         switch (cfg.position) {
             case ToastConfig::Position::Top:
-                wrapper->position(YGEdgeTop, edge_offset);
+                wrapper->position(Edge::Top, edge_offset);
                 break;
             case ToastConfig::Position::Center:
-                wrapper->position(YGEdgeTop, 0.0f)
+                wrapper->position(Edge::Top, 0.0f)
                         .heightPercent(100)
-                        .justifyContent(YGJustifyCenter);
+                        .justify(Justify::Center);
                 break;
             case ToastConfig::Position::Bottom:
-                wrapper->position(YGEdgeBottom, edge_offset);
+                wrapper->position(Edge::Bottom, edge_offset);
                 break;
         }
 

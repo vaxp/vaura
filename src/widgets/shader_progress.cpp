@@ -6,7 +6,7 @@
 #include "vaura/state/state.hpp"
 #include "vaura/rendering/canvas.hpp"
 #include "vaura/animation/ticker.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <chrono>
 
 #include <include/core/SkCanvas.h>
@@ -105,8 +105,8 @@ public:
     sk_sp<SkRuntimeEffect> effect_;
 
     RenderShaderProgress() {
-        YGNodeStyleSetWidth(yogaNode(), 80.0f);
-        YGNodeStyleSetHeight(yogaNode(), 80.0f);
+        ANUNodeStyleSetWidth(anuNode(), 80.0f);
+        ANUNodeStyleSetHeight(anuNode(), 80.0f);
     }
 
     void initEffect() {
@@ -202,8 +202,8 @@ public:
         rs.config = config;
         rs.time = time;
         
-        YGNodeStyleSetWidth(rs.yogaNode(), config.size);
-        YGNodeStyleSetHeight(rs.yogaNode(), config.size);
+        ANUNodeStyleSetWidth(rs.anuNode(), config.size);
+        ANUNodeStyleSetHeight(rs.anuNode(), config.size);
         
         rs.markNeedsLayout();
         rs.markNeedsPaint();

@@ -26,8 +26,8 @@ public:
                                std::to_string(selected_day);
 
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .gap = 40.0f,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
@@ -38,7 +38,7 @@ public:
 
                 // Wrap calendar to give it a nice border/shadow
                 Column({
-                    .padding = std::pair{YGEdgeAll, 8.0f},
+                    .padding = std::pair{Edge::All, 8.0f},
                     .backgroundColor = 0xFF1E293B,
                     .borderRadius = 16.0f,
                     .children = {

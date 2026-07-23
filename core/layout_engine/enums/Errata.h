@@ -10,32 +10,32 @@
 #pragma once
 
 #include <cstdint>
-#include <layout_engine/YGEnums.h>
-#include <layout_engine/enums/YogaEnums.h>
+#include <layout_engine/AnuEnums.h>
+#include <layout_engine/enums/AnuEnums.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 enum class Errata : uint32_t {
-  None = YGErrataNone,
-  StretchFlexBasis = YGErrataStretchFlexBasis,
-  AbsolutePositionWithoutInsetsExcludesPadding = YGErrataAbsolutePositionWithoutInsetsExcludesPadding,
-  AbsolutePercentAgainstInnerSize = YGErrataAbsolutePercentAgainstInnerSize,
-  All = YGErrataAll,
-  Classic = YGErrataClassic,
+  None = ANUErrataNone,
+  StretchFlexBasis = ANUErrataStretchFlexBasis,
+  AbsolutePositionWithoutInsetsExcludesPadding = ANUErrataAbsolutePositionWithoutInsetsExcludesPadding,
+  AbsolutePercentAgainstInnerSize = ANUErrataAbsolutePercentAgainstInnerSize,
+  All = ANUErrataAll,
+  Classic = ANUErrataClassic,
 };
 
-YG_DEFINE_ENUM_FLAG_OPERATORS(Errata)
+ANU_DEFINE_ENUM_FLAG_OPERATORS(Errata)
 
-constexpr Errata scopedEnum(YGErrata unscoped) {
+constexpr Errata scopedEnum(ANUErrata unscoped) {
   return static_cast<Errata>(unscoped);
 }
 
-constexpr YGErrata unscopedEnum(Errata scoped) {
-  return static_cast<YGErrata>(scoped);
+constexpr ANUErrata unscopedEnum(Errata scoped) {
+  return static_cast<ANUErrata>(scoped);
 }
 
 inline const char* toString(Errata e) {
-  return YGErrataToString(unscopedEnum(e));
+  return ANUErrataToString(unscopedEnum(e));
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

@@ -13,17 +13,17 @@ public:
 
     WidgetPtr build(BuildContext& ctx) override {
         auto content = std::make_shared<FlexBox>();
-        content->widthPercent(100).backgroundColor(0xFF1E293B).padding(YGEdgeAll, 20);
+        content->widthPercent(100).backgroundColor(0xFF1E293B).padding(Edge::All, 20);
 
         for (int i = 1; i <= 50; ++i) {
             auto item = std::make_shared<FlexBox>();
             item->widthPercent(100)
                 .height(60)
-                .margin(YGEdgeBottom, 10)
+                .margin(Edge::Bottom, 10)
                 .backgroundColor(0xFF334155)
                 .borderRadius(8)
-                .justifyContent(YGJustifyCenter)
-                .padding(YGEdgeLeft, 20);
+                .justify(Justify::Center)
+                .padding(Edge::Left, 20);
 
             item->child(Text("List Item " + std::to_string(i), {
                 .font_size = 18,

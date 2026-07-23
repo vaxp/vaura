@@ -6,7 +6,7 @@
 #include "vaura/state/state.hpp"
 #include "vaura/rendering/canvas.hpp"
 #include "vaura/animation/ticker.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <chrono>
 
 #include <include/core/SkCanvas.h>
@@ -24,7 +24,7 @@ public:
     bool compile_failed_ = false;
 
     RenderShaderBackground() {
-        YGNodeStyleSetFlexGrow(yogaNode(), 1.0f); // Default to fill parent
+        ANUNodeStyleSetFlexGrow(anuNode(), 1.0f); // Default to fill parent
     }
 
     void initEffect() {

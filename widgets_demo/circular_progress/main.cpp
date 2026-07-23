@@ -13,8 +13,8 @@ public:
 
     WidgetPtr build(BuildContext& context) override {
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .gap = 60.0f,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
@@ -24,13 +24,13 @@ public:
 
                 // Row for indicators
                 Row({
-                    .justifyContent = YGJustifyCenter,
-                    .alignItems = YGAlignCenter,
+                    .justify = Justify::Center,
+                    .align = Align::Center,
                     .gap = 80.0f,
                     .children = {
                         // 1. Indeterminate Progress
                         Column({
-                            .alignItems = YGAlignCenter,
+                            .align = Align::Center,
                             .gap = 16.0f,
                             .children = {
                                 CircularProgress({
@@ -44,7 +44,7 @@ public:
 
                         // 2. Determinate Progress
                         Column({
-                            .alignItems = YGAlignCenter,
+                            .align = Align::Center,
                             .gap = 16.0f,
                             .children = {
                                 CircularProgress({

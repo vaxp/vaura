@@ -104,8 +104,8 @@ public:
             if (!record.entry.content) continue;
 
             auto overlay_layer = std::make_shared<FlexBox>();
-            overlay_layer->positionType(YGPositionTypeAbsolute)
-                          .position(YGEdgeAll, 0.0f)
+            overlay_layer->positionType(PositionType::Absolute)
+                          .position(Edge::All, 0.0f)
                           .widthPercent(100)
                           .heightPercent(100);
             overlay_layer->child(record.entry.content);

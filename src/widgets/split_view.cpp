@@ -6,7 +6,7 @@
 ///   - The divider is a thin GestureDetector strip.
 ///   - On pointer_move while dragging, we use the global pointer position
 ///     delivered via App to compute a delta and update the ratio.
-///   - Uses Yoga widths/heights to layout both panes.
+///   - Uses Anu widths/heights to layout both panes.
 
 #include "vaura/widgets/split_view.hpp"
 #include "vaura/widgets/flexbox.hpp"
@@ -15,7 +15,7 @@
 #include "vaura/state/state.hpp"
 #include "vaura/tree/build_context.hpp"
 #include "vaura/platform/platform.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <algorithm>
 
 namespace vaura {
@@ -165,7 +165,7 @@ public:
 
         // Root row / column
         auto root = std::make_shared<FlexBox>();
-        root->flexDirection(is_horiz ? YGFlexDirectionRow : YGFlexDirectionColumn);
+        root->direction(is_horiz ? FlexDirection::Row : FlexDirection::Column);
         root->widthPercent(100).heightPercent(100);
         root->child(first_wrap).child(divider_gd).child(second_wrap);
         return root;

@@ -7,10 +7,10 @@
 /// managed by Elements to minimize creation/destruction.
 ///
 /// RenderObject responsibilities:
-///   - Compute layout (size and position) using Yoga.
+///   - Compute layout (size and position) using Anu.
 ///   - Paint the visual representation using Canvas.
 ///   - Perform hit testing for pointer events.
-///   - Manage a Yoga LayoutNode for Flexbox-based layout.
+///   - Manage a Anu LayoutNode for Flexbox-based layout.
 ///
 /// RenderObject subclasses:
 ///   - RenderBox:            Standard box-model render object (most common).
@@ -21,7 +21,7 @@
 
 #include "vaura/core/types.hpp"
 #include "vaura/platform/input.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <memory>
 #include <cmath>
 #include <vector>
@@ -98,8 +98,8 @@ private:
 /// and painting (drawing itself onto a canvas). It also participates in
 /// hit testing to determine which object is under the pointer.
 ///
-/// Each RenderObject owns a Yoga LayoutNode for Flexbox-based layout
-/// computation. The layout phase uses Yoga to calculate positions and
+/// Each RenderObject owns a Anu LayoutNode for Flexbox-based layout
+/// computation. The layout phase uses Anu to calculate positions and
 /// sizes, while the paint phase uses the Skia-based Canvas to render.
 class RenderObject {
 public:
@@ -113,11 +113,11 @@ public:
     // ── Layout ─────────────────────────────────────────────────
 
     /// Perform layout calculation starting from this node.
-    /// In native Yoga philosophy, this is usually only called on the root node
-    /// once per frame. Yoga computes the sizes for the entire tree.
+    /// In native Anu philosophy, this is usually only called on the root node
+    /// once per frame. Anu computes the sizes for the entire tree.
     void layout(float available_width = NAN, float available_height = NAN);
 
-    /// Sync the computed layout (size and offset) from Yoga back to this C++ object.
+    /// Sync the computed layout (size and offset) from Anu back to this C++ object.
     /// This is called recursively.
     virtual void syncLayout();
 
@@ -193,11 +193,11 @@ public:
     /// @return The global bounds (accumulated from root).
     [[nodiscard]] Rect globalBounds() const;
 
-    // ── Yoga Layout Node ───────────────────────────────────────
+    // ── Anu Layout Node ───────────────────────────────────────
 
-    /// @return The Yoga layout node for this render object.
-    [[nodiscard]] YGNodeRef yogaNode() { return yoga_node_; }
-    [[nodiscard]] YGNodeRef yogaNode() const { return yoga_node_; }
+    /// @return The Anu layout node for this render object.
+    [[nodiscard]] ANUNodeRef anuNode() { return anu_node_; }
+    [[nodiscard]] ANUNodeRef anuNode() const { return anu_node_; }
 
     // ── Tree Structure ─────────────────────────────────────────
 
@@ -244,7 +244,7 @@ public:
 protected:
     Size size_;                            ///< Computed size after layout.
     Point offset_;                         ///< Offset relative to parent.
-    YGNodeRef yoga_node_;                  ///< Yoga layout node.
+    ANUNodeRef anu_node_;                  ///< Anu layout node.
     RenderObject* parent_ = nullptr;       ///< Parent in render tree.
     Element* owner_element_ = nullptr;     ///< Owning element.
     std::vector<RenderObject*> children_;  ///< Children in render tree.
@@ -259,7 +259,7 @@ protected:
 /// @brief A render object that uses the standard box model.
 ///
 /// RenderBox is the most common base class for render objects. It
-/// computes its size using Yoga's Flexbox algorithm and provides
+/// computes its size using Anu's Flexbox algorithm and provides
 /// standard hit testing against its rectangular bounds.
 ///
 /// Subclasses should override:
@@ -270,7 +270,7 @@ public:
     RenderBox() = default;
     ~RenderBox() override = default;
 
-    /// Sync the computed layout from Yoga.
+    /// Sync the computed layout from Anu.
     void syncLayout() override;
 
     /// Hit test against this box's rectangular bounds.
@@ -285,7 +285,7 @@ public:
 
 /// @brief A render object that lays out its children using Flexbox.
 ///
-/// Used by Row and Column widgets. Configures the Yoga layout node
+/// Used by Row and Column widgets. Configures the Anu layout node
 /// with the appropriate flex direction, alignment, and spacing.
 class RenderFlex : public RenderBox {
 public:

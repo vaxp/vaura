@@ -7,16 +7,16 @@
 
 #pragma once
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 #include <layout_engine/algorithm/FlexDirection.h>
 #include <layout_engine/node/Node.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 inline Align resolveChildAlignment(
-    const yoga::Node* node,
-    const yoga::Node* child) {
+    const anu::Node* node,
+    const anu::Node* child) {
   const Align align = child->style().alignSelf() == Align::Auto
       ? node->style().alignItems()
       : child->style().alignSelf();
@@ -69,4 +69,4 @@ constexpr Justify fallbackAlignment(Justify align) {
   }
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

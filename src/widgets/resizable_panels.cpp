@@ -14,7 +14,7 @@
 #include "vaura/state/state.hpp"
 #include "vaura/tree/build_context.hpp"
 #include "vaura/platform/platform.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <algorithm>
 #include <numeric>
 
@@ -144,7 +144,7 @@ public:
         bool is_horiz = (cfg.axis == ResizablePanelsConfig::Axis::Horizontal);
 
         auto root = std::make_shared<FlexBox>();
-        root->flexDirection(is_horiz ? YGFlexDirectionRow : YGFlexDirectionColumn);
+        root->direction(is_horiz ? FlexDirection::Row : FlexDirection::Column);
         root->widthPercent(100).heightPercent(100);
 
         for (int i = 0; i < (int)cfg.panels.size(); ++i) {

@@ -10,7 +10,7 @@
 #include <layout_engine/numeric/Comparison.h>
 #include <limits>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 struct FloatOptional {
  private:
@@ -20,7 +20,7 @@ struct FloatOptional {
   explicit constexpr FloatOptional(float value) : value_(value) {}
   constexpr FloatOptional() = default;
 
-  // returns the wrapped value, or a value x with YGIsUndefined(x) == true
+  // returns the wrapped value, or a value x with ANUIsUndefined(x) == true
   constexpr float unwrap() const {
     return value_;
   }
@@ -30,11 +30,11 @@ struct FloatOptional {
   }
 
   constexpr bool isUndefined() const {
-    return yoga::isUndefined(value_);
+    return anu::isUndefined(value_);
   }
 
   constexpr bool isDefined() const {
-    return yoga::isDefined(value_);
+    return anu::isDefined(value_);
   }
 };
 
@@ -83,11 +83,11 @@ constexpr bool operator<=(FloatOptional lhs, FloatOptional rhs) {
 }
 
 constexpr FloatOptional maxOrDefined(FloatOptional lhs, FloatOptional rhs) {
-  return FloatOptional{yoga::maxOrDefined(lhs.unwrap(), rhs.unwrap())};
+  return FloatOptional{anu::maxOrDefined(lhs.unwrap(), rhs.unwrap())};
 }
 
 inline bool inexactEquals(FloatOptional lhs, FloatOptional rhs) {
-  return yoga::inexactEquals(lhs.unwrap(), rhs.unwrap());
+  return anu::inexactEquals(lhs.unwrap(), rhs.unwrap());
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

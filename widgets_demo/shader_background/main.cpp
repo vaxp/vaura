@@ -24,8 +24,8 @@ public:
         )";
 
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF0F172A,
@@ -36,7 +36,7 @@ public:
                     .width = 600.0f,
                     .height = 400.0f,
                     .borderRadius = 16.0f,
-                    .overflow = YGOverflowHidden,
+                    .overflow = Overflow::Hidden,
                     .children = {
                         Stack({
                             .alignment = Alignment::Center,
@@ -51,8 +51,8 @@ public:
                                     }
                                 }),
                                 Column({
-                                    .justifyContent = YGJustifyCenter,
-                                    .alignItems = YGAlignCenter,
+                                    .justify = Justify::Center,
+                                    .align = Align::Center,
                                     .widthPercent = 100.0f,
                                     .heightPercent = 100.0f,
                                     .children = {

@@ -9,14 +9,14 @@
 #include <layout_engine/algorithm/PixelGrid.h>
 #include <layout_engine/numeric/Comparison.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 static inline bool sizeIsExactAndMatchesOldMeasuredSize(
     SizingMode sizeMode,
     float size,
     float lastComputedSize) {
   return sizeMode == SizingMode::StretchFit &&
-      yoga::inexactEquals(size, lastComputedSize);
+      anu::inexactEquals(size, lastComputedSize);
 }
 
 static inline bool oldSizeIsMaxContentAndStillFits(
@@ -26,7 +26,7 @@ static inline bool oldSizeIsMaxContentAndStillFits(
     float lastComputedSize) {
   return sizeMode == SizingMode::FitContent &&
       lastSizeMode == SizingMode::MaxContent &&
-      (size >= lastComputedSize || yoga::inexactEquals(size, lastComputedSize));
+      (size >= lastComputedSize || anu::inexactEquals(size, lastComputedSize));
 }
 
 static inline bool newSizeIsStricterAndStillValid(
@@ -36,10 +36,10 @@ static inline bool newSizeIsStricterAndStillValid(
     float lastSize,
     float lastComputedSize) {
   return lastSizeMode == SizingMode::FitContent &&
-      sizeMode == SizingMode::FitContent && yoga::isDefined(lastSize) &&
-      yoga::isDefined(size) && yoga::isDefined(lastComputedSize) &&
+      sizeMode == SizingMode::FitContent && anu::isDefined(lastSize) &&
+      anu::isDefined(size) && anu::isDefined(lastComputedSize) &&
       lastSize > size &&
-      (lastComputedSize <= size || yoga::inexactEquals(size, lastComputedSize));
+      (lastComputedSize <= size || anu::inexactEquals(size, lastComputedSize));
 }
 
 bool canUseCachedMeasurement(
@@ -55,9 +55,9 @@ bool canUseCachedMeasurement(
     const float lastComputedHeight,
     const float marginRow,
     const float marginColumn,
-    const yoga::Config* const config) {
-  if ((yoga::isDefined(lastComputedHeight) && lastComputedHeight < 0) ||
-      ((yoga::isDefined(lastComputedWidth)) && lastComputedWidth < 0)) {
+    const anu::Config* const config) {
+  if ((anu::isDefined(lastComputedHeight) && lastComputedHeight < 0) ||
+      ((anu::isDefined(lastComputedWidth)) && lastComputedWidth < 0)) {
     return false;
   }
 
@@ -80,9 +80,9 @@ bool canUseCachedMeasurement(
       : lastAvailableHeight;
 
   const bool hasSameWidthSpec = lastWidthMode == widthMode &&
-      yoga::inexactEquals(effectiveLastWidth, effectiveWidth);
+      anu::inexactEquals(effectiveLastWidth, effectiveWidth);
   const bool hasSameHeightSpec = lastHeightMode == heightMode &&
-      yoga::inexactEquals(effectiveLastHeight, effectiveHeight);
+      anu::inexactEquals(effectiveLastHeight, effectiveHeight);
 
   const bool widthIsCompatible =
       hasSameWidthSpec ||
@@ -118,4 +118,4 @@ bool canUseCachedMeasurement(
   return widthIsCompatible && heightIsCompatible;
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

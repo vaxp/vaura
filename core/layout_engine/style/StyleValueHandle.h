@@ -9,13 +9,13 @@
 
 #include <cstdint>
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 #include <layout_engine/numeric/FloatOptional.h>
 #include <layout_engine/style/SmallValueBuffer.h>
 #include <layout_engine/style/StyleLength.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 #pragma pack(push)
 #pragma pack(1)
@@ -95,4 +95,4 @@ class StyleValueHandle {
 
 #pragma pack(pop)
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

@@ -10,13 +10,13 @@
 #pragma once
 
 #include <cstdint>
-#include <layout_engine/YGEnums.h>
-#include <layout_engine/enums/YogaEnums.h>
+#include <layout_engine/AnuEnums.h>
+#include <layout_engine/enums/AnuEnums.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 enum class ExperimentalFeature : uint8_t {
-  WebFlexBasis = YGExperimentalFeatureWebFlexBasis,
+  WebFlexBasis = ANUExperimentalFeatureWebFlexBasis,
 };
 
 template <>
@@ -24,16 +24,16 @@ constexpr int32_t ordinalCount<ExperimentalFeature>() {
   return 1;
 }
 
-constexpr ExperimentalFeature scopedEnum(YGExperimentalFeature unscoped) {
+constexpr ExperimentalFeature scopedEnum(ANUExperimentalFeature unscoped) {
   return static_cast<ExperimentalFeature>(unscoped);
 }
 
-constexpr YGExperimentalFeature unscopedEnum(ExperimentalFeature scoped) {
-  return static_cast<YGExperimentalFeature>(scoped);
+constexpr ANUExperimentalFeature unscopedEnum(ExperimentalFeature scoped) {
+  return static_cast<ANUExperimentalFeature>(scoped);
 }
 
 inline const char* toString(ExperimentalFeature e) {
-  return YGExperimentalFeatureToString(unscopedEnum(e));
+  return ANUExperimentalFeatureToString(unscopedEnum(e));
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

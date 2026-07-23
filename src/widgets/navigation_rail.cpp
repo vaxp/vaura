@@ -11,7 +11,7 @@
 #include "vaura/tree/build_context.hpp"
 #include "vaura/animation/animation_controller.hpp"
 #include "vaura/animation/ticker.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 namespace vaura {
 
@@ -34,8 +34,8 @@ public:
         float rail_width = cfg.extended ? cfg.extended_width : cfg.collapsed_width;
 
         auto rail = std::make_shared<FlexBox>();
-        rail->flexDirection(YGFlexDirectionColumn)
-             .alignItems(YGAlignCenter)
+        rail->direction(FlexDirection::Column)
+             .align(Align::Center)
              .width(rail_width)
              .heightPercent(100)
              .backgroundColor(cfg.background_color);
@@ -43,7 +43,7 @@ public:
         // Header
         if (cfg.header) {
             auto hw = std::make_shared<FlexBox>();
-            hw->padding(YGEdgeAll, 12).child(cfg.header);
+            hw->padding(Edge::All, 12).child(cfg.header);
             rail->child(hw);
         }
 
@@ -65,19 +65,19 @@ public:
             icon_wrap->width(cfg.extended ? rail_width - 32.0f : cfg.collapsed_width - 16.0f)
                       .height(cfg.item_height * 0.65f)
                       .borderRadius(cfg.indicator_radius)
-                      .justifyContent(YGJustifyCenter)
-                      .alignItems(YGAlignCenter)
+                      .justify(Justify::Center)
+                      .align(Align::Center)
                       .backgroundColor(pill_bg);
 
             if (item.icon) icon_wrap->child(item.icon);
 
             auto tile_col = std::make_shared<FlexBox>();
-            tile_col->flexDirection(YGFlexDirectionColumn)
-                     .alignItems(YGAlignCenter)
+            tile_col->direction(FlexDirection::Column)
+                     .align(Align::Center)
                      .width(rail_width)
                      .height(cfg.item_height)
-                     .justifyContent(YGJustifyCenter)
-                     .padding(YGEdgeHorizontal, 8);
+                     .justify(Justify::Center)
+                     .padding(Edge::Horizontal, 8);
 
             tile_col->child(icon_wrap);
 
@@ -89,7 +89,7 @@ public:
                     .align     = TextStyle::Center,
                 });
                 auto lbl_wrap = std::make_shared<FlexBox>();
-                lbl_wrap->margin(YGEdgeTop, 4).child(lbl);
+                lbl_wrap->margin(Edge::Top, 4).child(lbl);
                 tile_col->child(lbl_wrap);
             }
 
@@ -112,7 +112,7 @@ public:
             spacer->flexGrow(1.0f);
             rail->child(spacer);
             auto fw = std::make_shared<FlexBox>();
-            fw->padding(YGEdgeAll, 12).child(cfg.footer);
+            fw->padding(Edge::All, 12).child(cfg.footer);
             rail->child(fw);
         }
 

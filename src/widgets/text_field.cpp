@@ -116,11 +116,11 @@ public:
         content->height(tf->config.height)
             .backgroundColor(tf->config.bg_color)
             .borderRadius(tf->config.border_radius)
-            .padding(YGEdgeLeft, tf->config.padding.left)
-            .padding(YGEdgeRight, tf->config.padding.right)
-            .padding(YGEdgeTop, tf->config.padding.top)
-            .padding(YGEdgeBottom, tf->config.padding.bottom)
-            .justifyContent(YGJustifyCenter); // Center vertically
+            .padding(Edge::Left, tf->config.padding.left)
+            .padding(Edge::Right, tf->config.padding.right)
+            .padding(Edge::Top, tf->config.padding.top)
+            .padding(Edge::Bottom, tf->config.padding.bottom)
+            .justify(Justify::Center); // Center vertically
 
         // To show focus, we can slightly lighten the background color or rely on cursor.
         // We will just keep the original bg_color, and maybe draw a border in the future.

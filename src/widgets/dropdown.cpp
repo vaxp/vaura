@@ -24,7 +24,7 @@
 #include "vaura/overlay/popup_window_controller.hpp"
 #include "vaura/animation/animation_controller.hpp"
 #include "vaura/animation/ticker.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 namespace vaura {
 
@@ -102,9 +102,9 @@ public:
     // Build the dropdown list widget — just the panel, no backdrop or positioning
     WidgetPtr buildListWidget(const DropdownConfig& cfg) {
         auto list_col = std::make_shared<FlexBox>();
-        list_col->flexDirection(YGFlexDirectionColumn)
+        list_col->direction(FlexDirection::Column)
                  .width(cfg.width)
-                 .padding(YGEdgeVertical, 4);
+                 .padding(Edge::Vertical, 4);
 
         int idx = 0;
         for (auto& item : cfg.items) {
@@ -116,11 +116,11 @@ public:
                           :               0x00000000;
 
             auto item_row = std::make_shared<FlexBox>();
-            item_row->flexDirection(YGFlexDirectionRow)
-                     .alignItems(YGAlignCenter)
-                     .padding(YGEdgeLeft, 12)
-                     .padding(YGEdgeRight, 12)
-                     .padding(YGEdgeVertical, 10)
+            item_row->direction(FlexDirection::Row)
+                     .align(Align::Center)
+                     .padding(Edge::Left, 12)
+                     .padding(Edge::Right, 12)
+                     .padding(Edge::Vertical, 10)
                      .width(cfg.width)
                      .backgroundColor(item_bg);
 
@@ -199,16 +199,16 @@ public:
 
         auto chevron_wrap = std::make_shared<FlexBox>();
         chevron_wrap->width(20).height(20)
-                     .justifyContent(YGJustifyCenter)
-                     .alignItems(YGAlignCenter)
+                     .justify(Justify::Center)
+                     .align(Align::Center)
                      .child(chevron);
 
         auto field_row = std::make_shared<FlexBox>();
-        field_row->flexDirection(YGFlexDirectionRow)
-                  .alignItems(YGAlignCenter)
-                  .justifyContent(YGJustifySpaceBetween)
-                  .padding(YGEdgeLeft, 12)
-                  .padding(YGEdgeRight, 10)
+        field_row->direction(FlexDirection::Row)
+                  .align(Align::Center)
+                  .justify(Justify::SpaceBetween)
+                  .padding(Edge::Left, 12)
+                  .padding(Edge::Right, 10)
                   .width(cfg.width)
                   .height(cfg.height);
         field_row->child(label).child(chevron_wrap);

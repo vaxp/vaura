@@ -10,16 +10,16 @@
 #pragma once
 
 #include <cstdint>
-#include <layout_engine/YGEnums.h>
-#include <layout_engine/enums/YogaEnums.h>
+#include <layout_engine/AnuEnums.h>
+#include <layout_engine/enums/AnuEnums.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 enum class Unit : uint8_t {
-  Undefined = YGUnitUndefined,
-  Point = YGUnitPoint,
-  Percent = YGUnitPercent,
-  Auto = YGUnitAuto,
+  Undefined = ANUUnitUndefined,
+  Point = ANUUnitPoint,
+  Percent = ANUUnitPercent,
+  Auto = ANUUnitAuto,
 };
 
 template <>
@@ -27,16 +27,16 @@ constexpr int32_t ordinalCount<Unit>() {
   return 4;
 }
 
-constexpr Unit scopedEnum(YGUnit unscoped) {
+constexpr Unit scopedEnum(ANUUnit unscoped) {
   return static_cast<Unit>(unscoped);
 }
 
-constexpr YGUnit unscopedEnum(Unit scoped) {
-  return static_cast<YGUnit>(scoped);
+constexpr ANUUnit unscopedEnum(Unit scoped) {
+  return static_cast<ANUUnit>(scoped);
 }
 
 inline const char* toString(Unit e) {
-  return YGUnitToString(unscopedEnum(e));
+  return ANUUnitToString(unscopedEnum(e));
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

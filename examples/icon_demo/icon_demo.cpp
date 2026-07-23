@@ -16,12 +16,12 @@ public:
         root->widthPercent(100)
             .heightPercent(100)
             .backgroundColor(0xFF1E293B)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter);
+            .justify(Justify::Center)
+            .align(Align::Center);
 
         auto content = std::make_shared<FlexBox>();
-        content->flexDirection(YGFlexDirectionColumn)
-               .alignItems(YGAlignCenter);
+        content->direction(FlexDirection::Column)
+               .align(Align::Center);
 
         auto title = Text("Cupertino Icons Demo", {
             .font_size = 28,
@@ -30,16 +30,16 @@ public:
         });
         
         auto title_container = std::make_shared<FlexBox>();
-        title_container->margin(YGEdgeBottom, 40).child(title);
+        title_container->margin(Edge::Bottom, 40).child(title);
         content->child(title_container);
 
         auto icon_row = std::make_shared<FlexBox>();
-        icon_row->flexDirection(YGFlexDirectionRow)
-                .justifyContent(YGJustifyCenter);
+        icon_row->direction(FlexDirection::Row)
+                .justify(Justify::Center);
 
         auto pad_icon = [](IconData icon_data, uint32_t color) {
             auto wrapper = std::make_shared<FlexBox>();
-            wrapper->margin(YGEdgeHorizontal, 15).child(Icon(icon_data, {.size = 56, .color = color}));
+            wrapper->margin(Edge::Horizontal, 15).child(Icon(icon_data, {.size = 56, .color = color}));
             return wrapper;
         };
 

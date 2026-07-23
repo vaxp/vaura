@@ -9,13 +9,13 @@
 
 #include <layout_engine/enums/Edge.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 enum class PhysicalEdge : uint32_t {
-  Left = yoga::to_underlying(Edge::Left),
-  Top = yoga::to_underlying(Edge::Top),
-  Right = yoga::to_underlying(Edge::Right),
-  Bottom = yoga::to_underlying(Edge::Bottom),
+  Left = anu::to_underlying(Edge::Left),
+  Top = anu::to_underlying(Edge::Top),
+  Right = anu::to_underlying(Edge::Right),
+  Bottom = anu::to_underlying(Edge::Bottom),
 };
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

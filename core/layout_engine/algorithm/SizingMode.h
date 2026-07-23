@@ -10,10 +10,10 @@
 #include <layout_engine/debug/AssertFatal.h>
 #include <layout_engine/enums/MeasureMode.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 /**
- * Corresponds to a CSS auto box sizes. Missing "min-content", as Yoga does not
+ * Corresponds to a CSS auto box sizes. Missing "min-content", as Anu does not
  * current support automatic minimum sizes.
  * https://www.w3.org/TR/css-sizing-3/#auto-box-sizes
  * https://www.w3.org/TR/css-flexbox-1/#min-size-auto
@@ -70,4 +70,4 @@ inline SizingMode sizingMode(MeasureMode mode) {
   fatalWithMessage("Invalid MeasureMode");
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

@@ -1,7 +1,7 @@
 #include "vaura/widgets/image_widget.hpp"
 #include "vaura/rendering/canvas.hpp"
 #include "vaura/rendering/image.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <iostream>
 
 namespace vaura {
@@ -103,31 +103,31 @@ void ImageWidget::updateRenderObject(BuildContext& ctx, RenderObject& renderObje
         box.config = config;
     }
 
-    auto node = box.yogaNode();
+    auto node = box.anuNode();
 
     // Apply sizing
     if (config.width.has_value()) {
-        YGNodeStyleSetWidth(node, config.width.value());
+        ANUNodeStyleSetWidth(node, config.width.value());
     } else if (config.width_percent.has_value()) {
-        YGNodeStyleSetWidthPercent(node, config.width_percent.value());
+        ANUNodeStyleSetWidthPercent(node, config.width_percent.value());
     } else {
-        YGNodeStyleSetWidth(node, YGUndefined);
+        ANUNodeStyleSetWidth(node, ANUUndefined);
     }
 
     if (config.height.has_value()) {
-        YGNodeStyleSetHeight(node, config.height.value());
+        ANUNodeStyleSetHeight(node, config.height.value());
     } else if (config.height_percent.has_value()) {
-        YGNodeStyleSetHeightPercent(node, config.height_percent.value());
+        ANUNodeStyleSetHeightPercent(node, config.height_percent.value());
     } else {
-        YGNodeStyleSetHeight(node, YGUndefined);
+        ANUNodeStyleSetHeight(node, ANUUndefined);
     }
 
     // Default to image intrinsic size when no explicit size was provided.
     if (!config.width.has_value() && !config.height.has_value() &&
         !config.width_percent.has_value() && !config.height_percent.has_value()) {
         if (box.image_) {
-            YGNodeStyleSetWidth(node, static_cast<float>(box.image_->getWidth()));
-            YGNodeStyleSetHeight(node, static_cast<float>(box.image_->getHeight()));
+            ANUNodeStyleSetWidth(node, static_cast<float>(box.image_->getWidth()));
+            ANUNodeStyleSetHeight(node, static_cast<float>(box.image_->getHeight()));
         }
     }
 

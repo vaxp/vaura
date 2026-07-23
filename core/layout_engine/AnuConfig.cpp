@@ -5,37 +5,37 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <layout_engine/debug/AssertFatal.h>
 #include <layout_engine/debug/Log.h>
 
 using namespace facebook;
-using namespace facebook::yoga;
+using namespace facebook::anu;
 
-YGConfigRef YGConfigNew(void) {
-  return new yoga::Config(getDefaultLogger());
+ANUConfigRef ANUConfigNew(void) {
+  return new anu::Config(getDefaultLogger());
 }
 
-void YGConfigFree(const YGConfigRef config) {
+void ANUConfigFree(const ANUConfigRef config) {
   delete resolveRef(config);
 }
 
-YGConfigConstRef YGConfigGetDefault() {
-  return &yoga::Config::getDefault();
+ANUConfigConstRef ANUConfigGetDefault() {
+  return &anu::Config::getDefault();
 }
 
-void YGConfigSetUseWebDefaults(const YGConfigRef config, const bool enabled) {
+void ANUConfigSetUseWebDefaults(const ANUConfigRef config, const bool enabled) {
   resolveRef(config)->setUseWebDefaults(enabled);
 }
 
-bool YGConfigGetUseWebDefaults(const YGConfigConstRef config) {
+bool ANUConfigGetUseWebDefaults(const ANUConfigConstRef config) {
   return resolveRef(config)->useWebDefaults();
 }
 
-void YGConfigSetPointScaleFactor(
-    const YGConfigRef config,
+void ANUConfigSetPointScaleFactor(
+    const ANUConfigRef config,
     const float pixelsInPoint) {
-  yoga::assertFatalWithConfig(
+  anu::assertFatalWithConfig(
       resolveRef(config),
       pixelsInPoint >= 0.0f,
       "Scale factor should not be less than zero");
@@ -43,19 +43,19 @@ void YGConfigSetPointScaleFactor(
   resolveRef(config)->setPointScaleFactor(pixelsInPoint);
 }
 
-float YGConfigGetPointScaleFactor(const YGConfigConstRef config) {
+float ANUConfigGetPointScaleFactor(const ANUConfigConstRef config) {
   return resolveRef(config)->getPointScaleFactor();
 }
 
-void YGConfigSetErrata(YGConfigRef config, YGErrata errata) {
+void ANUConfigSetErrata(ANUConfigRef config, ANUErrata errata) {
   resolveRef(config)->setErrata(scopedEnum(errata));
 }
 
-YGErrata YGConfigGetErrata(YGConfigConstRef config) {
+ANUErrata ANUConfigGetErrata(ANUConfigConstRef config) {
   return unscopedEnum(resolveRef(config)->getErrata());
 }
 
-void YGConfigSetLogger(const YGConfigRef config, YGLogger logger) {
+void ANUConfigSetLogger(const ANUConfigRef config, ANULogger logger) {
   if (logger != nullptr) {
     resolveRef(config)->setLogger(logger);
   } else {
@@ -63,30 +63,30 @@ void YGConfigSetLogger(const YGConfigRef config, YGLogger logger) {
   }
 }
 
-void YGConfigSetContext(const YGConfigRef config, void* context) {
+void ANUConfigSetContext(const ANUConfigRef config, void* context) {
   resolveRef(config)->setContext(context);
 }
 
-void* YGConfigGetContext(const YGConfigConstRef config) {
+void* ANUConfigGetContext(const ANUConfigConstRef config) {
   return resolveRef(config)->getContext();
 }
 
-void YGConfigSetExperimentalFeatureEnabled(
-    const YGConfigRef config,
-    const YGExperimentalFeature feature,
+void ANUConfigSetExperimentalFeatureEnabled(
+    const ANUConfigRef config,
+    const ANUExperimentalFeature feature,
     const bool enabled) {
   resolveRef(config)->setExperimentalFeatureEnabled(
       scopedEnum(feature), enabled);
 }
 
-bool YGConfigIsExperimentalFeatureEnabled(
-    const YGConfigConstRef config,
-    const YGExperimentalFeature feature) {
+bool ANUConfigIsExperimentalFeatureEnabled(
+    const ANUConfigConstRef config,
+    const ANUExperimentalFeature feature) {
   return resolveRef(config)->isExperimentalFeatureEnabled(scopedEnum(feature));
 }
 
-void YGConfigSetCloneNodeFunc(
-    const YGConfigRef config,
-    const YGCloneNodeFunc callback) {
+void ANUConfigSetCloneNodeFunc(
+    const ANUConfigRef config,
+    const ANUCloneNodeFunc callback) {
   resolveRef(config)->setCloneNodeCallback(callback);
 }

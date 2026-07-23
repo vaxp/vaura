@@ -10,179 +10,179 @@ namespace vaura {
 // ════════════════════════════════════════════════════════════════
 
 void RenderFlexBox::setWidth(float width) {
-    YGNodeStyleSetWidth(yogaNode(), width);
+    ANUNodeStyleSetWidth(anuNode(), width);
 }
 
 void RenderFlexBox::setWidthPercent(float percent) {
-    YGNodeStyleSetWidthPercent(yogaNode(), percent);
+    ANUNodeStyleSetWidthPercent(anuNode(), percent);
 }
 
 void RenderFlexBox::setWidthAuto() {
-    YGNodeStyleSetWidthAuto(yogaNode());
+    ANUNodeStyleSetWidthAuto(anuNode());
 }
 
 void RenderFlexBox::setHeight(float height) {
-    YGNodeStyleSetHeight(yogaNode(), height);
+    ANUNodeStyleSetHeight(anuNode(), height);
 }
 
 void RenderFlexBox::setHeightPercent(float percent) {
-    YGNodeStyleSetHeightPercent(yogaNode(), percent);
+    ANUNodeStyleSetHeightPercent(anuNode(), percent);
 }
 
 void RenderFlexBox::setHeightAuto() {
-    YGNodeStyleSetHeightAuto(yogaNode());
+    ANUNodeStyleSetHeightAuto(anuNode());
 }
 
-void RenderFlexBox::setFlexDirection(YGFlexDirection direction) {
-    YGNodeStyleSetFlexDirection(yogaNode(), direction);
+void RenderFlexBox::setFlexDirection(ANUFlexDirection direction) {
+    ANUNodeStyleSetFlexDirection(anuNode(), direction);
 }
 
-void RenderFlexBox::setJustifyContent(YGJustify justify) {
-    YGNodeStyleSetJustifyContent(yogaNode(), justify);
+void RenderFlexBox::setJustifyContent(ANUJustify justify) {
+    ANUNodeStyleSetJustifyContent(anuNode(), justify);
 }
 
-void RenderFlexBox::setAlignItems(YGAlign align) {
-    YGNodeStyleSetAlignItems(yogaNode(), align);
+void RenderFlexBox::setAlignItems(ANUAlign align) {
+    ANUNodeStyleSetAlignItems(anuNode(), align);
 }
 
-void RenderFlexBox::setFlexWrap(YGWrap wrap) {
-    YGNodeStyleSetFlexWrap(yogaNode(), wrap);
+void RenderFlexBox::setFlexWrap(ANUWrap wrap) {
+    ANUNodeStyleSetFlexWrap(anuNode(), wrap);
 }
 
 void RenderFlexBox::setFlex(float flex) {
-    YGNodeStyleSetFlex(yogaNode(), flex);
+    ANUNodeStyleSetFlex(anuNode(), flex);
 }
 
 void RenderFlexBox::setFlexGrow(float grow) {
-    YGNodeStyleSetFlexGrow(yogaNode(), grow);
+    ANUNodeStyleSetFlexGrow(anuNode(), grow);
 }
 
 void RenderFlexBox::setFlexShrink(float shrink) {
-    YGNodeStyleSetFlexShrink(yogaNode(), shrink);
+    ANUNodeStyleSetFlexShrink(anuNode(), shrink);
 }
 
-void RenderFlexBox::setDirection(YGDirection direction) {
-    YGNodeStyleSetDirection(yogaNode(), direction);
+void RenderFlexBox::setDirection(ANUDirection direction) {
+    ANUNodeStyleSetDirection(anuNode(), direction);
 }
 
-void RenderFlexBox::setAlignContent(YGAlign align) {
-    YGNodeStyleSetAlignContent(yogaNode(), align);
+void RenderFlexBox::setAlignContent(ANUAlign align) {
+    ANUNodeStyleSetAlignContent(anuNode(), align);
 }
 
-void RenderFlexBox::setAlignSelf(YGAlign align) {
-    YGNodeStyleSetAlignSelf(yogaNode(), align);
+void RenderFlexBox::setAlignSelf(ANUAlign align) {
+    ANUNodeStyleSetAlignSelf(anuNode(), align);
 }
 
 void RenderFlexBox::setFlexBasis(float basis) {
     if (std::isnan(basis)) {
-        YGNodeStyleSetFlexBasisAuto(yogaNode());
+        ANUNodeStyleSetFlexBasisAuto(anuNode());
     } else {
-        YGNodeStyleSetFlexBasis(yogaNode(), basis);
+        ANUNodeStyleSetFlexBasis(anuNode(), basis);
     }
 }
 
 void RenderFlexBox::setFlexBasisPercent(float percent) {
-    YGNodeStyleSetFlexBasisPercent(yogaNode(), percent);
+    ANUNodeStyleSetFlexBasisPercent(anuNode(), percent);
 }
 
 void RenderFlexBox::setFlexBasisAuto() {
-    YGNodeStyleSetFlexBasisAuto(yogaNode());
+    ANUNodeStyleSetFlexBasisAuto(anuNode());
 }
 
 void RenderFlexBox::setAspectRatio(float ratio) {
-    YGNodeStyleSetAspectRatio(yogaNode(), ratio);
+    ANUNodeStyleSetAspectRatio(anuNode(), ratio);
 }
 
-void RenderFlexBox::setGap(YGGutter gutter, float gapLength) {
-    YGNodeStyleSetGap(yogaNode(), gutter, gapLength);
+void RenderFlexBox::setGap(ANUGutter gutter, float gapLength) {
+    ANUNodeStyleSetGap(anuNode(), gutter, gapLength);
 }
 
-void RenderFlexBox::setGapPercent(YGGutter gutter, float percent) {
-    YGNodeStyleSetGapPercent(yogaNode(), gutter, percent);
+void RenderFlexBox::setGapPercent(ANUGutter gutter, float percent) {
+    ANUNodeStyleSetGapPercent(anuNode(), gutter, percent);
 }
 
-void RenderFlexBox::setDisplay(YGDisplay display) {
-    YGNodeStyleSetDisplay(yogaNode(), display);
+void RenderFlexBox::setDisplay(ANUDisplay display) {
+    ANUNodeStyleSetDisplay(anuNode(), display);
 }
 
-void RenderFlexBox::setOverflow(YGOverflow overflow) {
-    YGNodeStyleSetOverflow(yogaNode(), overflow);
+void RenderFlexBox::setOverflow(ANUOverflow overflow) {
+    ANUNodeStyleSetOverflow(anuNode(), overflow);
 }
 
-void RenderFlexBox::setBorder(YGEdge edge, float border) {
-    YGNodeStyleSetBorder(yogaNode(), edge, border);
+void RenderFlexBox::setBorder(ANUEdge edge, float border) {
+    ANUNodeStyleSetBorder(anuNode(), edge, border);
 }
 
-void RenderFlexBox::setBoxSizing(YGBoxSizing sizing) {
-    YGNodeStyleSetBoxSizing(yogaNode(), sizing);
+void RenderFlexBox::setBoxSizing(ANUBoxSizing sizing) {
+    ANUNodeStyleSetBoxSizing(anuNode(), sizing);
 }
 
 void RenderFlexBox::setMinWidth(float width) {
-    YGNodeStyleSetMinWidth(yogaNode(), width);
+    ANUNodeStyleSetMinWidth(anuNode(), width);
 }
 
 void RenderFlexBox::setMinWidthPercent(float percent) {
-    YGNodeStyleSetMinWidthPercent(yogaNode(), percent);
+    ANUNodeStyleSetMinWidthPercent(anuNode(), percent);
 }
 
 void RenderFlexBox::setMinHeight(float height) {
-    YGNodeStyleSetMinHeight(yogaNode(), height);
+    ANUNodeStyleSetMinHeight(anuNode(), height);
 }
 
 void RenderFlexBox::setMinHeightPercent(float percent) {
-    YGNodeStyleSetMinHeightPercent(yogaNode(), percent);
+    ANUNodeStyleSetMinHeightPercent(anuNode(), percent);
 }
 
 void RenderFlexBox::setMaxWidth(float width) {
-    YGNodeStyleSetMaxWidth(yogaNode(), width);
+    ANUNodeStyleSetMaxWidth(anuNode(), width);
 }
 
 void RenderFlexBox::setMaxWidthPercent(float percent) {
-    YGNodeStyleSetMaxWidthPercent(yogaNode(), percent);
+    ANUNodeStyleSetMaxWidthPercent(anuNode(), percent);
 }
 
 void RenderFlexBox::setMaxHeight(float height) {
-    YGNodeStyleSetMaxHeight(yogaNode(), height);
+    ANUNodeStyleSetMaxHeight(anuNode(), height);
 }
 
 void RenderFlexBox::setMaxHeightPercent(float percent) {
-    YGNodeStyleSetMaxHeightPercent(yogaNode(), percent);
+    ANUNodeStyleSetMaxHeightPercent(anuNode(), percent);
 }
 
-void RenderFlexBox::setPadding(YGEdge edge, float padding) {
-    YGNodeStyleSetPadding(yogaNode(), edge, padding);
+void RenderFlexBox::setPadding(ANUEdge edge, float padding) {
+    ANUNodeStyleSetPadding(anuNode(), edge, padding);
 }
 
-void RenderFlexBox::setPaddingPercent(YGEdge edge, float percent) {
-    YGNodeStyleSetPaddingPercent(yogaNode(), edge, percent);
+void RenderFlexBox::setPaddingPercent(ANUEdge edge, float percent) {
+    ANUNodeStyleSetPaddingPercent(anuNode(), edge, percent);
 }
 
-void RenderFlexBox::setMargin(YGEdge edge, float margin) {
-    YGNodeStyleSetMargin(yogaNode(), edge, margin);
+void RenderFlexBox::setMargin(ANUEdge edge, float margin) {
+    ANUNodeStyleSetMargin(anuNode(), edge, margin);
 }
 
-void RenderFlexBox::setMarginPercent(YGEdge edge, float percent) {
-    YGNodeStyleSetMarginPercent(yogaNode(), edge, percent);
+void RenderFlexBox::setMarginPercent(ANUEdge edge, float percent) {
+    ANUNodeStyleSetMarginPercent(anuNode(), edge, percent);
 }
 
-void RenderFlexBox::setMarginAuto(YGEdge edge) {
-    YGNodeStyleSetMarginAuto(yogaNode(), edge);
+void RenderFlexBox::setMarginAuto(ANUEdge edge) {
+    ANUNodeStyleSetMarginAuto(anuNode(), edge);
 }
 
-void RenderFlexBox::setPositionType(YGPositionType type) {
-    YGNodeStyleSetPositionType(yogaNode(), type);
+void RenderFlexBox::setPositionType(ANUPositionType type) {
+    ANUNodeStyleSetPositionType(anuNode(), type);
 }
 
-void RenderFlexBox::setPosition(YGEdge edge, float position) {
-    YGNodeStyleSetPosition(yogaNode(), edge, position);
+void RenderFlexBox::setPosition(ANUEdge edge, float position) {
+    ANUNodeStyleSetPosition(anuNode(), edge, position);
 }
 
-void RenderFlexBox::setPositionPercent(YGEdge edge, float percent) {
-    YGNodeStyleSetPositionPercent(yogaNode(), edge, percent);
+void RenderFlexBox::setPositionPercent(ANUEdge edge, float percent) {
+    ANUNodeStyleSetPositionPercent(anuNode(), edge, percent);
 }
 
-void RenderFlexBox::setPositionAuto(YGEdge edge) {
-    YGNodeStyleSetPositionAuto(yogaNode(), edge);
+void RenderFlexBox::setPositionAuto(ANUEdge edge) {
+    ANUNodeStyleSetPositionAuto(anuNode(), edge);
 }
 
 void RenderFlexBox::setBackgroundColor(Color color) {

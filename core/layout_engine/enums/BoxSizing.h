@@ -10,14 +10,14 @@
 #pragma once
 
 #include <cstdint>
-#include <layout_engine/YGEnums.h>
-#include <layout_engine/enums/YogaEnums.h>
+#include <layout_engine/AnuEnums.h>
+#include <layout_engine/enums/AnuEnums.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 enum class BoxSizing : uint8_t {
-  BorderBox = YGBoxSizingBorderBox,
-  ContentBox = YGBoxSizingContentBox,
+  BorderBox = ANUBoxSizingBorderBox,
+  ContentBox = ANUBoxSizingContentBox,
 };
 
 template <>
@@ -25,16 +25,16 @@ constexpr int32_t ordinalCount<BoxSizing>() {
   return 2;
 }
 
-constexpr BoxSizing scopedEnum(YGBoxSizing unscoped) {
+constexpr BoxSizing scopedEnum(ANUBoxSizing unscoped) {
   return static_cast<BoxSizing>(unscoped);
 }
 
-constexpr YGBoxSizing unscopedEnum(BoxSizing scoped) {
-  return static_cast<YGBoxSizing>(scoped);
+constexpr ANUBoxSizing unscopedEnum(BoxSizing scoped) {
+  return static_cast<ANUBoxSizing>(scoped);
 }
 
 inline const char* toString(BoxSizing e) {
-  return YGBoxSizingToString(unscopedEnum(e));
+  return ANUBoxSizingToString(unscopedEnum(e));
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

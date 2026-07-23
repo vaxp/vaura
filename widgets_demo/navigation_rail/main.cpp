@@ -20,8 +20,8 @@ public:
         rail_cfg.extended = extended;
         rail_cfg.selected_index = selected_idx;
         rail_cfg.header = Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .height = 80.0f,
             .children = {
                 Icon(Icons::Star, {.size = 32.0f, .color = 0xFF38BDF8})
@@ -47,14 +47,14 @@ public:
                 
                 // Content Area
                 Column({
-                    .justifyContent = YGJustifyCenter,
-                    .alignItems = YGAlignCenter,
+                    .justify = Justify::Center,
+                    .align = Align::Center,
                     .flexGrow = 1.0f,
                     .backgroundColor = 0xFF1E293B,
                     .children = {
                         Text(page_names[selected_idx], {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}),
                         Column({
-                            .margin = std::pair{YGEdgeTop, 20.0f},
+                            .margin = std::pair{Edge::Top, 20.0f},
                             .children = {
                                 Button({
                                     .child = Text(extended ? "Collapse Rail" : "Extend Rail", {.font_size = 14.0f, .color = 0xFFFFFFFF}),

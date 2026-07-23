@@ -23,7 +23,7 @@ public:
                 
                 // Centered Counter
                 Row({
-                    .justifyContent = YGJustifyCenter,
+                    .justify = Justify::Center,
                     .widthPercent = 100.0f,
                     .children = {
                         Text("Counter: " + std::to_string(counter), {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold})
@@ -32,14 +32,14 @@ public:
 
                 // Bottom section (takes equal flex to stay centered, pushes FABs to bottom)
                 Column({
-                    .justifyContent = YGJustifyFlexEnd,
+                    .justify = Justify::End,
                     .widthPercent = 100.0f,
                     .flexGrow = 1.0f,
                     .children = {
                         Row({
-                            .justifyContent = YGJustifySpaceBetween,
+                            .justify = Justify::SpaceBetween,
                             .widthPercent = 100.0f,
-                            .padding = std::pair{YGEdgeAll, 40.0f},
+                            .padding = std::pair{Edge::All, 40.0f},
                             .children = {
                                 // Extended FAB
                                 FAB({

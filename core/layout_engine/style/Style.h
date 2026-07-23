@@ -11,7 +11,7 @@
 #include <cstdint>
 #include <type_traits>
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 #include <layout_engine/algorithm/FlexDirection.h>
 #include <layout_engine/enums/Align.h>
@@ -32,9 +32,9 @@
 #include <layout_engine/style/StyleLength.h>
 #include <layout_engine/style/StyleValuePool.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
-class YG_EXPORT Style {
+class ANU_EXPORT Style {
  public:
   using Length = StyleLength;
 
@@ -141,52 +141,52 @@ class YG_EXPORT Style {
   }
 
   Style::Length margin(Edge edge) const {
-    return pool_.getLength(margin_[yoga::to_underlying(edge)]);
+    return pool_.getLength(margin_[anu::to_underlying(edge)]);
   }
   void setMargin(Edge edge, Style::Length value) {
-    pool_.store(margin_[yoga::to_underlying(edge)], value);
+    pool_.store(margin_[anu::to_underlying(edge)], value);
   }
 
   Style::Length position(Edge edge) const {
-    return pool_.getLength(position_[yoga::to_underlying(edge)]);
+    return pool_.getLength(position_[anu::to_underlying(edge)]);
   }
   void setPosition(Edge edge, Style::Length value) {
-    pool_.store(position_[yoga::to_underlying(edge)], value);
+    pool_.store(position_[anu::to_underlying(edge)], value);
   }
 
   Style::Length padding(Edge edge) const {
-    return pool_.getLength(padding_[yoga::to_underlying(edge)]);
+    return pool_.getLength(padding_[anu::to_underlying(edge)]);
   }
   void setPadding(Edge edge, Style::Length value) {
-    pool_.store(padding_[yoga::to_underlying(edge)], value);
+    pool_.store(padding_[anu::to_underlying(edge)], value);
   }
 
   Style::Length border(Edge edge) const {
-    return pool_.getLength(border_[yoga::to_underlying(edge)]);
+    return pool_.getLength(border_[anu::to_underlying(edge)]);
   }
   void setBorder(Edge edge, Style::Length value) {
-    pool_.store(border_[yoga::to_underlying(edge)], value);
+    pool_.store(border_[anu::to_underlying(edge)], value);
   }
 
   Style::Length gap(Gutter gutter) const {
-    return pool_.getLength(gap_[yoga::to_underlying(gutter)]);
+    return pool_.getLength(gap_[anu::to_underlying(gutter)]);
   }
   void setGap(Gutter gutter, Style::Length value) {
-    pool_.store(gap_[yoga::to_underlying(gutter)], value);
+    pool_.store(gap_[anu::to_underlying(gutter)], value);
   }
 
   Style::Length dimension(Dimension axis) const {
-    return pool_.getLength(dimensions_[yoga::to_underlying(axis)]);
+    return pool_.getLength(dimensions_[anu::to_underlying(axis)]);
   }
   void setDimension(Dimension axis, Style::Length value) {
-    pool_.store(dimensions_[yoga::to_underlying(axis)], value);
+    pool_.store(dimensions_[anu::to_underlying(axis)], value);
   }
 
   Style::Length minDimension(Dimension axis) const {
-    return pool_.getLength(minDimensions_[yoga::to_underlying(axis)]);
+    return pool_.getLength(minDimensions_[anu::to_underlying(axis)]);
   }
   void setMinDimension(Dimension axis, Style::Length value) {
-    pool_.store(minDimensions_[yoga::to_underlying(axis)], value);
+    pool_.store(minDimensions_[anu::to_underlying(axis)], value);
   }
 
   FloatOptional resolvedMinDimension(
@@ -208,10 +208,10 @@ class YG_EXPORT Style {
   }
 
   Style::Length maxDimension(Dimension axis) const {
-    return pool_.getLength(maxDimensions_[yoga::to_underlying(axis)]);
+    return pool_.getLength(maxDimensions_[anu::to_underlying(axis)]);
   }
   void setMaxDimension(Dimension axis, Style::Length value) {
-    pool_.store(maxDimensions_[yoga::to_underlying(axis)], value);
+    pool_.store(maxDimensions_[anu::to_underlying(axis)], value);
   }
 
   FloatOptional resolvedMaxDimension(
@@ -251,19 +251,19 @@ class YG_EXPORT Style {
   }
 
   bool horizontalInsetsDefined() const {
-    return position_[yoga::to_underlying(Edge::Left)].isDefined() ||
-        position_[yoga::to_underlying(Edge::Right)].isDefined() ||
-        position_[yoga::to_underlying(Edge::All)].isDefined() ||
-        position_[yoga::to_underlying(Edge::Horizontal)].isDefined() ||
-        position_[yoga::to_underlying(Edge::Start)].isDefined() ||
-        position_[yoga::to_underlying(Edge::End)].isDefined();
+    return position_[anu::to_underlying(Edge::Left)].isDefined() ||
+        position_[anu::to_underlying(Edge::Right)].isDefined() ||
+        position_[anu::to_underlying(Edge::All)].isDefined() ||
+        position_[anu::to_underlying(Edge::Horizontal)].isDefined() ||
+        position_[anu::to_underlying(Edge::Start)].isDefined() ||
+        position_[anu::to_underlying(Edge::End)].isDefined();
   }
 
   bool verticalInsetsDefined() const {
-    return position_[yoga::to_underlying(Edge::Top)].isDefined() ||
-        position_[yoga::to_underlying(Edge::Bottom)].isDefined() ||
-        position_[yoga::to_underlying(Edge::All)].isDefined() ||
-        position_[yoga::to_underlying(Edge::Vertical)].isDefined();
+    return position_[anu::to_underlying(Edge::Top)].isDefined() ||
+        position_[anu::to_underlying(Edge::Bottom)].isDefined() ||
+        position_[anu::to_underlying(Edge::All)].isDefined() ||
+        position_[anu::to_underlying(Edge::Vertical)].isDefined();
   }
 
   bool isFlexStartPositionDefined(FlexDirection axis, Direction direction)
@@ -590,74 +590,74 @@ class YG_EXPORT Style {
   }
 
   Style::Length computeColumnGap() const {
-    if (gap_[yoga::to_underlying(Gutter::Column)].isDefined()) {
-      return pool_.getLength(gap_[yoga::to_underlying(Gutter::Column)]);
+    if (gap_[anu::to_underlying(Gutter::Column)].isDefined()) {
+      return pool_.getLength(gap_[anu::to_underlying(Gutter::Column)]);
     } else {
-      return pool_.getLength(gap_[yoga::to_underlying(Gutter::All)]);
+      return pool_.getLength(gap_[anu::to_underlying(Gutter::All)]);
     }
   }
 
   Style::Length computeRowGap() const {
-    if (gap_[yoga::to_underlying(Gutter::Row)].isDefined()) {
-      return pool_.getLength(gap_[yoga::to_underlying(Gutter::Row)]);
+    if (gap_[anu::to_underlying(Gutter::Row)].isDefined()) {
+      return pool_.getLength(gap_[anu::to_underlying(Gutter::Row)]);
     } else {
-      return pool_.getLength(gap_[yoga::to_underlying(Gutter::All)]);
+      return pool_.getLength(gap_[anu::to_underlying(Gutter::All)]);
     }
   }
 
   Style::Length computeLeftEdge(const Edges& edges, Direction layoutDirection)
       const {
     if (layoutDirection == Direction::LTR &&
-        edges[yoga::to_underlying(Edge::Start)].isDefined()) {
-      return pool_.getLength(edges[yoga::to_underlying(Edge::Start)]);
+        edges[anu::to_underlying(Edge::Start)].isDefined()) {
+      return pool_.getLength(edges[anu::to_underlying(Edge::Start)]);
     } else if (
         layoutDirection == Direction::RTL &&
-        edges[yoga::to_underlying(Edge::End)].isDefined()) {
-      return pool_.getLength(edges[yoga::to_underlying(Edge::End)]);
-    } else if (edges[yoga::to_underlying(Edge::Left)].isDefined()) {
-      return pool_.getLength(edges[yoga::to_underlying(Edge::Left)]);
-    } else if (edges[yoga::to_underlying(Edge::Horizontal)].isDefined()) {
-      return pool_.getLength(edges[yoga::to_underlying(Edge::Horizontal)]);
+        edges[anu::to_underlying(Edge::End)].isDefined()) {
+      return pool_.getLength(edges[anu::to_underlying(Edge::End)]);
+    } else if (edges[anu::to_underlying(Edge::Left)].isDefined()) {
+      return pool_.getLength(edges[anu::to_underlying(Edge::Left)]);
+    } else if (edges[anu::to_underlying(Edge::Horizontal)].isDefined()) {
+      return pool_.getLength(edges[anu::to_underlying(Edge::Horizontal)]);
     } else {
-      return pool_.getLength(edges[yoga::to_underlying(Edge::All)]);
+      return pool_.getLength(edges[anu::to_underlying(Edge::All)]);
     }
   }
 
   Style::Length computeTopEdge(const Edges& edges) const {
-    if (edges[yoga::to_underlying(Edge::Top)].isDefined()) {
-      return pool_.getLength(edges[yoga::to_underlying(Edge::Top)]);
-    } else if (edges[yoga::to_underlying(Edge::Vertical)].isDefined()) {
-      return pool_.getLength(edges[yoga::to_underlying(Edge::Vertical)]);
+    if (edges[anu::to_underlying(Edge::Top)].isDefined()) {
+      return pool_.getLength(edges[anu::to_underlying(Edge::Top)]);
+    } else if (edges[anu::to_underlying(Edge::Vertical)].isDefined()) {
+      return pool_.getLength(edges[anu::to_underlying(Edge::Vertical)]);
     } else {
-      return pool_.getLength(edges[yoga::to_underlying(Edge::All)]);
+      return pool_.getLength(edges[anu::to_underlying(Edge::All)]);
     }
   }
 
   Style::Length computeRightEdge(const Edges& edges, Direction layoutDirection)
       const {
     if (layoutDirection == Direction::LTR &&
-        edges[yoga::to_underlying(Edge::End)].isDefined()) {
-      return pool_.getLength(edges[yoga::to_underlying(Edge::End)]);
+        edges[anu::to_underlying(Edge::End)].isDefined()) {
+      return pool_.getLength(edges[anu::to_underlying(Edge::End)]);
     } else if (
         layoutDirection == Direction::RTL &&
-        edges[yoga::to_underlying(Edge::Start)].isDefined()) {
-      return pool_.getLength(edges[yoga::to_underlying(Edge::Start)]);
-    } else if (edges[yoga::to_underlying(Edge::Right)].isDefined()) {
-      return pool_.getLength(edges[yoga::to_underlying(Edge::Right)]);
-    } else if (edges[yoga::to_underlying(Edge::Horizontal)].isDefined()) {
-      return pool_.getLength(edges[yoga::to_underlying(Edge::Horizontal)]);
+        edges[anu::to_underlying(Edge::Start)].isDefined()) {
+      return pool_.getLength(edges[anu::to_underlying(Edge::Start)]);
+    } else if (edges[anu::to_underlying(Edge::Right)].isDefined()) {
+      return pool_.getLength(edges[anu::to_underlying(Edge::Right)]);
+    } else if (edges[anu::to_underlying(Edge::Horizontal)].isDefined()) {
+      return pool_.getLength(edges[anu::to_underlying(Edge::Horizontal)]);
     } else {
-      return pool_.getLength(edges[yoga::to_underlying(Edge::All)]);
+      return pool_.getLength(edges[anu::to_underlying(Edge::All)]);
     }
   }
 
   Style::Length computeBottomEdge(const Edges& edges) const {
-    if (edges[yoga::to_underlying(Edge::Bottom)].isDefined()) {
-      return pool_.getLength(edges[yoga::to_underlying(Edge::Bottom)]);
-    } else if (edges[yoga::to_underlying(Edge::Vertical)].isDefined()) {
-      return pool_.getLength(edges[yoga::to_underlying(Edge::Vertical)]);
+    if (edges[anu::to_underlying(Edge::Bottom)].isDefined()) {
+      return pool_.getLength(edges[anu::to_underlying(Edge::Bottom)]);
+    } else if (edges[anu::to_underlying(Edge::Vertical)].isDefined()) {
+      return pool_.getLength(edges[anu::to_underlying(Edge::Vertical)]);
     } else {
-      return pool_.getLength(edges[yoga::to_underlying(Edge::All)]);
+      return pool_.getLength(edges[anu::to_underlying(Edge::All)]);
     }
   }
 
@@ -754,4 +754,4 @@ class YG_EXPORT Style {
   StyleValuePool pool_;
 };
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

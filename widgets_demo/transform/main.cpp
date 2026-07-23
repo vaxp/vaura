@@ -21,8 +21,8 @@ public:
         };
 
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF0F172A,
@@ -33,7 +33,7 @@ public:
                 // Control Panel
                 Column({
                     .width = 400.0f,
-                    .padding = std::pair{YGEdgeAll, 20.0f},
+                    .padding = std::pair{Edge::All, 20.0f},
                     .backgroundColor = 0xFF1E293B,
                     .borderRadius = 12.0f,
                     .children = {
@@ -82,8 +82,8 @@ public:
                     .translate_y = 0.0f,
                     .rotation = rot_val,
                     .child = Column({
-                        .justifyContent = YGJustifyCenter,
-                        .alignItems = YGAlignCenter,
+                        .justify = Justify::Center,
+                        .align = Align::Center,
                         .width = 100.0f,
                         .height = 100.0f,
                         .backgroundColor = 0xFF3B82F6, // Blue

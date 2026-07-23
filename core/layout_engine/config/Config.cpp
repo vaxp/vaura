@@ -9,7 +9,7 @@
 #include <layout_engine/debug/Log.h>
 #include <layout_engine/node/Node.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 bool configUpdateInvalidatesLayout(
     const Config& oldConfig,
@@ -97,32 +97,32 @@ uint32_t Config::getVersion() const noexcept {
   return version_;
 }
 
-void Config::setLogger(YGLogger logger) {
+void Config::setLogger(ANULogger logger) {
   logger_ = logger;
 }
 
 void Config::log(
-    const yoga::Node* node,
+    const anu::Node* node,
     LogLevel logLevel,
     const char* format,
     va_list args) const {
   logger_(this, node, unscopedEnum(logLevel), format, args);
 }
 
-void Config::setCloneNodeCallback(YGCloneNodeFunc cloneNode) {
+void Config::setCloneNodeCallback(ANUCloneNodeFunc cloneNode) {
   cloneNodeCallback_ = cloneNode;
 }
 
-YGNodeRef Config::cloneNode(
-    YGNodeConstRef node,
-    YGNodeConstRef owner,
+ANUNodeRef Config::cloneNode(
+    ANUNodeConstRef node,
+    ANUNodeConstRef owner,
     size_t childIndex) const {
-  YGNodeRef clone = nullptr;
+  ANUNodeRef clone = nullptr;
   if (cloneNodeCallback_ != nullptr) {
     clone = cloneNodeCallback_(node, owner, childIndex);
   }
   if (clone == nullptr) {
-    clone = YGNodeClone(node);
+    clone = ANUNodeClone(node);
   }
   return clone;
 }
@@ -132,4 +132,4 @@ YGNodeRef Config::cloneNode(
   return config;
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

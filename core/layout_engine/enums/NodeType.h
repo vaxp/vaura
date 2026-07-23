@@ -10,14 +10,14 @@
 #pragma once
 
 #include <cstdint>
-#include <layout_engine/YGEnums.h>
-#include <layout_engine/enums/YogaEnums.h>
+#include <layout_engine/AnuEnums.h>
+#include <layout_engine/enums/AnuEnums.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 enum class NodeType : uint8_t {
-  Default = YGNodeTypeDefault,
-  Text = YGNodeTypeText,
+  Default = ANUNodeTypeDefault,
+  Text = ANUNodeTypeText,
 };
 
 template <>
@@ -25,16 +25,16 @@ constexpr int32_t ordinalCount<NodeType>() {
   return 2;
 }
 
-constexpr NodeType scopedEnum(YGNodeType unscoped) {
+constexpr NodeType scopedEnum(ANUNodeType unscoped) {
   return static_cast<NodeType>(unscoped);
 }
 
-constexpr YGNodeType unscopedEnum(NodeType scoped) {
-  return static_cast<YGNodeType>(scoped);
+constexpr ANUNodeType unscopedEnum(NodeType scoped) {
+  return static_cast<ANUNodeType>(scoped);
 }
 
 inline const char* toString(NodeType e) {
-  return YGNodeTypeToString(unscopedEnum(e));
+  return ANUNodeTypeToString(unscopedEnum(e));
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

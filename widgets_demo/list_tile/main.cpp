@@ -17,8 +17,8 @@ public:
 
     WidgetPtr build(BuildContext& ctx) override {
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF1E293B,
@@ -29,11 +29,11 @@ public:
                     .elevation = 15.0f,
                     .padding = {0, 10, 0, 10} // Vertial padding, 0 horizontal to allow tiles to stretch
                 }, Column({
-                    .alignItems = YGAlignStretch,
+                    .align = Align::Stretch,
                     .width = 450.0f,
                     .children = {
                         Column({
-                            .margin = std::pair{YGEdgeBottom, 20.0f},
+                            .margin = std::pair{Edge::Bottom, 20.0f},
                             .children = {
                                 Text("Settings", {
                                     .font_size = 28,

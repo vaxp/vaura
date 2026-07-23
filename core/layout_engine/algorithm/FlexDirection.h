@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 #include <layout_engine/debug/AssertFatal.h>
 #include <layout_engine/enums/Dimension.h>
@@ -16,7 +16,7 @@
 #include <layout_engine/enums/FlexDirection.h>
 #include <layout_engine/enums/PhysicalEdge.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 inline bool isRow(const FlexDirection flexDirection) {
   return flexDirection == FlexDirection::Row ||
@@ -117,4 +117,4 @@ inline Dimension dimension(FlexDirection flexDirection) {
   fatalWithMessage("Invalid FlexDirection");
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

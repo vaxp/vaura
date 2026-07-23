@@ -14,10 +14,10 @@
 #include <layout_engine/numeric/Comparison.h>
 #include <layout_engine/numeric/FloatOptional.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 inline float paddingAndBorderForAxis(
-    const yoga::Node* const node,
+    const anu::Node* const node,
     const FlexDirection axis,
     const Direction direction,
     const float widthSize) {
@@ -28,7 +28,7 @@ inline float paddingAndBorderForAxis(
 }
 
 inline FloatOptional boundAxisWithinMinAndMax(
-    const yoga::Node* const node,
+    const anu::Node* const node,
     const Direction direction,
     const FlexDirection axis,
     const FloatOptional value,
@@ -63,17 +63,17 @@ inline FloatOptional boundAxisWithinMinAndMax(
 // Like boundAxisWithinMinAndMax but also ensures that the value doesn't
 // go below the padding and border amount.
 inline float boundAxis(
-    const yoga::Node* const node,
+    const anu::Node* const node,
     const FlexDirection axis,
     const Direction direction,
     const float value,
     const float axisSize,
     const float widthSize) {
-  return yoga::maxOrDefined(
+  return anu::maxOrDefined(
       boundAxisWithinMinAndMax(
           node, direction, axis, FloatOptional{value}, axisSize, widthSize)
           .unwrap(),
       paddingAndBorderForAxis(node, axis, direction, widthSize));
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

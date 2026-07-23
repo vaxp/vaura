@@ -11,6 +11,7 @@
 #include <include/gpu/gl/GrGLInterface.h>
 #include <vector>
 #include <memory>
+#include <cstdio>
 
 using namespace vaura;
 
@@ -29,7 +30,7 @@ std::unique_ptr<RenderDecoratedBox> createBox(Color color, float radius = 0) {
 
 int main() {
     auto platform = std::move(Platform::create().value());
-    WindowConfig config{"VAURA Torture - RTL vs LTR", 800, 600};
+    WindowConfig config{"VAURA Torture - Nested & Resize", 800, 600};
     auto window = std::move(Window::create(*platform, config).value());
     window->makeCurrent();
 
@@ -51,51 +52,58 @@ int main() {
         return nodes.back().get();
     };
 
-    auto root = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFF222222)));
+    // Container
+    auto root = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFF1E1E1E)));
     root->layoutNode().setWidthPercent(100);
     root->layoutNode().setHeightPercent(100);
-    root->layoutNode().setFlexDirection(FlexDirection::Column);
-    root->layoutNode().setJustifyContent(MainAxisAlign::SpaceEvenly);
     root->layoutNode().setPadding(Edge::All, 20);
 
-    // LTR Row (English style)
-    auto ltrRow = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFF333333, 10)));
-    ltrRow->layoutNode().setWidthPercent(100);
-    ltrRow->layoutNode().setHeight(100);
-    ltrRow->layoutNode().setFlexDirection(FlexDirection::Row);
-    ltrRow->layoutNode().setDirection(LayoutDirection::LTR); // Explicit LTR
-    ltrRow->layoutNode().setPadding(Edge::All, 10);
-    root->addChild(ltrRow);
+    // Simulated Scroll (A huge container that overflows)
+    auto scroll = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFF2A2A2A, 10)));
+    scroll->layoutNode().setWidthPercent(100);
+    scroll->layoutNode().setHeightPercent(100);
+    scroll->layoutNode().setFlexDirection(FlexDirection::Column);
+    root->addChild(scroll);
 
-    // RTL Row (Arabic style)
-    auto rtlRow = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFF444444, 10)));
-    rtlRow->layoutNode().setWidthPercent(100);
-    rtlRow->layoutNode().setHeight(100);
-    rtlRow->layoutNode().setFlexDirection(FlexDirection::Row);
-    rtlRow->layoutNode().setDirection(LayoutDirection::RTL); // Explicit RTL
-    rtlRow->layoutNode().setPadding(Edge::All, 10);
-    root->addChild(rtlRow);
+    // Stack (Absolute Positioning Container)
+    auto stack = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFF333333, 10)));
+    stack->layoutNode().setFlexGrow(1.0f); // Takes all available scroll space
+    stack->layoutNode().setMargin(Edge::All, 20);
+    scroll->addChild(stack);
 
-    Color colors[] = {0xFFFF0000, 0xFF00FF00, 0xFF0000FF};
-    float widths[] = {50, 100, 150};
+    // Absolute element inside Stack
+    auto absBg = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFF550000)));
+    absBg->layoutNode().setPositionType(true);
+    absBg->layoutNode().setPosition(Edge::All, 0); // Fill Stack
+    stack->addChild(absBg);
 
-    // Add elements to LTR
-    for (int i = 0; i < 3; i++) {
-        auto box = static_cast<RenderDecoratedBox*>(addNode(createBox(colors[i], 5)));
-        box->layoutNode().setWidth(widths[i]);
-        box->layoutNode().setHeight(50);
-        box->layoutNode().setMargin(Edge::Right, 10); // Margin respects direction in Yoga!
-        ltrRow->addChild(box);
-    }
+    // Column inside Stack
+    auto column = static_cast<RenderDecoratedBox*>(addNode(createBox(0x00000000))); // Transparent
+    column->layoutNode().setWidthPercent(100);
+    column->layoutNode().setHeightPercent(100);
+    column->layoutNode().setFlexDirection(FlexDirection::Column);
+    column->layoutNode().setJustifyContent(MainAxisAlign::SpaceAround);
+    column->layoutNode().setAlignItems(CrossAxisAlign::Center);
+    stack->addChild(column);
 
-    // Add same elements to RTL
-    for (int i = 0; i < 3; i++) {
-        auto box = static_cast<RenderDecoratedBox*>(addNode(createBox(colors[i], 5)));
-        box->layoutNode().setWidth(widths[i]);
-        box->layoutNode().setHeight(50);
-        // Note: Yoga's Margin(Edge::End, 10) can be used, but let's test if it flips
-        box->layoutNode().setMargin(Edge::Left, 10); // If RTL, Left is End? No, Left is physical Left. Let's use Margin(Edge::Right, 10) to see if Yoga mirrors it. Actually Yoga uses Edge::Start / Edge::End for direction-aware margins. But here we just want to see the items flip.
-        rtlRow->addChild(box);
+    // Row inside Column
+    for (int i = 0; i < 5; i++) {
+        auto row = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFF005500, 5)));
+        row->layoutNode().setWidthPercent(80);
+        row->layoutNode().setHeight(50);
+        row->layoutNode().setFlexDirection(FlexDirection::Row);
+        row->layoutNode().setJustifyContent(MainAxisAlign::SpaceBetween);
+        row->layoutNode().setAlignItems(CrossAxisAlign::Center);
+        row->layoutNode().setPadding(Edge::Horizontal, 10);
+        column->addChild(row);
+
+        // Items inside Row
+        for (int j = 0; j < 4; j++) {
+            auto item = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFF000055, 20)));
+            item->layoutNode().setWidth(30);
+            item->layoutNode().setHeight(30);
+            row->addChild(item);
+        }
     }
 
     bool running = true;
@@ -108,6 +116,7 @@ int main() {
         if (new_size.width != current_size.width || new_size.height != current_size.height) {
             current_size = new_size;
             update_surface();
+            printf("Resized to: %.0fx%.0f. Anu will recalculate.\n", new_size.width, new_size.height);
         }
 
         Size win_size = window->getSize();

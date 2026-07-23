@@ -15,12 +15,12 @@ public:
         root->widthPercent(100)
             .heightPercent(100)
             .backgroundColor(0xFF0F172A)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter);
+            .justify(Justify::Center)
+            .align(Align::Center);
 
         auto content = std::make_shared<FlexBox>();
-        content->flexDirection(YGFlexDirectionColumn)
-               .alignItems(YGAlignStretch)
+        content->direction(FlexDirection::Column)
+               .align(Align::Stretch)
                .width(400);
 
         auto title = Text("FAQ", {
@@ -30,7 +30,7 @@ public:
         });
         
         auto title_container = std::make_shared<FlexBox>();
-        title_container->margin(YGEdgeBottom, 20).child(title);
+        title_container->margin(Edge::Bottom, 20).child(title);
         content->child(title_container);
 
         auto answer1 = Text("VAURA is a next-generation retained-mode C++ GUI framework designed for building luxurious and highly animated user interfaces.", {
@@ -38,7 +38,7 @@ public:
             .color = 0xFF94A3B8
         });
 
-        auto answer2 = Text("Yes! It utilizes Yoga for flexbox layouts, Skia for high-performance GPU-accelerated rendering, and an architecture inspired by modern declarative frameworks.", {
+        auto answer2 = Text("Yes! It utilizes Anu for flexbox layouts, Skia for high-performance GPU-accelerated rendering, and an architecture inspired by modern declarative frameworks.", {
             .font_size = 15,
             .color = 0xFF94A3B8
         });
@@ -51,7 +51,7 @@ public:
         });
 
         auto wrapper1 = std::make_shared<FlexBox>();
-        wrapper1->margin(YGEdgeBottom, 10).child(acc1);
+        wrapper1->margin(Edge::Bottom, 10).child(acc1);
 
         auto acc2 = Accordion({
             .title = "Is it hardware accelerated?",

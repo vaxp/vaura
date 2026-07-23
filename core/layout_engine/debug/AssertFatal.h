@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 class Node;
 class Config;
@@ -18,12 +18,12 @@ class Config;
 
 void assertFatal(bool condition, const char* message);
 void assertFatalWithNode(
-    const yoga::Node* node,
+    const anu::Node* node,
     bool condition,
     const char* message);
 void assertFatalWithConfig(
-    const yoga::Config* config,
+    const anu::Config* config,
     bool condition,
     const char* message);
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

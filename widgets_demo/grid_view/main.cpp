@@ -37,14 +37,14 @@ public:
         std::vector<std::string> product_images = {"assets/7.png", "assets/8.png", "assets/9.png", "assets/12.png"};
         for (int i = 0; i < 4; ++i) {
                             auto add_btn = Column({
-                                .padding = std::pair{YGEdgeHorizontal, 12.0f},
+                                .padding = std::pair{Edge::Horizontal, 12.0f},
                                 .backgroundColor = 0xFF111827,
                                 .borderRadius = 4.0f,
                                 .children = {
                                     Text("Add", { .font_size = 12, .color = 0xFFFFFFFF })
                                 }
                             });
-                            add_btn->padding(YGEdgeVertical, 6.0f);
+                            add_btn->padding(Edge::Vertical, 6.0f);
                             
                             auto cell = Column({
                                 .widthPercent = 100.0f,
@@ -71,8 +71,8 @@ public:
                                         .weight = TextStyle::SemiBold
                                     }),
                                     Row({
-                                        .justifyContent = YGJustifySpaceBetween,
-                                        .margin = std::pair{YGEdgeTop, 8.0f},
+                                        .justify = Justify::SpaceBetween,
+                                        .margin = std::pair{Edge::Top, 8.0f},
                                         .children = {
                                             Text("$" + std::to_string(99 + i * 10) + ".99", {
                                                 .font_size = 16,
@@ -84,7 +84,7 @@ public:
                                     })
                                 }
                             });
-                            cell->padding(YGEdgeAll, 16.0f);
+                            cell->padding(Edge::All, 16.0f);
                             catalog_items.push_back(cell);
         }
         auto catalog_grid = GridView({
@@ -101,7 +101,7 @@ public:
         std::vector<std::string> values = {"12.4K", "$45,200", "842", "24%"};
         for (int i = 0; i < 4; ++i) {
             auto cell = Column({
-                .justifyContent = YGJustifyCenter,
+                .justify = Justify::Center,
                 .widthPercent = 100.0f,
                 .heightPercent = 100.0f,
                 .backgroundColor = 0xFFFFFFFF,
@@ -119,7 +119,7 @@ public:
                     })
                 }
             });
-            cell->padding(YGEdgeAll, 20.0f);
+            cell->padding(Edge::All, 20.0f);
             metric_items.push_back(cell);
         }
         auto metric_grid = GridView({
@@ -139,7 +139,7 @@ public:
                 ScrollView({
                     .child = Column({
                         .widthPercent = 100.0f,
-                        .padding = std::pair{YGEdgeAll, 40.0f},
+                        .padding = std::pair{Edge::All, 40.0f},
                         .children = {
                             Text("VAURA GridView Demo", {
                                 .font_size = 32,

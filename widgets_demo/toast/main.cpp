@@ -16,8 +16,8 @@ public:
     WidgetPtr build(BuildContext& ctx) override {
         std::vector<WidgetPtr> children = {
             Column({
-                .justifyContent = YGJustifyCenter,
-                .alignItems = YGAlignCenter,
+                .justify = Justify::Center,
+                .align = Align::Center,
                 .widthPercent = 100.0f,
                 .heightPercent = 100.0f,
                 .backgroundColor = 0xFF0F172A,
@@ -25,10 +25,10 @@ public:
                     Text("Toast Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}),
                     Column({.height = 40.0f}),
                     Row({
-                        .justifyContent = YGJustifyCenter,
+                        .justify = Justify::Center,
                         .children = {
                             Column({
-                                .margin = std::pair{YGEdgeRight, 10.0f},
+                                .margin = std::pair{Edge::Right, 10.0f},
                                 .children = {
                                     Button({
                                         .child = Text("Top Toast", {.color = 0xFFFFFFFF}),

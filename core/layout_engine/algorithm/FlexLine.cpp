@@ -5,16 +5,16 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 #include <layout_engine/algorithm/BoundAxis.h>
 #include <layout_engine/algorithm/FlexDirection.h>
 #include <layout_engine/algorithm/FlexLine.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 FlexLine calculateFlexLine(
-    yoga::Node* const node,
+    anu::Node* const node,
     const Direction ownerDirection,
     const float ownerWidth,
     const float mainAxisownerSize,
@@ -22,14 +22,14 @@ FlexLine calculateFlexLine(
     const float availableInnerMainDim,
     Node::LayoutableChildren::Iterator& iterator,
     const size_t lineCount) {
-  std::vector<yoga::Node*> itemsInFlow;
+  std::vector<anu::Node*> itemsInFlow;
   itemsInFlow.reserve(node->getChildCount());
 
   float sizeConsumed = 0.0f;
   float totalFlexGrowFactors = 0.0f;
   float totalFlexShrinkScaledFactors = 0.0f;
   size_t numberOfAutoMargins = 0;
-  yoga::Node* firstElementInLine = nullptr;
+  anu::Node* firstElementInLine = nullptr;
 
   float sizeConsumedIncludingMinConstraint = 0;
   const Direction direction = node->resolveDirection(ownerDirection);
@@ -121,4 +121,4 @@ FlexLine calculateFlexLine(
       }};
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

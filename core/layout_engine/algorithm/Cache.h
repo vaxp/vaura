@@ -10,7 +10,7 @@
 #include <layout_engine/algorithm/SizingMode.h>
 #include <layout_engine/config/Config.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 bool canUseCachedMeasurement(
     SizingMode widthMode,
@@ -25,6 +25,6 @@ bool canUseCachedMeasurement(
     float lastComputedHeight,
     float marginRow,
     float marginColumn,
-    const yoga::Config* config);
+    const anu::Config* config);
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

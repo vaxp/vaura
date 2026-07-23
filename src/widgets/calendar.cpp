@@ -12,7 +12,7 @@
 #include "vaura/tree/build_context.hpp"
 #include "vaura/rendering/canvas.hpp"
 #include "vaura/tree/render_object.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <array>
 #include <ctime>
 
@@ -81,18 +81,18 @@ public:
         int ty = todayYear(), tm_mon = todayMonth(), td = todayDay();
 
         auto root = std::make_shared<FlexBox>();
-        root->flexDirection(YGFlexDirectionColumn)
+        root->direction(FlexDirection::Column)
              .width(grid_width)
              .backgroundColor(cfg.background_color);
 
         // ── Header: ← Month Year → ───────────────────────────
         auto hdr = std::make_shared<FlexBox>();
-        hdr->flexDirection(YGFlexDirectionRow)
-            .alignItems(YGAlignCenter)
-            .justifyContent(YGJustifySpaceBetween)
+        hdr->direction(FlexDirection::Row)
+            .align(Align::Center)
+            .justify(Justify::SpaceBetween)
             .width(grid_width)
             .height(cfg.header_height)
-            .padding(YGEdgeHorizontal, 8)
+            .padding(Edge::Horizontal, 8)
             .backgroundColor(cfg.header_color);
 
         auto prev_btn = gesture_detector({
@@ -138,15 +138,15 @@ public:
 
         // ── Weekday row: Su Mo Tu We Th Fr Sa ────────────────
         auto wk_row = std::make_shared<FlexBox>();
-        wk_row->flexDirection(YGFlexDirectionRow)
+        wk_row->direction(FlexDirection::Row)
                .width(grid_width)
-               .padding(YGEdgeVertical, 6);
+               .padding(Edge::Vertical, 6);
 
         for (int w = 0; w < 7; ++w) {
             bool is_weekend = (w == 0 || w == 6);
             auto cell = std::make_shared<FlexBox>();
             cell->width(cfg.cell_size).height(cfg.cell_size * 0.7f)
-                 .justifyContent(YGJustifyCenter).alignItems(YGAlignCenter)
+                 .justify(Justify::Center).align(Align::Center)
                  .child(text(WEEKDAY_NAMES[w], {
                      .font_size = cfg.font_size - 1.0f,
                      .color     = is_weekend ? cfg.weekend_color : cfg.weekday_color,
@@ -166,8 +166,8 @@ public:
 
         int total_cells = 42; // 6 rows × 7 cols
         auto grid = std::make_shared<FlexBox>();
-        grid->flexDirection(YGFlexDirectionRow)
-             .flexWrap(YGWrapWrap)
+        grid->direction(FlexDirection::Row)
+             .wrap(FlexWrap::Wrap)
              .width(grid_width);
 
         for (int cell = 0; cell < total_cells; ++cell) {
@@ -212,8 +212,8 @@ public:
 
             auto day_cell = std::make_shared<FlexBox>();
             day_cell->width(cfg.cell_size).height(cfg.cell_size)
-                     .justifyContent(YGJustifyCenter)
-                     .alignItems(YGAlignCenter)
+                     .justify(Justify::Center)
+                     .align(Align::Center)
                      .borderRadius(cfg.cell_size / 2.0f)
                      .backgroundColor(bg_color)
                      .child(text(std::to_string(day), {

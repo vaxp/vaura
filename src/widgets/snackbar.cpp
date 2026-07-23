@@ -17,7 +17,7 @@
 #include "vaura/tree/build_context.hpp"
 #include "vaura/animation/animation_controller.hpp"
 #include "vaura/animation/ticker.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <chrono>
 
 namespace vaura {
@@ -86,12 +86,12 @@ public:
 
         // Content row
         auto content_row = std::make_shared<FlexBox>();
-        content_row->flexDirection(YGFlexDirectionRow)
-                    .alignItems(YGAlignCenter)
-                    .justifyContent(YGJustifySpaceBetween)
-                    .padding(YGEdgeLeft, 16)
-                    .padding(YGEdgeRight, cfg.action_label.empty() ? 16.0f : 8.0f)
-                    .padding(YGEdgeVertical, 14);
+        content_row->direction(FlexDirection::Row)
+                    .align(Align::Center)
+                    .justify(Justify::SpaceBetween)
+                    .padding(Edge::Left, 16)
+                    .padding(Edge::Right, cfg.action_label.empty() ? 16.0f : 8.0f)
+                    .padding(Edge::Vertical, 14);
 
         content_row->child(text(cfg.message, {
             .font_size = cfg.font_size,
@@ -134,11 +134,11 @@ public:
 
         // Center horizontally, stick to bottom
         auto wrapper = std::make_shared<FlexBox>();
-        wrapper->positionType(YGPositionTypeAbsolute)
-                .position(YGEdgeBottom, 16.0f)
-                .position(YGEdgeLeft, 0.0f)
+        wrapper->positionType(PositionType::Absolute)
+                .position(Edge::Bottom, 16.0f)
+                .position(Edge::Left, 0.0f)
                 .widthPercent(100)
-                .alignItems(YGAlignCenter);
+                .align(Align::Center);
         wrapper->child(transformed);
 
         return wrapper;

@@ -1,5 +1,5 @@
-executable('direct_yoga_test',
-  'direct_yoga_test/main.cpp',
+executable('direct_anu_test',
+  'direct_anu_test/main.cpp',
   dependencies : vaura_dep,
 )
 
@@ -128,7 +128,7 @@ executable('tabs_demo',
 )
 
 executable('settings_demo',
-  sources: ['yoga_settings/main.cpp'],
+  sources: ['anu_settings/main.cpp'],
   dependencies: vaura_dep,
 )
 

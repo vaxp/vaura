@@ -9,15 +9,15 @@
 
 #include <bitset>
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <layout_engine/enums/Errata.h>
 #include <layout_engine/enums/ExperimentalFeature.h>
 #include <layout_engine/enums/LogLevel.h>
 
-// Tag struct used to form the opaque YGConfigRef for the public C API
-struct YGConfig {};
+// Tag struct used to form the opaque ANUConfigRef for the public C API
+struct ANUConfig {};
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 class Config;
 class Node;
@@ -30,9 +30,9 @@ bool configUpdateInvalidatesLayout(
     const Config& oldConfig,
     const Config& newConfig);
 
-class YG_EXPORT Config : public ::YGConfig {
+class ANU_EXPORT Config : public ::ANUConfig {
  public:
-  explicit Config(YGLogger logger) : logger_{logger} {}
+  explicit Config(ANULogger logger) : logger_{logger} {}
 
   void setUseWebDefaults(bool useWebDefaults);
   bool useWebDefaults() const;
@@ -55,22 +55,22 @@ class YG_EXPORT Config : public ::YGConfig {
 
   uint32_t getVersion() const noexcept;
 
-  void setLogger(YGLogger logger);
+  void setLogger(ANULogger logger);
   void log(
-      const yoga::Node* node,
+      const anu::Node* node,
       LogLevel logLevel,
       const char* format,
       va_list args) const;
 
-  void setCloneNodeCallback(YGCloneNodeFunc cloneNode);
-  YGNodeRef
-  cloneNode(YGNodeConstRef node, YGNodeConstRef owner, size_t childIndex) const;
+  void setCloneNodeCallback(ANUCloneNodeFunc cloneNode);
+  ANUNodeRef
+  cloneNode(ANUNodeConstRef node, ANUNodeConstRef owner, size_t childIndex) const;
 
   static const Config& getDefault();
 
  private:
-  YGCloneNodeFunc cloneNodeCallback_{nullptr};
-  YGLogger logger_{};
+  ANUCloneNodeFunc cloneNodeCallback_{nullptr};
+  ANULogger logger_{};
 
   bool useWebDefaults_ : 1 = false;
 
@@ -81,12 +81,12 @@ class YG_EXPORT Config : public ::YGConfig {
   void* context_ = nullptr;
 };
 
-inline Config* resolveRef(const YGConfigRef ref) {
+inline Config* resolveRef(const ANUConfigRef ref) {
   return static_cast<Config*>(ref);
 }
 
-inline const Config* resolveRef(const YGConfigConstRef ref) {
+inline const Config* resolveRef(const ANUConfigConstRef ref) {
   return static_cast<const Config*>(ref);
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

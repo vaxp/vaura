@@ -10,7 +10,7 @@
 #include "vaura/tree/build_context.hpp"
 #include "vaura/rendering/canvas.hpp"
 #include "vaura/tree/render_object.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <cmath>
 #include <algorithm>
 #include <sstream>
@@ -63,8 +63,8 @@ class RenderSVPicker : public RenderBox {
 public:
     float hue=0, sat=1, val=1, pw, ph;
     RenderSVPicker(float w,float h):pw(w),ph(h){
-        YGNodeStyleSetWidth(yogaNode(),w);
-        YGNodeStyleSetHeight(yogaNode(),h);
+        ANUNodeStyleSetWidth(anuNode(),w);
+        ANUNodeStyleSetHeight(anuNode(),h);
     }
     void paint(PaintContext& ctx) override {
         auto& c = ctx.canvas;
@@ -102,7 +102,7 @@ class RenderHueStrip : public RenderBox {
 public:
     float sw2,sh2;
     RenderHueStrip(float w,float h):sw2(w),sh2(h){
-        YGNodeStyleSetWidth(yogaNode(),w); YGNodeStyleSetHeight(yogaNode(),h);
+        ANUNodeStyleSetWidth(anuNode(),w); ANUNodeStyleSetHeight(anuNode(),h);
     }
     void paint(PaintContext& ctx) override {
         const int S=60; float cw=sw2/S;
@@ -166,10 +166,10 @@ public:
         Color cur=hsvToColor(hue,sat,val,alpha);
 
         auto col=std::make_shared<FlexBox>();
-        col->flexDirection(YGFlexDirectionColumn)
+        col->direction(FlexDirection::Column)
             .width(cfg.width)
             .backgroundColor(cfg.background_color)
-            .padding(YGEdgeAll,12);
+            .padding(Edge::All,12);
 
         // SV picker (mouse-drag to pick saturation+value)
         auto sv_widget=std::make_shared<SVPickerWidget>(hue,sat,val,sv_pw,sv_ph);
@@ -193,12 +193,12 @@ public:
             },
         });
         auto hue_wrap=std::make_shared<FlexBox>();
-        hue_wrap->margin(YGEdgeTop,10).borderRadius(8.0f).child(hue_gd);
+        hue_wrap->margin(Edge::Top,10).borderRadius(8.0f).child(hue_gd);
         col->child(hue_wrap);
 
         // Hue rough selector via tapping hue strip (use row of tappable swatches)
         auto hue_btns=std::make_shared<FlexBox>();
-        hue_btns->flexDirection(YGFlexDirectionRow).margin(YGEdgeTop,8).flexWrap(YGWrapWrap);
+        hue_btns->direction(FlexDirection::Row).margin(Edge::Top,8).wrap(FlexWrap::Wrap);
         for(int hi=0;hi<12;++hi){
             float h2=hi*30.0f;
             Color swc=hsvToColor(h2,1,1,1);
@@ -215,7 +215,7 @@ public:
                 .on_tap=[this,h2c](){setState([this,h2c]{hue=h2c;});notify();},
             });
             auto sw_wrap=std::make_shared<FlexBox>();
-            sw_wrap->margin(YGEdgeRight,2).child(sw);
+            sw_wrap->margin(Edge::Right,2).child(sw);
             hue_btns->child(sw_wrap);
         }
         col->child(hue_btns);
@@ -223,7 +223,7 @@ public:
         // Alpha slider (row of semi-transparent swatches)
         if(cfg.show_alpha){
             auto alpha_row=std::make_shared<FlexBox>();
-            alpha_row->flexDirection(YGFlexDirectionRow).margin(YGEdgeTop,8);
+            alpha_row->direction(FlexDirection::Row).margin(Edge::Top,8);
             for(int ai=0;ai<=10;++ai){
                 float av=ai/10.0f;
                 Color ac=hsvToColor(hue,sat,val,av);
@@ -240,7 +240,7 @@ public:
                     .on_tap=[this,avc](){setState([this,avc]{alpha=avc;});notify();},
                 });
                 auto asw_wrap=std::make_shared<FlexBox>();
-                asw_wrap->margin(YGEdgeRight,2).child(asw);
+                asw_wrap->margin(Edge::Right,2).child(asw);
                 alpha_row->child(asw_wrap);
             }
             col->child(alpha_row);
@@ -248,10 +248,10 @@ public:
 
         // Preview swatch + hex label
         auto prev_row=std::make_shared<FlexBox>();
-        prev_row->flexDirection(YGFlexDirectionRow).alignItems(YGAlignCenter).margin(YGEdgeTop,12);
+        prev_row->direction(FlexDirection::Row).align(Align::Center).margin(Edge::Top,12);
 
         auto swatch=std::make_shared<FlexBox>();
-        swatch->width(40).height(40).borderRadius(8).backgroundColor(cur).margin(YGEdgeRight,12);
+        swatch->width(40).height(40).borderRadius(8).backgroundColor(cur).margin(Edge::Right,12);
         prev_row->child(swatch);
 
         if(cfg.show_hex_input){

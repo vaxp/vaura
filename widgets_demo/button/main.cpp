@@ -13,8 +13,8 @@ public:
 
     WidgetPtr build(BuildContext& context) override {
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .gap = 24.0f,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,

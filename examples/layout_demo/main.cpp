@@ -33,7 +33,7 @@ public:
         paint.setColor(color_);
         
         canvas.save();
-        // نقل مؤشر الرسم إلى موقع العنصر الحقيقي (المحسوب بواسطة Yoga)
+        // نقل مؤشر الرسم إلى موقع العنصر الحقيقي (المحسوب بواسطة Anu)
         canvas.translate(context.offset.x, context.offset.y);
         
         // رسم مربع كامل باللون المختار
@@ -51,7 +51,7 @@ private:
 };
 
 int main() {
-    printf("=== Starting Pure Yoga Layout Demo ===\n");
+    printf("=== Starting Pure Anu Layout Demo ===\n");
 
     // 1. تهيئة المنصة (SDL)
     auto platform_res = Platform::create();
@@ -60,7 +60,7 @@ int main() {
 
     // 2. إنشاء النافذة
     WindowConfig config;
-    config.title = "VAURA - Pure Yoga Layout & Skia Paint";
+    config.title = "VAURA - Pure Anu Layout & Skia Paint";
     config.width = 800;
     config.height = 600;
 
@@ -92,11 +92,11 @@ int main() {
     Size current_size = window->getDrawableSize();
 
     // =========================================================================
-    // 4. بناء شجرة التخطيط (Render Tree) باستخدام Yoga النقي (بدون Widgets!)
+    // 4. بناء شجرة التخطيط (Render Tree) باستخدام Anu النقي (بدون Widgets!)
     // =========================================================================
 
     auto root = std::make_unique<RenderFlex>();
-    // استخدام دوال Yoga الأصلية
+    // استخدام دوال Anu الأصلية
     root->layoutNode().setWidthPercent(100);
     root->layoutNode().setHeightPercent(100);
     root->layoutNode().setFlexDirection(FlexDirection::Row); // عرض أفقي
@@ -118,7 +118,7 @@ int main() {
     box3->layoutNode().setWidth(150);
     box3->layoutNode().setHeight(150);
 
-    // إضافة الأبناء إلى الجذر (Yoga سيتولى ربط العقد داخلياً)
+    // إضافة الأبناء إلى الجذر (Anu سيتولى ربط العقد داخلياً)
     root->addChild(box1.get());
     root->addChild(box2.get());
     root->addChild(box3.get());
@@ -139,7 +139,7 @@ int main() {
         }
 
         // --- أ. مرحلة التخطيط (Layout Phase) ---
-        // استدعاء جذري لـ Yoga ليحسب كل الشجرة، ثم نسخ النتائج (sync)
+        // استدعاء جذري لـ Anu ليحسب كل الشجرة، ثم نسخ النتائج (sync)
         Size win_size = window->getSize();
         root->layout(win_size.width, win_size.height);
 
@@ -158,7 +158,7 @@ int main() {
                 1.0f
             };
 
-            // رسم الشجرة بناءً على المواقع التي حسبها Yoga
+            // رسم الشجرة بناءً على المواقع التي حسبها Anu
             root->paint(paint_ctx);
 
             context->flush();

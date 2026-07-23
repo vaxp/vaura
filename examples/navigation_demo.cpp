@@ -58,7 +58,7 @@ public:
 
         // ── Main content area ─────────────────────────────────
         auto main_col = std::make_shared<FlexBox>();
-        main_col->flexDirection(YGFlexDirectionColumn).flexGrow(1.0f).padding(YGEdgeAll, 24);
+        main_col->direction(FlexDirection::Column).flexGrow(1.0f).padding(Edge::All, 24);
 
         // Breadcrumb
         std::vector<BreadcrumbItem> crumbs = {
@@ -74,7 +74,7 @@ public:
 
         // Page title
         auto title_box = std::make_shared<FlexBox>();
-        title_box->margin(YGEdgeTop, 20).margin(YGEdgeBottom, 24);
+        title_box->margin(Edge::Top, 20).margin(Edge::Bottom, 24);
         title_box->child(Text(pages[nav_index], {
             .font_size = 28, .color = 0xFFF8FAFC, .weight = TextStyle::Bold
         }));
@@ -84,11 +84,11 @@ public:
         if (nav_index == 2) {
             main_col->child(Text("Project Setup Wizard", {.font_size = 16, .color = 0xFF94A3B8}));
             auto sw = std::make_shared<FlexBox>();
-            sw->margin(YGEdgeTop, 16).width(680);
+            sw->margin(Edge::Top, 16).width(680);
 
             auto step_content = [](const char* msg) {
                 auto f = std::make_shared<FlexBox>();
-                f->padding(YGEdgeAll, 12);
+                f->padding(Edge::All, 12);
                 f->child(Text(msg, {.font_size=14, .color=0xFFCBD5E1}));
                 return std::static_pointer_cast<Widget>(f);
             };
@@ -128,9 +128,9 @@ public:
 
         // ── FAB ───────────────────────────────────────────────
         auto fab_wrap = std::make_shared<FlexBox>();
-        fab_wrap->positionType(YGPositionTypeAbsolute)
-                 .position(YGEdgeBottom, 24)
-                 .position(YGEdgeRight, 24);
+        fab_wrap->positionType(PositionType::Absolute)
+                 .position(Edge::Bottom, 24)
+                 .position(Edge::Right, 24);
         fab_wrap->child(FAB({
             .icon      = Icon(Icons::Plus, {.size=22,.color=0xFFFFFFFF}),
             .label     = (nav_index == 0) ? "New" : "",
@@ -139,17 +139,17 @@ public:
         }));
 
         // Force a RowReverse direction to see if this flips the layout on the user's system
-        root->flexDirection(YGFlexDirectionRowReverse);
+        root->direction(FlexDirection::RowReverse);
         root->child(rail).child(main_col).child(fab_wrap);
 
         // ── Drawer overlay ────────────────────────────────────
         if (drawer_open) {
             auto drawer_col = std::make_shared<FlexBox>();
-            drawer_col->flexDirection(YGFlexDirectionColumn).padding(YGEdgeAll, 20);
+            drawer_col->direction(FlexDirection::Column).padding(Edge::All, 20);
             drawer_col->child(Text("Menu", {.font_size=22,.color=0xFFF8FAFC,.weight=TextStyle::Bold}));
             for (int i = 0; i < 4; ++i) {
                 auto row = std::make_shared<FlexBox>();
-                row->height(48).alignItems(YGAlignCenter);
+                row->height(48).align(Align::Center);
                 row->child(Text(pages[i], {.font_size=15,.color=0xFFCBD5E1}));
                 int ci=i;
                 drawer_col->child(GestureDetector({

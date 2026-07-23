@@ -7,10 +7,10 @@
 
 #pragma once
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <layout_engine/node/Node.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 // Round a point value to the nearest physical pixel based on DPI
 // (pointScaleFactor)
@@ -22,8 +22,8 @@ float roundValueToPixelGrid(
 
 // Round the layout results of a node and its subtree to the pixel grid.
 void roundLayoutResultsToPixelGrid(
-    yoga::Node* node,
+    anu::Node* node,
     double absoluteLeft,
     double absoluteTop);
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

@@ -10,8 +10,8 @@ class ContainerDemoState : public State {
 public:
     WidgetPtr build(BuildContext& ctx) override {
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .gap = 60.0f,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
@@ -19,7 +19,7 @@ public:
             .children = {
                 Text("Container Showcase", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}),
                 Row({
-                    .alignItems = YGAlignCenter,
+                    .align = Align::Center,
                     .gap = 40.0f,
                     .children = {
                         // 1. Pill Shape Container
@@ -28,8 +28,8 @@ public:
                             .border_radius = BorderRadius(40.0f), // Half of height
                             .shadow = Shadow{0x603B82F6, 24.0f, {0, 12}},
                             .child = Column({
-                                .justifyContent = YGJustifyCenter,
-                                .alignItems = YGAlignCenter,
+                                .justify = Justify::Center,
+                                .align = Align::Center,
                                 .width = 200.0f,
                                 .height = 80.0f,
                                 .children = {
@@ -45,8 +45,8 @@ public:
                             .border = Border(0xFF334155, 2.0f),
                             .shadow = Shadow{0x80000000, 32.0f, {0, 16}},
                             .child = Column({
-                                .justifyContent = YGJustifyCenter,
-                                .alignItems = YGAlignCenter,
+                                .justify = Justify::Center,
+                                .align = Align::Center,
                                 .width = 180.0f,
                                 .height = 180.0f,
                                 .children = {
@@ -62,8 +62,8 @@ public:
                             .shadow = Shadow{0x508B5CF6, 20.0f, {0, 10}},
                             .clip_content = true,
                             .child = Column({
-                                .justifyContent = YGJustifyCenter,
-                                .alignItems = YGAlignCenter,
+                                .justify = Justify::Center,
+                                .align = Align::Center,
                                 .width = 180.0f,
                                 .height = 180.0f,
                                 .backgroundColor = 0xFF8B5CF6, // Violet 500

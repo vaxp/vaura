@@ -11,7 +11,7 @@
 #include "vaura/tree/build_context.hpp"
 #include "vaura/animation/animation_controller.hpp"
 #include "vaura/animation/ticker.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 namespace vaura {
 
@@ -63,14 +63,14 @@ public:
 
         // ── Build panel ───────────────────────────────────────
         auto panel_col = std::make_shared<FlexBox>();
-        panel_col->flexDirection(YGFlexDirectionColumn)
-                  .padding(YGEdgeVertical, 4);
+        panel_col->direction(FlexDirection::Column)
+                  .padding(Edge::Vertical, 4);
 
         int idx = 0;
         for (auto& item : cfg.items) {
             if (item.is_separator) {
                 auto sep = std::make_shared<FlexBox>();
-                sep->height(1).margin(YGEdgeVertical, 4).backgroundColor(cfg.separator_color);
+                sep->height(1).margin(Edge::Vertical, 4).backgroundColor(cfg.separator_color);
                 panel_col->child(sep);
                 ++idx;
                 continue;
@@ -83,17 +83,17 @@ public:
                            :                  cfg.text_color;
 
             auto item_row = std::make_shared<FlexBox>();
-            item_row->flexDirection(YGFlexDirectionRow)
-                     .alignItems(YGAlignCenter)
+            item_row->direction(FlexDirection::Row)
+                     .align(Align::Center)
                      .height(cfg.item_height)
-                     .padding(YGEdgeLeft, 12)
-                     .padding(YGEdgeRight, 16)
+                     .padding(Edge::Left, 12)
+                     .padding(Edge::Right, 16)
                      .backgroundColor(item_bg);
 
             if (item.icon) {
                 auto iw = std::make_shared<FlexBox>();
-                iw->margin(YGEdgeRight, 10).width(18).height(18)
-                  .justifyContent(YGJustifyCenter).alignItems(YGAlignCenter)
+                iw->margin(Edge::Right, 10).width(18).height(18)
+                  .justify(Justify::Center).align(Align::Center)
                   .child(item.icon);
                 item_row->child(iw);
             }
@@ -148,15 +148,15 @@ public:
         }
 
         auto panel_wrapper = std::make_shared<FlexBox>();
-        panel_wrapper->positionType(YGPositionTypeAbsolute)
-                      .position(YGEdgeTop,  top_offset)
-                      .position(YGEdgeLeft, left_offset);
+        panel_wrapper->positionType(PositionType::Absolute)
+                      .position(Edge::Top,  top_offset)
+                      .position(Edge::Left, left_offset);
         panel_wrapper->child(faded_panel);
 
         // Backdrop to dismiss
         auto backdrop = std::make_shared<FlexBox>();
-        backdrop->positionType(YGPositionTypeAbsolute)
-                 .position(YGEdgeAll, 0.0f)
+        backdrop->positionType(PositionType::Absolute)
+                 .position(Edge::All, 0.0f)
                  .widthPercent(100)
                  .heightPercent(100);
         auto backdrop_gd = gesture_detector({
@@ -166,7 +166,7 @@ public:
 
         // Root
         auto root = std::make_shared<FlexBox>();
-        root->flexDirection(YGFlexDirectionColumn);
+        root->direction(FlexDirection::Column);
         root->child(anchor_gd);
         root->child(backdrop_gd);
         root->child(panel_wrapper);

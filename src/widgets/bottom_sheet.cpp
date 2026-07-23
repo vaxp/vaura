@@ -21,7 +21,7 @@
 #include "vaura/overlay/overlay.hpp"
 #include "vaura/animation/animation_controller.hpp"
 #include "vaura/animation/ticker.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <cmath>
 
 namespace vaura {
@@ -91,8 +91,8 @@ public:
         Color   faded_bd = (cfg.backdrop_color & 0x00FFFFFF) | (static_cast<Color>(bd_alpha) << 24);
 
         auto backdrop_box = std::make_shared<FlexBox>();
-        backdrop_box->positionType(YGPositionTypeAbsolute)
-                     .position(YGEdgeAll, 0.0f)
+        backdrop_box->positionType(PositionType::Absolute)
+                     .position(Edge::All, 0.0f)
                      .widthPercent(100)
                      .heightPercent(100)
                      .backgroundColor(faded_bd);
@@ -107,15 +107,15 @@ public:
 
         // ── Sheet Panel ───────────────────────────────────────
         auto panel_col = std::make_shared<FlexBox>();
-        panel_col->flexDirection(YGFlexDirectionColumn)
+        panel_col->direction(FlexDirection::Column)
                   .widthPercent(100)
-                  .alignItems(YGAlignCenter);
+                  .align(Align::Center);
 
         if (cfg.show_handle) {
             auto handle = std::make_shared<FlexBox>();
             handle->width(40).height(4)
-                   .margin(YGEdgeTop, 10)
-                   .margin(YGEdgeBottom, 8)
+                   .margin(Edge::Top, 10)
+                   .margin(Edge::Bottom, 8)
                    .backgroundColor(cfg.handle_color)
                    .borderRadius(2.0f);
             panel_col->child(handle);
@@ -124,9 +124,9 @@ public:
         if (cfg.child) {
             auto content_wrap = std::make_shared<FlexBox>();
             content_wrap->widthPercent(100)
-                          .padding(YGEdgeLeft, 16)
-                          .padding(YGEdgeRight, 16)
-                          .padding(YGEdgeBottom, 24)
+                          .padding(Edge::Left, 16)
+                          .padding(Edge::Right, 16)
+                          .padding(Edge::Bottom, 24)
                           .child(cfg.child);
             panel_col->child(content_wrap);
         }
@@ -149,9 +149,9 @@ public:
         });
 
         auto sheet_wrapper = std::make_shared<FlexBox>();
-        sheet_wrapper->positionType(YGPositionTypeAbsolute)
-                      .position(YGEdgeBottom, 0.0f)
-                      .position(YGEdgeLeft, 0.0f)
+        sheet_wrapper->positionType(PositionType::Absolute)
+                      .position(Edge::Bottom, 0.0f)
+                      .position(Edge::Left, 0.0f)
                       .widthPercent(100);
         sheet_wrapper->child(transformed_sheet);
 

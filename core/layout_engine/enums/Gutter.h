@@ -10,15 +10,15 @@
 #pragma once
 
 #include <cstdint>
-#include <layout_engine/YGEnums.h>
-#include <layout_engine/enums/YogaEnums.h>
+#include <layout_engine/AnuEnums.h>
+#include <layout_engine/enums/AnuEnums.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 enum class Gutter : uint8_t {
-  Column = YGGutterColumn,
-  Row = YGGutterRow,
-  All = YGGutterAll,
+  Column = ANUGutterColumn,
+  Row = ANUGutterRow,
+  All = ANUGutterAll,
 };
 
 template <>
@@ -26,16 +26,16 @@ constexpr int32_t ordinalCount<Gutter>() {
   return 3;
 }
 
-constexpr Gutter scopedEnum(YGGutter unscoped) {
+constexpr Gutter scopedEnum(ANUGutter unscoped) {
   return static_cast<Gutter>(unscoped);
 }
 
-constexpr YGGutter unscopedEnum(Gutter scoped) {
-  return static_cast<YGGutter>(scoped);
+constexpr ANUGutter unscopedEnum(Gutter scoped) {
+  return static_cast<ANUGutter>(scoped);
 }
 
 inline const char* toString(Gutter e) {
-  return YGGutterToString(unscopedEnum(e));
+  return ANUGutterToString(unscopedEnum(e));
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

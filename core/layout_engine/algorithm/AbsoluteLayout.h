@@ -10,12 +10,12 @@
 #include <layout_engine/event/event.h>
 #include <layout_engine/node/Node.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 void layoutAbsoluteChild(
-    const yoga::Node* containingNode,
-    const yoga::Node* node,
-    yoga::Node* child,
+    const anu::Node* containingNode,
+    const anu::Node* node,
+    anu::Node* child,
     float containingBlockWidth,
     float containingBlockHeight,
     SizingMode widthMode,
@@ -26,8 +26,8 @@ void layoutAbsoluteChild(
 
 // Returns if some absolute descendant has new layout
 bool layoutAbsoluteDescendants(
-    yoga::Node* containingNode,
-    yoga::Node* currentNode,
+    anu::Node* containingNode,
+    anu::Node* currentNode,
     SizingMode widthSizingMode,
     Direction currentNodeDirection,
     LayoutData& layoutMarkerData,
@@ -38,4 +38,4 @@ bool layoutAbsoluteDescendants(
     float containingNodeAvailableInnerWidth,
     float containingNodeAvailableInnerHeight);
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

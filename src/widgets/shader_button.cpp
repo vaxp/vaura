@@ -6,7 +6,7 @@
 #include "vaura/animation/animation_controller.hpp"
 #include "vaura/widgets/gesture_detector.hpp"
 #include "vaura/widgets/flexbox.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <chrono>
 
 #include <include/core/SkCanvas.h>
@@ -138,19 +138,19 @@ public:
         rs.pressed = pressed;
         
         if (config.width >= 0) {
-            YGNodeStyleSetWidth(rs.yogaNode(), config.width);
+            ANUNodeStyleSetWidth(rs.anuNode(), config.width);
         } else {
-            YGNodeStyleSetWidthAuto(rs.yogaNode());
+            ANUNodeStyleSetWidthAuto(rs.anuNode());
         }
         
         if (config.height >= 0) {
-            YGNodeStyleSetHeight(rs.yogaNode(), config.height);
+            ANUNodeStyleSetHeight(rs.anuNode(), config.height);
         } else {
-            YGNodeStyleSetHeightAuto(rs.yogaNode());
+            ANUNodeStyleSetHeightAuto(rs.anuNode());
         }
         
-        YGNodeStyleSetJustifyContent(rs.yogaNode(), YGJustifyCenter);
-        YGNodeStyleSetAlignItems(rs.yogaNode(), YGAlignCenter);
+        ANUNodeStyleSetJustifyContent(rs.anuNode(), static_cast<ANUJustify>(Justify::Center));
+        ANUNodeStyleSetAlignItems(rs.anuNode(), static_cast<ANUAlign>(Align::Center));
         
         rs.markNeedsLayout();
         rs.markNeedsPaint();

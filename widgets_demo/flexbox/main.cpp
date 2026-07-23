@@ -8,9 +8,9 @@
 using namespace vaura;
 
 class FlexBoxDemoState : public State {
-    YGFlexDirection current_dir = YGFlexDirectionRow;
-    YGJustify current_justify = YGJustifySpaceEvenly;
-    YGAlign current_align = YGAlignCenter;
+    FlexDirection current_dir = FlexDirection::Row;
+    Justify current_justify = Justify::SpaceEvenly;
+    Align current_align = Align::Center;
     
 public:
     WidgetPtr build(BuildContext& ctx) override {
@@ -21,17 +21,17 @@ public:
             .children = {
                 // Control Panel
                 Row({
-                    .justifyContent = YGJustifyCenter,
-                    .alignItems = YGAlignCenter,
+                    .justify = Justify::Center,
+                    .align = Align::Center,
                     .widthPercent = 100.0f,
-                    .padding = std::pair{YGEdgeAll, 20.0f},
+                    .padding = std::pair{Edge::All, 20.0f},
                     .backgroundColor = 0xFF0F172A,
                     .children = {
                         Button({
                             .child = Text("Toggle Direction", {.font_size = 14.0f, .color = 0xFFFFFFFF}),
                             .on_pressed = [this]() {
                                 setState([this]() {
-                                    current_dir = (current_dir == YGFlexDirectionRow) ? YGFlexDirectionColumn : YGFlexDirectionRow;
+                                    current_dir = (current_dir == FlexDirection::Row) ? FlexDirection::Column : FlexDirection::Row;
                                 });
                             },
                             .color = 0xFF3B82F6
@@ -41,9 +41,9 @@ public:
                 
                 // Demo Area
                 createFlexBox({
-                    .flexDirection = current_dir,
-                    .justifyContent = current_justify,
-                    .alignItems = current_align,
+                    .direction = current_dir,
+                    .justify = current_justify,
+                    .align = current_align,
                     .widthPercent = 100.0f,
                     .flexGrow = 1.0f,
                     .children = []() {
@@ -52,11 +52,11 @@ public:
                         for (int i = 0; i < 5; ++i) {
                             boxes.push_back(
                                 Column({
-                                    .justifyContent = YGJustifyCenter,
-                                    .alignItems = YGAlignCenter,
+                                    .justify = Justify::Center,
+                                    .align = Align::Center,
                                     .width = 80.0f,
                                     .height = 80.0f,
-                                    .margin = std::pair{YGEdgeAll, 10.0f},
+                                    .margin = std::pair{Edge::All, 10.0f},
                                     .backgroundColor = colors[i],
                                     .borderRadius = 12.0f,
                                     .children = {

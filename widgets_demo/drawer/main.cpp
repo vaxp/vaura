@@ -16,7 +16,7 @@ public:
         // Navigation Links (Simulated)
         auto make_nav_link = [](const std::string& label, Color txt_color) {
             return Column({
-                .margin = std::pair{YGEdgeTop, 12.0f},
+                .margin = std::pair{Edge::Top, 12.0f},
                 .children = {
                     Button({
                         .child = Text(label, {.font_size = 16.0f, .color = txt_color}),
@@ -32,12 +32,12 @@ public:
         auto drawer_content = Column({
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
-            .padding = std::pair{YGEdgeAll, 24.0f},
+            .padding = std::pair{Edge::All, 24.0f},
             .children = {
                 // Profile Section
                 Row({
-                    .alignItems = YGAlignCenter,
-                    .margin = std::pair{YGEdgeBottom, 24.0f},
+                    .align = Align::Center,
+                    .margin = std::pair{Edge::Bottom, 24.0f},
                     .children = {
                         Avatar({
                             .size = 64.0f,
@@ -45,8 +45,8 @@ public:
                             .initials = "JD"
                         }),
                         Column({
-                            .justifyContent = YGJustifyCenter,
-                            .margin = std::pair{YGEdgeLeft, 16.0f},
+                            .justify = Justify::Center,
+                            .margin = std::pair{Edge::Left, 16.0f},
                             .children = {
                                 Text("John Doe", {.font_size = 18.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}),
                                 Text("john@vaura.dev", {.font_size = 14.0f, .color = 0xFF94A3B8})
@@ -64,8 +64,8 @@ public:
 
         // --- Main Body ---
         auto body = Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF0F172A,
@@ -73,7 +73,7 @@ public:
                 Text("Main Screen", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}),
                 Text("Click the button below to open the drawer.", {.font_size = 16.0f, .color = 0xFF94A3B8}),
                 Column({
-                    .margin = std::pair{YGEdgeTop, 32.0f},
+                    .margin = std::pair{Edge::Top, 32.0f},
                     .children = {
                         Button({
                             .child = Text("Open Drawer", {.font_size = 16.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}),

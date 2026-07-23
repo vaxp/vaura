@@ -15,7 +15,7 @@ public:
     WidgetPtr build(BuildContext& ctx) override {
         auto make_content = [](const std::string& text_val) {
             return Column({
-                .padding = std::pair{YGEdgeAll, 16.0f},
+                .padding = std::pair{Edge::All, 16.0f},
                 .children = { Text(text_val, {.font_size = 14.0f, .color = 0xFF94A3B8}) }
             });
         };
@@ -52,14 +52,14 @@ public:
         };
 
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF0F172A,
             .children = {
                 Column({
-                    .margin = std::pair{YGEdgeBottom, 40.0f},
+                    .margin = std::pair{Edge::Bottom, 40.0f},
                     .children = {
                         Text("Settings FAQ", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold})
                     }

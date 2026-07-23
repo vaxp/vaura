@@ -15,18 +15,18 @@ public:
         root->widthPercent(100)
             .heightPercent(100)
             .backgroundColor(0xFF0F172A)
-            .alignItems(YGAlignCenter)
-            .justifyContent(YGJustifyCenter);
+            .align(Align::Center)
+            .justify(Justify::Center);
 
         auto content = std::make_shared<FlexBox>();
-        content->flexDirection(YGFlexDirectionRow)
-               .alignItems(YGAlignCenter)
-               .justifyContent(YGJustifyCenter);
+        content->direction(FlexDirection::Row)
+               .align(Align::Center)
+               .justify(Justify::Center);
 
         // --- Galaxy Widget ---
         auto galaxy_container = std::make_shared<FlexBox>();
-        galaxy_container->alignItems(YGAlignCenter)
-                        .margin(YGEdgeRight, 50);
+        galaxy_container->align(Align::Center)
+                        .margin(Edge::Right, 50);
                         
         auto galaxy_title = Text("Galaxy Spinner", {
             .font_size = 18,
@@ -35,15 +35,15 @@ public:
         });
         
         auto galaxy_text_container = std::make_shared<FlexBox>();
-        galaxy_text_container->margin(YGEdgeBottom, 20).child(galaxy_title);
+        galaxy_text_container->margin(Edge::Bottom, 20).child(galaxy_title);
         
         galaxy_container->child(galaxy_text_container);
         galaxy_container->child(GalaxyProgress(150.0f));
 
         // --- Liquid Wave Widget ---
         auto liquid_container = std::make_shared<FlexBox>();
-        liquid_container->alignItems(YGAlignCenter)
-                        .margin(YGEdgeLeft, 50);
+        liquid_container->align(Align::Center)
+                        .margin(Edge::Left, 50);
                         
         auto liquid_title = Text("Liquid Wave Spinner", {
             .font_size = 18,
@@ -52,7 +52,7 @@ public:
         });
         
         auto liquid_text_container = std::make_shared<FlexBox>();
-        liquid_text_container->margin(YGEdgeBottom, 20).child(liquid_title);
+        liquid_text_container->margin(Edge::Bottom, 20).child(liquid_title);
         
         liquid_container->child(liquid_text_container);
         liquid_container->child(LiquidProgress(150.0f));

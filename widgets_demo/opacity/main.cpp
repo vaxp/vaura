@@ -15,14 +15,14 @@ class OpacityDemoState : public State {
 public:
     WidgetPtr build(BuildContext& ctx) override {
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF0F172A,
             .children = {
                 Column({
-                    .margin = std::pair{YGEdgeBottom, 40.0f},
+                    .margin = std::pair{Edge::Bottom, 40.0f},
                     .children = {
                         Text("Opacity Control", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold})
                     }
@@ -30,7 +30,7 @@ public:
                 
                 // Control Panel
                 Column({
-                    .margin = std::pair{YGEdgeBottom, 40.0f},
+                    .margin = std::pair{Edge::Bottom, 40.0f},
                     .children = {
                         Slider({
                             .value = current_opacity,
@@ -52,11 +52,11 @@ public:
                     .elevation = 10.0f,
                     .padding = {20, 20, 20, 20}
                 }, Column({
-                    .alignItems = YGAlignCenter,
+                    .align = Align::Center,
                     .children = {
                         Column({
-                            .justifyContent = YGJustifyCenter,
-                            .alignItems = YGAlignCenter,
+                            .justify = Justify::Center,
+                            .align = Align::Center,
                             .width = 200.0f,
                             .height = 200.0f,
                             .backgroundColor = 0xFF3B82F6, // Blue

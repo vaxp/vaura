@@ -10,14 +10,14 @@
 #include <layout_engine/node/LayoutResults.h>
 #include <layout_engine/numeric/Comparison.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 bool LayoutResults::operator==(LayoutResults layout) const {
-  bool isEqual = yoga::inexactEquals(position_, layout.position_) &&
-      yoga::inexactEquals(dimensions_, layout.dimensions_) &&
-      yoga::inexactEquals(margin_, layout.margin_) &&
-      yoga::inexactEquals(border_, layout.border_) &&
-      yoga::inexactEquals(padding_, layout.padding_) &&
+  bool isEqual = anu::inexactEquals(position_, layout.position_) &&
+      anu::inexactEquals(dimensions_, layout.dimensions_) &&
+      anu::inexactEquals(margin_, layout.margin_) &&
+      anu::inexactEquals(border_, layout.border_) &&
+      anu::inexactEquals(padding_, layout.padding_) &&
       direction() == layout.direction() &&
       hadOverflow() == layout.hadOverflow() &&
       lastOwnerDirection == layout.lastOwnerDirection &&
@@ -31,13 +31,13 @@ bool LayoutResults::operator==(LayoutResults layout) const {
     isEqual = isEqual && cachedMeasurements[i] == layout.cachedMeasurements[i];
   }
 
-  if (!yoga::isUndefined(measuredDimensions_[0]) ||
-      !yoga::isUndefined(layout.measuredDimensions_[0])) {
+  if (!anu::isUndefined(measuredDimensions_[0]) ||
+      !anu::isUndefined(layout.measuredDimensions_[0])) {
     isEqual =
         isEqual && (measuredDimensions_[0] == layout.measuredDimensions_[0]);
   }
-  if (!yoga::isUndefined(measuredDimensions_[1]) ||
-      !yoga::isUndefined(layout.measuredDimensions_[1])) {
+  if (!anu::isUndefined(measuredDimensions_[1]) ||
+      !anu::isUndefined(layout.measuredDimensions_[1])) {
     isEqual =
         isEqual && (measuredDimensions_[1] == layout.measuredDimensions_[1]);
   }
@@ -45,4 +45,4 @@ bool LayoutResults::operator==(LayoutResults layout) const {
   return isEqual;
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

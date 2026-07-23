@@ -17,8 +17,8 @@ public:
         snprintf(buf, sizeof(buf), "Selected Time: %02d:%02d", current_hour, current_minute);
 
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF0F172A,

@@ -3,7 +3,7 @@
 
 #include "vaura/widgets/scroll_view.hpp"
 #include "vaura/rendering/canvas.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <algorithm>
 
 namespace vaura {
@@ -16,10 +16,10 @@ public:
 
     RenderScrollView() {
         // Allow children to overflow vertically without increasing the container's height
-        YGNodeStyleSetOverflow(yogaNode(), YGOverflowScroll);
+        ANUNodeStyleSetOverflow(anuNode(), static_cast<ANUOverflow>(Overflow::Scroll));
         // ScrollView should expand to fill remaining space, and shrink if space is tight
-        YGNodeStyleSetFlexGrow(yogaNode(), 1.0f);
-        YGNodeStyleSetFlexShrink(yogaNode(), 1.0f);
+        ANUNodeStyleSetFlexGrow(anuNode(), 1.0f);
+        ANUNodeStyleSetFlexShrink(anuNode(), 1.0f);
     }
 
     void syncLayout() override {
@@ -55,14 +55,14 @@ public:
 
         // Paint child with translation offset
         PaintContext child_ctx = context;
-        // The child's local offset (from Yoga) is already handled in hitTestChildren / paint normally?
+        // The child's local offset (from Anu) is already handled in hitTestChildren / paint normally?
         // Wait, normally `paint` iterates children and does:
         // `PaintContext child_ctx = context.withOffset(child->offset());`
         // We must do the same, BUT subtract the scroll offset!
-        Point child_yoga_offset = children_[0]->offset();
+        Point child_anu_offset = children_[0]->offset();
         Point final_offset = {
-            child_yoga_offset.x,
-            child_yoga_offset.y - scroll_y_
+            child_anu_offset.x,
+            child_anu_offset.y - scroll_y_
         };
 
         PaintContext scrolled_ctx = context.withOffset(final_offset);

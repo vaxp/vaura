@@ -12,7 +12,7 @@
 #include "vaura/widgets/scroll_view.hpp"
 #include "vaura/state/state.hpp"
 #include "vaura/tree/build_context.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <numeric>
 
 namespace vaura {
@@ -40,12 +40,12 @@ public:
         if (cfg.show_row_numbers) total_w += 48.0f;
 
         auto table_col = std::make_shared<FlexBox>();
-        table_col->flexDirection(YGFlexDirectionColumn).width(total_w);
+        table_col->direction(FlexDirection::Column).width(total_w);
 
         // ── Header row ────────────────────────────────────────
         auto header_row = std::make_shared<FlexBox>();
-        header_row->flexDirection(YGFlexDirectionRow)
-                   .alignItems(YGAlignCenter)
+        header_row->direction(FlexDirection::Row)
+                   .align(Align::Center)
                    .width(total_w)
                    .height(cfg.header_height)
                    .backgroundColor(cfg.header_bg);
@@ -53,7 +53,7 @@ public:
         if (cfg.show_row_numbers) {
             auto num_hdr = std::make_shared<FlexBox>();
             num_hdr->width(48).height(cfg.header_height)
-                    .justifyContent(YGJustifyCenter).alignItems(YGAlignCenter)
+                    .justify(Justify::Center).align(Align::Center)
                     .child(text("#", {.font_size = cfg.font_size, .color = cfg.header_text_color,
                                       .weight = TextStyle::SemiBold}));
             header_row->child(num_hdr);
@@ -61,7 +61,7 @@ public:
         if (cfg.show_checkbox) {
             auto chk_hdr = std::make_shared<FlexBox>();
             chk_hdr->width(48).height(cfg.header_height)
-                    .justifyContent(YGJustifyCenter).alignItems(YGAlignCenter);
+                    .justify(Justify::Center).align(Align::Center);
             header_row->child(chk_hdr);
         }
 
@@ -71,12 +71,12 @@ public:
             bool is_sorted = (cfg.sort_column_index == ci);
 
             auto hdr_cell = std::make_shared<FlexBox>();
-            hdr_cell->flexDirection(YGFlexDirectionRow)
-                     .alignItems(YGAlignCenter)
+            hdr_cell->direction(FlexDirection::Row)
+                     .align(Align::Center)
                      .width(cw)
                      .height(cfg.header_height)
-                     .padding(YGEdgeLeft, 12)
-                     .padding(YGEdgeRight, 8);
+                     .padding(Edge::Left, 12)
+                     .padding(Edge::Right, 8);
 
             auto lbl = text(col.label, {
                 .font_size = cfg.font_size,
@@ -93,7 +93,7 @@ public:
                     {.size = 14.0f, .color = is_sorted ? cfg.sort_icon_color : cfg.header_text_color});
 
                 auto iw = std::make_shared<FlexBox>();
-                iw->margin(YGEdgeLeft, 4).child(sort_icon_widget);
+                iw->margin(Edge::Left, 4).child(sort_icon_widget);
                 hdr_cell->child(iw);
 
                 int ci2 = ci;
@@ -125,15 +125,15 @@ public:
                          :                  cfg.alt_row_color;
 
             auto data_row = std::make_shared<FlexBox>();
-            data_row->flexDirection(YGFlexDirectionRow)
-                     .alignItems(YGAlignCenter)
+            data_row->direction(FlexDirection::Row)
+                     .align(Align::Center)
                      .width(total_w)
                      .height(cfg.row_height)
                      .backgroundColor(row_bg);
 
             // Divider (top border)
             auto div_wrap = std::make_shared<FlexBox>();
-            div_wrap->flexDirection(YGFlexDirectionColumn).width(total_w);
+            div_wrap->direction(FlexDirection::Column).width(total_w);
 
             if (ri > 0) {
                 auto divider = std::make_shared<FlexBox>();
@@ -144,7 +144,7 @@ public:
             if (cfg.show_row_numbers) {
                 auto num_cell = std::make_shared<FlexBox>();
                 num_cell->width(48).height(cfg.row_height)
-                         .justifyContent(YGJustifyCenter).alignItems(YGAlignCenter)
+                         .justify(Justify::Center).align(Align::Center)
                          .child(text(std::to_string(ri + 1), {
                              .font_size = cfg.font_size - 1.0f,
                              .color     = 0xFF64748B,
@@ -154,7 +154,7 @@ public:
             if (cfg.show_checkbox) {
                 auto chk_cell = std::make_shared<FlexBox>();
                 chk_cell->width(48).height(cfg.row_height)
-                          .justifyContent(YGJustifyCenter).alignItems(YGAlignCenter);
+                          .justify(Justify::Center).align(Align::Center);
                 int ri2 = ri;
                 bool sel = row.selected;
                 auto fn2 = cfg.on_row_select;
@@ -171,8 +171,8 @@ public:
 
                 auto cell_wrap = std::make_shared<FlexBox>();
                 cell_wrap->width(cw).height(cfg.row_height)
-                          .padding(YGEdgeLeft, 12).padding(YGEdgeRight, 8)
-                          .alignItems(YGAlignCenter);
+                          .padding(Edge::Left, 12).padding(Edge::Right, 8)
+                          .align(Align::Center);
                 if (row.cells[ci]) cell_wrap->child(row.cells[ci]);
                 data_row->child(cell_wrap);
             }

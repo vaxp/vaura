@@ -11,7 +11,6 @@
 #include <include/gpu/gl/GrGLInterface.h>
 #include <vector>
 #include <memory>
-#include <cstdio>
 
 using namespace vaura;
 
@@ -30,7 +29,7 @@ std::unique_ptr<RenderDecoratedBox> createBox(Color color, float radius = 0) {
 
 int main() {
     auto platform = std::move(Platform::create().value());
-    WindowConfig config{"VAURA Torture - Nested & Resize", 800, 600};
+    WindowConfig config{"VAURA - Anu Gallery Demo", 1000, 700};
     auto window = std::move(Window::create(*platform, config).value());
     window->makeCurrent();
 
@@ -52,58 +51,46 @@ int main() {
         return nodes.back().get();
     };
 
-    // Container
-    auto root = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFF1E1E1E)));
+    // Root - Column
+    auto root = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFF222222)));
     root->layoutNode().setWidthPercent(100);
     root->layoutNode().setHeightPercent(100);
+    root->layoutNode().setFlexDirection(FlexDirection::Column);
     root->layoutNode().setPadding(Edge::All, 20);
 
-    // Simulated Scroll (A huge container that overflows)
-    auto scroll = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFF2A2A2A, 10)));
-    scroll->layoutNode().setWidthPercent(100);
-    scroll->layoutNode().setHeightPercent(100);
-    scroll->layoutNode().setFlexDirection(FlexDirection::Column);
-    root->addChild(scroll);
+    // Header
+    auto header = static_cast<RenderDecoratedBox*>(addNode(createBox(0x00000000)));
+    header->layoutNode().setWidthPercent(100);
+    header->layoutNode().setHeight(60);
+    header->layoutNode().setFlexDirection(FlexDirection::Row);
+    header->layoutNode().setJustifyContent(MainAxisAlign::SpaceBetween);
+    header->layoutNode().setAlignItems(CrossAxisAlign::Center);
+    root->addChild(header);
 
-    // Stack (Absolute Positioning Container)
-    auto stack = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFF333333, 10)));
-    stack->layoutNode().setFlexGrow(1.0f); // Takes all available scroll space
-    stack->layoutNode().setMargin(Edge::All, 20);
-    scroll->addChild(stack);
+    auto title = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFFFFFFFF, 4)));
+    title->layoutNode().setWidth(200);
+    title->layoutNode().setHeight(20);
+    header->addChild(title);
 
-    // Absolute element inside Stack
-    auto absBg = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFF550000)));
-    absBg->layoutNode().setPositionType(true);
-    absBg->layoutNode().setPosition(Edge::All, 0); // Fill Stack
-    stack->addChild(absBg);
+    // Grid Area
+    auto grid = static_cast<RenderDecoratedBox*>(addNode(createBox(0x00000000)));
+    grid->layoutNode().setFlexGrow(1.0f);
+    grid->layoutNode().setFlexDirection(FlexDirection::Row);
+    grid->layoutNode().setFlexWrap(true);
+    grid->layoutNode().setJustifyContent(MainAxisAlign::Center);
+    grid->layoutNode().setAlignItems(CrossAxisAlign::Start);
+    root->addChild(grid);
 
-    // Column inside Stack
-    auto column = static_cast<RenderDecoratedBox*>(addNode(createBox(0x00000000))); // Transparent
-    column->layoutNode().setWidthPercent(100);
-    column->layoutNode().setHeightPercent(100);
-    column->layoutNode().setFlexDirection(FlexDirection::Column);
-    column->layoutNode().setJustifyContent(MainAxisAlign::SpaceAround);
-    column->layoutNode().setAlignItems(CrossAxisAlign::Center);
-    stack->addChild(column);
+    // Images
+    int heights[] = {200, 150, 300, 200, 250, 150, 200, 250, 150, 200};
+    Color colors[] = {0xFFEF476F, 0xFFFFD166, 0xFF06D6A0, 0xFF118AB2, 0xFF073B4C};
 
-    // Row inside Column
-    for (int i = 0; i < 5; i++) {
-        auto row = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFF005500, 5)));
-        row->layoutNode().setWidthPercent(80);
-        row->layoutNode().setHeight(50);
-        row->layoutNode().setFlexDirection(FlexDirection::Row);
-        row->layoutNode().setJustifyContent(MainAxisAlign::SpaceBetween);
-        row->layoutNode().setAlignItems(CrossAxisAlign::Center);
-        row->layoutNode().setPadding(Edge::Horizontal, 10);
-        column->addChild(row);
-
-        // Items inside Row
-        for (int j = 0; j < 4; j++) {
-            auto item = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFF000055, 20)));
-            item->layoutNode().setWidth(30);
-            item->layoutNode().setHeight(30);
-            row->addChild(item);
-        }
+    for (int i = 0; i < 10; i++) {
+        auto imgCard = static_cast<RenderDecoratedBox*>(addNode(createBox(colors[i % 5], 10)));
+        imgCard->layoutNode().setWidthPercent(22); // 4 per row with margins
+        imgCard->layoutNode().setHeight(heights[i]);
+        imgCard->layoutNode().setMargin(Edge::All, 10);
+        grid->addChild(imgCard);
     }
 
     bool running = true;
@@ -116,7 +103,6 @@ int main() {
         if (new_size.width != current_size.width || new_size.height != current_size.height) {
             current_size = new_size;
             update_surface();
-            printf("Resized to: %.0fx%.0f. Yoga will recalculate.\n", new_size.width, new_size.height);
         }
 
         Size win_size = window->getSize();

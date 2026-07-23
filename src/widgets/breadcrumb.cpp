@@ -7,7 +7,7 @@
 #include "vaura/widgets/gesture_detector.hpp"
 #include "vaura/state/state.hpp"
 #include "vaura/tree/build_context.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 namespace vaura {
 
@@ -27,9 +27,9 @@ public:
         const auto& cfg = bw->config;
 
         auto row = std::make_shared<FlexBox>();
-        row->flexDirection(YGFlexDirectionRow)
-            .alignItems(YGAlignCenter)
-            .flexWrap(YGWrapWrap);
+        row->direction(FlexDirection::Row)
+            .align(Align::Center)
+            .wrap(FlexWrap::Wrap);
 
         for (int i = 0; i < (int)cfg.items.size(); ++i) {
             const auto& item = cfg.items[i];
@@ -63,11 +63,11 @@ public:
             // Leading icon
             if (item.icon) {
                 auto icon_row = std::make_shared<FlexBox>();
-                icon_row->flexDirection(YGFlexDirectionRow)
-                          .alignItems(YGAlignCenter);
+                icon_row->direction(FlexDirection::Row)
+                          .align(Align::Center);
                 auto iw = std::make_shared<FlexBox>();
-                iw->margin(YGEdgeRight, 4).width(16).height(16)
-                   .justifyContent(YGJustifyCenter).alignItems(YGAlignCenter)
+                iw->margin(Edge::Right, 4).width(16).height(16)
+                   .justify(Justify::Center).align(Align::Center)
                    .child(item.icon);
                 icon_row->child(iw).child(crumb_widget);
                 crumb_widget = icon_row;
@@ -78,7 +78,7 @@ public:
             // Separator (not after last)
             if (!is_last) {
                 auto sep = std::make_shared<FlexBox>();
-                sep->margin(YGEdgeHorizontal, 6)
+                sep->margin(Edge::Horizontal, 6)
                     .child(text(cfg.separator, {
                         .font_size = cfg.font_size,
                         .color     = cfg.separator_color,

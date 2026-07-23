@@ -51,8 +51,8 @@ public:
         root->widthPercent(100)
             .heightPercent(100)
             .backgroundColor(0xFF1E293B)
-            .alignItems(YGAlignCenter)
-            .justifyContent(YGJustifyCenter);
+            .align(Align::Center)
+            .justify(Justify::Center);
 
         float t = animation_.get();
 
@@ -68,8 +68,8 @@ public:
            .height(150)
            .backgroundColor(0xFF38BDF8)
            .borderRadius(20)
-           .alignItems(YGAlignCenter)
-           .justifyContent(YGJustifyCenter);
+           .align(Align::Center)
+           .justify(Justify::Center);
            
         auto text_widget = Text("VAURA", {
             .font_size = 24,

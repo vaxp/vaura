@@ -29,14 +29,14 @@ public:
         root->widthPercent(100)
             .heightPercent(100)
             .backgroundColor(dark_mode_ ? 0xFF0F172A : 0xFFF1F5F9)
-            .alignItems(YGAlignCenter)
-            .padding(YGEdgeTop, 60);
+            .align(Align::Center)
+            .padding(Edge::Top, 60);
 
         auto content = std::make_shared<FlexBox>();
         content->width(400)
                .backgroundColor(dark_mode_ ? 0xFF1E293B : 0xFFFFFFFF)
                .borderRadius(16)
-               .padding(YGEdgeAll, 30);
+               .padding(Edge::All, 30);
 
         auto title = Text("Settings Demo", {
             .font_size = 28,
@@ -45,15 +45,15 @@ public:
         });
         
         auto title_container = std::make_shared<FlexBox>();
-        title_container->margin(YGEdgeBottom, 30).child(title);
+        title_container->margin(Edge::Bottom, 30).child(title);
 
         auto build_switch_row = [this](const std::string& label, bool& value) {
             auto row = std::make_shared<FlexBox>();
             row->widthPercent(100)
-               .flexDirection(YGFlexDirectionRow)
-               .alignItems(YGAlignCenter)
-               .justifyContent(YGJustifySpaceBetween)
-               .margin(YGEdgeBottom, 20);
+               .direction(FlexDirection::Row)
+               .align(Align::Center)
+               .justify(Justify::SpaceBetween)
+               .margin(Edge::Bottom, 20);
 
             auto text_widget = Text(label, {
                 .font_size = 16,
@@ -74,8 +74,8 @@ public:
         auto build_slider_row = [this](const std::string& label, float& value) {
             auto row = std::make_shared<FlexBox>();
             row->widthPercent(100)
-               .flexDirection(YGFlexDirectionColumn)
-               .margin(YGEdgeBottom, 20);
+               .direction(FlexDirection::Column)
+               .margin(Edge::Bottom, 20);
 
             auto text_widget = Text(label, {
                 .font_size = 16,
@@ -83,7 +83,7 @@ public:
             });
 
             auto text_container = std::make_shared<FlexBox>();
-            text_container->margin(YGEdgeBottom, 10).child(text_widget);
+            text_container->margin(Edge::Bottom, 10).child(text_widget);
 
             auto slider_widget = Slider({
                 .value = value,
@@ -105,10 +105,10 @@ public:
 
         auto progress_row = std::make_shared<FlexBox>();
         progress_row->widthPercent(100)
-                    .flexDirection(YGFlexDirectionRow)
-                    .alignItems(YGAlignCenter)
-                    .justifyContent(YGJustifySpaceBetween)
-                    .margin(YGEdgeTop, 20);
+                    .direction(FlexDirection::Row)
+                    .align(Align::Center)
+                    .justify(Justify::SpaceBetween)
+                    .margin(Edge::Top, 20);
         
         auto progress_text = Text("Loading State", {
             .font_size = 16,

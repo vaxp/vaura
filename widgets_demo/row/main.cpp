@@ -10,17 +10,17 @@ class RowDemo : public StatelessWidget {
 public:
     std::string_view typeName() const override { return "RowDemo"; }
 
-    WidgetPtr createRow(YGJustify justify, const std::string& label) {
+    WidgetPtr createRow(Justify justify, const std::string& label) {
         return Column({
-            .margin = std::pair{YGEdgeBottom, 32.0f},
+            .margin = std::pair{Edge::Bottom, 32.0f},
             .children = {
                 Text(label, {.font_size = 18.0f, .color = 0xFF94A3B8, .weight = TextStyle::Bold}),
                 Row({
-                    .justifyContent = justify,
-                    .alignItems = YGAlignCenter,
+                    .justify = justify,
+                    .align = Align::Center,
                     .width = 600.0f,
-                    .padding = std::pair{YGEdgeAll, 16.0f},
-                    .margin = std::pair{YGEdgeTop, 12.0f},
+                    .padding = std::pair{Edge::All, 16.0f},
+                    .margin = std::pair{Edge::Top, 12.0f},
                     .backgroundColor = 0xFF1E293B,
                     .borderRadius = 8.0f,
                     .children = {
@@ -28,13 +28,13 @@ public:
                             .child = Text("Item 1", {.font_size = 14.0f, .color = 0xFFFFFFFF}),
                             .color = 0xFF3B82F6
                         }),
-                        (justify == YGJustifyFlexStart || justify == YGJustifyFlexEnd || justify == YGJustifyCenter) 
+                        (justify == Justify::Start || justify == Justify::End || justify == Justify::Center) 
                             ? Column({.width = 10.0f}) : nullptr,
                         Button({
                             .child = Text("Item 2", {.font_size = 14.0f, .color = 0xFFFFFFFF}),
                             .color = 0xFF10B981
                         }),
-                        (justify == YGJustifyFlexStart || justify == YGJustifyFlexEnd || justify == YGJustifyCenter) 
+                        (justify == Justify::Start || justify == Justify::End || justify == Justify::Center) 
                             ? Column({.width = 10.0f}) : nullptr,
                         Button({
                             .child = Text("Item 3", {.font_size = 14.0f, .color = 0xFFFFFFFF}),
@@ -48,18 +48,18 @@ public:
 
     WidgetPtr build(BuildContext& ctx) override {
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF0F172A,
             .children = {
                 Text("Row & Flex Alignment Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}),
                 Column({.height = 40.0f}),
-                createRow(YGJustifyFlexStart, "MainAxisAlignment: Start"),
-                createRow(YGJustifyCenter, "MainAxisAlignment: Center"),
-                createRow(YGJustifySpaceBetween, "MainAxisAlignment: Space Between"),
-                createRow(YGJustifySpaceEvenly, "MainAxisAlignment: Space Evenly")
+                createRow(Justify::Start, "MainAxisAlignment: Start"),
+                createRow(Justify::Center, "MainAxisAlignment: Center"),
+                createRow(Justify::SpaceBetween, "MainAxisAlignment: Space Between"),
+                createRow(Justify::SpaceEvenly, "MainAxisAlignment: Space Evenly")
             }
         });
     }

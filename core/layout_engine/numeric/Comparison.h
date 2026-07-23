@@ -12,9 +12,9 @@
 #include <cmath>
 #include <concepts>
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 constexpr bool isUndefined(std::floating_point auto value) {
   return value != value;
@@ -35,36 +35,36 @@ constexpr bool isinf(auto value) {
 constexpr auto maxOrDefined(
     std::floating_point auto a,
     std::floating_point auto b) {
-  if (yoga::isDefined(a) && yoga::isDefined(b)) {
+  if (anu::isDefined(a) && anu::isDefined(b)) {
     return std::max(a, b);
   }
-  return yoga::isUndefined(a) ? b : a;
+  return anu::isUndefined(a) ? b : a;
 }
 
 constexpr auto minOrDefined(
     std::floating_point auto a,
     std::floating_point auto b) {
-  if (yoga::isDefined(a) && yoga::isDefined(b)) {
+  if (anu::isDefined(a) && anu::isDefined(b)) {
     return std::min(a, b);
   }
 
-  return yoga::isUndefined(a) ? b : a;
+  return anu::isUndefined(a) ? b : a;
 }
 
 // Custom equality functions using a hardcoded epsilon of 0.0001f, or returning
 // true if both floats are NaN.
 inline bool inexactEquals(float a, float b) {
-  if (yoga::isDefined(a) && yoga::isDefined(b)) {
+  if (anu::isDefined(a) && anu::isDefined(b)) {
     return std::abs(a - b) < 0.0001f;
   }
-  return yoga::isUndefined(a) && yoga::isUndefined(b);
+  return anu::isUndefined(a) && anu::isUndefined(b);
 }
 
 inline bool inexactEquals(double a, double b) {
-  if (yoga::isDefined(a) && yoga::isDefined(b)) {
+  if (anu::isDefined(a) && anu::isDefined(b)) {
     return std::abs(a - b) < 0.0001;
   }
-  return yoga::isUndefined(a) && yoga::isUndefined(b);
+  return anu::isUndefined(a) && anu::isUndefined(b);
 }
 
 template <std::size_t Size, typename ElementT>
@@ -78,4 +78,4 @@ bool inexactEquals(
   return areEqual;
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

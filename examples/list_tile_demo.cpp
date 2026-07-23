@@ -20,12 +20,12 @@ public:
         root->widthPercent(100)
             .heightPercent(100)
             .backgroundColor(0xFF1E293B)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter);
+            .justify(Justify::Center)
+            .align(Align::Center);
 
         auto content = std::make_shared<FlexBox>();
-        content->flexDirection(YGFlexDirectionColumn)
-               .alignItems(YGAlignStretch)
+        content->direction(FlexDirection::Column)
+               .align(Align::Stretch)
                .width(450);
 
         auto title = Text("Settings", {
@@ -35,7 +35,7 @@ public:
         });
         
         auto title_container = std::make_shared<FlexBox>();
-        title_container->margin(YGEdgeBottom, 20).child(title);
+        title_container->margin(Edge::Bottom, 20).child(title);
         content->child(title_container);
 
         // Tile 1

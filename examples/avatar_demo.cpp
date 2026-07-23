@@ -16,19 +16,19 @@ public:
         root->widthPercent(100)
             .heightPercent(100)
             .backgroundColor(0xFF1E293B)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter);
+            .justify(Justify::Center)
+            .align(Align::Center);
 
         auto row = std::make_shared<FlexBox>();
-        row->flexDirection(YGFlexDirectionRow)
-           .alignItems(YGAlignCenter)
-           .justifyContent(YGJustifySpaceEvenly)
+        row->direction(FlexDirection::Row)
+           .align(Align::Center)
+           .justify(Justify::SpaceEvenly)
            .width(500);
 
         // Avatar 1: With Image
         auto av1 = Avatar({
             .size = 80.0f,
-            .image_path = "examples/direct_yoga_test/logo.png"
+            .image_path = "examples/direct_anu_test/logo.png"
         });
 
         // Wrap av1 in a Badge to show online status!
@@ -61,7 +61,7 @@ public:
         // Create vertical containers with names below
         auto create_profile = [](WidgetPtr av, std::string name) {
             auto c = std::make_shared<FlexBox>();
-            c->alignItems(YGAlignCenter);
+            c->align(Align::Center);
             
             c->child(av);
             
@@ -71,7 +71,7 @@ public:
                 .weight = TextStyle::SemiBold
             });
             auto tc = std::make_shared<FlexBox>();
-            tc->margin(YGEdgeTop, 15.0f).child(t);
+            tc->margin(Edge::Top, 15.0f).child(t);
             c->child(tc);
             return c;
         };

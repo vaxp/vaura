@@ -31,7 +31,7 @@ public:
     void initState() override {
         State::initState();
         tasks_.push_back({"Learn VAURA Framework", false});
-        tasks_.push_back({"Integrate Yoga Layout Engine", true});
+        tasks_.push_back({"Integrate Anu Layout Engine", true});
         tasks_.push_back({"Build a Custom Backend", false});
     }
 
@@ -40,16 +40,16 @@ public:
         auto root = std::make_shared<FlexBox>();
         root->widthPercent(100)
             .heightPercent(100)
-            .flexDirection(YGFlexDirectionColumn)
+            .direction(FlexDirection::Column)
             .backgroundColor(0xFF0F172A); // Dark slate background
 
         // Header
         auto header = std::make_shared<FlexBox>();
         header->widthPercent(100)
-              .padding(YGEdgeAll, 24)
+              .padding(Edge::All, 24)
               .backgroundColor(0xFF1E293B)
-              .justifyContent(YGJustifyCenter)
-              .alignItems(YGAlignCenter);
+              .justify(Justify::Center)
+              .align(Align::Center);
 
         auto title = Text("Task Manager", {
             .font_size = 28,
@@ -61,8 +61,8 @@ public:
         // Task List Container
         auto list_container = std::make_shared<FlexBox>();
         list_container->widthPercent(100)
-                      .padding(YGEdgeAll, 24)
-                      .flexDirection(YGFlexDirectionColumn);
+                      .padding(Edge::All, 24)
+                      .direction(FlexDirection::Column);
 
         if (tasks_.empty()) {
             auto empty_text = Text("No tasks yet. Add one below!", {
@@ -72,9 +72,9 @@ public:
             });
             auto empty_container = std::make_shared<FlexBox>();
             empty_container->widthPercent(100)
-                           .padding(YGEdgeAll, 32)
-                           .justifyContent(YGJustifyCenter)
-                           .alignItems(YGAlignCenter)
+                           .padding(Edge::All, 32)
+                           .justify(Justify::Center)
+                           .align(Align::Center)
                            .child(empty_text);
             list_container->child(empty_container);
         }
@@ -84,12 +84,12 @@ public:
             
             auto task_row = std::make_shared<FlexBox>();
             task_row->widthPercent(100)
-                    .padding(YGEdgeAll, 16)
-                    .margin(YGEdgeBottom, 12)
+                    .padding(Edge::All, 16)
+                    .margin(Edge::Bottom, 12)
                     .backgroundColor(0xFF1E293B)
                     .borderRadius(8)
-                    .flexDirection(YGFlexDirectionRow)
-                    .alignItems(YGAlignCenter);
+                    .direction(FlexDirection::Row)
+                    .align(Align::Center);
 
             auto chk = Checkbox({
                 .value = task.is_done,
@@ -104,7 +104,7 @@ public:
             });
 
             auto task_text_container = std::make_shared<FlexBox>();
-            task_text_container->flexGrow(1.0f).margin(YGEdgeHorizontal, 5);
+            task_text_container->flexGrow(1.0f).margin(Edge::Horizontal, 5);
             
             auto task_text = Text(task.title, {
                 .font_size = 18,
@@ -132,7 +132,7 @@ public:
             });
 
             auto chk_wrapper = std::make_shared<FlexBox>();
-            chk_wrapper->margin(YGEdgeRight, 10).child(chk);
+            chk_wrapper->margin(Edge::Right, 10).child(chk);
 
             task_row->child(task_text_container).child(chk_wrapper).child(delete_btn);
             list_container->child(task_row);
@@ -146,10 +146,10 @@ public:
         // Footer / Input Area
         auto footer = std::make_shared<FlexBox>();
         footer->widthPercent(100)
-              .padding(YGEdgeAll, 24)
+              .padding(Edge::All, 24)
               .backgroundColor(0xFF1E293B)
-              .flexDirection(YGFlexDirectionRow)
-              .alignItems(YGAlignCenter);
+              .direction(FlexDirection::Row)
+              .align(Align::Center);
 
         auto input_field = TextField({
             .placeholder = "Add a new task...",
@@ -176,7 +176,7 @@ public:
         input_container->flexGrow(1.0f)
                        .backgroundColor(0xFF0F172A)
                        .borderRadius(8)
-                       .margin(YGEdgeRight, 16)
+                       .margin(Edge::Right, 16)
                        .child(input_field);
 
         auto add_btn = Button({

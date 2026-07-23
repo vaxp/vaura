@@ -19,13 +19,13 @@ public:
         root->widthPercent(100)
             .heightPercent(100)
             .backgroundColor(0xFF0F172A)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter);
+            .justify(Justify::Center)
+            .align(Align::Center);
 
         auto row = std::make_shared<FlexBox>();
-        row->flexDirection(YGFlexDirectionRow)
-           .alignItems(YGAlignCenter)
-           .justifyContent(YGJustifySpaceAround)
+        row->direction(FlexDirection::Row)
+           .align(Align::Center)
+           .justify(Justify::SpaceAround)
            .width(600);
 
         // Tooltip 1: Button

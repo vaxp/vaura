@@ -9,21 +9,21 @@
 
 #include <stdbool.h>
 
-#include <layout_engine/YGConfig.h>
-#include <layout_engine/YGEnums.h>
-#include <layout_engine/YGMacros.h>
+#include <layout_engine/AnuConfig.h>
+#include <layout_engine/AnuEnums.h>
+#include <layout_engine/AnuMacros.h>
 
-YG_EXTERN_C_BEGIN
+ANU_EXTERN_C_BEGIN
 
 /**
  * Rounds a point value to the nearest whole pixel, given a pointScaleFactor
  * describing pixel density.
  * @returns the rounded value in points
  */
-YG_EXPORT float YGRoundValueToPixelGrid(
+ANU_EXPORT float ANURoundValueToPixelGrid(
     double value,
     double pointScaleFactor,
     bool forceCeil,
     bool forceFloor);
 
-YG_EXTERN_C_END
+ANU_EXTERN_C_END

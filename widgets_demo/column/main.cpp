@@ -15,8 +15,8 @@ public:
                 .border_radius = BorderRadius(8.0f),
                 .shadow = Shadow{0x40000000, 8.0f, {0, 4}},
                 .child = Column({
-                    .justifyContent = YGJustifyCenter,
-                    .alignItems = YGAlignCenter,
+                    .justify = Justify::Center,
+                    .align = Align::Center,
                     .width = 100.0f,
                     .height = 60.0f,
                     .children = {
@@ -27,24 +27,24 @@ public:
         };
 
         return Row({
-            .justifyContent = YGJustifySpaceEvenly,
-            .alignItems = YGAlignStretch,
+            .justify = Justify::SpaceEvenly,
+            .align = Align::Stretch,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
-            .padding = std::pair{YGEdgeAll, 40.0f},
+            .padding = std::pair{Edge::All, 40.0f},
             .backgroundColor = 0xFF0F172A, // Slate 900
             .children = {
                 // Column 1: FlexStart (Left/Top aligned)
                 Column({
-                    .alignItems = YGAlignFlexStart,
+                    .align = Align::Start,
                     .gap = 16.0f,
                     .width = 200.0f,
-                    .padding = std::pair{YGEdgeAll, 20.0f},
+                    .padding = std::pair{Edge::All, 20.0f},
                     .backgroundColor = 0xFF1E293B, // Slate 800
                     .borderRadius = 16.0f,
                     .children = {
                         Column({
-                            .margin = std::pair{YGEdgeBottom, 10.0f},
+                            .margin = std::pair{Edge::Bottom, 10.0f},
                             .children = { Text("Flex Start", {.font_size = 20.0f, .color = 0xFF94A3B8}) }
                         }),
                         make_box("Box 1", 0xFF3B82F6), // Blue
@@ -55,10 +55,10 @@ public:
 
                 // Column 2: Center with SpaceBetween
                 Column({
-                    .justifyContent = YGJustifySpaceBetween,
-                    .alignItems = YGAlignCenter,
+                    .justify = Justify::SpaceBetween,
+                    .align = Align::Center,
                     .width = 200.0f,
-                    .padding = std::pair{YGEdgeAll, 20.0f},
+                    .padding = std::pair{Edge::All, 20.0f},
                     .backgroundColor = 0xFF1E293B,
                     .borderRadius = 16.0f,
                     .children = {
@@ -73,15 +73,15 @@ public:
 
                 // Column 3: FlexEnd (Right aligned)
                 Column({
-                    .alignItems = YGAlignFlexEnd,
+                    .align = Align::End,
                     .gap = 16.0f,
                     .width = 200.0f,
-                    .padding = std::pair{YGEdgeAll, 20.0f},
+                    .padding = std::pair{Edge::All, 20.0f},
                     .backgroundColor = 0xFF1E293B,
                     .borderRadius = 16.0f,
                     .children = {
                         Column({
-                            .margin = std::pair{YGEdgeBottom, 10.0f},
+                            .margin = std::pair{Edge::Bottom, 10.0f},
                             .children = { Text("Flex End", {.font_size = 20.0f, .color = 0xFF94A3B8}) }
                         }),
                         make_box("Alpha", 0xFF06B6D4), // Cyan

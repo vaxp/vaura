@@ -15,8 +15,8 @@ public:
         root->widthPercent(100)
             .heightPercent(100)
             .backgroundColor(0xFFF1F5F9) // Light background to see shadow clearly
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter);
+            .justify(Justify::Center)
+            .align(Align::Center);
 
         auto title = Text("Card Widget Demo", {
             .font_size = 28,
@@ -25,17 +25,17 @@ public:
         });
         
         auto title_container = std::make_shared<FlexBox>();
-        title_container->margin(YGEdgeBottom, 40).child(title);
+        title_container->margin(Edge::Bottom, 40).child(title);
 
         auto content = std::make_shared<FlexBox>();
-        content->flexDirection(YGFlexDirectionColumn)
-               .alignItems(YGAlignCenter);
+        content->direction(FlexDirection::Column)
+               .align(Align::Center);
 
         content->child(title_container);
 
         auto build_profile_card = []() {
             auto content_col = std::make_shared<FlexBox>();
-            content_col->flexDirection(YGFlexDirectionColumn);
+            content_col->direction(FlexDirection::Column);
 
             auto name = Text("Aether Desktop", {
                 .font_size = 22,
@@ -49,7 +49,7 @@ public:
             });
 
             auto name_c = std::make_shared<FlexBox>();
-            name_c->margin(YGEdgeBottom, 10).child(name);
+            name_c->margin(Edge::Bottom, 10).child(name);
 
             auto desc_c = std::make_shared<FlexBox>();
             desc_c->child(desc);

@@ -15,8 +15,8 @@ public:
 
     WidgetPtr build(BuildContext& ctx) override {
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF0F172A,
@@ -28,7 +28,7 @@ public:
                     .height = 500.0f,
                     .backgroundColor = 0xFF1E293B,
                     .borderRadius = 16.0f,
-                    .overflow = YGOverflowHidden,
+                    .overflow = Overflow::Hidden,
                     .children = {
                         ScrollView({
                             .child = Column({
@@ -47,7 +47,7 @@ public:
 
                                         items.push_back(
                                             Column({
-                                                .margin = std::pair{YGEdgeAll, 10.0f},
+                                                .margin = std::pair{Edge::All, 10.0f},
                                                 .children = {
                                                     ListTile({
                                                         .leading = leading_icon,
@@ -65,7 +65,7 @@ public:
                                             items.push_back(
                                                 Column({
                                                     .height = 1.0f,
-                                                    .margin = std::pair{YGEdgeHorizontal, 16.0f},
+                                                    .margin = std::pair{Edge::Horizontal, 16.0f},
                                                     .backgroundColor = 0xFF1E293B
                                                 })
                                             );

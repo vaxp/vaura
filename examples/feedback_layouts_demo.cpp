@@ -22,8 +22,8 @@ static WidgetPtr makePanel(const char* title, Color bg, Color fg) {
     auto f = std::make_shared<FlexBox>();
     f->widthPercent(100).heightPercent(100)
      .backgroundColor(bg)
-     .justifyContent(YGJustifyCenter)
-     .alignItems(YGAlignCenter);
+     .justify(Justify::Center)
+     .align(Align::Center);
     f->child(Text(title, {.font_size=16,.color=fg,.weight=TextStyle::SemiBold}));
     return f;
 }
@@ -60,13 +60,13 @@ public:
         auto root = std::make_shared<FlexBox>();
         root->widthPercent(100).heightPercent(100)
              .backgroundColor(0xFF0F172A)
-             .flexDirection(YGFlexDirectionColumn);
+             .direction(FlexDirection::Column);
 
         // ── Header ────────────────────────────────────────────
         auto hdr = std::make_shared<FlexBox>();
-        hdr->flexDirection(YGFlexDirectionRow)
-            .alignItems(YGAlignCenter)
-            .padding(YGEdgeAll, 20)
+        hdr->direction(FlexDirection::Row)
+            .align(Align::Center)
+            .padding(Edge::All, 20)
             .backgroundColor(0xFF1E293B);
 
         hdr->child(Text("Phase 5 & 6  —  Feedback + Layouts", {
@@ -76,9 +76,9 @@ public:
 
         // ── Tab bar ───────────────────────────────────────────
         auto tabs_row = std::make_shared<FlexBox>();
-        tabs_row->flexDirection(YGFlexDirectionRow)
-                 .padding(YGEdgeHorizontal, 20)
-                 .padding(YGEdgeVertical, 12)
+        tabs_row->direction(FlexDirection::Row)
+                 .padding(Edge::Horizontal, 20)
+                 .padding(Edge::Vertical, 12)
                  .backgroundColor(0xFF0F172A);
 
         for (auto [lbl, idx] : std::vector<std::pair<const char*, int>>{
@@ -101,7 +101,7 @@ public:
                 }),
                 .on_tap = [this,ci](){ setState([this,ci]{ active_tab=ci; }); },
             });
-            auto bw = std::make_shared<FlexBox>(); bw->margin(YGEdgeRight,8).child(btn);
+            auto bw = std::make_shared<FlexBox>(); bw->margin(Edge::Right,8).child(btn);
             tabs_row->child(bw);
         }
         root->child(tabs_row);
@@ -114,9 +114,9 @@ public:
             // Snackbar + Toast trigger buttons
             auto center = std::make_shared<FlexBox>();
             center->widthPercent(100).heightPercent(100)
-                   .justifyContent(YGJustifyCenter)
-                   .alignItems(YGAlignCenter)
-                   .flexDirection(YGFlexDirectionColumn);
+                   .justify(Justify::Center)
+                   .align(Align::Center)
+                   .direction(FlexDirection::Column);
 
             center->child(Text("Notification Widgets", {
                 .font_size=22,.color=0xFFF8FAFC,.weight=TextStyle::Bold
@@ -126,7 +126,7 @@ public:
             // Snackbar buttons
             center->child(Text("Snackbars:", {.font_size=13,.color=0xFF64748B}));
             auto snack_row = std::make_shared<FlexBox>();
-            snack_row->flexDirection(YGFlexDirectionRow).margin(YGEdgeTop,8).margin(YGEdgeBottom,20);
+            snack_row->direction(FlexDirection::Row).margin(Edge::Top,8).margin(Edge::Bottom,20);
 
             struct SBtn { const char* lbl; Color col; DemoSnackbarType type; };
             for (auto [lbl, col, type] : std::vector<SBtn>{
@@ -146,7 +146,7 @@ public:
                     }),
                     .on_tap = [this,msg,t](){ showSnackbar(msg, t); },
                 });
-                auto bw = std::make_shared<FlexBox>(); bw->margin(YGEdgeRight,8).child(btn);
+                auto bw = std::make_shared<FlexBox>(); bw->margin(Edge::Right,8).child(btn);
                 snack_row->child(bw);
             }
             center->child(snack_row);
@@ -154,7 +154,7 @@ public:
             // Toast button
             center->child(Text("Toasts:", {.font_size=13,.color=0xFF64748B}));
             auto toast_row = std::make_shared<FlexBox>();
-            toast_row->flexDirection(YGFlexDirectionRow).margin(YGEdgeTop,8);
+            toast_row->direction(FlexDirection::Row).margin(Edge::Top,8);
 
             for (auto [lbl, pos] : std::vector<std::pair<const char*, ToastConfig::Position>>{
                 {"Top",    ToastConfig::Position::Top},
@@ -175,7 +175,7 @@ public:
                         setState([this, msg, p]{ toast_msg = msg; toast_pos = p; toast_visible = true; });
                     },
                 });
-                auto bw = std::make_shared<FlexBox>(); bw->margin(YGEdgeRight,8).child(btn);
+                auto bw = std::make_shared<FlexBox>(); bw->margin(Edge::Right,8).child(btn);
                 toast_row->child(bw);
             }
             center->child(toast_row);

@@ -11,11 +11,11 @@
 #include <layout_engine/algorithm/CalculateLayout.h>
 #include <layout_engine/algorithm/TrailingPosition.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 static inline void setFlexStartLayoutPosition(
-    const yoga::Node* const parent,
-    yoga::Node* child,
+    const anu::Node* const parent,
+    anu::Node* child,
     const Direction direction,
     const FlexDirection axis,
     const float containingBlockWidth) {
@@ -31,8 +31,8 @@ static inline void setFlexStartLayoutPosition(
 }
 
 static inline void setFlexEndLayoutPosition(
-    const yoga::Node* const parent,
-    yoga::Node* child,
+    const anu::Node* const parent,
+    anu::Node* child,
     const Direction direction,
     const FlexDirection axis,
     const float containingBlockWidth) {
@@ -50,8 +50,8 @@ static inline void setFlexEndLayoutPosition(
 }
 
 static inline void setCenterLayoutPosition(
-    const yoga::Node* const parent,
-    yoga::Node* child,
+    const anu::Node* const parent,
+    anu::Node* child,
     const Direction direction,
     const FlexDirection axis,
     const float containingBlockWidth) {
@@ -82,8 +82,8 @@ static inline void setCenterLayoutPosition(
 }
 
 static void justifyAbsoluteChild(
-    const yoga::Node* const parent,
-    yoga::Node* child,
+    const anu::Node* const parent,
+    anu::Node* child,
     const Direction direction,
     const FlexDirection mainAxis,
     const float containingBlockWidth) {
@@ -108,8 +108,8 @@ static void justifyAbsoluteChild(
 }
 
 static void alignAbsoluteChild(
-    const yoga::Node* const parent,
-    yoga::Node* child,
+    const anu::Node* const parent,
+    anu::Node* child,
     const Direction direction,
     const FlexDirection crossAxis,
     const float containingBlockWidth) {
@@ -162,9 +162,9 @@ static void alignAbsoluteChild(
  * information on this topic: https://www.w3.org/TR/css-flexbox-1/#abspos-items
  */
 static void positionAbsoluteChild(
-    const yoga::Node* const containingNode,
-    const yoga::Node* const parent,
-    yoga::Node* child,
+    const anu::Node* const containingNode,
+    const anu::Node* const parent,
+    anu::Node* child,
     const Direction direction,
     const FlexDirection axis,
     const bool isMainAxis,
@@ -224,9 +224,9 @@ static void positionAbsoluteChild(
 }
 
 void layoutAbsoluteChild(
-    const yoga::Node* const containingNode,
-    const yoga::Node* const node,
-    yoga::Node* const child,
+    const anu::Node* const containingNode,
+    const anu::Node* const node,
+    anu::Node* const child,
     const float containingBlockWidth,
     const float containingBlockHeight,
     const SizingMode widthMode,
@@ -239,8 +239,8 @@ void layoutAbsoluteChild(
   const FlexDirection crossAxis = resolveCrossDirection(mainAxis, direction);
   const bool isMainAxisRow = isRow(mainAxis);
 
-  float childWidth = YGUndefined;
-  float childHeight = YGUndefined;
+  float childWidth = ANUUndefined;
+  float childHeight = ANUUndefined;
   SizingMode childWidthSizingMode = SizingMode::MaxContent;
   SizingMode childHeightSizingMode = SizingMode::MaxContent;
 
@@ -332,12 +332,12 @@ void layoutAbsoluteChild(
   // ratio calculation. One dimension being the anchor and the other being
   // flexible.
   const auto& childStyle = child->style();
-  if (yoga::isUndefined(childWidth) ^ yoga::isUndefined(childHeight)) {
+  if (anu::isUndefined(childWidth) ^ anu::isUndefined(childHeight)) {
     if (childStyle.aspectRatio().isDefined()) {
-      if (yoga::isUndefined(childWidth)) {
+      if (anu::isUndefined(childWidth)) {
         childWidth = marginRow +
             (childHeight - marginColumn) * childStyle.aspectRatio().unwrap();
-      } else if (yoga::isUndefined(childHeight)) {
+      } else if (anu::isUndefined(childHeight)) {
         childHeight = marginColumn +
             (childWidth - marginRow) / childStyle.aspectRatio().unwrap();
       }
@@ -345,11 +345,11 @@ void layoutAbsoluteChild(
   }
 
   // If we're still missing one or the other dimension, measure the content.
-  if (yoga::isUndefined(childWidth) || yoga::isUndefined(childHeight)) {
-    childWidthSizingMode = yoga::isUndefined(childWidth)
+  if (anu::isUndefined(childWidth) || anu::isUndefined(childHeight)) {
+    childWidthSizingMode = anu::isUndefined(childWidth)
         ? SizingMode::MaxContent
         : SizingMode::StretchFit;
-    childHeightSizingMode = yoga::isUndefined(childHeight)
+    childHeightSizingMode = anu::isUndefined(childHeight)
         ? SizingMode::MaxContent
         : SizingMode::StretchFit;
 
@@ -357,9 +357,9 @@ void layoutAbsoluteChild(
     // child to that size as well. This allows text within the absolute child
     // to wrap to the size of its owner. This is the same behavior as many
     // browsers implement.
-    if (!isMainAxisRow && yoga::isUndefined(childWidth) &&
+    if (!isMainAxisRow && anu::isUndefined(childWidth) &&
         widthMode != SizingMode::MaxContent &&
-        yoga::isDefined(containingBlockWidth) && containingBlockWidth > 0) {
+        anu::isDefined(containingBlockWidth) && containingBlockWidth > 0) {
       childWidth = containingBlockWidth;
       childWidthSizingMode = SizingMode::FitContent;
     }
@@ -422,8 +422,8 @@ void layoutAbsoluteChild(
 }
 
 bool layoutAbsoluteDescendants(
-    yoga::Node* containingNode,
-    yoga::Node* currentNode,
+    anu::Node* containingNode,
+    anu::Node* currentNode,
     SizingMode widthSizingMode,
     Direction currentNodeDirection,
     LayoutData& layoutMarkerData,
@@ -560,4 +560,4 @@ bool layoutAbsoluteDescendants(
   }
   return hasNewLayout;
 }
-} // namespace facebook::yoga
+} // namespace facebook::anu

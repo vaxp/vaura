@@ -9,12 +9,12 @@
 
 #include <cmath>
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 #include <layout_engine/algorithm/SizingMode.h>
 #include <layout_engine/numeric/Comparison.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 struct CachedMeasurement {
   float availableWidth{-1};
@@ -29,20 +29,20 @@ struct CachedMeasurement {
     bool isEqual = widthSizingMode == measurement.widthSizingMode &&
         heightSizingMode == measurement.heightSizingMode;
 
-    if (!yoga::isUndefined(availableWidth) ||
-        !yoga::isUndefined(measurement.availableWidth)) {
+    if (!anu::isUndefined(availableWidth) ||
+        !anu::isUndefined(measurement.availableWidth)) {
       isEqual = isEqual && availableWidth == measurement.availableWidth;
     }
-    if (!yoga::isUndefined(availableHeight) ||
-        !yoga::isUndefined(measurement.availableHeight)) {
+    if (!anu::isUndefined(availableHeight) ||
+        !anu::isUndefined(measurement.availableHeight)) {
       isEqual = isEqual && availableHeight == measurement.availableHeight;
     }
-    if (!yoga::isUndefined(computedWidth) ||
-        !yoga::isUndefined(measurement.computedWidth)) {
+    if (!anu::isUndefined(computedWidth) ||
+        !anu::isUndefined(measurement.computedWidth)) {
       isEqual = isEqual && computedWidth == measurement.computedWidth;
     }
-    if (!yoga::isUndefined(computedHeight) ||
-        !yoga::isUndefined(measurement.computedHeight)) {
+    if (!anu::isUndefined(computedHeight) ||
+        !anu::isUndefined(measurement.computedHeight)) {
       isEqual = isEqual && computedHeight == measurement.computedHeight;
     }
 
@@ -50,4 +50,4 @@ struct CachedMeasurement {
   }
 };
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

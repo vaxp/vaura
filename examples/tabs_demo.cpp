@@ -15,12 +15,12 @@ public:
         root->widthPercent(100)
             .heightPercent(100)
             .backgroundColor(0xFF1E293B)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter);
+            .justify(Justify::Center)
+            .align(Align::Center);
 
         auto content = std::make_shared<FlexBox>();
-        content->flexDirection(YGFlexDirectionColumn)
-               .alignItems(YGAlignStretch)
+        content->direction(FlexDirection::Column)
+               .align(Align::Stretch)
                .width(500)
                .height(400); // Fixed height to test tab content flexibility
 
@@ -31,28 +31,28 @@ public:
         });
         
         auto title_container = std::make_shared<FlexBox>();
-        title_container->margin(YGEdgeBottom, 20).child(title);
+        title_container->margin(Edge::Bottom, 20).child(title);
         content->child(title_container);
 
         auto view1 = std::make_shared<FlexBox>();
-        view1->justifyContent(YGJustifyCenter)
-             .alignItems(YGAlignCenter)
+        view1->justify(Justify::Center)
+             .align(Align::Center)
              .flexGrow(1.0f)
              .backgroundColor(0xFF0F172A)
              .borderRadius(12.0f);
         view1->child(Text("Overview Dashboard Content", {.font_size = 18, .color = 0xFFF8FAFC}));
 
         auto view2 = std::make_shared<FlexBox>();
-        view2->justifyContent(YGJustifyCenter)
-             .alignItems(YGAlignCenter)
+        view2->justify(Justify::Center)
+             .align(Align::Center)
              .flexGrow(1.0f)
              .backgroundColor(0xFF0F172A)
              .borderRadius(12.0f);
         view2->child(Text("Analytics Charts Here", {.font_size = 18, .color = 0xFFF8FAFC}));
 
         auto view3 = std::make_shared<FlexBox>();
-        view3->justifyContent(YGJustifyCenter)
-             .alignItems(YGAlignCenter)
+        view3->justify(Justify::Center)
+             .align(Align::Center)
              .flexGrow(1.0f)
              .backgroundColor(0xFF0F172A)
              .borderRadius(12.0f);

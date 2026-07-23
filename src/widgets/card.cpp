@@ -3,7 +3,7 @@
 #include "vaura/rendering/canvas.hpp"
 #include "vaura/rendering/paint.hpp"
 #include "vaura/tree/render_object.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 namespace vaura {
 
@@ -36,11 +36,11 @@ public:
         config = new_config;
 
         if (needs_layout) {
-            auto node = yogaNode();
-            YGNodeStyleSetPadding(node, YGEdgeLeft, config.padding.left);
-            YGNodeStyleSetPadding(node, YGEdgeTop, config.padding.top);
-            YGNodeStyleSetPadding(node, YGEdgeRight, config.padding.right);
-            YGNodeStyleSetPadding(node, YGEdgeBottom, config.padding.bottom);
+            auto node = anuNode();
+            ANUNodeStyleSetPadding(node, static_cast<ANUEdge>(Edge::Left), config.padding.left);
+            ANUNodeStyleSetPadding(node, static_cast<ANUEdge>(Edge::Top), config.padding.top);
+            ANUNodeStyleSetPadding(node, static_cast<ANUEdge>(Edge::Right), config.padding.right);
+            ANUNodeStyleSetPadding(node, static_cast<ANUEdge>(Edge::Bottom), config.padding.bottom);
             markNeedsLayout();
         } else if (needs_repaint) {
             markNeedsPaint();
@@ -96,11 +96,11 @@ public:
 
     [[nodiscard]] std::unique_ptr<RenderObject> createRenderObject(BuildContext& ctx) override {
         auto obj = std::make_unique<RenderCard>(config);
-        auto node = obj->yogaNode();
-        YGNodeStyleSetPadding(node, YGEdgeLeft, config.padding.left);
-        YGNodeStyleSetPadding(node, YGEdgeTop, config.padding.top);
-        YGNodeStyleSetPadding(node, YGEdgeRight, config.padding.right);
-        YGNodeStyleSetPadding(node, YGEdgeBottom, config.padding.bottom);
+        auto node = obj->anuNode();
+        ANUNodeStyleSetPadding(node, static_cast<ANUEdge>(Edge::Left), config.padding.left);
+        ANUNodeStyleSetPadding(node, static_cast<ANUEdge>(Edge::Top), config.padding.top);
+        ANUNodeStyleSetPadding(node, static_cast<ANUEdge>(Edge::Right), config.padding.right);
+        ANUNodeStyleSetPadding(node, static_cast<ANUEdge>(Edge::Bottom), config.padding.bottom);
         return obj;
     }
 

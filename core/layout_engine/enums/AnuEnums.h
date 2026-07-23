@@ -11,7 +11,7 @@
 #include <iterator>
 #include <type_traits>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 /**
  * Concept for any enum/enum class
@@ -20,13 +20,13 @@ template <typename EnumT>
 concept Enumeration = std::is_enum_v<EnumT>;
 
 /**
- * Count of ordinals in a Yoga enum which is sequential
+ * Count of ordinals in a Anu enum which is sequential
  */
 template <Enumeration EnumT>
 constexpr int32_t ordinalCount();
 
 /**
- * Concept for a yoga enum which is sequential
+ * Concept for a anu enum which is sequential
  */
 template <typename EnumT>
 concept HasOrdinality = (ordinalCount<EnumT>() > 0);
@@ -49,7 +49,7 @@ constexpr auto to_underlying(Enumeration auto e) noexcept {
 }
 
 /**
- * Convenience function to iterate through every value in a Yoga enum as part of
+ * Convenience function to iterate through every value in a Anu enum as part of
  * a range-based for loop.
  */
 template <HasOrdinality EnumT>
@@ -82,4 +82,4 @@ auto ordinals() {
   return Range{};
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

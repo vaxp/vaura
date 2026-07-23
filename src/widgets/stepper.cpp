@@ -8,7 +8,7 @@
 #include "vaura/widgets/gesture_detector.hpp"
 #include "vaura/state/state.hpp"
 #include "vaura/tree/build_context.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <string>
 #include <algorithm>
 
@@ -24,8 +24,8 @@ static WidgetPtr makeStepCircle(float sz, Color fill, Color text_col,
     circle->width(sz).height(sz)
            .borderRadius(sz / 2.0f)
            .backgroundColor(fill)
-           .justifyContent(YGJustifyCenter)
-           .alignItems(YGAlignCenter)
+           .justify(Justify::Center)
+           .align(Align::Center)
            .child(text(lbl, {
                .font_size = sz * 0.40f,
                .color     = text_col,
@@ -49,15 +49,15 @@ public:
         int cur   = std::clamp(cfg.current_step, 0, total - 1);
 
         auto root = std::make_shared<FlexBox>();
-        root->flexDirection(YGFlexDirectionColumn).widthPercent(100);
+        root->direction(FlexDirection::Column).widthPercent(100);
 
         // ── Step header row ───────────────────────────────────
         auto hdr = std::make_shared<FlexBox>();
-        hdr->flexDirection(YGFlexDirectionRow)
-            .alignItems(YGAlignCenter)
+        hdr->direction(FlexDirection::Row)
+            .align(Align::Center)
             .widthPercent(100)
-            .padding(YGEdgeHorizontal, 16)
-            .padding(YGEdgeVertical, 12);
+            .padding(Edge::Horizontal, 16)
+            .padding(Edge::Vertical, 12);
 
         for (int i = 0; i < total; ++i) {
             bool is_active    = (i == cur);
@@ -72,7 +72,7 @@ public:
 
             // Label column
             auto lbl_col = std::make_shared<FlexBox>();
-            lbl_col->flexDirection(YGFlexDirectionColumn).margin(YGEdgeLeft, 8);
+            lbl_col->direction(FlexDirection::Column).margin(Edge::Left, 8);
             lbl_col->child(text(cfg.steps[i].title, {
                 .font_size = cfg.font_size,
                 .color     = is_active ? cfg.text_color : cfg.subtitle_color,
@@ -86,7 +86,7 @@ public:
             }
 
             auto step_item = std::make_shared<FlexBox>();
-            step_item->flexDirection(YGFlexDirectionRow).alignItems(YGAlignCenter);
+            step_item->direction(FlexDirection::Row).align(Align::Center);
             step_item->child(circle).child(lbl_col);
 
             if (!cfg.linear && cfg.on_step_changed) {
@@ -103,7 +103,7 @@ public:
             // Connector line
             if (i < total - 1) {
                 auto line = std::make_shared<FlexBox>();
-                line->flexGrow(1).height(2).margin(YGEdgeHorizontal, 8)
+                line->flexGrow(1).height(2).margin(Edge::Horizontal, 8)
                      .backgroundColor(i < cur ? cfg.active_color : cfg.connector_color);
                 hdr->child(line);
             }
@@ -120,18 +120,18 @@ public:
                 .child         = cfg.steps[cur].content,
             });
             auto cw = std::make_shared<FlexBox>();
-            cw->widthPercent(100).margin(YGEdgeTop, 8).child(content_box);
+            cw->widthPercent(100).margin(Edge::Top, 8).child(content_box);
             root->child(cw);
         }
 
         // ── Navigation buttons ────────────────────────────────
         auto btn_row = std::make_shared<FlexBox>();
-        btn_row->flexDirection(YGFlexDirectionRow)
-                .justifyContent(YGJustifySpaceBetween)
-                .alignItems(YGAlignCenter)
+        btn_row->direction(FlexDirection::Row)
+                .justify(Justify::SpaceBetween)
+                .align(Align::Center)
                 .widthPercent(100)
-                .margin(YGEdgeTop, 16)
-                .padding(YGEdgeHorizontal, 4);
+                .margin(Edge::Top, 16)
+                .padding(Edge::Horizontal, 4);
 
         // Back
         if (cur > 0 && cfg.on_step_changed) {

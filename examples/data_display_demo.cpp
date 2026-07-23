@@ -73,13 +73,13 @@ public:
         auto root = std::make_shared<FlexBox>();
         root->widthPercent(100).heightPercent(100)
              .backgroundColor(0xFF0F172A)
-             .flexDirection(YGFlexDirectionColumn);
+             .direction(FlexDirection::Column);
 
         // ── Header ────────────────────────────────────────────
         auto hdr = std::make_shared<FlexBox>();
-        hdr->flexDirection(YGFlexDirectionRow)
-            .alignItems(YGAlignCenter)
-            .padding(YGEdgeAll, 20)
+        hdr->direction(FlexDirection::Row)
+            .align(Align::Center)
+            .padding(Edge::All, 20)
             .backgroundColor(0xFF1E293B);
 
         hdr->child(Text("Phase 4  —  Complex Data Display", {
@@ -89,9 +89,9 @@ public:
 
         // ── Tab bar ───────────────────────────────────────────
         auto tabs_row = std::make_shared<FlexBox>();
-        tabs_row->flexDirection(YGFlexDirectionRow)
-                 .padding(YGEdgeHorizontal, 20)
-                 .padding(YGEdgeVertical, 12)
+        tabs_row->direction(FlexDirection::Row)
+                 .padding(Edge::Horizontal, 20)
+                 .padding(Edge::Vertical, 12)
                  .backgroundColor(0xFF0F172A);
 
         auto add_tab = [&](int idx, const char* label) {
@@ -109,7 +109,7 @@ public:
                 }),
                 .on_tap = [this,idx](){ setState([this,idx]{ active_tab = idx; }); },
             });
-            auto bw = std::make_shared<FlexBox>(); bw->margin(YGEdgeRight,8).child(btn);
+            auto bw = std::make_shared<FlexBox>(); bw->margin(Edge::Right,8).child(btn);
             tabs_row->child(bw);
         };
         add_tab(0, "DataTable");
@@ -119,7 +119,7 @@ public:
 
         // ── Content Area ──────────────────────────────────────
         auto content = std::make_shared<FlexBox>();
-        content->flexGrow(1).padding(YGEdgeAll, 24);
+        content->flexGrow(1).padding(Edge::All, 24);
 
         if (active_tab == 0) {
             // DataTable
@@ -192,7 +192,7 @@ public:
             
             auto make_content = [](const char* t) {
                 auto w = std::make_shared<FlexBox>();
-                w->padding(YGEdgeAll, 16);
+                w->padding(Edge::All, 16);
                 w->child(Text(t, {.font_size=14, .color=0xFFCBD5E1}));
                 return std::static_pointer_cast<Widget>(w);
             };

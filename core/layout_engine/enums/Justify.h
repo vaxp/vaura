@@ -10,18 +10,18 @@
 #pragma once
 
 #include <cstdint>
-#include <layout_engine/YGEnums.h>
-#include <layout_engine/enums/YogaEnums.h>
+#include <layout_engine/AnuEnums.h>
+#include <layout_engine/enums/AnuEnums.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 enum class Justify : uint8_t {
-  FlexStart = YGJustifyFlexStart,
-  Center = YGJustifyCenter,
-  FlexEnd = YGJustifyFlexEnd,
-  SpaceBetween = YGJustifySpaceBetween,
-  SpaceAround = YGJustifySpaceAround,
-  SpaceEvenly = YGJustifySpaceEvenly,
+  FlexStart = ANUJustifyFlexStart,
+  Center = ANUJustifyCenter,
+  FlexEnd = ANUJustifyFlexEnd,
+  SpaceBetween = ANUJustifySpaceBetween,
+  SpaceAround = ANUJustifySpaceAround,
+  SpaceEvenly = ANUJustifySpaceEvenly,
 };
 
 template <>
@@ -29,16 +29,16 @@ constexpr int32_t ordinalCount<Justify>() {
   return 6;
 }
 
-constexpr Justify scopedEnum(YGJustify unscoped) {
+constexpr Justify scopedEnum(ANUJustify unscoped) {
   return static_cast<Justify>(unscoped);
 }
 
-constexpr YGJustify unscopedEnum(Justify scoped) {
-  return static_cast<YGJustify>(scoped);
+constexpr ANUJustify unscopedEnum(Justify scoped) {
+  return static_cast<ANUJustify>(scoped);
 }
 
 inline const char* toString(Justify e) {
-  return YGJustifyToString(unscopedEnum(e));
+  return ANUJustifyToString(unscopedEnum(e));
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

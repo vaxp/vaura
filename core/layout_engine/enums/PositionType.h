@@ -10,15 +10,15 @@
 #pragma once
 
 #include <cstdint>
-#include <layout_engine/YGEnums.h>
-#include <layout_engine/enums/YogaEnums.h>
+#include <layout_engine/AnuEnums.h>
+#include <layout_engine/enums/AnuEnums.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 enum class PositionType : uint8_t {
-  Static = YGPositionTypeStatic,
-  Relative = YGPositionTypeRelative,
-  Absolute = YGPositionTypeAbsolute,
+  Static = ANUPositionTypeStatic,
+  Relative = ANUPositionTypeRelative,
+  Absolute = ANUPositionTypeAbsolute,
 };
 
 template <>
@@ -26,16 +26,16 @@ constexpr int32_t ordinalCount<PositionType>() {
   return 3;
 }
 
-constexpr PositionType scopedEnum(YGPositionType unscoped) {
+constexpr PositionType scopedEnum(ANUPositionType unscoped) {
   return static_cast<PositionType>(unscoped);
 }
 
-constexpr YGPositionType unscopedEnum(PositionType scoped) {
-  return static_cast<YGPositionType>(scoped);
+constexpr ANUPositionType unscopedEnum(PositionType scoped) {
+  return static_cast<ANUPositionType>(scoped);
 }
 
 inline const char* toString(PositionType e) {
-  return YGPositionTypeToString(unscopedEnum(e));
+  return ANUPositionTypeToString(unscopedEnum(e));
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

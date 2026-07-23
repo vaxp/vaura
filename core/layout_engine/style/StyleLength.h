@@ -10,7 +10,7 @@
 #include <layout_engine/enums/Unit.h>
 #include <layout_engine/numeric/FloatOptional.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 /**
  * Style::Length represents a CSS Value which may be one of:
@@ -32,13 +32,13 @@ class StyleLength {
   constexpr StyleLength() = default;
 
   constexpr static StyleLength points(float value) {
-    return yoga::isUndefined(value) || yoga::isinf(value)
+    return anu::isUndefined(value) || anu::isinf(value)
         ? undefined()
         : StyleLength{FloatOptional{value}, Unit::Point};
   }
 
   constexpr static StyleLength percent(float value) {
-    return yoga::isUndefined(value) || yoga::isinf(value)
+    return anu::isUndefined(value) || anu::isinf(value)
         ? undefined()
         : StyleLength{FloatOptional{value}, Unit::Percent};
   }
@@ -82,8 +82,8 @@ class StyleLength {
     }
   }
 
-  explicit constexpr operator YGValue() const {
-    return YGValue{value_.unwrap(), unscopedEnum(unit_)};
+  explicit constexpr operator ANUValue() const {
+    return ANUValue{value_.unwrap(), unscopedEnum(unit_)};
   }
 
   constexpr bool operator==(const StyleLength& rhs) const {
@@ -104,4 +104,4 @@ inline bool inexactEquals(const StyleLength& a, const StyleLength& b) {
   return a.unit() == b.unit() && inexactEquals(a.value(), b.value());
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

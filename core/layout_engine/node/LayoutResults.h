@@ -17,7 +17,7 @@
 #include <layout_engine/node/CachedMeasurement.h>
 #include <layout_engine/numeric/FloatOptional.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 struct LayoutResults {
   // This value was chosen based on empirical data:
@@ -55,51 +55,51 @@ struct LayoutResults {
   }
 
   float dimension(Dimension axis) const {
-    return dimensions_[yoga::to_underlying(axis)];
+    return dimensions_[anu::to_underlying(axis)];
   }
 
   void setDimension(Dimension axis, float dimension) {
-    dimensions_[yoga::to_underlying(axis)] = dimension;
+    dimensions_[anu::to_underlying(axis)] = dimension;
   }
 
   float measuredDimension(Dimension axis) const {
-    return measuredDimensions_[yoga::to_underlying(axis)];
+    return measuredDimensions_[anu::to_underlying(axis)];
   }
 
   void setMeasuredDimension(Dimension axis, float dimension) {
-    measuredDimensions_[yoga::to_underlying(axis)] = dimension;
+    measuredDimensions_[anu::to_underlying(axis)] = dimension;
   }
 
   float position(PhysicalEdge physicalEdge) const {
-    return position_[yoga::to_underlying(physicalEdge)];
+    return position_[anu::to_underlying(physicalEdge)];
   }
 
   void setPosition(PhysicalEdge physicalEdge, float dimension) {
-    position_[yoga::to_underlying(physicalEdge)] = dimension;
+    position_[anu::to_underlying(physicalEdge)] = dimension;
   }
 
   float margin(PhysicalEdge physicalEdge) const {
-    return margin_[yoga::to_underlying(physicalEdge)];
+    return margin_[anu::to_underlying(physicalEdge)];
   }
 
   void setMargin(PhysicalEdge physicalEdge, float dimension) {
-    margin_[yoga::to_underlying(physicalEdge)] = dimension;
+    margin_[anu::to_underlying(physicalEdge)] = dimension;
   }
 
   float border(PhysicalEdge physicalEdge) const {
-    return border_[yoga::to_underlying(physicalEdge)];
+    return border_[anu::to_underlying(physicalEdge)];
   }
 
   void setBorder(PhysicalEdge physicalEdge, float dimension) {
-    border_[yoga::to_underlying(physicalEdge)] = dimension;
+    border_[anu::to_underlying(physicalEdge)] = dimension;
   }
 
   float padding(PhysicalEdge physicalEdge) const {
-    return padding_[yoga::to_underlying(physicalEdge)];
+    return padding_[anu::to_underlying(physicalEdge)];
   }
 
   void setPadding(PhysicalEdge physicalEdge, float dimension) {
-    padding_[yoga::to_underlying(physicalEdge)] = dimension;
+    padding_[anu::to_underlying(physicalEdge)] = dimension;
   }
 
   bool operator==(LayoutResults layout) const;
@@ -111,12 +111,12 @@ struct LayoutResults {
   Direction direction_ : bitCount<Direction>() = Direction::Inherit;
   bool hadOverflow_ : 1 = false;
 
-  std::array<float, 2> dimensions_ = {{YGUndefined, YGUndefined}};
-  std::array<float, 2> measuredDimensions_ = {{YGUndefined, YGUndefined}};
+  std::array<float, 2> dimensions_ = {{ANUUndefined, ANUUndefined}};
+  std::array<float, 2> measuredDimensions_ = {{ANUUndefined, ANUUndefined}};
   std::array<float, 4> position_ = {};
   std::array<float, 4> margin_ = {};
   std::array<float, 4> border_ = {};
   std::array<float, 4> padding_ = {};
 };
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

@@ -5,12 +5,12 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 #include <layout_engine/algorithm/PixelGrid.h>
 #include <layout_engine/numeric/Comparison.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 float roundValueToPixelGrid(
     const double value,
@@ -39,10 +39,10 @@ float roundValueToPixelGrid(
     //   - Finding the `floor`: -2.2 - fractial2 = -2.2 - 0.8 = -3
     ++fractial;
   }
-  if (yoga::inexactEquals(fractial, 0)) {
+  if (anu::inexactEquals(fractial, 0)) {
     // First we check if the value is already rounded
     scaledValue = scaledValue - fractial;
-  } else if (yoga::inexactEquals(fractial, 1.0)) {
+  } else if (anu::inexactEquals(fractial, 1.0)) {
     scaledValue = scaledValue - fractial + 1.0;
   } else if (forceCeil) {
     // Next we check if we need to use forced rounding
@@ -53,17 +53,17 @@ float roundValueToPixelGrid(
     // Finally we just round the value
     scaledValue = scaledValue - fractial +
         (!std::isnan(fractial) &&
-                 (fractial > 0.5 || yoga::inexactEquals(fractial, 0.5))
+                 (fractial > 0.5 || anu::inexactEquals(fractial, 0.5))
              ? 1.0
              : 0.0);
   }
   return (std::isnan(scaledValue) || std::isnan(pointScaleFactor))
-      ? YGUndefined
+      ? ANUUndefined
       : (float)(scaledValue / pointScaleFactor);
 }
 
 void roundLayoutResultsToPixelGrid(
-    yoga::Node* const node,
+    anu::Node* const node,
     const double absoluteLeft,
     const double absoluteTop) {
   const auto pointScaleFactor = node->getConfig()->getPointScaleFactor();
@@ -97,11 +97,11 @@ void roundLayoutResultsToPixelGrid(
     // whole number, we don't have any fraction To verify if the result is close
     // to whole number we want to check both floor and ceil numbers
     const bool hasFractionalWidth =
-        !yoga::inexactEquals(fmod(nodeWidth * pointScaleFactor, 1.0), 0) &&
-        !yoga::inexactEquals(fmod(nodeWidth * pointScaleFactor, 1.0), 1.0);
+        !anu::inexactEquals(fmod(nodeWidth * pointScaleFactor, 1.0), 0) &&
+        !anu::inexactEquals(fmod(nodeWidth * pointScaleFactor, 1.0), 1.0);
     const bool hasFractionalHeight =
-        !yoga::inexactEquals(fmod(nodeHeight * pointScaleFactor, 1.0), 0) &&
-        !yoga::inexactEquals(fmod(nodeHeight * pointScaleFactor, 1.0), 1.0);
+        !anu::inexactEquals(fmod(nodeHeight * pointScaleFactor, 1.0), 0) &&
+        !anu::inexactEquals(fmod(nodeHeight * pointScaleFactor, 1.0), 1.0);
 
     node->setLayoutDimension(
         roundValueToPixelGrid(
@@ -124,9 +124,9 @@ void roundLayoutResultsToPixelGrid(
         Dimension::Height);
   }
 
-  for (yoga::Node* child : node->getChildren()) {
+  for (anu::Node* child : node->getChildren()) {
     roundLayoutResultsToPixelGrid(child, absoluteNodeLeft, absoluteNodeTop);
   }
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

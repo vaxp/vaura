@@ -16,29 +16,29 @@ namespace vaura {
 // ════════════════════════════════════════════════════════════════
 
 RenderObject::RenderObject() {
-    yoga_node_ = YGNodeNew();
+    anu_node_ = ANUNodeNew();
 }
 
 RenderObject::~RenderObject() {
-    if (yoga_node_) {
-        YGNodeFree(yoga_node_);
+    if (anu_node_) {
+        ANUNodeFree(anu_node_);
     }
 }
 
 void RenderObject::layout(float available_width, float available_height) {
-    // Trigger Yoga layout on this node (typically root)
-    YGNodeCalculateLayout(yoga_node_, available_width, available_height, YGDirectionLTR);
+    // Trigger Anu layout on this node (typically root)
+    ANUNodeCalculateLayout(anu_node_, available_width, available_height, ANUDirectionLTR);
 
-    // Sync computed layouts from Yoga into C++ objects
+    // Sync computed layouts from Anu into C++ objects
     syncLayout();
 }
 
 void RenderObject::syncLayout() {
-    // Read size and position from Yoga's computed layout
-    size_.width = YGNodeLayoutGetWidth(yoga_node_);
-    size_.height = YGNodeLayoutGetHeight(yoga_node_);
-    offset_.x = YGNodeLayoutGetLeft(yoga_node_);
-    offset_.y = YGNodeLayoutGetTop(yoga_node_);
+    // Read size and position from Anu's computed layout
+    size_.width = ANUNodeLayoutGetWidth(anu_node_);
+    size_.height = ANUNodeLayoutGetHeight(anu_node_);
+    offset_.x = ANUNodeLayoutGetLeft(anu_node_);
+    offset_.y = ANUNodeLayoutGetTop(anu_node_);
     
     needs_layout_ = false;
     
@@ -119,8 +119,8 @@ void RenderObject::addChild(RenderObject* child) {
     child->parent_ = this;
     children_.push_back(child);
 
-    // Integrate into Yoga tree
-    YGNodeInsertChild(yoga_node_, child->yoga_node_, YGNodeGetChildCount(yoga_node_));
+    // Integrate into Anu tree
+    ANUNodeInsertChild(anu_node_, child->anu_node_, ANUNodeGetChildCount(anu_node_));
 
     markNeedsLayout();
 }
@@ -133,8 +133,8 @@ void RenderObject::insertChild(RenderObject* child, size_t index) {
     child->parent_ = this;
     children_.insert(children_.begin() + static_cast<ptrdiff_t>(index), child);
 
-    // Integrate into Yoga tree
-    YGNodeInsertChild(yoga_node_, child->yoga_node_, index);
+    // Integrate into Anu tree
+    ANUNodeInsertChild(anu_node_, child->anu_node_, index);
 
     markNeedsLayout();
 }
@@ -148,8 +148,8 @@ void RenderObject::removeChild(RenderObject* child) {
         children_.erase(it);
     }
 
-    // Remove from Yoga tree
-    YGNodeRemoveChild(yoga_node_, child->yoga_node_);
+    // Remove from Anu tree
+    ANUNodeRemoveChild(anu_node_, child->anu_node_);
 
     child->parent_ = nullptr;
     markNeedsLayout();
@@ -157,7 +157,7 @@ void RenderObject::removeChild(RenderObject* child) {
 
 void RenderObject::removeAllChildren() {
     for (auto* child : children_) {
-        YGNodeRemoveChild(yoga_node_, child->yoga_node_);
+        ANUNodeRemoveChild(anu_node_, child->anu_node_);
         child->parent_ = nullptr;
     }
     children_.clear();

@@ -12,19 +12,19 @@ public:
 
     WidgetPtr build(BuildContext& ctx) override {
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF1E293B,
             .children = {
                 Column({
-                    .alignItems = YGAlignStretch,
+                    .align = Align::Stretch,
                     .width = 500.0f,
                     .height = 400.0f, // Fixed height to test tab content flexibility
                     .children = {
                         Column({
-                            .margin = std::pair{YGEdgeBottom, 20.0f},
+                            .margin = std::pair{Edge::Bottom, 20.0f},
                             .children = {
                                 Text("Dashboard", {
                                     .font_size = 28,
@@ -39,24 +39,24 @@ public:
                                 Tabs({
                                     .tabs = {
                                         {"Overview", Column({
-                                            .justifyContent = YGJustifyCenter,
-                                            .alignItems = YGAlignCenter,
+                                            .justify = Justify::Center,
+                                            .align = Align::Center,
                                             .flexGrow = 1.0f,
                                             .backgroundColor = 0xFF0F172A,
                                             .borderRadius = 12.0f,
                                             .children = { Text("Overview Dashboard Content", {.font_size = 18, .color = 0xFFF8FAFC}) }
                                         })},
                                         {"Analytics", Column({
-                                            .justifyContent = YGJustifyCenter,
-                                            .alignItems = YGAlignCenter,
+                                            .justify = Justify::Center,
+                                            .align = Align::Center,
                                             .flexGrow = 1.0f,
                                             .backgroundColor = 0xFF0F172A,
                                             .borderRadius = 12.0f,
                                             .children = { Text("Analytics Charts Here", {.font_size = 18, .color = 0xFFF8FAFC}) }
                                         })},
                                         {"Settings", Column({
-                                            .justifyContent = YGJustifyCenter,
-                                            .alignItems = YGAlignCenter,
+                                            .justify = Justify::Center,
+                                            .align = Align::Center,
                                             .flexGrow = 1.0f,
                                             .backgroundColor = 0xFF0F172A,
                                             .borderRadius = 12.0f,

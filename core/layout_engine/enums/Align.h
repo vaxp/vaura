@@ -10,21 +10,21 @@
 #pragma once
 
 #include <cstdint>
-#include <layout_engine/YGEnums.h>
-#include <layout_engine/enums/YogaEnums.h>
+#include <layout_engine/AnuEnums.h>
+#include <layout_engine/enums/AnuEnums.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 enum class Align : uint8_t {
-  Auto = YGAlignAuto,
-  FlexStart = YGAlignFlexStart,
-  Center = YGAlignCenter,
-  FlexEnd = YGAlignFlexEnd,
-  Stretch = YGAlignStretch,
-  Baseline = YGAlignBaseline,
-  SpaceBetween = YGAlignSpaceBetween,
-  SpaceAround = YGAlignSpaceAround,
-  SpaceEvenly = YGAlignSpaceEvenly,
+  Auto = ANUAlignAuto,
+  FlexStart = ANUAlignFlexStart,
+  Center = ANUAlignCenter,
+  FlexEnd = ANUAlignFlexEnd,
+  Stretch = ANUAlignStretch,
+  Baseline = ANUAlignBaseline,
+  SpaceBetween = ANUAlignSpaceBetween,
+  SpaceAround = ANUAlignSpaceAround,
+  SpaceEvenly = ANUAlignSpaceEvenly,
 };
 
 template <>
@@ -32,16 +32,16 @@ constexpr int32_t ordinalCount<Align>() {
   return 9;
 }
 
-constexpr Align scopedEnum(YGAlign unscoped) {
+constexpr Align scopedEnum(ANUAlign unscoped) {
   return static_cast<Align>(unscoped);
 }
 
-constexpr YGAlign unscopedEnum(Align scoped) {
-  return static_cast<YGAlign>(scoped);
+constexpr ANUAlign unscopedEnum(Align scoped) {
+  return static_cast<ANUAlign>(scoped);
 }
 
 inline const char* toString(Align e) {
-  return YGAlignToString(unscopedEnum(e));
+  return ANUAlignToString(unscopedEnum(e));
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

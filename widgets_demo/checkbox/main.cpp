@@ -23,11 +23,11 @@ public:
         auto build_labeled_checkbox = [this](const std::string& label, bool& value) {
             return GestureDetector({
                 .child = Row({
-                    .alignItems = YGAlignCenter,
-                    .margin = std::pair{YGEdgeBottom, 20.0f},
+                    .align = Align::Center,
+                    .margin = std::pair{Edge::Bottom, 20.0f},
                     .children = {
                         Column({
-                            .margin = std::pair{YGEdgeRight, 15.0f},
+                            .margin = std::pair{Edge::Right, 15.0f},
                             .children = {
                                 Checkbox({
                                     .value = value,
@@ -55,19 +55,19 @@ public:
         };
 
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF1E293B,
             .children = {
                 Column({
-                    .padding = std::pair{YGEdgeAll, 40.0f},
+                    .padding = std::pair{Edge::All, 40.0f},
                     .backgroundColor = 0xFF0F172A,
                     .borderRadius = 16.0f,
                     .children = {
                         Column({
-                            .margin = std::pair{YGEdgeBottom, 30.0f},
+                            .margin = std::pair{Edge::Bottom, 30.0f},
                             .children = {
                                 Text("Checkbox Demo", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold})
                             }

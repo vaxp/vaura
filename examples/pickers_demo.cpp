@@ -51,13 +51,13 @@ public:
         auto root = std::make_shared<FlexBox>();
         root->widthPercent(100).heightPercent(100)
              .backgroundColor(0xFF0F172A)
-             .flexDirection(YGFlexDirectionRow); // Sidebar + Content
+             .direction(FlexDirection::Row); // Sidebar + Content
 
         // ── Sidebar (Tabs) ────────────────────────────────────
         auto sidebar = std::make_shared<FlexBox>();
         sidebar->width(220).heightPercent(100)
                .backgroundColor(0xFF1E293B)
-               .padding(YGEdgeAll, 16);
+               .padding(Edge::All, 16);
 
         sidebar->child(Text("Phase 3", {.font_size=20, .color=0xFFF8FAFC, .weight=TextStyle::Bold}));
         sidebar->child(Text("Data Pickers", {.font_size=14, .color=0xFF94A3B8}));
@@ -77,7 +77,7 @@ public:
                 }),
                 .on_tap = [this,idx](){ setState([this,idx]{ active_tab = idx; }); },
             });
-            auto bw = std::make_shared<FlexBox>(); bw->margin(YGEdgeBottom,8).child(btn);
+            auto bw = std::make_shared<FlexBox>(); bw->margin(Edge::Bottom,8).child(btn);
             sidebar->child(bw);
         };
         add_tab(0, "🔍 SearchBar");
@@ -89,13 +89,13 @@ public:
 
         // ── Content Area ──────────────────────────────────────
         auto content = std::make_shared<FlexBox>();
-        content->flexGrow(1).padding(YGEdgeAll, 40)
-               .justifyContent(YGJustifyCenter).alignItems(YGAlignCenter);
+        content->flexGrow(1).padding(Edge::All, 40)
+               .justify(Justify::Center).align(Align::Center);
 
         if (active_tab == 0) {
             // SearchBar
             auto sbw = std::make_shared<FlexBox>();
-            sbw->flexDirection(YGFlexDirectionColumn).alignItems(YGAlignCenter);
+            sbw->direction(FlexDirection::Column).align(Align::Center);
             sbw->child(Text("Integrated Search", {.font_size=24,.color=0xFFF8FAFC,.weight=TextStyle::Bold}));
             auto ssp = std::make_shared<FlexBox>(); ssp->height(24); sbw->child(ssp);
             
@@ -124,7 +124,7 @@ public:
         } else if (active_tab == 1) {
             // Calendar
             auto cw = std::make_shared<FlexBox>();
-            cw->flexDirection(YGFlexDirectionColumn).alignItems(YGAlignCenter);
+            cw->direction(FlexDirection::Column).align(Align::Center);
             cw->child(Text("Select a Date", {.font_size=24,.color=0xFFF8FAFC,.weight=TextStyle::Bold}));
             auto csp = std::make_shared<FlexBox>(); csp->height(24); cw->child(csp);
             
@@ -150,7 +150,7 @@ public:
         } else if (active_tab == 2) {
             // TimePicker
             auto tw = std::make_shared<FlexBox>();
-            tw->flexDirection(YGFlexDirectionColumn).alignItems(YGAlignCenter);
+            tw->direction(FlexDirection::Column).align(Align::Center);
             tw->child(Text("Select Time", {.font_size=24,.color=0xFFF8FAFC,.weight=TextStyle::Bold}));
             auto tsp = std::make_shared<FlexBox>(); tsp->height(24); tw->child(tsp);
             
@@ -176,7 +176,7 @@ public:
         } else if (active_tab == 3) {
             // ColorPicker
             auto cpw = std::make_shared<FlexBox>();
-            cpw->flexDirection(YGFlexDirectionColumn).alignItems(YGAlignCenter);
+            cpw->direction(FlexDirection::Column).align(Align::Center);
             cpw->child(Text("Theme Color", {.font_size=24,.color=0xFFF8FAFC,.weight=TextStyle::Bold}));
             auto cpsp = std::make_shared<FlexBox>(); cpsp->height(24); cpw->child(cpsp);
             

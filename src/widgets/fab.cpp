@@ -8,7 +8,7 @@
 #include "vaura/widgets/gesture_detector.hpp"
 #include "vaura/state/state.hpp"
 #include "vaura/tree/build_context.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 namespace vaura {
 
@@ -41,22 +41,22 @@ public:
 
         // Content row
         auto content_row = std::make_shared<FlexBox>();
-        content_row->flexDirection(YGFlexDirectionRow)
-                    .alignItems(YGAlignCenter)
-                    .justifyContent(YGJustifyCenter);
+        content_row->direction(FlexDirection::Row)
+                    .align(Align::Center)
+                    .justify(Justify::Center);
 
         if (cfg.icon) {
             auto iw = std::make_shared<FlexBox>();
             iw->width(24).height(24)
-               .justifyContent(YGJustifyCenter)
-               .alignItems(YGAlignCenter)
+               .justify(Justify::Center)
+               .align(Align::Center)
                .child(cfg.icon);
             content_row->child(iw);
         }
 
         if (is_extended && !cfg.label.empty()) {
             auto lbl_wrap = std::make_shared<FlexBox>();
-            lbl_wrap->margin(YGEdgeLeft, cfg.icon ? 8.0f : 0.0f)
+            lbl_wrap->margin(Edge::Left, cfg.icon ? 8.0f : 0.0f)
                      .child(text(cfg.label, {
                          .font_size = cfg.label_font_size,
                          .color     = cfg.label_color,
@@ -68,7 +68,7 @@ public:
         // Button box
         auto btn_box = container({
             .color         = bg,
-            .width         = is_extended ? YGUndefined : btn_size,
+            .width         = is_extended ? ANUUndefined : btn_size,
             .height        = btn_size,
             .min_width     = btn_size,
             .padding       = is_extended

@@ -23,13 +23,13 @@ public:
         root->widthPercent(100)
             .heightPercent(100)
             .backgroundColor(0xFF1E293B)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter);
+            .justify(Justify::Center)
+            .align(Align::Center);
 
         auto content = std::make_shared<FlexBox>();
-        content->flexDirection(YGFlexDirectionColumn)
+        content->direction(FlexDirection::Column)
                .backgroundColor(0xFF0F172A)
-               .padding(YGEdgeAll, 40)
+               .padding(Edge::All, 40)
                .borderRadius(16);
 
         auto title = Text("Radio Button Demo", {
@@ -39,14 +39,14 @@ public:
         });
         
         auto title_container = std::make_shared<FlexBox>();
-        title_container->margin(YGEdgeBottom, 30).child(title);
+        title_container->margin(Edge::Bottom, 30).child(title);
         content->child(title_container);
 
         auto build_radio_option = [this](const std::string& label, int value) {
             auto row = std::make_shared<FlexBox>();
-            row->flexDirection(YGFlexDirectionRow)
-               .alignItems(YGAlignCenter)
-               .margin(YGEdgeBottom, 20);
+            row->direction(FlexDirection::Row)
+               .align(Align::Center)
+               .margin(Edge::Bottom, 20);
 
             auto rb = Radio({
                 .value = (selected_option_ == value),
@@ -67,7 +67,7 @@ public:
             txt_container->child(txt);
             
             auto rb_container = std::make_shared<FlexBox>();
-            rb_container->margin(YGEdgeRight, 15).child(rb);
+            rb_container->margin(Edge::Right, 15).child(rb);
 
             row->child(rb_container).child(txt_container);
             

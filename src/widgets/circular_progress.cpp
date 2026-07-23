@@ -8,7 +8,7 @@
 #include "vaura/rendering/canvas.hpp"
 #include "vaura/animation/animation_controller.hpp"
 #include "vaura/animation/ticker.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 namespace vaura {
 
@@ -22,8 +22,8 @@ public:
     float rotation = 0.0f; // Used for indeterminate animation
 
     RenderCircularProgress() {
-        YGNodeStyleSetWidth(yogaNode(), 40.0f);
-        YGNodeStyleSetHeight(yogaNode(), 40.0f);
+        ANUNodeStyleSetWidth(anuNode(), 40.0f);
+        ANUNodeStyleSetHeight(anuNode(), 40.0f);
     }
 
     void paint(PaintContext& context) override {
@@ -96,8 +96,8 @@ public:
         rp.config = config;
         rp.rotation = rotation;
         
-        YGNodeStyleSetWidth(rp.yogaNode(), config.size);
-        YGNodeStyleSetHeight(rp.yogaNode(), config.size);
+        ANUNodeStyleSetWidth(rp.anuNode(), config.size);
+        ANUNodeStyleSetHeight(rp.anuNode(), config.size);
         
         rp.markNeedsLayout();
         rp.markNeedsPaint();

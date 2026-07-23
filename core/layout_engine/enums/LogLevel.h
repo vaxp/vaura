@@ -10,18 +10,18 @@
 #pragma once
 
 #include <cstdint>
-#include <layout_engine/YGEnums.h>
-#include <layout_engine/enums/YogaEnums.h>
+#include <layout_engine/AnuEnums.h>
+#include <layout_engine/enums/AnuEnums.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 enum class LogLevel : uint8_t {
-  Error = YGLogLevelError,
-  Warn = YGLogLevelWarn,
-  Info = YGLogLevelInfo,
-  Debug = YGLogLevelDebug,
-  Verbose = YGLogLevelVerbose,
-  Fatal = YGLogLevelFatal,
+  Error = ANULogLevelError,
+  Warn = ANULogLevelWarn,
+  Info = ANULogLevelInfo,
+  Debug = ANULogLevelDebug,
+  Verbose = ANULogLevelVerbose,
+  Fatal = ANULogLevelFatal,
 };
 
 template <>
@@ -29,16 +29,16 @@ constexpr int32_t ordinalCount<LogLevel>() {
   return 6;
 }
 
-constexpr LogLevel scopedEnum(YGLogLevel unscoped) {
+constexpr LogLevel scopedEnum(ANULogLevel unscoped) {
   return static_cast<LogLevel>(unscoped);
 }
 
-constexpr YGLogLevel unscopedEnum(LogLevel scoped) {
-  return static_cast<YGLogLevel>(scoped);
+constexpr ANULogLevel unscopedEnum(LogLevel scoped) {
+  return static_cast<ANULogLevel>(scoped);
 }
 
 inline const char* toString(LogLevel e) {
-  return YGLogLevelToString(unscopedEnum(e));
+  return ANULogLevelToString(unscopedEnum(e));
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

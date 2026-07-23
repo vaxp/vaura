@@ -5,20 +5,20 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <layout_engine/debug/AssertFatal.h>
 #include <layout_engine/enums/Edge.h>
 #include <layout_engine/node/Node.h>
 
 using namespace facebook;
-using namespace facebook::yoga;
+using namespace facebook::anu;
 
 namespace {
 
 template <auto LayoutMember>
-float getResolvedLayoutProperty(const YGNodeConstRef nodeRef, const Edge edge) {
+float getResolvedLayoutProperty(const ANUNodeConstRef nodeRef, const Edge edge) {
   const auto node = resolveRef(nodeRef);
-  yoga::assertFatalWithNode(
+  anu::assertFatalWithNode(
       node,
       edge <= Edge::End,
       "Cannot get layout properties of multi-edge shorthands");
@@ -44,49 +44,49 @@ float getResolvedLayoutProperty(const YGNodeConstRef nodeRef, const Edge edge) {
 
 } // namespace
 
-float YGNodeLayoutGetLeft(const YGNodeConstRef node) {
+float ANUNodeLayoutGetLeft(const ANUNodeConstRef node) {
   return resolveRef(node)->getLayout().position(PhysicalEdge::Left);
 }
 
-float YGNodeLayoutGetTop(const YGNodeConstRef node) {
+float ANUNodeLayoutGetTop(const ANUNodeConstRef node) {
   return resolveRef(node)->getLayout().position(PhysicalEdge::Top);
 }
 
-float YGNodeLayoutGetRight(const YGNodeConstRef node) {
+float ANUNodeLayoutGetRight(const ANUNodeConstRef node) {
   return resolveRef(node)->getLayout().position(PhysicalEdge::Right);
 }
 
-float YGNodeLayoutGetBottom(const YGNodeConstRef node) {
+float ANUNodeLayoutGetBottom(const ANUNodeConstRef node) {
   return resolveRef(node)->getLayout().position(PhysicalEdge::Bottom);
 }
 
-float YGNodeLayoutGetWidth(const YGNodeConstRef node) {
+float ANUNodeLayoutGetWidth(const ANUNodeConstRef node) {
   return resolveRef(node)->getLayout().dimension(Dimension::Width);
 }
 
-float YGNodeLayoutGetHeight(const YGNodeConstRef node) {
+float ANUNodeLayoutGetHeight(const ANUNodeConstRef node) {
   return resolveRef(node)->getLayout().dimension(Dimension::Height);
 }
 
-YGDirection YGNodeLayoutGetDirection(const YGNodeConstRef node) {
+ANUDirection ANUNodeLayoutGetDirection(const ANUNodeConstRef node) {
   return unscopedEnum(resolveRef(node)->getLayout().direction());
 }
 
-bool YGNodeLayoutGetHadOverflow(const YGNodeConstRef node) {
+bool ANUNodeLayoutGetHadOverflow(const ANUNodeConstRef node) {
   return resolveRef(node)->getLayout().hadOverflow();
 }
 
-float YGNodeLayoutGetMargin(YGNodeConstRef node, YGEdge edge) {
+float ANUNodeLayoutGetMargin(ANUNodeConstRef node, ANUEdge edge) {
   return getResolvedLayoutProperty<&LayoutResults::margin>(
       node, scopedEnum(edge));
 }
 
-float YGNodeLayoutGetBorder(YGNodeConstRef node, YGEdge edge) {
+float ANUNodeLayoutGetBorder(ANUNodeConstRef node, ANUEdge edge) {
   return getResolvedLayoutProperty<&LayoutResults::border>(
       node, scopedEnum(edge));
 }
 
-float YGNodeLayoutGetPadding(YGNodeConstRef node, YGEdge edge) {
+float ANUNodeLayoutGetPadding(ANUNodeConstRef node, ANUEdge edge) {
   return getResolvedLayoutProperty<&LayoutResults::padding>(
       node, scopedEnum(edge));
 }

@@ -7,7 +7,7 @@
 #include "vaura/rendering/path.hpp"
 #include "vaura/animation/animation_controller.hpp"
 #include "vaura/animation/ticker.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 namespace vaura {
 
@@ -17,15 +17,15 @@ public:
     float progress = 0.0f; // 0.0 = off, 1.0 = on
 
     RenderCheckbox() {
-        YGNodeStyleSetWidth(yogaNode(), 24.0f);
-        YGNodeStyleSetHeight(yogaNode(), 24.0f);
+        ANUNodeStyleSetWidth(anuNode(), 24.0f);
+        ANUNodeStyleSetHeight(anuNode(), 24.0f);
     }
 
     void setConfig(const CheckboxConfig& new_config, float new_progress) {
         bool needs_repaint = false;
         if (config.size != new_config.size) {
-            YGNodeStyleSetWidth(yogaNode(), new_config.size);
-            YGNodeStyleSetHeight(yogaNode(), new_config.size);
+            ANUNodeStyleSetWidth(anuNode(), new_config.size);
+            ANUNodeStyleSetHeight(anuNode(), new_config.size);
             markNeedsLayout();
         }
         if (progress != new_progress) {

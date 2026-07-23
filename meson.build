@@ -50,13 +50,13 @@ else
   endif
 endif
 
-# Yoga layout engine (compiled directly)
-yoga_inc = include_directories('core')
-yoga_sources = files(
+# Anu layout engine (compiled directly)
+anu_inc = include_directories('core')
+anu_sources = files(
   'core/layout_engine/node/LayoutResults.cpp',
   'core/layout_engine/node/Node.cpp',
-  'core/layout_engine/YGValue.cpp',
-  'core/layout_engine/YGNode.cpp',
+  'core/layout_engine/AnuValue.cpp',
+  'core/layout_engine/AnuNode.cpp',
   'core/layout_engine/algorithm/PixelGrid.cpp',
   'core/layout_engine/algorithm/FlexLine.cpp',
   'core/layout_engine/algorithm/CalculateLayout.cpp',
@@ -65,12 +65,12 @@ yoga_sources = files(
   'core/layout_engine/algorithm/Baseline.cpp',
   'core/layout_engine/debug/Log.cpp',
   'core/layout_engine/debug/AssertFatal.cpp',
-  'core/layout_engine/YGNodeLayout.cpp',
-  'core/layout_engine/YGNodeStyle.cpp',
+  'core/layout_engine/AnuNodeLayout.cpp',
+  'core/layout_engine/AnuNodeStyle.cpp',
   'core/layout_engine/event/event.cpp',
-  'core/layout_engine/YGConfig.cpp',
-  'core/layout_engine/YGPixelGrid.cpp',
-  'core/layout_engine/YGEnums.cpp',
+  'core/layout_engine/AnuConfig.cpp',
+  'core/layout_engine/AnuPixelGrid.cpp',
+  'core/layout_engine/AnuEnums.cpp',
   'core/layout_engine/config/Config.cpp'
 )
 
@@ -148,7 +148,7 @@ endif
 # ============================================================
 # Feature detection — define macros based on what we found
 # ============================================================
-vaura_defines = ['-DVAURA_HAS_YOGA=1']
+vaura_defines = ['-DVAURA_HAS_ANU=1']
 
 if skia_dep.found()
   vaura_defines += '-DVAURA_HAS_SKIA=1'
@@ -285,18 +285,18 @@ vaura_sources = files(
   'src/app/theme.cpp',
 )
 
-yoga_lib = static_library('yogacore',
-  yoga_sources,
-  include_directories: yoga_inc,
+anu_lib = static_library('anucore',
+  anu_sources,
+  include_directories: anu_inc,
   override_options: ['werror=false', 'warning_level=0']
 )
 
-yoga_dep = declare_dependency(
-  include_directories: yoga_inc,
-  link_with: yoga_lib
+anu_dep = declare_dependency(
+  include_directories: anu_inc,
+  link_with: anu_lib
 )
 
-vaura_deps += yoga_dep
+vaura_deps += anu_dep
 
 # ============================================================
 # Library target

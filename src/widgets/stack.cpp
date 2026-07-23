@@ -7,31 +7,31 @@ public:
     Alignment alignment = Alignment::TopLeft;
 
     void syncLayout() override {
-        // Enforce Yoga properties for stack
-        auto node = yogaNode();
-        YGNodeStyleSetFlexDirection(node, YGFlexDirectionColumn);
+        // Enforce Anu properties for stack
+        auto node = anuNode();
+        ANUNodeStyleSetFlexDirection(node, static_cast<ANUFlexDirection>(FlexDirection::Column));
 
         // Map alignment to justify/align
         if (alignment == Alignment::Center) {
-            YGNodeStyleSetJustifyContent(node, YGJustifyCenter);
-            YGNodeStyleSetAlignItems(node, YGAlignCenter);
+            ANUNodeStyleSetJustifyContent(node, static_cast<ANUJustify>(Justify::Center));
+            ANUNodeStyleSetAlignItems(node, static_cast<ANUAlign>(Align::Center));
         } else if (alignment == Alignment::TopLeft) {
-            YGNodeStyleSetJustifyContent(node, YGJustifyFlexStart);
-            YGNodeStyleSetAlignItems(node, YGAlignFlexStart);
+            ANUNodeStyleSetJustifyContent(node, static_cast<ANUJustify>(Justify::Start));
+            ANUNodeStyleSetAlignItems(node, static_cast<ANUAlign>(Align::Start));
         } else if (alignment == Alignment::BottomRight) {
-            YGNodeStyleSetJustifyContent(node, YGJustifyFlexEnd);
-            YGNodeStyleSetAlignItems(node, YGAlignFlexEnd);
+            ANUNodeStyleSetJustifyContent(node, static_cast<ANUJustify>(Justify::End));
+            ANUNodeStyleSetAlignItems(node, static_cast<ANUAlign>(Align::End));
         }
 
         // Make all children except the first one absolute
         for (size_t i = 0; i < children_.size(); ++i) {
-            auto cnode = children_[i]->yogaNode();
+            auto cnode = children_[i]->anuNode();
             if (i == 0) {
-                YGNodeStyleSetPositionType(cnode, YGPositionTypeRelative);
+                ANUNodeStyleSetPositionType(cnode, static_cast<ANUPositionType>(PositionType::Relative));
             } else {
-                YGNodeStyleSetPositionType(cnode, YGPositionTypeAbsolute);
+                ANUNodeStyleSetPositionType(cnode, static_cast<ANUPositionType>(PositionType::Absolute));
                 // Center absolute children by default if alignment is center?
-                // For now, let Yoga handle absolute positioning (top/left 0 by default)
+                // For now, let Anu handle absolute positioning (top/left 0 by default)
             }
         }
 

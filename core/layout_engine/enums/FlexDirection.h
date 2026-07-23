@@ -10,16 +10,16 @@
 #pragma once
 
 #include <cstdint>
-#include <layout_engine/YGEnums.h>
-#include <layout_engine/enums/YogaEnums.h>
+#include <layout_engine/AnuEnums.h>
+#include <layout_engine/enums/AnuEnums.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 enum class FlexDirection : uint8_t {
-  Column = YGFlexDirectionColumn,
-  ColumnReverse = YGFlexDirectionColumnReverse,
-  Row = YGFlexDirectionRow,
-  RowReverse = YGFlexDirectionRowReverse,
+  Column = ANUFlexDirectionColumn,
+  ColumnReverse = ANUFlexDirectionColumnReverse,
+  Row = ANUFlexDirectionRow,
+  RowReverse = ANUFlexDirectionRowReverse,
 };
 
 template <>
@@ -27,16 +27,16 @@ constexpr int32_t ordinalCount<FlexDirection>() {
   return 4;
 }
 
-constexpr FlexDirection scopedEnum(YGFlexDirection unscoped) {
+constexpr FlexDirection scopedEnum(ANUFlexDirection unscoped) {
   return static_cast<FlexDirection>(unscoped);
 }
 
-constexpr YGFlexDirection unscopedEnum(FlexDirection scoped) {
-  return static_cast<YGFlexDirection>(scoped);
+constexpr ANUFlexDirection unscopedEnum(FlexDirection scoped) {
+  return static_cast<ANUFlexDirection>(scoped);
 }
 
 inline const char* toString(FlexDirection e) {
-  return YGFlexDirectionToString(unscopedEnum(e));
+  return ANUFlexDirectionToString(unscopedEnum(e));
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

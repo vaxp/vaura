@@ -9,10 +9,10 @@
 
 #include <vector>
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <layout_engine/node/Node.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 struct FlexLineRunningLayout {
   // Total flex grow factors of flex items which are to be laid in the current
@@ -41,7 +41,7 @@ struct FlexLine {
   // List of children which are part of the line flow. This means they are not
   // positioned absolutely, or with `display: "none"`, and do not overflow the
   // available dimensions.
-  const std::vector<yoga::Node*> itemsInFlow{};
+  const std::vector<anu::Node*> itemsInFlow{};
 
   // Accumulation of the dimensions and margin of all the children on the
   // current line. This will be used in order to either set the dimensions of
@@ -63,7 +63,7 @@ struct FlexLine {
 // computedFlexBasis properly computed(To do this use
 // computeFlexBasisForChildren function).
 FlexLine calculateFlexLine(
-    yoga::Node* node,
+    anu::Node* node,
     Direction ownerDirection,
     float ownerWidth,
     float mainAxisownerSize,
@@ -72,4 +72,4 @@ FlexLine calculateFlexLine(
     Node::LayoutableChildren::Iterator& iterator,
     size_t lineCount);
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

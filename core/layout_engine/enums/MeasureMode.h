@@ -10,15 +10,15 @@
 #pragma once
 
 #include <cstdint>
-#include <layout_engine/YGEnums.h>
-#include <layout_engine/enums/YogaEnums.h>
+#include <layout_engine/AnuEnums.h>
+#include <layout_engine/enums/AnuEnums.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 enum class MeasureMode : uint8_t {
-  Undefined = YGMeasureModeUndefined,
-  Exactly = YGMeasureModeExactly,
-  AtMost = YGMeasureModeAtMost,
+  Undefined = ANUMeasureModeUndefined,
+  Exactly = ANUMeasureModeExactly,
+  AtMost = ANUMeasureModeAtMost,
 };
 
 template <>
@@ -26,16 +26,16 @@ constexpr int32_t ordinalCount<MeasureMode>() {
   return 3;
 }
 
-constexpr MeasureMode scopedEnum(YGMeasureMode unscoped) {
+constexpr MeasureMode scopedEnum(ANUMeasureMode unscoped) {
   return static_cast<MeasureMode>(unscoped);
 }
 
-constexpr YGMeasureMode unscopedEnum(MeasureMode scoped) {
-  return static_cast<YGMeasureMode>(scoped);
+constexpr ANUMeasureMode unscopedEnum(MeasureMode scoped) {
+  return static_cast<ANUMeasureMode>(scoped);
 }
 
 inline const char* toString(MeasureMode e) {
-  return YGMeasureModeToString(unscopedEnum(e));
+  return ANUMeasureModeToString(unscopedEnum(e));
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

@@ -29,7 +29,7 @@ std::unique_ptr<RenderDecoratedBox> createBox(Color color, float radius = 0) {
 
 int main() {
     auto platform = std::move(Platform::create().value());
-    WindowConfig config{"VAURA - Yoga Gallery Demo", 1000, 700};
+    WindowConfig config{"VAURA Torture - RTL vs LTR", 800, 600};
     auto window = std::move(Window::create(*platform, config).value());
     window->makeCurrent();
 
@@ -51,46 +51,51 @@ int main() {
         return nodes.back().get();
     };
 
-    // Root - Column
     auto root = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFF222222)));
     root->layoutNode().setWidthPercent(100);
     root->layoutNode().setHeightPercent(100);
     root->layoutNode().setFlexDirection(FlexDirection::Column);
+    root->layoutNode().setJustifyContent(MainAxisAlign::SpaceEvenly);
     root->layoutNode().setPadding(Edge::All, 20);
 
-    // Header
-    auto header = static_cast<RenderDecoratedBox*>(addNode(createBox(0x00000000)));
-    header->layoutNode().setWidthPercent(100);
-    header->layoutNode().setHeight(60);
-    header->layoutNode().setFlexDirection(FlexDirection::Row);
-    header->layoutNode().setJustifyContent(MainAxisAlign::SpaceBetween);
-    header->layoutNode().setAlignItems(CrossAxisAlign::Center);
-    root->addChild(header);
+    // LTR Row (English style)
+    auto ltrRow = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFF333333, 10)));
+    ltrRow->layoutNode().setWidthPercent(100);
+    ltrRow->layoutNode().setHeight(100);
+    ltrRow->layoutNode().setFlexDirection(FlexDirection::Row);
+    ltrRow->layoutNode().setDirection(LayoutDirection::LTR); // Explicit LTR
+    ltrRow->layoutNode().setPadding(Edge::All, 10);
+    root->addChild(ltrRow);
 
-    auto title = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFFFFFFFF, 4)));
-    title->layoutNode().setWidth(200);
-    title->layoutNode().setHeight(20);
-    header->addChild(title);
+    // RTL Row (Arabic style)
+    auto rtlRow = static_cast<RenderDecoratedBox*>(addNode(createBox(0xFF444444, 10)));
+    rtlRow->layoutNode().setWidthPercent(100);
+    rtlRow->layoutNode().setHeight(100);
+    rtlRow->layoutNode().setFlexDirection(FlexDirection::Row);
+    rtlRow->layoutNode().setDirection(LayoutDirection::RTL); // Explicit RTL
+    rtlRow->layoutNode().setPadding(Edge::All, 10);
+    root->addChild(rtlRow);
 
-    // Grid Area
-    auto grid = static_cast<RenderDecoratedBox*>(addNode(createBox(0x00000000)));
-    grid->layoutNode().setFlexGrow(1.0f);
-    grid->layoutNode().setFlexDirection(FlexDirection::Row);
-    grid->layoutNode().setFlexWrap(true);
-    grid->layoutNode().setJustifyContent(MainAxisAlign::Center);
-    grid->layoutNode().setAlignItems(CrossAxisAlign::Start);
-    root->addChild(grid);
+    Color colors[] = {0xFFFF0000, 0xFF00FF00, 0xFF0000FF};
+    float widths[] = {50, 100, 150};
 
-    // Images
-    int heights[] = {200, 150, 300, 200, 250, 150, 200, 250, 150, 200};
-    Color colors[] = {0xFFEF476F, 0xFFFFD166, 0xFF06D6A0, 0xFF118AB2, 0xFF073B4C};
+    // Add elements to LTR
+    for (int i = 0; i < 3; i++) {
+        auto box = static_cast<RenderDecoratedBox*>(addNode(createBox(colors[i], 5)));
+        box->layoutNode().setWidth(widths[i]);
+        box->layoutNode().setHeight(50);
+        box->layoutNode().setMargin(Edge::Right, 10); // Margin respects direction in Anu!
+        ltrRow->addChild(box);
+    }
 
-    for (int i = 0; i < 10; i++) {
-        auto imgCard = static_cast<RenderDecoratedBox*>(addNode(createBox(colors[i % 5], 10)));
-        imgCard->layoutNode().setWidthPercent(22); // 4 per row with margins
-        imgCard->layoutNode().setHeight(heights[i]);
-        imgCard->layoutNode().setMargin(Edge::All, 10);
-        grid->addChild(imgCard);
+    // Add same elements to RTL
+    for (int i = 0; i < 3; i++) {
+        auto box = static_cast<RenderDecoratedBox*>(addNode(createBox(colors[i], 5)));
+        box->layoutNode().setWidth(widths[i]);
+        box->layoutNode().setHeight(50);
+        // Note: Anu's Margin(Edge::End, 10) can be used, but let's test if it flips
+        box->layoutNode().setMargin(Edge::Left, 10); // If RTL, Left is End? No, Left is physical Left. Let's use Margin(Edge::Right, 10) to see if Anu mirrors it. Actually Anu uses Edge::Start / Edge::End for direction-aware margins. But here we just want to see the items flip.
+        rtlRow->addChild(box);
     }
 
     bool running = true;

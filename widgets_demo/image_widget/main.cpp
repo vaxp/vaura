@@ -13,12 +13,12 @@ public:
     WidgetPtr build(BuildContext& ctx) override {
         auto make_image_card = [](const std::string& label, BoxFit fit) {
             return Column({
-                .alignItems = YGAlignCenter,
-                .margin = std::pair{YGEdgeAll, 20.0f},
+                .align = Align::Center,
+                .margin = std::pair{Edge::All, 20.0f},
                 .children = {
                     Column({
-                        .justifyContent = YGJustifyCenter,
-                        .alignItems = YGAlignCenter,
+                        .justify = Justify::Center,
+                        .align = Align::Center,
                         .width = 200.0f,
                         .height = 200.0f,
                         .backgroundColor = 0xFF1E293B,
@@ -34,7 +34,7 @@ public:
                         }
                     }),
                     Column({
-                        .margin = std::pair{YGEdgeTop, 16.0f},
+                        .margin = std::pair{Edge::Top, 16.0f},
                         .children = {
                             Text(label, {.font_size = 16.0f, .color = 0xFF94A3B8})
                         }
@@ -44,21 +44,21 @@ public:
         };
 
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF0F172A,
             .children = {
                 Column({
-                    .margin = std::pair{YGEdgeBottom, 40.0f},
+                    .margin = std::pair{Edge::Bottom, 40.0f},
                     .children = {
                         Text("Image Widget Gallery", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold})
                     }
                 }),
                 Row({
-                    .justifyContent = YGJustifyCenter,
-                    .alignItems = YGAlignCenter,
+                    .justify = Justify::Center,
+                    .align = Align::Center,
                     .widthPercent = 100.0f,
                     .children = {
                         make_image_card("BoxFit::Contain", BoxFit::Contain),

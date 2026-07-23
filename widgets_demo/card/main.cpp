@@ -14,8 +14,8 @@ public:
 
     WidgetPtr build(BuildContext& context) override {
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF0F172A,
@@ -28,8 +28,8 @@ public:
                     .shadow_dy = 10.0f,
                     .padding = EdgeInsets(40, 60, 40, 60)
                 }, Column({
-                    .justifyContent = YGJustifyFlexStart,
-                    .alignItems = YGAlignCenter,
+                    .justify = Justify::Start,
+                    .align = Align::Center,
                     .gap = 16.0f,
                     .children = {
                         Text("VAURA Developer", {

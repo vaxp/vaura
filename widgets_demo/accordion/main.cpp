@@ -12,18 +12,18 @@ public:
 
     WidgetPtr build(BuildContext& ctx) override {
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF0F172A,
             .children = {
                 Column({
-                    .alignItems = YGAlignStretch,
+                    .align = Align::Stretch,
                     .width = 400.0f,
                     .children = {
                         Column({
-                            .margin = std::pair{YGEdgeBottom, 20.0f},
+                            .margin = std::pair{Edge::Bottom, 20.0f},
                             .children = {
                                 Text("FAQ", {
                                     .font_size = 28,
@@ -33,7 +33,7 @@ public:
                             }
                         }),
                         Column({
-                            .margin = std::pair{YGEdgeBottom, 10.0f},
+                            .margin = std::pair{Edge::Bottom, 10.0f},
                             .children = {
                                 Accordion({
                                     .title = "What is VAURA?",
@@ -50,7 +50,7 @@ public:
                             .children = {
                                 Accordion({
                                     .title = "Is it hardware accelerated?",
-                                    .content = Text("Yes! It utilizes Yoga for flexbox layouts, Skia for high-performance GPU-accelerated rendering, and an architecture inspired by modern declarative frameworks.", {
+                                    .content = Text("Yes! It utilizes Anu for flexbox layouts, Skia for high-performance GPU-accelerated rendering, and an architecture inspired by modern declarative frameworks.", {
                                         .font_size = 15,
                                         .color = 0xFF94A3B8
                                     }),

@@ -17,13 +17,13 @@ public:
         root->widthPercent(100)
             .heightPercent(100)
             .backgroundColor(0xFF1E293B)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter);
+            .justify(Justify::Center)
+            .align(Align::Center);
 
         auto row = std::make_shared<FlexBox>();
-        row->flexDirection(YGFlexDirectionRow)
-           .alignItems(YGAlignCenter)
-           .justifyContent(YGJustifySpaceEvenly)
+        row->direction(FlexDirection::Row)
+           .align(Align::Center)
+           .justify(Justify::SpaceEvenly)
            .width(400);
 
         // Icon 1: Notifications

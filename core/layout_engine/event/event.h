@@ -7,14 +7,14 @@
 
 #pragma once
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 #include <array>
 #include <cstdint>
 #include <functional>
 #include <vector>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 enum struct LayoutType : int {
   kLayout = 0,
@@ -48,7 +48,7 @@ struct LayoutData {
 
 const char* LayoutPassReasonToString(LayoutPassReason value);
 
-struct YG_EXPORT Event {
+struct ANU_EXPORT Event {
   enum Type {
     NodeAllocation,
     NodeDeallocation,
@@ -61,7 +61,7 @@ struct YG_EXPORT Event {
     NodeBaselineEnd,
   };
   class Data;
-  using Subscriber = void(YGNodeConstRef, Type, Data);
+  using Subscriber = void(ANUNodeConstRef, Type, Data);
   using Subscribers = std::vector<std::function<Subscriber>>;
 
   template <Type E>
@@ -85,25 +85,25 @@ struct YG_EXPORT Event {
   static void subscribe(std::function<Subscriber>&& subscriber);
 
   template <Type E>
-  static void publish(YGNodeConstRef node, const TypedData<E>& eventData = {}) {
+  static void publish(ANUNodeConstRef node, const TypedData<E>& eventData = {}) {
     publish(node, E, Data{eventData});
   }
 
  private:
   static void publish(
-      YGNodeConstRef /*node*/,
+      ANUNodeConstRef /*node*/,
       Type /*eventType*/,
       const Data& /*eventData*/);
 };
 
 template <>
 struct Event::TypedData<Event::NodeAllocation> {
-  YGConfigConstRef config;
+  ANUConfigConstRef config;
 };
 
 template <>
 struct Event::TypedData<Event::NodeDeallocation> {
-  YGConfigConstRef config;
+  ANUConfigConstRef config;
 };
 
 template <>
@@ -114,9 +114,9 @@ struct Event::TypedData<Event::LayoutPassEnd> {
 template <>
 struct Event::TypedData<Event::MeasureCallbackEnd> {
   float width;
-  YGMeasureMode widthMeasureMode;
+  ANUMeasureMode widthMeasureMode;
   float height;
-  YGMeasureMode heightMeasureMode;
+  ANUMeasureMode heightMeasureMode;
   float measuredWidth;
   float measuredHeight;
   const LayoutPassReason reason;
@@ -127,4 +127,4 @@ struct Event::TypedData<Event::NodeLayout> {
   LayoutType layoutType;
 };
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

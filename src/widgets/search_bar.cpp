@@ -27,7 +27,7 @@
 #elif defined(VAURA_HAS_SDL2)
 #include <SDL2/SDL.h>
 #endif
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <string>
 
 namespace vaura {
@@ -146,8 +146,8 @@ public:
     WidgetPtr buildSuggOverlay(const SearchBarConfig& cfg) {
         // Invisible full-screen backdrop to close on outside click
         auto bd = std::make_shared<FlexBox>();
-        bd->positionType(YGPositionTypeAbsolute)
-           .position(YGEdgeAll, 0.0f)
+        bd->positionType(PositionType::Absolute)
+           .position(Edge::All, 0.0f)
            .widthPercent(100).heightPercent(100);
         auto bd_gd = gesture_detector({
             .child  = bd,
@@ -156,9 +156,9 @@ public:
 
         // Suggestion list
         auto sugg_col = std::make_shared<FlexBox>();
-        sugg_col->flexDirection(YGFlexDirectionColumn)
+        sugg_col->direction(FlexDirection::Column)
                  .width(cfg.width)
-                 .padding(YGEdgeVertical, 4);
+                 .padding(Edge::Vertical, 4);
 
         int idx = 0;
         for (const auto& sugg : cfg.suggestions) {
@@ -169,8 +169,8 @@ public:
             bool hov = (hovered_sugg_ == idx);
             auto sugg_row = std::make_shared<FlexBox>();
             sugg_row->height(38)
-                     .padding(YGEdgeLeft, 16).padding(YGEdgeRight, 12)
-                     .alignItems(YGAlignCenter)
+                     .padding(Edge::Left, 16).padding(Edge::Right, 12)
+                     .align(Align::Center)
                      .backgroundColor(hov ? cfg.suggestion_hover : 0x00000000)
                      .child(text(sugg, {.font_size = cfg.font_size, .color = cfg.text_color}));
 
@@ -204,9 +204,9 @@ public:
 
         // Position below the field using stored screen coordinates
         auto panel_wrap = std::make_shared<FlexBox>();
-        panel_wrap->positionType(YGPositionTypeAbsolute)
-                   .position(YGEdgeLeft, field_x_)
-                   .position(YGEdgeTop,  field_y_ + cfg.height + 4.0f)
+        panel_wrap->positionType(PositionType::Absolute)
+                   .position(Edge::Left, field_x_)
+                   .position(Edge::Top,  field_y_ + cfg.height + 4.0f)
                    .width(cfg.width);
         panel_wrap->child(sugg_panel);
 
@@ -261,9 +261,9 @@ public:
         // ── Search icon ─────────────────────────────────────────
         auto search_icon_wrap = std::make_shared<FlexBox>();
         search_icon_wrap->width(20).height(20)
-                         .margin(YGEdgeRight, 8)
-                         .justifyContent(YGJustifyCenter)
-                         .alignItems(YGAlignCenter)
+                         .margin(Edge::Right, 8)
+                         .justify(Justify::Center)
+                         .align(Align::Center)
                          .child(icon(Icons::Search, {.size = 17.0f, .color = cfg.icon_color}));
 
         // ── Text / cursor display ────────────────────────────────
@@ -273,15 +273,15 @@ public:
 
         auto value_text = text(display, {.font_size = cfg.font_size, .color = txt_col});
         auto text_wrap  = std::make_shared<FlexBox>();
-        text_wrap->flexGrow(1.0f).padding(YGEdgeVertical, 4).child(value_text);
+        text_wrap->flexGrow(1.0f).padding(Edge::Vertical, 4).child(value_text);
 
         // ── Field row ────────────────────────────────────────────
         auto field_row = std::make_shared<FlexBox>();
-        field_row->flexDirection(YGFlexDirectionRow)
-                  .alignItems(YGAlignCenter)
+        field_row->direction(FlexDirection::Row)
+                  .align(Align::Center)
                   .width(cfg.width).height(cfg.height)
-                  .padding(YGEdgeLeft, 12)
-                  .padding(YGEdgeRight, has_text ? 4.0f : 12.0f);
+                  .padding(Edge::Left, 12)
+                  .padding(Edge::Right, has_text ? 4.0f : 12.0f);
         field_row->child(search_icon_wrap).child(text_wrap);
 
         // ── Clear button ─────────────────────────────────────────

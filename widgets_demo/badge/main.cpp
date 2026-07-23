@@ -14,8 +14,8 @@ public:
 
     WidgetPtr build(BuildContext& ctx) override {
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF1E293B,
@@ -26,8 +26,8 @@ public:
                     .elevation = 15.0f,
                     .padding = {40, 40, 40, 40}
                 }, Row({
-                    .justifyContent = YGJustifySpaceEvenly,
-                    .alignItems = YGAlignCenter,
+                    .justify = Justify::SpaceEvenly,
+                    .align = Align::Center,
                     .width = 400.0f,
                     .children = {
                         // Icon 1: Notifications

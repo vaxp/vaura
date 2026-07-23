@@ -57,16 +57,16 @@ public:
         const auto& config = w->config;
 
         auto root = std::make_shared<FlexBox>();
-        root->flexDirection(YGFlexDirectionColumn)
+        root->direction(FlexDirection::Column)
             .widthPercent(100);
 
         // Header Row
         auto header_row = std::make_shared<FlexBox>();
-        header_row->flexDirection(YGFlexDirectionRow)
-                  .alignItems(YGAlignCenter)
-                  .justifyContent(YGJustifySpaceBetween)
+        header_row->direction(FlexDirection::Row)
+                  .align(Align::Center)
+                  .justify(Justify::SpaceBetween)
                   .widthPercent(100)
-                  .padding(YGEdgeAll, 16);
+                  .padding(Edge::All, 16);
 
         auto title_text = text(config.title, {
             .font_size = 18,

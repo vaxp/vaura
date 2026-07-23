@@ -13,7 +13,7 @@
 
 #include <layout_engine/enums/Display.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 class Node;
 
@@ -121,7 +121,7 @@ class LayoutableChildren {
     static_assert(std::input_iterator<LayoutableChildren<T>::Iterator>);
     static_assert(
         std::is_base_of<Node, T>::value,
-        "Type parameter of LayoutableChildren must derive from yoga::Node");
+        "Type parameter of LayoutableChildren must derive from anu::Node");
   }
 
   Iterator begin() const {
@@ -145,4 +145,4 @@ class LayoutableChildren {
   const T* node_;
 };
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

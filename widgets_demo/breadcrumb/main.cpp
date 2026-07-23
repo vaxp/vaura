@@ -46,8 +46,8 @@ public:
         }
 
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .gap = 40.0f,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
@@ -58,7 +58,7 @@ public:
 
                 // Breadcrumb Wrapper for styling
                 Column({
-                    .padding = std::pair{YGEdgeAll, 16.0f},
+                    .padding = std::pair{Edge::All, 16.0f},
                     .backgroundColor = 0xFF1E293B, // Slate 800
                     .borderRadius = 12.0f,
                     .children = {

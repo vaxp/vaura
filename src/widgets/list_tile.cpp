@@ -41,19 +41,19 @@ public:
         const auto& config = tile->config;
 
         auto row = std::make_shared<FlexBox>();
-        row->flexDirection(YGFlexDirectionRow)
-           .alignItems(YGAlignCenter)
+        row->direction(FlexDirection::Row)
+           .align(Align::Center)
            .widthPercent(100);
 
         if (config.leading) {
             auto leading_box = std::make_shared<FlexBox>();
-            leading_box->margin(YGEdgeRight, 16).child(config.leading);
+            leading_box->margin(Edge::Right, 16).child(config.leading);
             row->child(leading_box);
         }
 
         auto middle_col = std::make_shared<FlexBox>();
-        middle_col->flexDirection(YGFlexDirectionColumn)
-                  .justifyContent(YGJustifyCenter)
+        middle_col->direction(FlexDirection::Column)
+                  .justify(Justify::Center)
                   .flexGrow(1.0f);
 
         if (config.title) {
@@ -61,14 +61,14 @@ public:
         }
         if (config.subtitle) {
             auto sub_box = std::make_shared<FlexBox>();
-            sub_box->margin(YGEdgeTop, 4).child(config.subtitle);
+            sub_box->margin(Edge::Top, 4).child(config.subtitle);
             middle_col->child(sub_box);
         }
         row->child(middle_col);
 
         if (config.trailing) {
             auto trailing_box = std::make_shared<FlexBox>();
-            trailing_box->margin(YGEdgeLeft, 16).child(config.trailing);
+            trailing_box->margin(Edge::Left, 16).child(config.trailing);
             row->child(trailing_box);
         }
 

@@ -10,15 +10,15 @@
 #pragma once
 
 #include <cstdint>
-#include <layout_engine/YGEnums.h>
-#include <layout_engine/enums/YogaEnums.h>
+#include <layout_engine/AnuEnums.h>
+#include <layout_engine/enums/AnuEnums.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 enum class Wrap : uint8_t {
-  NoWrap = YGWrapNoWrap,
-  Wrap = YGWrapWrap,
-  WrapReverse = YGWrapWrapReverse,
+  NoWrap = ANUWrapNoWrap,
+  Wrap = ANUWrapWrap,
+  WrapReverse = ANUWrapWrapReverse,
 };
 
 template <>
@@ -26,16 +26,16 @@ constexpr int32_t ordinalCount<Wrap>() {
   return 3;
 }
 
-constexpr Wrap scopedEnum(YGWrap unscoped) {
+constexpr Wrap scopedEnum(ANUWrap unscoped) {
   return static_cast<Wrap>(unscoped);
 }
 
-constexpr YGWrap unscopedEnum(Wrap scoped) {
-  return static_cast<YGWrap>(scoped);
+constexpr ANUWrap unscopedEnum(Wrap scoped) {
+  return static_cast<ANUWrap>(scoped);
 }
 
 inline const char* toString(Wrap e) {
-  return YGWrapToString(unscopedEnum(e));
+  return ANUWrapToString(unscopedEnum(e));
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

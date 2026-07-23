@@ -10,15 +10,15 @@
 #pragma once
 
 #include <cstdint>
-#include <layout_engine/YGEnums.h>
-#include <layout_engine/enums/YogaEnums.h>
+#include <layout_engine/AnuEnums.h>
+#include <layout_engine/enums/AnuEnums.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 enum class Overflow : uint8_t {
-  Visible = YGOverflowVisible,
-  Hidden = YGOverflowHidden,
-  Scroll = YGOverflowScroll,
+  Visible = ANUOverflowVisible,
+  Hidden = ANUOverflowHidden,
+  Scroll = ANUOverflowScroll,
 };
 
 template <>
@@ -26,16 +26,16 @@ constexpr int32_t ordinalCount<Overflow>() {
   return 3;
 }
 
-constexpr Overflow scopedEnum(YGOverflow unscoped) {
+constexpr Overflow scopedEnum(ANUOverflow unscoped) {
   return static_cast<Overflow>(unscoped);
 }
 
-constexpr YGOverflow unscopedEnum(Overflow scoped) {
-  return static_cast<YGOverflow>(scoped);
+constexpr ANUOverflow unscopedEnum(Overflow scoped) {
+  return static_cast<ANUOverflow>(scoped);
 }
 
 inline const char* toString(Overflow e) {
-  return YGOverflowToString(unscopedEnum(e));
+  return ANUOverflowToString(unscopedEnum(e));
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

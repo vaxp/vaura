@@ -17,8 +17,8 @@ class DatePickerDemoState : public State {
                                    (d < 10 ? "0" : "") + std::to_string(d);
 
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .gap = 30.0f,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,

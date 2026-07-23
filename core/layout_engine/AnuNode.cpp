@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 #include <layout_engine/algorithm/Cache.h>
 #include <layout_engine/algorithm/CalculateLayout.h>
@@ -15,30 +15,30 @@
 #include <layout_engine/node/Node.h>
 
 using namespace facebook;
-using namespace facebook::yoga;
+using namespace facebook::anu;
 
-YGNodeRef YGNodeNew(void) {
-  return YGNodeNewWithConfig(YGConfigGetDefault());
+ANUNodeRef ANUNodeNew(void) {
+  return ANUNodeNewWithConfig(ANUConfigGetDefault());
 }
 
-YGNodeRef YGNodeNewWithConfig(const YGConfigConstRef config) {
-  auto* node = new yoga::Node{resolveRef(config)};
-  yoga::assertFatal(
-      config != nullptr, "Tried to construct YGNode with null config");
+ANUNodeRef ANUNodeNewWithConfig(const ANUConfigConstRef config) {
+  auto* node = new anu::Node{resolveRef(config)};
+  anu::assertFatal(
+      config != nullptr, "Tried to construct ANUNode with null config");
   Event::publish<Event::NodeAllocation>(node, {config});
 
   return node;
 }
 
-YGNodeRef YGNodeClone(YGNodeConstRef oldNodeRef) {
+ANUNodeRef ANUNodeClone(ANUNodeConstRef oldNodeRef) {
   auto oldNode = resolveRef(oldNodeRef);
-  const auto node = new yoga::Node(*oldNode);
+  const auto node = new anu::Node(*oldNode);
   Event::publish<Event::NodeAllocation>(node, {node->getConfig()});
   node->setOwner(nullptr);
   return node;
 }
 
-void YGNodeFree(const YGNodeRef nodeRef) {
+void ANUNodeFree(const ANUNodeRef nodeRef) {
   const auto node = resolveRef(nodeRef);
 
   if (auto owner = node->getOwner()) {
@@ -54,11 +54,11 @@ void YGNodeFree(const YGNodeRef nodeRef) {
 
   node->clearChildren();
 
-  Event::publish<Event::NodeDeallocation>(node, {YGNodeGetConfig(node)});
+  Event::publish<Event::NodeDeallocation>(node, {ANUNodeGetConfig(node)});
   delete resolveRef(node);
 }
 
-void YGNodeFreeRecursive(YGNodeRef rootRef) {
+void ANUNodeFreeRecursive(ANUNodeRef rootRef) {
   const auto root = resolveRef(rootRef);
 
   size_t skipped = 0;
@@ -68,47 +68,47 @@ void YGNodeFreeRecursive(YGNodeRef rootRef) {
       // Don't free shared nodes that we don't own.
       skipped += 1;
     } else {
-      YGNodeRemoveChild(root, child);
-      YGNodeFreeRecursive(child);
+      ANUNodeRemoveChild(root, child);
+      ANUNodeFreeRecursive(child);
     }
   }
-  YGNodeFree(root);
+  ANUNodeFree(root);
 }
 
-void YGNodeFinalize(const YGNodeRef node) {
-  Event::publish<Event::NodeDeallocation>(node, {YGNodeGetConfig(node)});
+void ANUNodeFinalize(const ANUNodeRef node) {
+  Event::publish<Event::NodeDeallocation>(node, {ANUNodeGetConfig(node)});
   delete resolveRef(node);
 }
 
-void YGNodeReset(YGNodeRef node) {
+void ANUNodeReset(ANUNodeRef node) {
   resolveRef(node)->reset();
 }
 
-void YGNodeCalculateLayout(
-    const YGNodeRef node,
+void ANUNodeCalculateLayout(
+    const ANUNodeRef node,
     const float ownerWidth,
     const float ownerHeight,
-    const YGDirection ownerDirection) {
-  yoga::calculateLayout(
+    const ANUDirection ownerDirection) {
+  anu::calculateLayout(
       resolveRef(node), ownerWidth, ownerHeight, scopedEnum(ownerDirection));
 }
 
-bool YGNodeGetHasNewLayout(YGNodeConstRef node) {
+bool ANUNodeGetHasNewLayout(ANUNodeConstRef node) {
   return resolveRef(node)->getHasNewLayout();
 }
 
-void YGNodeSetHasNewLayout(YGNodeRef node, bool hasNewLayout) {
+void ANUNodeSetHasNewLayout(ANUNodeRef node, bool hasNewLayout) {
   resolveRef(node)->setHasNewLayout(hasNewLayout);
 }
 
-bool YGNodeIsDirty(YGNodeConstRef node) {
+bool ANUNodeIsDirty(ANUNodeConstRef node) {
   return resolveRef(node)->isDirty();
 }
 
-void YGNodeMarkDirty(const YGNodeRef nodeRef) {
+void ANUNodeMarkDirty(const ANUNodeRef nodeRef) {
   const auto node = resolveRef(nodeRef);
 
-  yoga::assertFatalWithNode(
+  anu::assertFatalWithNode(
       node,
       node->hasMeasureFunc(),
       "Only leaf nodes with custom measure functions "
@@ -117,27 +117,27 @@ void YGNodeMarkDirty(const YGNodeRef nodeRef) {
   node->markDirtyAndPropagate();
 }
 
-void YGNodeSetDirtiedFunc(YGNodeRef node, YGDirtiedFunc dirtiedFunc) {
+void ANUNodeSetDirtiedFunc(ANUNodeRef node, ANUDirtiedFunc dirtiedFunc) {
   resolveRef(node)->setDirtiedFunc(dirtiedFunc);
 }
 
-YGDirtiedFunc YGNodeGetDirtiedFunc(YGNodeConstRef node) {
+ANUDirtiedFunc ANUNodeGetDirtiedFunc(ANUNodeConstRef node) {
   return resolveRef(node)->getDirtiedFunc();
 }
 
-void YGNodeInsertChild(
-    const YGNodeRef ownerRef,
-    const YGNodeRef childRef,
+void ANUNodeInsertChild(
+    const ANUNodeRef ownerRef,
+    const ANUNodeRef childRef,
     const size_t index) {
   auto owner = resolveRef(ownerRef);
   auto child = resolveRef(childRef);
 
-  yoga::assertFatalWithNode(
+  anu::assertFatalWithNode(
       owner,
       child->getOwner() == nullptr,
       "Child already has a owner, it must be removed first.");
 
-  yoga::assertFatalWithNode(
+  anu::assertFatalWithNode(
       owner,
       !owner->hasMeasureFunc(),
       "Cannot add child: Nodes with measure functions cannot have children.");
@@ -147,9 +147,9 @@ void YGNodeInsertChild(
   owner->markDirtyAndPropagate();
 }
 
-void YGNodeSwapChild(
-    const YGNodeRef ownerRef,
-    const YGNodeRef childRef,
+void ANUNodeSwapChild(
+    const ANUNodeRef ownerRef,
+    const ANUNodeRef childRef,
     const size_t index) {
   auto owner = resolveRef(ownerRef);
   auto child = resolveRef(childRef);
@@ -158,9 +158,9 @@ void YGNodeSwapChild(
   child->setOwner(owner);
 }
 
-void YGNodeRemoveChild(
-    const YGNodeRef ownerRef,
-    const YGNodeRef excludedChildRef) {
+void ANUNodeRemoveChild(
+    const ANUNodeRef ownerRef,
+    const ANUNodeRef excludedChildRef) {
   auto owner = resolveRef(ownerRef);
   auto excludedChild = resolveRef(excludedChildRef);
 
@@ -182,7 +182,7 @@ void YGNodeRemoveChild(
   }
 }
 
-void YGNodeRemoveAllChildren(const YGNodeRef ownerRef) {
+void ANUNodeRemoveAllChildren(const ANUNodeRef ownerRef) {
   auto owner = resolveRef(ownerRef);
 
   const size_t childCount = owner->getChildCount();
@@ -195,7 +195,7 @@ void YGNodeRemoveAllChildren(const YGNodeRef ownerRef) {
     // If the first child has this node as its owner, we assume that this child
     // set is unique.
     for (size_t i = 0; i < childCount; i++) {
-      yoga::Node* oldChild = owner->getChild(i);
+      anu::Node* oldChild = owner->getChild(i);
       oldChild->setLayout({}); // layout is no longer valid
       oldChild->setOwner(nullptr);
     }
@@ -209,18 +209,18 @@ void YGNodeRemoveAllChildren(const YGNodeRef ownerRef) {
   owner->markDirtyAndPropagate();
 }
 
-void YGNodeSetChildren(
-    const YGNodeRef ownerRef,
-    const YGNodeRef* childrenRefs,
+void ANUNodeSetChildren(
+    const ANUNodeRef ownerRef,
+    const ANUNodeRef* childrenRefs,
     const size_t count) {
   auto owner = resolveRef(ownerRef);
-  auto children = reinterpret_cast<yoga::Node* const*>(childrenRefs);
+  auto children = reinterpret_cast<anu::Node* const*>(childrenRefs);
 
   if (owner == nullptr) {
     return;
   }
 
-  const std::vector<yoga::Node*> childrenVector = {children, children + count};
+  const std::vector<anu::Node*> childrenVector = {children, children + count};
   if (childrenVector.empty()) {
     if (owner->getChildCount() > 0) {
       for (auto* child : owner->getChildren()) {
@@ -243,14 +243,14 @@ void YGNodeSetChildren(
       }
     }
     owner->setChildren(childrenVector);
-    for (yoga::Node* child : childrenVector) {
+    for (anu::Node* child : childrenVector) {
       child->setOwner(owner);
     }
     owner->markDirtyAndPropagate();
   }
 }
 
-YGNodeRef YGNodeGetChild(const YGNodeRef nodeRef, const size_t index) {
+ANUNodeRef ANUNodeGetChild(const ANUNodeRef nodeRef, const size_t index) {
   const auto node = resolveRef(nodeRef);
 
   if (index < node->getChildren().size()) {
@@ -259,51 +259,51 @@ YGNodeRef YGNodeGetChild(const YGNodeRef nodeRef, const size_t index) {
   return nullptr;
 }
 
-size_t YGNodeGetChildCount(const YGNodeConstRef node) {
+size_t ANUNodeGetChildCount(const ANUNodeConstRef node) {
   return resolveRef(node)->getChildren().size();
 }
 
-YGNodeRef YGNodeGetOwner(const YGNodeRef node) {
+ANUNodeRef ANUNodeGetOwner(const ANUNodeRef node) {
   return resolveRef(node)->getOwner();
 }
 
-YGNodeRef YGNodeGetParent(const YGNodeRef node) {
+ANUNodeRef ANUNodeGetParent(const ANUNodeRef node) {
   return resolveRef(node)->getOwner();
 }
 
-void YGNodeSetConfig(YGNodeRef node, YGConfigRef config) {
+void ANUNodeSetConfig(ANUNodeRef node, ANUConfigRef config) {
   resolveRef(node)->setConfig(resolveRef(config));
 }
 
-YGConfigConstRef YGNodeGetConfig(YGNodeRef node) {
+ANUConfigConstRef ANUNodeGetConfig(ANUNodeRef node) {
   return resolveRef(node)->getConfig();
 }
 
-void YGNodeSetContext(YGNodeRef node, void* context) {
+void ANUNodeSetContext(ANUNodeRef node, void* context) {
   return resolveRef(node)->setContext(context);
 }
 
-void* YGNodeGetContext(YGNodeConstRef node) {
+void* ANUNodeGetContext(ANUNodeConstRef node) {
   return resolveRef(node)->getContext();
 }
 
-void YGNodeSetMeasureFunc(YGNodeRef node, YGMeasureFunc measureFunc) {
+void ANUNodeSetMeasureFunc(ANUNodeRef node, ANUMeasureFunc measureFunc) {
   resolveRef(node)->setMeasureFunc(measureFunc);
 }
 
-bool YGNodeHasMeasureFunc(YGNodeConstRef node) {
+bool ANUNodeHasMeasureFunc(ANUNodeConstRef node) {
   return resolveRef(node)->hasMeasureFunc();
 }
 
-void YGNodeSetBaselineFunc(YGNodeRef node, YGBaselineFunc baselineFunc) {
+void ANUNodeSetBaselineFunc(ANUNodeRef node, ANUBaselineFunc baselineFunc) {
   resolveRef(node)->setBaselineFunc(baselineFunc);
 }
 
-bool YGNodeHasBaselineFunc(YGNodeConstRef node) {
+bool ANUNodeHasBaselineFunc(ANUNodeConstRef node) {
   return resolveRef(node)->hasBaselineFunc();
 }
 
-void YGNodeSetIsReferenceBaseline(YGNodeRef nodeRef, bool isReferenceBaseline) {
+void ANUNodeSetIsReferenceBaseline(ANUNodeRef nodeRef, bool isReferenceBaseline) {
   const auto node = resolveRef(nodeRef);
   if (node->isReferenceBaseline() != isReferenceBaseline) {
     node->setIsReferenceBaseline(isReferenceBaseline);
@@ -311,45 +311,45 @@ void YGNodeSetIsReferenceBaseline(YGNodeRef nodeRef, bool isReferenceBaseline) {
   }
 }
 
-bool YGNodeIsReferenceBaseline(YGNodeConstRef node) {
+bool ANUNodeIsReferenceBaseline(ANUNodeConstRef node) {
   return resolveRef(node)->isReferenceBaseline();
 }
 
-void YGNodeSetNodeType(YGNodeRef node, YGNodeType nodeType) {
+void ANUNodeSetNodeType(ANUNodeRef node, ANUNodeType nodeType) {
   return resolveRef(node)->setNodeType(scopedEnum(nodeType));
 }
 
-YGNodeType YGNodeGetNodeType(YGNodeConstRef node) {
+ANUNodeType ANUNodeGetNodeType(ANUNodeConstRef node) {
   return unscopedEnum(resolveRef(node)->getNodeType());
 }
 
-void YGNodeSetAlwaysFormsContainingBlock(
-    YGNodeRef node,
+void ANUNodeSetAlwaysFormsContainingBlock(
+    ANUNodeRef node,
     bool alwaysFormsContainingBlock) {
   resolveRef(node)->setAlwaysFormsContainingBlock(alwaysFormsContainingBlock);
 }
 
-bool YGNodeGetAlwaysFormsContainingBlock(YGNodeConstRef node) {
+bool ANUNodeGetAlwaysFormsContainingBlock(ANUNodeConstRef node) {
   return resolveRef(node)->alwaysFormsContainingBlock();
 }
 
 // TODO: This leaks internal details to the public API. Remove after removing
 // ComponentKit usage of it.
-bool YGNodeCanUseCachedMeasurement(
-    YGMeasureMode widthMode,
+bool ANUNodeCanUseCachedMeasurement(
+    ANUMeasureMode widthMode,
     float availableWidth,
-    YGMeasureMode heightMode,
+    ANUMeasureMode heightMode,
     float availableHeight,
-    YGMeasureMode lastWidthMode,
+    ANUMeasureMode lastWidthMode,
     float lastAvailableWidth,
-    YGMeasureMode lastHeightMode,
+    ANUMeasureMode lastHeightMode,
     float lastAvailableHeight,
     float lastComputedWidth,
     float lastComputedHeight,
     float marginRow,
     float marginColumn,
-    YGConfigRef config) {
-  return yoga::canUseCachedMeasurement(
+    ANUConfigRef config) {
+  return anu::canUseCachedMeasurement(
       sizingMode(scopedEnum(widthMode)),
       availableWidth,
       sizingMode(scopedEnum(heightMode)),

@@ -14,28 +14,28 @@ public:
     WidgetPtr build(BuildContext& ctx) override {
         // Step 1 Content
         auto step1 = Column({
-            .padding = std::pair{YGEdgeAll, 16.0f},
+            .padding = std::pair{Edge::All, 16.0f},
             .children = { Text("Enter your personal details here.", {.color = 0xFF94A3B8}) }
         });
 
         // Step 2 Content
         auto step2 = Column({
-            .padding = std::pair{YGEdgeAll, 16.0f},
+            .padding = std::pair{Edge::All, 16.0f},
             .children = { Text("Select your subscription plan.", {.color = 0xFF94A3B8}) }
         });
 
         // Step 3 Content
         auto step3 = Column({
-            .padding = std::pair{YGEdgeAll, 16.0f},
+            .padding = std::pair{Edge::All, 16.0f},
             .children = { Text("Review and confirm your choices.", {.color = 0xFF94A3B8}) }
         });
 
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
-            .padding = std::pair{YGEdgeAll, 32.0f},
+            .padding = std::pair{Edge::All, 32.0f},
             .backgroundColor = 0xFF0F172A,
             .children = {
                 Text("Stepper Demo", {.font_size = 32.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold}),
@@ -43,7 +43,7 @@ public:
                 Column({
                     .width = 600.0f,
                     .height = 400.0f,
-                    .padding = std::pair{YGEdgeAll, 16.0f},
+                    .padding = std::pair{Edge::All, 16.0f},
                     .backgroundColor = 0xFF1E293B,
                     .borderRadius = 16.0f,
                     .children = {

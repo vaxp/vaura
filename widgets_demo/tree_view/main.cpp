@@ -35,8 +35,8 @@ public:
         tree_cfg.nodes.push_back({"CMakeLists.txt", doc_icon, {}, false, nullptr, nullptr});
 
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF0F172A,
@@ -46,7 +46,7 @@ public:
                 Column({
                     .width = 400.0f,
                     .height = 400.0f,
-                    .padding = std::pair{YGEdgeAll, 20.0f},
+                    .padding = std::pair{Edge::All, 20.0f},
                     .backgroundColor = 0xFF1E293B,
                     .borderRadius = 12.0f,
                     .children = {

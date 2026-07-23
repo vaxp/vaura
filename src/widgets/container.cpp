@@ -1,6 +1,6 @@
 #include "vaura/widgets/container.hpp"
 #include "vaura/rendering/canvas.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <cmath>
 
 namespace vaura {
@@ -85,215 +85,215 @@ void ContainerWidget::updateRenderObject(BuildContext& ctx, RenderObject& render
     dec.clip_content = config.clip_content;
     box.setDecoration(dec);
 
-    auto node = box.yogaNode();
+    auto node = box.anuNode();
 
     // Sizing
     if (config.width_auto) {
-        YGNodeStyleSetWidthAuto(node);
+        ANUNodeStyleSetWidthAuto(node);
     } else if (config.width_percent.has_value()) {
-        YGNodeStyleSetWidthPercent(node, config.width_percent.value());
+        ANUNodeStyleSetWidthPercent(node, config.width_percent.value());
     } else if (config.width > 0) {
-        YGNodeStyleSetWidth(node, config.width);
+        ANUNodeStyleSetWidth(node, config.width);
     } else {
-        YGNodeStyleSetWidth(node, YGUndefined);
+        ANUNodeStyleSetWidth(node, ANUUndefined);
     }
 
     if (config.height_auto) {
-        YGNodeStyleSetHeightAuto(node);
+        ANUNodeStyleSetHeightAuto(node);
     } else if (config.height_percent.has_value()) {
-        YGNodeStyleSetHeightPercent(node, config.height_percent.value());
+        ANUNodeStyleSetHeightPercent(node, config.height_percent.value());
     } else if (config.height > 0) {
-        YGNodeStyleSetHeight(node, config.height);
+        ANUNodeStyleSetHeight(node, config.height);
     } else {
-        YGNodeStyleSetHeight(node, YGUndefined);
+        ANUNodeStyleSetHeight(node, ANUUndefined);
     }
 
     if (config.min_width_percent.has_value()) {
-        YGNodeStyleSetMinWidthPercent(node, config.min_width_percent.value());
+        ANUNodeStyleSetMinWidthPercent(node, config.min_width_percent.value());
     } else if (config.min_width > 0) {
-        YGNodeStyleSetMinWidth(node, config.min_width);
+        ANUNodeStyleSetMinWidth(node, config.min_width);
     } else {
-        YGNodeStyleSetMinWidth(node, YGUndefined);
+        ANUNodeStyleSetMinWidth(node, ANUUndefined);
     }
 
     if (config.min_height_percent.has_value()) {
-        YGNodeStyleSetMinHeightPercent(node, config.min_height_percent.value());
+        ANUNodeStyleSetMinHeightPercent(node, config.min_height_percent.value());
     } else if (config.min_height > 0) {
-        YGNodeStyleSetMinHeight(node, config.min_height);
+        ANUNodeStyleSetMinHeight(node, config.min_height);
     } else {
-        YGNodeStyleSetMinHeight(node, YGUndefined);
+        ANUNodeStyleSetMinHeight(node, ANUUndefined);
     }
 
     if (config.max_width_percent.has_value()) {
-        YGNodeStyleSetMaxWidthPercent(node, config.max_width_percent.value());
+        ANUNodeStyleSetMaxWidthPercent(node, config.max_width_percent.value());
     } else if (config.max_width > 0) {
-        YGNodeStyleSetMaxWidth(node, config.max_width);
+        ANUNodeStyleSetMaxWidth(node, config.max_width);
     } else {
-        YGNodeStyleSetMaxWidth(node, YGUndefined);
+        ANUNodeStyleSetMaxWidth(node, ANUUndefined);
     }
 
     if (config.max_height_percent.has_value()) {
-        YGNodeStyleSetMaxHeightPercent(node, config.max_height_percent.value());
+        ANUNodeStyleSetMaxHeightPercent(node, config.max_height_percent.value());
     } else if (config.max_height > 0) {
-        YGNodeStyleSetMaxHeight(node, config.max_height);
+        ANUNodeStyleSetMaxHeight(node, config.max_height);
     } else {
-        YGNodeStyleSetMaxHeight(node, YGUndefined);
+        ANUNodeStyleSetMaxHeight(node, ANUUndefined);
     }
 
-    YGNodeStyleSetFlexShrink(node, config.flex_shrink);
-    YGNodeStyleSetFlexGrow(node, config.flex_grow);
+    ANUNodeStyleSetFlexShrink(node, config.flex_shrink);
+    ANUNodeStyleSetFlexGrow(node, config.flex_grow);
 
     if (config.flex_basis_auto) {
-        YGNodeStyleSetFlexBasisAuto(node);
+        ANUNodeStyleSetFlexBasisAuto(node);
     } else if (config.flex_basis_percent.has_value()) {
-        YGNodeStyleSetFlexBasisPercent(node, config.flex_basis_percent.value());
+        ANUNodeStyleSetFlexBasisPercent(node, config.flex_basis_percent.value());
     } else {
-        YGNodeStyleSetFlexBasis(node, config.flex_basis);
+        ANUNodeStyleSetFlexBasis(node, config.flex_basis);
     }
 
-    YGNodeStyleSetAspectRatio(node, config.aspect_ratio);
-    YGNodeStyleSetDirection(node, config.direction);
-    YGNodeStyleSetAlignContent(node, config.align_content);
-    YGNodeStyleSetAlignSelf(node, config.align_self);
-    YGNodeStyleSetDisplay(node, config.display);
-    YGNodeStyleSetOverflow(node, config.overflow);
-    YGNodeStyleSetBoxSizing(node, config.box_sizing);
+    ANUNodeStyleSetAspectRatio(node, config.aspect_ratio);
+    ANUNodeStyleSetDirection(node, config.direction);
+    ANUNodeStyleSetAlignContent(node, config.align_content);
+    ANUNodeStyleSetAlignSelf(node, config.align_self);
+    ANUNodeStyleSetDisplay(node, config.display);
+    ANUNodeStyleSetOverflow(node, config.overflow);
+    ANUNodeStyleSetBoxSizing(node, config.box_sizing);
 
-    YGNodeStyleSetPositionType(node, config.position_type);
+    ANUNodeStyleSetPositionType(node, config.position_type);
     if (config.position_auto) {
-        YGNodeStyleSetPositionAuto(node, YGEdgeAll);
+        ANUNodeStyleSetPositionAuto(node, static_cast<ANUEdge>(Edge::All));
     } else {
         if (config.position_top_percent.has_value()) {
-            YGNodeStyleSetPositionPercent(node, YGEdgeTop, config.position_top_percent.value());
+            ANUNodeStyleSetPositionPercent(node, static_cast<ANUEdge>(Edge::Top), config.position_top_percent.value());
         } else {
-            YGNodeStyleSetPosition(node, YGEdgeTop, config.position_top);
+            ANUNodeStyleSetPosition(node, static_cast<ANUEdge>(Edge::Top), config.position_top);
         }
         
         if (config.position_bottom_percent.has_value()) {
-            YGNodeStyleSetPositionPercent(node, YGEdgeBottom, config.position_bottom_percent.value());
+            ANUNodeStyleSetPositionPercent(node, static_cast<ANUEdge>(Edge::Bottom), config.position_bottom_percent.value());
         } else {
-            YGNodeStyleSetPosition(node, YGEdgeBottom, config.position_bottom);
+            ANUNodeStyleSetPosition(node, static_cast<ANUEdge>(Edge::Bottom), config.position_bottom);
         }
         
         if (config.position_left_percent.has_value()) {
-            YGNodeStyleSetPositionPercent(node, YGEdgeLeft, config.position_left_percent.value());
+            ANUNodeStyleSetPositionPercent(node, static_cast<ANUEdge>(Edge::Left), config.position_left_percent.value());
         } else {
-            YGNodeStyleSetPosition(node, YGEdgeLeft, config.position_left);
+            ANUNodeStyleSetPosition(node, static_cast<ANUEdge>(Edge::Left), config.position_left);
         }
         
         if (config.position_right_percent.has_value()) {
-            YGNodeStyleSetPositionPercent(node, YGEdgeRight, config.position_right_percent.value());
+            ANUNodeStyleSetPositionPercent(node, static_cast<ANUEdge>(Edge::Right), config.position_right_percent.value());
         } else {
-            YGNodeStyleSetPosition(node, YGEdgeRight, config.position_right);
+            ANUNodeStyleSetPosition(node, static_cast<ANUEdge>(Edge::Right), config.position_right);
         }
         
         if (config.position_start_percent.has_value()) {
-            YGNodeStyleSetPositionPercent(node, YGEdgeStart, config.position_start_percent.value());
+            ANUNodeStyleSetPositionPercent(node, static_cast<ANUEdge>(Edge::Start), config.position_start_percent.value());
         } else {
-            YGNodeStyleSetPosition(node, YGEdgeStart, config.position_start);
+            ANUNodeStyleSetPosition(node, static_cast<ANUEdge>(Edge::Start), config.position_start);
         }
         
         if (config.position_end_percent.has_value()) {
-            YGNodeStyleSetPositionPercent(node, YGEdgeEnd, config.position_end_percent.value());
+            ANUNodeStyleSetPositionPercent(node, static_cast<ANUEdge>(Edge::End), config.position_end_percent.value());
         } else {
-            YGNodeStyleSetPosition(node, YGEdgeEnd, config.position_end);
+            ANUNodeStyleSetPosition(node, static_cast<ANUEdge>(Edge::End), config.position_end);
         }
     }
 
     if (config.gap_percent.has_value()) {
-        YGNodeStyleSetGapPercent(node, YGGutterAll, config.gap_percent.value());
+        ANUNodeStyleSetGapPercent(node, ANUGutterAll, config.gap_percent.value());
     } else if (!std::isnan(config.gap)) {
-        YGNodeStyleSetGap(node, YGGutterAll, config.gap);
+        ANUNodeStyleSetGap(node, ANUGutterAll, config.gap);
     }
     
     if (config.row_gap_percent.has_value()) {
-        YGNodeStyleSetGapPercent(node, YGGutterRow, config.row_gap_percent.value());
+        ANUNodeStyleSetGapPercent(node, ANUGutterRow, config.row_gap_percent.value());
     } else if (!std::isnan(config.row_gap)) {
-        YGNodeStyleSetGap(node, YGGutterRow, config.row_gap);
+        ANUNodeStyleSetGap(node, ANUGutterRow, config.row_gap);
     }
     
     if (config.column_gap_percent.has_value()) {
-        YGNodeStyleSetGapPercent(node, YGGutterColumn, config.column_gap_percent.value());
+        ANUNodeStyleSetGapPercent(node, ANUGutterColumn, config.column_gap_percent.value());
     } else if (!std::isnan(config.column_gap)) {
-        YGNodeStyleSetGap(node, YGGutterColumn, config.column_gap);
+        ANUNodeStyleSetGap(node, ANUGutterColumn, config.column_gap);
     }
 
     if (config.border.width > 0) {
-        YGNodeStyleSetBorder(node, YGEdgeAll, config.border.width);
+        ANUNodeStyleSetBorder(node, static_cast<ANUEdge>(Edge::All), config.border.width);
     } else {
-        YGNodeStyleSetBorder(node, YGEdgeAll, YGUndefined);
+        ANUNodeStyleSetBorder(node, static_cast<ANUEdge>(Edge::All), ANUUndefined);
     }
 
     // Padding
     if (config.padding_percent.has_value()) {
         auto& p_pct = config.padding_percent.value();
-        YGNodeStyleSetPaddingPercent(node, YGEdgeLeft, p_pct.left);
-        YGNodeStyleSetPaddingPercent(node, YGEdgeTop, p_pct.top);
-        YGNodeStyleSetPaddingPercent(node, YGEdgeRight, p_pct.right);
-        YGNodeStyleSetPaddingPercent(node, YGEdgeBottom, p_pct.bottom);
-        YGNodeStyleSetPaddingPercent(node, YGEdgeStart, p_pct.start);
-        YGNodeStyleSetPaddingPercent(node, YGEdgeEnd, p_pct.end);
+        ANUNodeStyleSetPaddingPercent(node, static_cast<ANUEdge>(Edge::Left), p_pct.left);
+        ANUNodeStyleSetPaddingPercent(node, static_cast<ANUEdge>(Edge::Top), p_pct.top);
+        ANUNodeStyleSetPaddingPercent(node, static_cast<ANUEdge>(Edge::Right), p_pct.right);
+        ANUNodeStyleSetPaddingPercent(node, static_cast<ANUEdge>(Edge::Bottom), p_pct.bottom);
+        ANUNodeStyleSetPaddingPercent(node, static_cast<ANUEdge>(Edge::Start), p_pct.start);
+        ANUNodeStyleSetPaddingPercent(node, static_cast<ANUEdge>(Edge::End), p_pct.end);
     } else {
-        YGNodeStyleSetPadding(node, YGEdgeLeft, config.padding.left);
-        YGNodeStyleSetPadding(node, YGEdgeTop, config.padding.top);
-        YGNodeStyleSetPadding(node, YGEdgeRight, config.padding.right);
-        YGNodeStyleSetPadding(node, YGEdgeBottom, config.padding.bottom);
-        YGNodeStyleSetPadding(node, YGEdgeStart, config.padding.start);
-        YGNodeStyleSetPadding(node, YGEdgeEnd, config.padding.end);
+        ANUNodeStyleSetPadding(node, static_cast<ANUEdge>(Edge::Left), config.padding.left);
+        ANUNodeStyleSetPadding(node, static_cast<ANUEdge>(Edge::Top), config.padding.top);
+        ANUNodeStyleSetPadding(node, static_cast<ANUEdge>(Edge::Right), config.padding.right);
+        ANUNodeStyleSetPadding(node, static_cast<ANUEdge>(Edge::Bottom), config.padding.bottom);
+        ANUNodeStyleSetPadding(node, static_cast<ANUEdge>(Edge::Start), config.padding.start);
+        ANUNodeStyleSetPadding(node, static_cast<ANUEdge>(Edge::End), config.padding.end);
     }
 
     // Margin
     if (config.margin_auto) {
-        YGNodeStyleSetMarginAuto(node, YGEdgeAll);
+        ANUNodeStyleSetMarginAuto(node, static_cast<ANUEdge>(Edge::All));
     } else if (config.margin_percent.has_value()) {
         auto& m_pct = config.margin_percent.value();
-        YGNodeStyleSetMarginPercent(node, YGEdgeLeft, m_pct.left);
-        YGNodeStyleSetMarginPercent(node, YGEdgeTop, m_pct.top);
-        YGNodeStyleSetMarginPercent(node, YGEdgeRight, m_pct.right);
-        YGNodeStyleSetMarginPercent(node, YGEdgeBottom, m_pct.bottom);
-        YGNodeStyleSetMarginPercent(node, YGEdgeStart, m_pct.start);
-        YGNodeStyleSetMarginPercent(node, YGEdgeEnd, m_pct.end);
+        ANUNodeStyleSetMarginPercent(node, static_cast<ANUEdge>(Edge::Left), m_pct.left);
+        ANUNodeStyleSetMarginPercent(node, static_cast<ANUEdge>(Edge::Top), m_pct.top);
+        ANUNodeStyleSetMarginPercent(node, static_cast<ANUEdge>(Edge::Right), m_pct.right);
+        ANUNodeStyleSetMarginPercent(node, static_cast<ANUEdge>(Edge::Bottom), m_pct.bottom);
+        ANUNodeStyleSetMarginPercent(node, static_cast<ANUEdge>(Edge::Start), m_pct.start);
+        ANUNodeStyleSetMarginPercent(node, static_cast<ANUEdge>(Edge::End), m_pct.end);
     } else {
-        YGNodeStyleSetMargin(node, YGEdgeLeft, config.margin.left);
-        YGNodeStyleSetMargin(node, YGEdgeTop, config.margin.top);
-        YGNodeStyleSetMargin(node, YGEdgeRight, config.margin.right);
-        YGNodeStyleSetMargin(node, YGEdgeBottom, config.margin.bottom);
-        YGNodeStyleSetMargin(node, YGEdgeStart, config.margin.start);
-        YGNodeStyleSetMargin(node, YGEdgeEnd, config.margin.end);
+        ANUNodeStyleSetMargin(node, static_cast<ANUEdge>(Edge::Left), config.margin.left);
+        ANUNodeStyleSetMargin(node, static_cast<ANUEdge>(Edge::Top), config.margin.top);
+        ANUNodeStyleSetMargin(node, static_cast<ANUEdge>(Edge::Right), config.margin.right);
+        ANUNodeStyleSetMargin(node, static_cast<ANUEdge>(Edge::Bottom), config.margin.bottom);
+        ANUNodeStyleSetMargin(node, static_cast<ANUEdge>(Edge::Start), config.margin.start);
+        ANUNodeStyleSetMargin(node, static_cast<ANUEdge>(Edge::End), config.margin.end);
     }
 
     // Alignment and Flex Properties
     if (config.flex_direction.has_value()) {
-        YGNodeStyleSetFlexDirection(node, config.flex_direction.value());
+        ANUNodeStyleSetFlexDirection(node, config.flex_direction.value());
     } else {
-        YGNodeStyleSetFlexDirection(node, YGFlexDirectionColumn);
+        ANUNodeStyleSetFlexDirection(node, static_cast<ANUFlexDirection>(FlexDirection::Column));
     }
 
     if (config.flex_wrap.has_value()) {
-        YGNodeStyleSetFlexWrap(node, config.flex_wrap.value());
+        ANUNodeStyleSetFlexWrap(node, config.flex_wrap.value());
     }
 
     if (config.justify_content.has_value()) {
-        YGNodeStyleSetJustifyContent(node, config.justify_content.value());
+        ANUNodeStyleSetJustifyContent(node, config.justify_content.value());
     } else {
         if (config.alignment == Alignment::Center) {
-            YGNodeStyleSetJustifyContent(node, YGJustifyCenter);
+            ANUNodeStyleSetJustifyContent(node, static_cast<ANUJustify>(Justify::Center));
         } else if (config.alignment == Alignment::TopLeft) {
-            YGNodeStyleSetJustifyContent(node, YGJustifyFlexStart);
+            ANUNodeStyleSetJustifyContent(node, static_cast<ANUJustify>(Justify::Start));
         } else if (config.alignment == Alignment::BottomRight) {
-            YGNodeStyleSetJustifyContent(node, YGJustifyFlexEnd);
+            ANUNodeStyleSetJustifyContent(node, static_cast<ANUJustify>(Justify::End));
         }
     }
     
     if (config.align_items.has_value()) {
-        YGNodeStyleSetAlignItems(node, config.align_items.value());
+        ANUNodeStyleSetAlignItems(node, config.align_items.value());
     } else {
         if (config.alignment == Alignment::Center) {
-            YGNodeStyleSetAlignItems(node, YGAlignCenter);
+            ANUNodeStyleSetAlignItems(node, static_cast<ANUAlign>(Align::Center));
         } else if (config.alignment == Alignment::TopLeft) {
-            YGNodeStyleSetAlignItems(node, YGAlignFlexStart);
+            ANUNodeStyleSetAlignItems(node, static_cast<ANUAlign>(Align::Start));
         } else if (config.alignment == Alignment::BottomRight) {
-            YGNodeStyleSetAlignItems(node, YGAlignFlexEnd);
+            ANUNodeStyleSetAlignItems(node, static_cast<ANUAlign>(Align::End));
         }
     }
 }

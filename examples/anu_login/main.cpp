@@ -29,7 +29,7 @@ std::unique_ptr<RenderDecoratedBox> createBox(Color color, float radius = 0) {
 
 int main() {
     auto platform = std::move(Platform::create().value());
-    WindowConfig config{"VAURA - Yoga Login Demo", 800, 600};
+    WindowConfig config{"VAURA - Anu Login Demo", 800, 600};
     auto window = std::move(Window::create(*platform, config).value());
     window->makeCurrent();
 

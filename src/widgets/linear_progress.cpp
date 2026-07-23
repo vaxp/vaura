@@ -3,7 +3,7 @@
 #include "vaura/state/state.hpp"
 #include "vaura/rendering/canvas.hpp"
 #include "vaura/animation/ticker.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <algorithm>
 #include <cmath>
 #include <chrono>
@@ -37,9 +37,9 @@ public:
     }
 
     void updateLayout() {
-        auto node = yogaNode();
-        YGNodeStyleSetHeight(node, config.thickness);
-        YGNodeStyleSetAlignSelf(node, YGAlignStretch); // Stretch to fill width
+        auto node = anuNode();
+        ANUNodeStyleSetHeight(node, config.thickness);
+        ANUNodeStyleSetAlignSelf(node, static_cast<ANUAlign>(Align::Stretch)); // Stretch to fill width
         markNeedsLayout();
     }
 

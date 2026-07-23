@@ -20,17 +20,17 @@ public:
         root->widthPercent(100)
             .heightPercent(100)
             .backgroundColor(0xFF1E293B)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter);
+            .justify(Justify::Center)
+            .align(Align::Center);
 
         auto content_col = std::make_shared<FlexBox>();
-        content_col->flexDirection(YGFlexDirectionColumn)
-                   .alignItems(YGAlignStretch)
+        content_col->direction(FlexDirection::Column)
+                   .align(Align::Stretch)
                    .width(300);
 
         // Indeterminate Progress
         auto title1 = Text("Indeterminate Progress", { .font_size = 18, .color = 0xFFFFFFFF, .weight = TextStyle::Bold });
-        auto wrap_title1 = std::make_shared<FlexBox>(); wrap_title1->margin(YGEdgeBottom, 10).child(title1);
+        auto wrap_title1 = std::make_shared<FlexBox>(); wrap_title1->margin(Edge::Bottom, 10).child(title1);
         auto ind_prog = LinearProgress({
             .value = std::nullopt,
             .thickness = 6.0f,
@@ -38,11 +38,11 @@ public:
             .active_color = 0xFF3B82F6, // Blue
             .inactive_color = 0xFF334155  // Slate 700
         });
-        auto wrap_ind = std::make_shared<FlexBox>(); wrap_ind->margin(YGEdgeBottom, 30).child(ind_prog);
+        auto wrap_ind = std::make_shared<FlexBox>(); wrap_ind->margin(Edge::Bottom, 30).child(ind_prog);
 
         // Determinate Progress
         auto title2 = Text("Determinate Progress (75%)", { .font_size = 18, .color = 0xFFFFFFFF, .weight = TextStyle::Bold });
-        auto wrap_title2 = std::make_shared<FlexBox>(); wrap_title2->margin(YGEdgeBottom, 10).child(title2);
+        auto wrap_title2 = std::make_shared<FlexBox>(); wrap_title2->margin(Edge::Bottom, 10).child(title2);
         auto det_prog = LinearProgress({
             .value = 0.75f,
             .thickness = 6.0f,

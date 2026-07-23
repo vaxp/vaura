@@ -15,19 +15,19 @@ public:
         return ScrollView({
             .child = Column({
                 .widthPercent = 100.0f,
-                .padding = std::pair{YGEdgeAll, 20.0f},
+                .padding = std::pair{Edge::All, 20.0f},
                 .backgroundColor = 0xFF1E293B,
                 .children = []() {
                     std::vector<WidgetPtr> items;
                     for (int i = 1; i <= 50; ++i) {
                         items.push_back(
                             Row({
-                                .justifyContent = YGJustifyFlexStart,
-                                .alignItems = YGAlignCenter,
+                                .justify = Justify::Start,
+                                .align = Align::Center,
                                 .widthPercent = 100.0f,
                                 .height = 60.0f,
-                                .padding = std::pair{YGEdgeLeft, 20.0f},
-                                .margin = std::pair{YGEdgeBottom, 10.0f},
+                                .padding = std::pair{Edge::Left, 20.0f},
+                                .margin = std::pair{Edge::Bottom, 10.0f},
                                 .backgroundColor = 0xFF334155,
                                 .borderRadius = 8.0f,
                                 .children = {

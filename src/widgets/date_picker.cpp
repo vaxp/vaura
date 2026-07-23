@@ -14,7 +14,7 @@
 #include "vaura/tree/build_context.hpp"
 #include "vaura/animation/animation_controller.hpp"
 #include "vaura/animation/ticker.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <string>
 #include <iomanip>
 #include <sstream>
@@ -75,11 +75,11 @@ public:
 
         // ── Field ─────────────────────────────────────────────
         auto field_row = std::make_shared<FlexBox>();
-        field_row->flexDirection(YGFlexDirectionRow)
-                  .alignItems(YGAlignCenter)
-                  .justifyContent(YGJustifySpaceBetween)
+        field_row->direction(FlexDirection::Row)
+                  .align(Align::Center)
+                  .justify(Justify::SpaceBetween)
                   .width(cfg.width).height(cfg.height)
-                  .padding(YGEdgeLeft, 12).padding(YGEdgeRight, 10);
+                  .padding(Edge::Left, 12).padding(Edge::Right, 10);
 
         field_row->child(text(label, {.font_size = cfg.font_size, .color = label_color}));
         field_row->child(icon(Icons::CalendarToday, {.size = 18.0f, .color = 0xFF64748B}));
@@ -132,15 +132,15 @@ public:
         auto cal_faded = opacity(open_anim_.get(), cal_panel);
 
         auto cal_wrapper = std::make_shared<FlexBox>();
-        cal_wrapper->positionType(YGPositionTypeAbsolute)
-                    .position(YGEdgeTop, cfg.height + 4.0f)
-                    .position(YGEdgeLeft, 0.0f);
+        cal_wrapper->positionType(PositionType::Absolute)
+                    .position(Edge::Top, cfg.height + 4.0f)
+                    .position(Edge::Left, 0.0f);
         cal_wrapper->child(cal_faded);
 
         // Backdrop
         auto bd = std::make_shared<FlexBox>();
-        bd->positionType(YGPositionTypeAbsolute)
-           .position(YGEdgeAll, 0.0f)
+        bd->positionType(PositionType::Absolute)
+           .position(Edge::All, 0.0f)
            .widthPercent(100).heightPercent(100);
         auto bd_gd = gesture_detector({
             .child  = bd,

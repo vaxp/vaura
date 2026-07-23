@@ -14,7 +14,7 @@
 #include "vaura/tree/build_context.hpp"
 #include "vaura/animation/animation_controller.hpp"
 #include "vaura/animation/ticker.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <vector>
 
 namespace vaura {
@@ -91,7 +91,7 @@ public:
         if (!initialized_ || anims_.size() != cfg.items.size()) return std::make_shared<FlexBox>();
 
         auto root_col = std::make_shared<FlexBox>();
-        root_col->flexDirection(YGFlexDirectionColumn);
+        root_col->direction(FlexDirection::Column);
 
         for (int i = 0; i < (int)cfg.items.size(); ++i) {
             const auto& item = cfg.items[i];
@@ -104,16 +104,16 @@ public:
 
             // ── Header ────────────────────────────────────────
             auto hdr_row = std::make_shared<FlexBox>();
-            hdr_row->flexDirection(YGFlexDirectionRow)
-                    .alignItems(YGAlignCenter)
-                    .justifyContent(YGJustifySpaceBetween)
+            hdr_row->direction(FlexDirection::Row)
+                    .align(Align::Center)
+                    .justify(Justify::SpaceBetween)
                     .height(cfg.header_height)
-                    .padding(YGEdgeLeft, 16)
-                    .padding(YGEdgeRight, 12)
+                    .padding(Edge::Left, 16)
+                    .padding(Edge::Right, 12)
                     .backgroundColor(cfg.header_color);
 
             auto text_col = std::make_shared<FlexBox>();
-            text_col->flexDirection(YGFlexDirectionColumn).flexGrow(1.0f);
+            text_col->direction(FlexDirection::Column).flexGrow(1.0f);
             text_col->child(text(item.title, {
                 .font_size = cfg.title_font_size,
                 .color     = cfg.title_color,
@@ -135,8 +135,8 @@ public:
             });
             auto chev_wrap = std::make_shared<FlexBox>();
             chev_wrap->width(28).height(28)
-                      .justifyContent(YGJustifyCenter)
-                      .alignItems(YGAlignCenter);
+                      .justify(Justify::Center)
+                      .align(Align::Center);
             if (chevron_rot > 0.5f) {
                 chev_wrap->child(rotate(chevron_rot, chev));
             } else {
@@ -152,13 +152,13 @@ public:
 
             // ── Content (animated) ─────────────────────────────
             auto panel_col = std::make_shared<FlexBox>();
-            panel_col->flexDirection(YGFlexDirectionColumn)
+            panel_col->direction(FlexDirection::Column)
                       .backgroundColor(is_open ? cfg.expanded_bg : cfg.background_color);
             panel_col->child(hdr_gd);
 
             if (t > 0.005f && item.content) {
                 auto content_wrap = std::make_shared<FlexBox>();
-                content_wrap->padding(YGEdgeAll, 16)
+                content_wrap->padding(Edge::All, 16)
                              .widthPercent(100);
                 content_wrap->child(item.content);
 

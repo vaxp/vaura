@@ -12,8 +12,8 @@ public:
 
     WidgetPtr build(BuildContext& ctx) override {
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF1E293B,
@@ -28,17 +28,17 @@ public:
                     .width = 300.0f,
                     .children = {
                         Column({
-                            .padding = std::pair{YGEdgeAll, 15.0f},
+                            .padding = std::pair{Edge::All, 15.0f},
                             .children = { Text("Item 1", {.font_size = 18, .color = 0xFFFFFFFF}) }
                         }),
                         Divider({.thickness = 1.0f, .color = 0xFF475569, .indent = 10.0f, .end_indent = 10.0f}),
                         Column({
-                            .padding = std::pair{YGEdgeAll, 15.0f},
+                            .padding = std::pair{Edge::All, 15.0f},
                             .children = { Text("Item 2", {.font_size = 18, .color = 0xFFFFFFFF}) }
                         }),
                         Divider({.thickness = 1.0f, .color = 0xFF475569, .indent = 10.0f, .end_indent = 10.0f}),
                         Column({
-                            .padding = std::pair{YGEdgeAll, 15.0f},
+                            .padding = std::pair{Edge::All, 15.0f},
                             .children = { Text("Item 3", {.font_size = 18, .color = 0xFFFFFFFF}) }
                         })
                     }

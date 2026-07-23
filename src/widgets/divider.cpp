@@ -2,7 +2,7 @@
 #include "vaura/tree/render_object.hpp"
 #include "vaura/rendering/canvas.hpp"
 #include "vaura/rendering/paint.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 
 namespace vaura {
 
@@ -37,16 +37,16 @@ public:
     }
 
     void updateLayout() {
-        auto node = yogaNode();
-        YGNodeStyleSetAlignSelf(node, YGAlignStretch);
+        auto node = anuNode();
+        ANUNodeStyleSetAlignSelf(node, static_cast<ANUAlign>(Align::Stretch));
         if (config.vertical) {
-            YGNodeStyleSetWidth(node, config.thickness);
-            YGNodeStyleSetMargin(node, YGEdgeTop, config.indent);
-            YGNodeStyleSetMargin(node, YGEdgeBottom, config.end_indent);
+            ANUNodeStyleSetWidth(node, config.thickness);
+            ANUNodeStyleSetMargin(node, static_cast<ANUEdge>(Edge::Top), config.indent);
+            ANUNodeStyleSetMargin(node, static_cast<ANUEdge>(Edge::Bottom), config.end_indent);
         } else {
-            YGNodeStyleSetHeight(node, config.thickness);
-            YGNodeStyleSetMargin(node, YGEdgeLeft, config.indent);
-            YGNodeStyleSetMargin(node, YGEdgeRight, config.end_indent);
+            ANUNodeStyleSetHeight(node, config.thickness);
+            ANUNodeStyleSetMargin(node, static_cast<ANUEdge>(Edge::Left), config.indent);
+            ANUNodeStyleSetMargin(node, static_cast<ANUEdge>(Edge::Right), config.end_indent);
         }
         markNeedsLayout();
     }

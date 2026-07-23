@@ -9,7 +9,7 @@
 #include "vaura/rendering/canvas.hpp"
 #include "vaura/animation/animation_controller.hpp"
 #include "vaura/animation/ticker.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <chrono>
 
 namespace vaura {
@@ -25,8 +25,8 @@ public:
 
     RenderSwitch() {
         // Set default fixed size for the switch graphic
-        YGNodeStyleSetWidth(yogaNode(), 44.0f);
-        YGNodeStyleSetHeight(yogaNode(), 24.0f);
+        ANUNodeStyleSetWidth(anuNode(), 44.0f);
+        ANUNodeStyleSetHeight(anuNode(), 24.0f);
     }
 
     void paint(PaintContext& context) override {
@@ -116,8 +116,8 @@ public:
         rs.config = config;
         rs.progress = progress;
         
-        YGNodeStyleSetWidth(rs.yogaNode(), config.width);
-        YGNodeStyleSetHeight(rs.yogaNode(), config.height);
+        ANUNodeStyleSetWidth(rs.anuNode(), config.width);
+        ANUNodeStyleSetHeight(rs.anuNode(), config.height);
         
         rs.markNeedsLayout();
         rs.markNeedsPaint();

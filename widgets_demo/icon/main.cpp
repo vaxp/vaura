@@ -14,22 +14,22 @@ class IconDemoState : public State {
 public:
     WidgetPtr build(BuildContext& ctx) override {
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF0F172A,
             .children = {
                 Column({
-                    .margin = std::pair{YGEdgeBottom, 40.0f},
+                    .margin = std::pair{Edge::Bottom, 40.0f},
                     .children = {
                         Text("Icon Gallery", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold})
                     }
                 }),
                 Row({
-                    .justifyContent = YGJustifyCenter,
-                    .alignItems = YGAlignCenter,
-                    .flexWrap = YGWrapWrap,
+                    .justify = Justify::Center,
+                    .align = Align::Center,
+                    .wrap = FlexWrap::Wrap,
                     .width = 500.0f,
                     .children = [this]() {
                         std::vector<WidgetPtr> items;
@@ -46,11 +46,11 @@ public:
                             items.push_back(
                                 GestureDetector({
                                     .child = Column({
-                                        .justifyContent = YGJustifyCenter,
-                                        .alignItems = YGAlignCenter,
+                                        .justify = Justify::Center,
+                                        .align = Align::Center,
                                         .width = 120.0f,
                                         .height = 120.0f,
-                                        .margin = std::pair{YGEdgeAll, 10.0f},
+                                        .margin = std::pair{Edge::All, 10.0f},
                                         .backgroundColor = is_hovered ? 0xFF334155 : 0xFF1E293B,
                                         .borderRadius = 16.0f,
                                         .children = {
@@ -59,7 +59,7 @@ public:
                                                 .color = is_hovered ? 0xFF0EA5E9 : 0xFF94A3B8
                                             }),
                                             Column({
-                                                .margin = std::pair{YGEdgeTop, 12.0f},
+                                                .margin = std::pair{Edge::Top, 12.0f},
                                                 .children = {
                                                     Text(icons[i].second, {.font_size = 14.0f, .color = is_hovered ? 0xFFF8FAFC : 0xFF94A3B8})
                                                 }

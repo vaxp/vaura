@@ -75,7 +75,7 @@ public:
         uint32_t btn_color = 0xFF000000 | (r << 16) | (g << 8) | b;
 
         auto badge = Column({
-            .positionType = YGPositionTypeAbsolute,
+            .positionType = PositionType::Absolute,
             .backgroundColor = 0xFFEF4444, // Red
             .children = {
                 Text("SALE", {
@@ -85,19 +85,19 @@ public:
                 })
             }
         });
-        badge->position(YGEdgeTop, 12.0f)
-             .position(YGEdgeRight, 12.0f)
-             .padding(YGEdgeHorizontal, 10.0f)
-             .padding(YGEdgeVertical, 4.0f);
+        badge->position(Edge::Top, 12.0f)
+             .position(Edge::Right, 12.0f)
+             .padding(Edge::Horizontal, 10.0f)
+             .padding(Edge::Vertical, 4.0f);
 
         auto image_container = Column({
             .widthPercent = 100.0f,
             .height = 180.0f,
-            .margin = std::pair{YGEdgeBottom, 16.0f},
-            .positionType = YGPositionTypeRelative,
+            .margin = std::pair{Edge::Bottom, 16.0f},
+            .positionType = PositionType::Relative,
             .children = {
                 ImageView({
-                    .path = "/home/vaxp/Downloads/VAURA/examples/direct_yoga_test/logo.png",
+                    .path = "/home/vaxp/Downloads/VAURA/examples/direct_anu_test/logo.png",
                     .width_percent = 100.0f,
                     .height_percent = 100.0f,
                     .fit = BoxFit::Cover,
@@ -108,8 +108,8 @@ public:
         });
 
         auto buy_btn = Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .backgroundColor = btn_color,
             .children = {
                 Text("Add", {
@@ -119,13 +119,13 @@ public:
                 })
             }
         });
-        buy_btn->padding(YGEdgeHorizontal, 20.0f)
-               .padding(YGEdgeVertical, 10.0f);
+        buy_btn->padding(Edge::Horizontal, 20.0f)
+               .padding(Edge::Vertical, 10.0f);
 
         auto action_row = Row({
-            .justifyContent = YGJustifySpaceBetween,
-            .alignItems = YGAlignCenter,
-            .margin = std::pair{YGEdgeTop, 12.0f},
+            .justify = Justify::SpaceBetween,
+            .align = Align::Center,
+            .margin = std::pair{Edge::Top, 12.0f},
             .children = {
                 Text(widget_ptr->price, {
                     .font_size = 20,
@@ -138,7 +138,7 @@ public:
 
         auto card = Column({
             .width = 260.0f,
-            .padding = std::pair{YGEdgeAll, 16.0f},
+            .padding = std::pair{Edge::All, 16.0f},
             .backgroundColor = 0xFFFFFFFF,
             .borderRadius = 12.0f,
             .children = {
@@ -158,9 +158,9 @@ public:
             }
         });
 
-        card->margin(YGEdgeRight, 24.0f)
-            .margin(YGEdgeTop, top_margin)
-            .margin(YGEdgeBottom, bottom_margin);
+        card->margin(Edge::Right, 24.0f)
+            .margin(Edge::Top, top_margin)
+            .margin(Edge::Bottom, bottom_margin);
 
         return GestureDetector({
             .child = card,
@@ -191,7 +191,7 @@ public:
         
         for (size_t i = 0; i < categories.size(); ++i) {
             auto cat_item = Column({
-                .margin = std::pair{YGEdgeTop, 16.0f},
+                .margin = std::pair{Edge::Top, 16.0f},
                 .backgroundColor = (Color)(i == 0 ? 0xFFEEF2FF : 0x00000000),
                 .children = {
                     Text(categories[i], {
@@ -201,8 +201,8 @@ public:
                     })
                 }
             });
-            cat_item->padding(YGEdgeVertical, 8.0f)
-                    .padding(YGEdgeHorizontal, 12.0f);
+            cat_item->padding(Edge::Vertical, 8.0f)
+                    .padding(Edge::Horizontal, 12.0f);
             sidebar_items.push_back(cat_item);
         }
 
@@ -226,10 +226,10 @@ public:
             .children = {
                 // --- Header ---
                 Row({
-                    .justifyContent = YGJustifySpaceBetween,
-                    .alignItems = YGAlignCenter,
+                    .justify = Justify::SpaceBetween,
+                    .align = Align::Center,
                     .height = 70.0f,
-                    .padding = std::pair{YGEdgeHorizontal, 32.0f},
+                    .padding = std::pair{Edge::Horizontal, 32.0f},
                     .backgroundColor = 0xFF1E1B4B,
                     .children = {
                         Text("VAURA Store", {
@@ -239,7 +239,7 @@ public:
                             .letter_spacing = 1.2f
                         }),
                         Row({
-                            .alignItems = YGAlignCenter,
+                            .align = Align::Center,
                             .children = {
                                 Text("CART (3)", {
                                     .font_size = 14,
@@ -247,11 +247,11 @@ public:
                                     .weight = TextStyle::Bold
                                 }),
                                 Column({
-                                    .justifyContent = YGJustifyCenter,
-                                    .alignItems = YGAlignCenter,
+                                    .justify = Justify::Center,
+                                    .align = Align::Center,
                                     .width = 40.0f,
                                     .height = 40.0f,
-                                    .margin = std::pair{YGEdgeLeft, 24.0f},
+                                    .margin = std::pair{Edge::Left, 24.0f},
                                     .backgroundColor = 0xFF4F46E5,
                                     .children = {
                                         Text("U", {
@@ -273,18 +273,18 @@ public:
                         // Sidebar
                         Column({
                             .width = 240.0f,
-                            .padding = std::pair{YGEdgeAll, 24.0f},
+                            .padding = std::pair{Edge::All, 24.0f},
                             .backgroundColor = 0xFFFFFFFF,
                             .children = sidebar_items
                         }),
                         
                         // Product Grid Area
                         Row({
-                            .justifyContent = YGJustifyFlexStart,
-                            .alignItems = YGAlignFlexStart,
-                            .flexWrap = YGWrapWrap,
+                            .justify = Justify::Start,
+                            .align = Align::Start,
+                            .wrap = FlexWrap::Wrap,
                             .flexGrow = 1.0f,
-                            .padding = std::pair{YGEdgeAll, 32.0f},
+                            .padding = std::pair{Edge::All, 32.0f},
                             .children = grid_items
                         })
                     }
@@ -298,7 +298,7 @@ public:
 
 int main(int argc, char** argv) {
     AppConfig config;
-    config.title = "VAURA Direct Yoga Storefront - Animated Edition";
+    config.title = "VAURA Direct Anu Storefront - Animated Edition";
     config.width = 1120;
     config.height = 860;
     config.vsync = true;

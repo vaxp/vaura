@@ -11,13 +11,13 @@
 #include <android/log.h>
 #endif
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 namespace {
 
 void vlog(
-    const yoga::Config* config,
-    const yoga::Node* node,
+    const anu::Config* config,
+    const anu::Node* node,
     LogLevel level,
     const char* format,
     va_list args) {
@@ -37,7 +37,7 @@ void log(LogLevel level, const char* format, ...) noexcept {
 }
 
 void log(
-    const yoga::Node* node,
+    const anu::Node* node,
     LogLevel level,
     const char* format,
     ...) noexcept {
@@ -49,7 +49,7 @@ void log(
 }
 
 void log(
-    const yoga::Config* config,
+    const anu::Config* config,
     LogLevel level,
     const char* format,
     ...) noexcept {
@@ -59,44 +59,44 @@ void log(
   va_end(args);
 }
 
-YGLogger getDefaultLogger() {
-  return [](const YGConfigConstRef /*config*/,
-            const YGNodeConstRef /*node*/,
-            YGLogLevel level,
+ANULogger getDefaultLogger() {
+  return [](const ANUConfigConstRef /*config*/,
+            const ANUNodeConstRef /*node*/,
+            ANULogLevel level,
             const char* format,
             va_list args) -> int {
 #ifdef ANDROID
-    int androidLevel = YGLogLevelDebug;
+    int androidLevel = ANULogLevelDebug;
     switch (level) {
-      case YGLogLevelFatal:
+      case ANULogLevelFatal:
         androidLevel = ANDROID_LOG_FATAL;
         break;
-      case YGLogLevelError:
+      case ANULogLevelError:
         androidLevel = ANDROID_LOG_ERROR;
         break;
-      case YGLogLevelWarn:
+      case ANULogLevelWarn:
         androidLevel = ANDROID_LOG_WARN;
         break;
-      case YGLogLevelInfo:
+      case ANULogLevelInfo:
         androidLevel = ANDROID_LOG_INFO;
         break;
-      case YGLogLevelDebug:
+      case ANULogLevelDebug:
         androidLevel = ANDROID_LOG_DEBUG;
         break;
-      case YGLogLevelVerbose:
+      case ANULogLevelVerbose:
         androidLevel = ANDROID_LOG_VERBOSE;
         break;
     }
-    return __android_log_vprint(androidLevel, "yoga", format, args);
+    return __android_log_vprint(androidLevel, "anu", format, args);
 #else
     switch (level) {
-      case YGLogLevelError:
-      case YGLogLevelFatal:
+      case ANULogLevelError:
+      case ANULogLevelFatal:
         return vfprintf(stderr, format, args);
-      case YGLogLevelWarn:
-      case YGLogLevelInfo:
-      case YGLogLevelDebug:
-      case YGLogLevelVerbose:
+      case ANULogLevelWarn:
+      case ANULogLevelInfo:
+      case ANULogLevelDebug:
+      case ANULogLevelVerbose:
       default:
         return vprintf(format, args);
     }
@@ -104,4 +104,4 @@ YGLogger getDefaultLogger() {
   };
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

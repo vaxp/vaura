@@ -6,7 +6,7 @@
 #include "vaura/state/state.hpp"
 #include "vaura/animation/ticker.hpp"
 #include "vaura/rendering/canvas.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <random>
 #include <chrono>
 
@@ -163,9 +163,9 @@ public:
     sk_sp<SkRuntimeEffect> bg_effect_;
 
     RenderGameWorld() {
-        YGNodeStyleSetFlexGrow(yogaNode(), 1.0f);
-        YGNodeStyleSetWidthPercent(yogaNode(), 100.0f);
-        YGNodeStyleSetHeightPercent(yogaNode(), 100.0f);
+        ANUNodeStyleSetFlexGrow(anuNode(), 1.0f);
+        ANUNodeStyleSetWidthPercent(anuNode(), 100.0f);
+        ANUNodeStyleSetHeightPercent(anuNode(), 100.0f);
     }
 
     void initEffect() {
@@ -514,10 +514,10 @@ public:
         
         // Score HUD
         auto hud = std::make_shared<FlexBox>();
-        hud->positionType(YGPositionTypeAbsolute)
-           .position(YGEdgeTop, 20)
-           .position(YGEdgeLeft, 20)
-           .flexDirection(YGFlexDirectionColumn);
+        hud->positionType(PositionType::Absolute)
+           .position(Edge::Top, 20)
+           .position(Edge::Left, 20)
+           .direction(FlexDirection::Column);
            
         hud->child(Text("SCORE: " + std::to_string(game.score), {
             .font_size = 32, .color = 0xFF10B981, .weight = TextStyle::Bold
@@ -532,11 +532,11 @@ public:
         // Game Over Screen
         if (game.game_over) {
             auto overlay = std::make_shared<FlexBox>();
-            overlay->positionType(YGPositionTypeAbsolute)
-                   .position(YGEdgeAll, 0)
+            overlay->positionType(PositionType::Absolute)
+                   .position(Edge::All, 0)
                    .widthPercent(100).heightPercent(100)
-                   .justifyContent(YGJustifyCenter)
-                   .alignItems(YGAlignCenter)
+                   .justify(Justify::Center)
+                   .align(Align::Center)
                    .backgroundColor(0x80000000); // Semi-transparent black
 
             overlay->child(Text("GAME OVER", {

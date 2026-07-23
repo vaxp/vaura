@@ -22,8 +22,8 @@ class SwitchDemoState : public State {
 public:
     WidgetPtr build(BuildContext& context) override {
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .gap = 40.0f,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
@@ -35,7 +35,7 @@ public:
                 // Settings Card Layout
                 Column({
                     .gap = 24.0f,
-                    .padding = std::pair{YGEdgeAll, 32.0f},
+                    .padding = std::pair{Edge::All, 32.0f},
                     .backgroundColor = 0xFF1E293B, // Slate 800
                     .borderRadius = 16.0f,
                     .children = {
@@ -68,8 +68,8 @@ public:
 private:
     WidgetPtr buildSettingRow(const std::string& label, bool value, std::function<void(bool)> on_change, Color active_color) {
         return Row({
-            .justifyContent = YGJustifySpaceBetween,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::SpaceBetween,
+            .align = Align::Center,
             .width = 300.0f,
             .children = {
                 Text(label, {.font_size = 20.0f, .color = 0xFFF8FAFC}),

@@ -10,15 +10,15 @@
 #pragma once
 
 #include <cstdint>
-#include <layout_engine/YGEnums.h>
-#include <layout_engine/enums/YogaEnums.h>
+#include <layout_engine/AnuEnums.h>
+#include <layout_engine/enums/AnuEnums.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 enum class Direction : uint8_t {
-  Inherit = YGDirectionInherit,
-  LTR = YGDirectionLTR,
-  RTL = YGDirectionRTL,
+  Inherit = ANUDirectionInherit,
+  LTR = ANUDirectionLTR,
+  RTL = ANUDirectionRTL,
 };
 
 template <>
@@ -26,16 +26,16 @@ constexpr int32_t ordinalCount<Direction>() {
   return 3;
 }
 
-constexpr Direction scopedEnum(YGDirection unscoped) {
+constexpr Direction scopedEnum(ANUDirection unscoped) {
   return static_cast<Direction>(unscoped);
 }
 
-constexpr YGDirection unscopedEnum(Direction scoped) {
-  return static_cast<YGDirection>(scoped);
+constexpr ANUDirection unscopedEnum(Direction scoped) {
+  return static_cast<ANUDirection>(scoped);
 }
 
 inline const char* toString(Direction e) {
-  return YGDirectionToString(unscopedEnum(e));
+  return ANUDirectionToString(unscopedEnum(e));
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

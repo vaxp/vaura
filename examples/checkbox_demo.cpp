@@ -24,13 +24,13 @@ public:
         root->widthPercent(100)
             .heightPercent(100)
             .backgroundColor(0xFF1E293B)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter);
+            .justify(Justify::Center)
+            .align(Align::Center);
 
         auto content = std::make_shared<FlexBox>();
-        content->flexDirection(YGFlexDirectionColumn)
+        content->direction(FlexDirection::Column)
                .backgroundColor(0xFF0F172A)
-               .padding(YGEdgeAll, 40)
+               .padding(Edge::All, 40)
                .borderRadius(16);
 
         auto title = Text("Checkbox Demo", {
@@ -40,15 +40,15 @@ public:
         });
         
         auto title_container = std::make_shared<FlexBox>();
-        title_container->margin(YGEdgeBottom, 30).child(title);
+        title_container->margin(Edge::Bottom, 30).child(title);
         content->child(title_container);
 
         // Helper to build a labeled checkbox row
         auto build_labeled_checkbox = [this](const std::string& label, bool& value) {
             auto row = std::make_shared<FlexBox>();
-            row->flexDirection(YGFlexDirectionRow)
-               .alignItems(YGAlignCenter)
-               .margin(YGEdgeBottom, 20);
+            row->direction(FlexDirection::Row)
+               .align(Align::Center)
+               .margin(Edge::Bottom, 20);
 
             auto cb = Checkbox({
                 .value = value,
@@ -75,7 +75,7 @@ public:
             
             // Checkbox on the left, then margin, then text
             auto cb_container = std::make_shared<FlexBox>();
-            cb_container->margin(YGEdgeRight, 15).child(cb);
+            cb_container->margin(Edge::Right, 15).child(cb);
 
             row->child(cb_container).child(txt_container);
             

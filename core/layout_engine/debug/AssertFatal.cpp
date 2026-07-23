@@ -13,7 +13,7 @@
 #include <layout_engine/debug/Log.h>
 #include <layout_engine/node/Node.h>
 
-namespace facebook::yoga {
+namespace facebook::anu {
 
 [[noreturn]] void fatalWithMessage(const char* message) {
 #if defined(__cpp_exceptions)
@@ -25,29 +25,29 @@ namespace facebook::yoga {
 
 void assertFatal(const bool condition, const char* message) {
   if (!condition) {
-    yoga::log(LogLevel::Fatal, "%s\n", message);
+    anu::log(LogLevel::Fatal, "%s\n", message);
     fatalWithMessage(message);
   }
 }
 
 void assertFatalWithNode(
-    const yoga::Node* const node,
+    const anu::Node* const node,
     const bool condition,
     const char* message) {
   if (!condition) {
-    yoga::log(node, LogLevel::Fatal, "%s\n", message);
+    anu::log(node, LogLevel::Fatal, "%s\n", message);
     fatalWithMessage(message);
   }
 }
 
 void assertFatalWithConfig(
-    const yoga::Config* const config,
+    const anu::Config* const config,
     const bool condition,
     const char* message) {
   if (!condition) {
-    yoga::log(config, LogLevel::Fatal, "%s\n", message);
+    anu::log(config, LogLevel::Fatal, "%s\n", message);
     fatalWithMessage(message);
   }
 }
 
-} // namespace facebook::yoga
+} // namespace facebook::anu

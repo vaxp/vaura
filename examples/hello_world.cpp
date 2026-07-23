@@ -13,9 +13,9 @@ public:
         auto root = std::make_shared<FlexBox>();
         root->widthPercent(100)
             .heightPercent(100)
-            .flexDirection(YGFlexDirectionColumn)
-            .justifyContent(YGJustifyCenter)
-            .alignItems(YGAlignCenter)
+            .direction(FlexDirection::Column)
+            .justify(Justify::Center)
+            .align(Align::Center)
             .backgroundColor(0xFF0F172A); // Dark slate background
 
         auto title = Text("Hello, VAURA!", {

@@ -12,8 +12,8 @@ public:
 
     WidgetPtr build(BuildContext& ctx) override {
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
             .backgroundColor = 0xFF0F172A,
@@ -24,14 +24,14 @@ public:
                     .width = 800.0f,
                     .height = 400.0f,
                     .borderRadius = 16.0f,
-                    .overflow = YGOverflowHidden,
+                    .overflow = Overflow::Hidden,
                     .children = {
                         ResizablePanels({
                             .panels = {
                                 {
                                     Column({
-                                        .justifyContent = YGJustifyCenter,
-                                        .alignItems = YGAlignCenter,
+                                        .justify = Justify::Center,
+                                        .align = Align::Center,
                                         .widthPercent = 100.0f,
                                         .heightPercent = 100.0f,
                                         .backgroundColor = 0xFF1E293B,
@@ -40,8 +40,8 @@ public:
                                 },
                                 {
                                     Column({
-                                        .justifyContent = YGJustifyCenter,
-                                        .alignItems = YGAlignCenter,
+                                        .justify = Justify::Center,
+                                        .align = Align::Center,
                                         .widthPercent = 100.0f,
                                         .heightPercent = 100.0f,
                                         .backgroundColor = 0xFF334155,
@@ -50,8 +50,8 @@ public:
                                 },
                                 {
                                     Column({
-                                        .justifyContent = YGJustifyCenter,
-                                        .alignItems = YGAlignCenter,
+                                        .justify = Justify::Center,
+                                        .align = Align::Center,
                                         .widthPercent = 100.0f,
                                         .heightPercent = 100.0f,
                                         .backgroundColor = 0xFF475569,

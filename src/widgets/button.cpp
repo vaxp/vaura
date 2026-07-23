@@ -28,12 +28,12 @@ public:
         content->height(btn->config.min_height)
                .backgroundColor(bg_color)
                .borderRadius(btn->config.border_radius)
-               .padding(YGEdgeLeft, btn->config.padding.left)
-               .padding(YGEdgeRight, btn->config.padding.right)
-               .padding(YGEdgeTop, btn->config.padding.top)
-               .padding(YGEdgeBottom, btn->config.padding.bottom)
-               .justifyContent(YGJustifyCenter)
-               .alignItems(YGAlignCenter);
+               .padding(Edge::Left, btn->config.padding.left)
+               .padding(Edge::Right, btn->config.padding.right)
+               .padding(Edge::Top, btn->config.padding.top)
+               .padding(Edge::Bottom, btn->config.padding.bottom)
+               .justify(Justify::Center)
+               .align(Align::Center);
                
         if (btn->config.child) {
             content->child(btn->config.child);

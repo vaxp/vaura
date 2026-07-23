@@ -10,7 +10,7 @@
 #include "vaura/tree/build_context.hpp"
 #include "vaura/rendering/canvas.hpp"
 #include "vaura/tree/render_object.hpp"
-#include <layout_engine/Yoga.h>
+#include <layout_engine/Anu.h>
 #include <cmath>
 #include <string>
 #include <iomanip>
@@ -32,8 +32,8 @@ public:
     float sz            = 200.0f;
 
     explicit RenderClockFace(float s):sz(s){
-        YGNodeStyleSetWidth(yogaNode(),s);
-        YGNodeStyleSetHeight(yogaNode(),s);
+        ANUNodeStyleSetWidth(anuNode(),s);
+        ANUNodeStyleSetHeight(anuNode(),s);
     }
 
     void paint(PaintContext& ctx) override {
@@ -141,7 +141,7 @@ public:
         if (!cfg.use_24h) ss << " " << am_pm;
 
         auto col = std::make_shared<FlexBox>();
-        col->flexDirection(YGFlexDirectionColumn).alignItems(YGAlignCenter);
+        col->direction(FlexDirection::Column).align(Align::Center);
 
         // Time display
         col->child(text(ss.str(), {.font_size=32,.color=cfg.text_color,
@@ -152,15 +152,15 @@ public:
             cur_hour, cur_minute, cfg.clock_size,
             cfg.face_color, cfg.hand_color, cfg.center_dot_color, cfg.text_color, cfg.selected_text);
         auto fw = std::make_shared<FlexBox>();
-        fw->margin(YGEdgeTop,16).margin(YGEdgeBottom,12).child(face);
+        fw->margin(Edge::Top,16).margin(Edge::Bottom,12).child(face);
         col->child(fw);
 
         // Hour buttons (0–23 or 0–11 in two rows)
         col->child(text("Hour", {.font_size=11,.color=0xFF64748B}));
         int max_h = cfg.use_24h ? 23 : 11;
         auto hr_row = std::make_shared<FlexBox>();
-        hr_row->flexDirection(YGFlexDirectionRow).flexWrap(YGWrapWrap)
-               .width(cfg.clock_size).margin(YGEdgeTop,4);
+        hr_row->direction(FlexDirection::Row).wrap(FlexWrap::Wrap)
+               .width(cfg.clock_size).margin(Edge::Top,4);
         for (int h=0; h<=max_h; ++h) {
             bool active = (h == cur_hour || (!cfg.use_24h && h==cur_hour%12));
             int hc=h;
@@ -175,7 +175,7 @@ public:
                 }),
                 .on_tap = [this, hc](){ setState([this,hc]{cur_hour=hc;}); notify(); },
             });
-            auto bw=std::make_shared<FlexBox>(); bw->margin(YGEdgeRight,2).margin(YGEdgeBottom,2).child(hbtn);
+            auto bw=std::make_shared<FlexBox>(); bw->margin(Edge::Right,2).margin(Edge::Bottom,2).child(hbtn);
             hr_row->child(bw);
         }
         col->child(hr_row);
@@ -183,8 +183,8 @@ public:
         // Minute buttons (0,5,10,...,55)
         col->child(text("Minute", {.font_size=11,.color=0xFF64748B}));
         auto min_row = std::make_shared<FlexBox>();
-        min_row->flexDirection(YGFlexDirectionRow).flexWrap(YGWrapWrap)
-                .width(cfg.clock_size).margin(YGEdgeTop,4);
+        min_row->direction(FlexDirection::Row).wrap(FlexWrap::Wrap)
+                .width(cfg.clock_size).margin(Edge::Top,4);
         for (int m=0; m<=55; m+=5) {
             bool active = (cur_minute/5*5 == m);
             int mc=m;
@@ -199,7 +199,7 @@ public:
                 }),
                 .on_tap=[this,mc](){ setState([this,mc]{cur_minute=mc;}); notify(); },
             });
-            auto bw=std::make_shared<FlexBox>(); bw->margin(YGEdgeRight,2).margin(YGEdgeBottom,2).child(mbtn);
+            auto bw=std::make_shared<FlexBox>(); bw->margin(Edge::Right,2).margin(Edge::Bottom,2).child(mbtn);
             min_row->child(bw);
         }
         col->child(min_row);
@@ -207,7 +207,7 @@ public:
         // AM/PM toggle
         if (!cfg.use_24h) {
             auto ampm=std::make_shared<FlexBox>();
-            ampm->flexDirection(YGFlexDirectionRow).margin(YGEdgeTop,10);
+            ampm->direction(FlexDirection::Row).margin(Edge::Top,10);
             for (const char* lbl : {"AM","PM"}) {
                 bool active=(std::string(lbl)==am_pm);
                 std::string l=lbl;
@@ -224,7 +224,7 @@ public:
                         setState([]{});
                     },
                 });
-                auto bw=std::make_shared<FlexBox>();bw->margin(YGEdgeRight,8).child(btn);
+                auto bw=std::make_shared<FlexBox>();bw->margin(Edge::Right,8).child(btn);
                 ampm->child(bw);
             }
             col->child(ampm);

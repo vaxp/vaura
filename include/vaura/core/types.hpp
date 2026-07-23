@@ -1,3 +1,4 @@
+#include <layout_engine/Anu.h>
 #pragma once
 /// @file types.hpp
 /// @brief Core type definitions for the VAURA framework.
@@ -238,7 +239,6 @@ struct Border {
 // ============================================================
 
 /// Flex direction for layout.
-enum class FlexDirection { Row, Column, RowReverse, ColumnReverse };
 
 /// Main axis alignment.
 enum class MainAxisAlign { Start, Center, End, SpaceBetween, SpaceAround, SpaceEvenly };
@@ -253,7 +253,6 @@ enum class MainAxisSize { Min, Max };
 enum class Axis { Horizontal, Vertical };
 
 /// Positioning type (relative to parent or absolute).
-enum class PositionType { Relative, Absolute };
 
 /// Content alignment within a Stack.
 enum class Alignment {
@@ -263,7 +262,6 @@ enum class Alignment {
 };
 
 /// Edge identifiers for padding/margin.
-enum class Edge { Left, Top, Right, Bottom, All, Horizontal, Vertical };
 
 /// Layout Direction (RTL / LTR)
 enum class LayoutDirection { Inherit, LTR, RTL };
@@ -281,5 +279,63 @@ concept StateType = std::is_copy_constructible_v<T> &&
 /// Constrains a type to be a valid Widget.
 template<typename T>
 concept WidgetConcept = std::derived_from<T, Widget>;
+
+
+enum class Justify {
+    Start = ANUJustifyFlexStart,
+    Center = ANUJustifyCenter,
+    End = ANUJustifyFlexEnd,
+    SpaceBetween = ANUJustifySpaceBetween,
+    SpaceAround = ANUJustifySpaceAround,
+    SpaceEvenly = ANUJustifySpaceEvenly
+};
+
+enum class Align {
+    Auto = ANUAlignAuto,
+    Start = ANUAlignFlexStart,
+    Center = ANUAlignCenter,
+    End = ANUAlignFlexEnd,
+    Stretch = ANUAlignStretch,
+    Baseline = ANUAlignBaseline,
+    SpaceBetween = ANUAlignSpaceBetween,
+    SpaceAround = ANUAlignSpaceAround
+};
+
+enum class FlexDirection {
+    Column = ANUFlexDirectionColumn,
+    ColumnReverse = ANUFlexDirectionColumnReverse,
+    Row = ANUFlexDirectionRow,
+    RowReverse = ANUFlexDirectionRowReverse
+};
+
+enum class FlexWrap {
+    NoWrap = ANUWrapNoWrap,
+    Wrap = ANUWrapWrap,
+    WrapReverse = ANUWrapWrapReverse
+};
+
+enum class Edge {
+    Left = ANUEdgeLeft,
+    Top = ANUEdgeTop,
+    Right = ANUEdgeRight,
+    Bottom = ANUEdgeBottom,
+    Start = ANUEdgeStart,
+    End = ANUEdgeEnd,
+    Horizontal = ANUEdgeHorizontal,
+    Vertical = ANUEdgeVertical,
+    All = ANUEdgeAll
+};
+
+enum class PositionType {
+    Static = ANUPositionTypeStatic,
+    Relative = ANUPositionTypeRelative,
+    Absolute = ANUPositionTypeAbsolute
+};
+
+enum class Overflow {
+    Visible = ANUOverflowVisible,
+    Hidden = ANUOverflowHidden,
+    Scroll = ANUOverflowScroll
+};
 
 }  // namespace vaura

@@ -60,8 +60,8 @@ public:
             row.cells.push_back(Text(user.role, {.font_size = 14.0f, .color = 0xFFCBD5E1}));
             
             row.cells.push_back(Column({
-                .justifyContent = YGJustifyCenter,
-                .alignItems = YGAlignCenter,
+                .justify = Justify::Center,
+                .align = Align::Center,
                 .width = 80.0f,
                 .height = 24.0f,
                 .backgroundColor = static_cast<uint32_t>(user.active ? 0x3010B981 : 0x30EF4444),
@@ -81,15 +81,15 @@ public:
         }
 
         return Column({
-            .justifyContent = YGJustifyCenter,
-            .alignItems = YGAlignCenter,
+            .justify = Justify::Center,
+            .align = Align::Center,
             .widthPercent = 100.0f,
             .heightPercent = 100.0f,
-            .padding = std::pair{YGEdgeAll, 40.0f},
+            .padding = std::pair{Edge::All, 40.0f},
             .backgroundColor = 0xFF0F172A,
             .children = {
                 Column({
-                    .margin = std::pair{YGEdgeBottom, 20.0f},
+                    .margin = std::pair{Edge::Bottom, 20.0f},
                     .children = {
                         Text("Users Table", {.font_size = 28.0f, .color = 0xFFFFFFFF, .weight = TextStyle::Bold})
                     }

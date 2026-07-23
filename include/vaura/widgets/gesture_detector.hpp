@@ -41,6 +41,8 @@ namespace vaura {
 /// calls handlePointerDown / handlePointerUp / handlePointerMove directly.
 class RenderGestureDetector : public RenderBox {
 public:
+    ~RenderGestureDetector() override;
+    
     std::function<void()>                  on_tap;
     std::function<void()>                  on_tap_down;
     std::function<void()>                  on_tap_up;

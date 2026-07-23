@@ -26,7 +26,7 @@ public:
         row->direction(FlexDirection::Row)
            .align(Align::Center)
            .justify(Justify::SpaceAround)
-           .width(600);
+           .width(400);
 
         // Tooltip 1: Button
         auto btn = Button({
@@ -36,7 +36,7 @@ public:
         
         auto tt1 = Tooltip({
             .message = "This is a button tooltip!",
-            .vertical_offset = 50.0f, // Button is about 40px high
+            .vertical_offset = 8.0f, // Much closer
             .child = btn
         });
 
@@ -48,7 +48,7 @@ public:
         
         auto tt2 = Tooltip({
             .message = "Profile Settings",
-            .vertical_offset = 60.0f,
+            .vertical_offset = 8.0f,
             .background_color = 0xFF3B82F6, // Blue bg
             .child = icn
         });
@@ -63,7 +63,7 @@ public:
         
         auto tt3 = Tooltip({
             .message = "Jane Doe (Online)",
-            .vertical_offset = 75.0f,
+            .vertical_offset = 8.0f,
             .child = av
         });
 
@@ -86,8 +86,8 @@ public:
 int main(int argc, char** argv) {
     AppConfig config{
         .title = "VAURA Tooltip Demo",
-        .width = 800,
-        .height = 400
+        .width = 450,
+        .height = 100
     };
     
     // Load icons font

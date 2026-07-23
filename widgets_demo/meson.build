@@ -135,16 +135,6 @@ executable('demo_opacity',
   dependencies: vaura_dep,
 )
 
-executable('demo_popup_menu',
-  sources: ['popup_menu/main.cpp'],
-  dependencies: vaura_dep,
-)
-
-executable('demo_expansion_panel',
-  sources: ['expansion_panel/main.cpp'],
-  dependencies: vaura_dep,
-)
-
 executable('demo_fab',
   sources: ['fab/main.cpp'],
   dependencies: vaura_dep,

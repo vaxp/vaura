@@ -237,9 +237,6 @@ vaura_sources = files(
   'src/widgets/tabs.cpp',
 
   # ── Composite Widgets (Phase 1 — Overlays / Popups / Menus) ──
-  'src/widgets/dropdown.cpp',
-  'src/widgets/context_menu.cpp',
-  'src/widgets/popup_menu.cpp',
   'src/widgets/bottom_sheet.cpp',
 
   # ── Overlay System ────────────────────────────────────────────

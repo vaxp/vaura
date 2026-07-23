@@ -37,6 +37,8 @@
 
 namespace vaura {
 
+RenderGestureDetector* g_app_last_hovered = nullptr;
+
 // Forward declaration of internal canvas factory
 std::unique_ptr<Canvas> createCanvasWrapper(void* sk_canvas);
 
@@ -64,7 +66,7 @@ struct App::Impl {
     bool quit_requested = false;
 
     // Last hovered gesture detector (for hover exit)
-    RenderGestureDetector* last_hovered = nullptr;
+    RenderGestureDetector*& last_hovered = g_app_last_hovered;
     float last_pointer_x = 0.0f;
     float last_pointer_y = 0.0f;
 
@@ -272,9 +274,9 @@ struct App::Impl {
         // Rebuild any dirty elements before painting
         build_owner->buildScope(root_element.get());
 
-        // Avoid use-after-free by clearing last_hovered.
-        // Re-dispatch pointer move to restore hover states on the newly built tree.
-        last_hovered = nullptr;
+        // We no longer blindly clear last_hovered here!
+        // The RenderGestureDetector destructor will clear g_app_last_hovered
+        // if it gets deleted, ensuring we never use a dangling pointer.
         
         // Layout + Paint
         auto* root_ro = root_element->findRenderObject();

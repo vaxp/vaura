@@ -5,6 +5,14 @@
 
 namespace vaura {
 
+extern RenderGestureDetector* g_app_last_hovered;
+
+RenderGestureDetector::~RenderGestureDetector() {
+    if (g_app_last_hovered == this) {
+        g_app_last_hovered = nullptr;
+    }
+}
+
 std::unique_ptr<RenderObject> GestureDetectorWidget::createRenderObject(BuildContext& ctx) {
     auto obj = std::make_unique<RenderGestureDetector>();
     updateRenderObject(ctx, *obj);
